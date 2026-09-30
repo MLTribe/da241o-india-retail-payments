@@ -1,0 +1,16 @@
+month,source_release,indicator,volume_lakh,value_crore,source_url
+2025-04,2025-04,IMPS,4492.53,621666,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=47
+2025-04,2025-04,UPI,178934.24,2394926,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=47
+2025-04,2025-04,Card Payments,5673.64,222351,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=47
+2025-04,2025-04,Credit Cards,4502.70,184237,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=47
+2025-04,2025-04,Credit Cards - PoS based,2281.41,67899,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=47
+2025-04,2025-04,Credit Cards - Others,2221.29,116338,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=47
+2025-04,2025-04,Debit Cards,1170.93,38113,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=47
+2025-04,2025-04,Debit Cards - PoS based,875.30,26187,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=47
+2025-04,2025-04,Debit Cards - Others,295.63,11926,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=47
+2025-04,2025-04,Prepaid Payment Instruments,6768.43,21254,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=47
+2025-04,2025-04,Wallets,5157.38,15896,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=47
+2025-04,2025-04,PPI Cards,1611.04,5358,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=47
+2025-04,2025-04,PPI Cards - PoS based,649.25,1093,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=47
+2025-04,2025-04,PPI Cards - Others,961.79,4265,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=47
+2025-04,2025-04,Total Digital Payments,209500.31,24464164,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=47

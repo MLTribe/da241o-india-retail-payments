@@ -1,0 +1,4 @@
+month,total_volume_mn,total_value_crore,p2p_volume_mn,p2p_value_crore,p2m_volume_mn,p2m_value_crore,source_month_label,source_file,source_url
+2026-01-01,21703.44,2833481.22,8095.35,1992655.39,13608.10,840825.83,Jan-26,source_archive/npci/upi_p2p_p2m_ui_extract_2022-01_2026-03.tsv,https://www.npci.org.in/product/ecosystem-statistics/upi
+2026-02-01,20394.18,2684229.29,7598.40,1911812.35,12795.78,772416.94,Feb-26,source_archive/npci/upi_p2p_p2m_ui_extract_2022-01_2026-03.tsv,https://www.npci.org.in/product/ecosystem-statistics/upi
+2026-03-01,22641.11,2952542.05,8460.65,2091059.00,14180.46,861483.05,Mar-26,source_archive/npci/upi_p2p_p2m_ui_extract_2022-01_2026-03.tsv,https://www.npci.org.in/product/ecosystem-statistics/upi

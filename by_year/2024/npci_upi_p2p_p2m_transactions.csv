@@ -1,0 +1,13 @@
+month,total_volume_mn,total_value_crore,p2p_volume_mn,p2p_value_crore,p2m_volume_mn,p2m_value_crore,source_month_label,source_file,source_url
+2024-01-01,12203.02,1841083.97,4753.09,1340323.61,7449.93,500760.37,Jan'24,source_archive/npci/upi_p2p_p2m_ui_extract_2022-01_2026-03.tsv,https://www.npci.org.in/product/ecosystem-statistics/upi
+2024-02-01,12102.68,1827869.33,4742.69,1348523.03,7359.98,479346.31,Feb'24,source_archive/npci/upi_p2p_p2m_ui_extract_2022-01_2026-03.tsv,https://www.npci.org.in/product/ecosystem-statistics/upi
+2024-03-01,13440.00,1978353.23,5144.03,1460125.24,8295.97,518227.99,Mar'24,source_archive/npci/upi_p2p_p2m_ui_extract_2022-01_2026-03.tsv,https://www.npci.org.in/product/ecosystem-statistics/upi
+2024-04-01,13303.99,1964464.52,4996.52,1433520.79,8307.47,530943.73,Apr’24,source_archive/npci/upi_p2p_p2m_ui_extract_2022-01_2026-03.tsv,https://www.npci.org.in/product/ecosystem-statistics/upi
+2024-05-01,14035.84,2044937.05,5231.01,1488235.39,8804.83,556701.66,May’24,source_archive/npci/upi_p2p_p2m_ui_extract_2022-01_2026-03.tsv,https://www.npci.org.in/product/ecosystem-statistics/upi
+2024-06-01,13885.14,2007081.16,5164.39,1447142.17,8720.75,559938.98,Jun’24,source_archive/npci/upi_p2p_p2m_ui_extract_2022-01_2026-03.tsv,https://www.npci.org.in/product/ecosystem-statistics/upi
+2024-07-01,14435.55,2064292.40,5435.96,1471369.99,8999.59,592922.41,Jul'24,source_archive/npci/upi_p2p_p2m_ui_extract_2022-01_2026-03.tsv,https://www.npci.org.in/product/ecosystem-statistics/upi
+2024-08-01,14963.05,2060735.57,5625.77,1484591.00,9337.28,576144.57,Aug'24,source_archive/npci/upi_p2p_p2m_ui_extract_2022-01_2026-03.tsv,https://www.npci.org.in/product/ecosystem-statistics/upi
+2024-09-01,15041.75,2063994.71,5688.87,1497941.07,9352.88,566053.64,Sep'24,source_archive/npci/upi_p2p_p2m_ui_extract_2022-01_2026-03.tsv,https://www.npci.org.in/product/ecosystem-statistics/upi
+2024-10-01,16584.97,2349821.45,6281.79,1681872.99,10303.18,667948.46,Oct'24,source_archive/npci/upi_p2p_p2m_ui_extract_2022-01_2026-03.tsv,https://www.npci.org.in/product/ecosystem-statistics/upi
+2024-11-01,15482.02,2155187.40,5833.16,1556010.77,9648.87,599176.63,Nov'24,source_archive/npci/upi_p2p_p2m_ui_extract_2022-01_2026-03.tsv,https://www.npci.org.in/product/ecosystem-statistics/upi
+2024-12-01,16730.01,2324699.91,6335.63,1692632.54,10394.38,632067.37,Dec'24,source_archive/npci/upi_p2p_p2m_ui_extract_2022-01_2026-03.tsv,https://www.npci.org.in/product/ecosystem-statistics/upi

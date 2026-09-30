@@ -1,0 +1,4 @@
+month,cpi_combined_index_native,native_base_year,status,link_factor_to_2024,cpi_combined_index_linked_2024,source_url,notes
+2026-01,104.45,2024,final,1.0,104.45,https://www.mospi.gov.in/uploads/latestreleasesfiles/1773310539387_714ce3b5-4644-4aef-b2e3-64433640a9c3_Press_Release_of_CPI_February_2026.pdf,"Official MoSPI national Combined CPI General index, base 2024=100."
+2026-02,104.57,2024,final,1.0,104.57,https://www.mospi.gov.in/uploads/latestreleasesfiles/1776078391571-Press_Release_of_CPI_March_2026.pdf,"Official MoSPI national Combined CPI General index, base 2024=100."
+2026-03,104.84,2024,final,1.0,104.84,https://mospi.gov.in/uploads/PressRelease/CPI%20Press%20Release%20of%20April%202026.pdf,"Official MoSPI national Combined CPI General index, base 2024=100."
