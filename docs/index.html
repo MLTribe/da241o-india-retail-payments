@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f4ef">
+  <meta name="description" content="A plain-language progress page for the Utility Maximizers' DA241o study of India's retail payments.">
+  <title>Utility Maximizers — Retail Payments in India</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f5f4ef;
+      --surface: #fffefa;
+      --ink: #152b33;
+      --muted: #627277;
+      --line: #dce2dc;
+      --green: #126b54;
+      --green-soft: #e3f1e9;
+      --blue: #d8eaf0;
+      --yellow: #f0c66b;
+      --navy: #16323b;
+      --coral: #d97658;
+      --radius: 18px;
+      --shadow: 0 14px 38px rgba(21, 43, 51, .07);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    .wrap { width: min(1120px, calc(100% - 40px)); margin-inline: auto; }
+    .topbar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 22px 0; border-bottom: 1px solid var(--line);
+    }
+    .brand { display: flex; gap: 11px; align-items: center; text-decoration: none; font-weight: 750; letter-spacing: -.02em; }
+    .brand-mark { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 11px; background: var(--green); color: white; font-size: 17px; }
+    .brand small { display: block; color: var(--muted); font-size: 11px; font-weight: 600; letter-spacing: .11em; text-transform: uppercase; }
+    nav { display: flex; gap: 23px; align-items: center; }
+    nav a { color: #42575c; font-size: 13px; font-weight: 650; text-decoration: none; }
+    nav a:hover { color: var(--green); }
+    .hero { padding: 76px 0 52px; display: grid; grid-template-columns: 1.24fr .76fr; gap: 52px; align-items: center; }
+    .eyebrow { display: inline-flex; gap: 8px; align-items: center; color: var(--green); font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .14em; }
+    .eyebrow:before { content: ""; width: 20px; height: 2px; background: var(--green); }
+    h1 { max-width: 740px; margin: 17px 0 18px; font-family: Georgia, "Times New Roman", serif; font-size: clamp(40px, 5.5vw, 68px); line-height: 1.04; letter-spacing: -.045em; font-weight: 500; }
+    h1 em { color: var(--green); font-weight: 500; }
+    .lede { max-width: 650px; color: #53656a; font-size: 17px; line-height: 1.7; margin: 0; }
+    .hero-note { display: flex; gap: 11px; align-items: center; margin-top: 27px; color: var(--muted); font-size: 12px; }
+    .pulse { width: 9px; height: 9px; border-radius: 50%; background: var(--yellow); box-shadow: 0 0 0 5px #f0c66b33; }
+    .hero-art { min-height: 310px; position: relative; display: grid; place-items: center; }
+    .orbit { width: min(290px, 78vw); aspect-ratio: 1; border: 1px solid #b7c7c2; border-radius: 50%; position: relative; display: grid; place-items: center; }
+    .orbit:before, .orbit:after { content: ""; position: absolute; inset: 28px; border: 1px solid #d3ddd7; border-radius: 50%; }
+    .orbit:after { inset: 62px; }
+    .orbit-core { width: 110px; height: 110px; display: grid; place-items: center; border-radius: 50%; background: var(--green); color: white; z-index: 1; box-shadow: 0 10px 28px #126b5438; text-align: center; font-weight: 800; line-height: 1.2; }
+    .node { position: absolute; z-index: 2; display: grid; place-items: center; width: 66px; height: 66px; border-radius: 22px; background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow); font-size: 12px; font-weight: 800; }
+    .node.upi { top: 7px; left: 50%; transform: translateX(-50%); background: #fff4d8; border-color: #ead79f; }
+    .node.card { right: -7px; top: 50%; transform: translateY(-50%); background: var(--blue); }
+    .node.imps { bottom: 7px; left: 50%; transform: translateX(-50%); background: var(--green-soft); }
+    .node.p2m { left: -7px; top: 50%; transform: translateY(-50%); background: #f9e7df; }
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 0 0 74px; }
+    .stat { padding: 19px 20px; border: 1px solid var(--line); border-radius: 14px; background: #ffffff8c; }
+    .stat strong { display: block; font-family: Georgia, "Times New Roman", serif; font-size: 29px; font-weight: 500; letter-spacing: -.03em; }
+    .stat span { display: block; margin-top: 3px; color: var(--muted); font-size: 11px; font-weight: 650; letter-spacing: .02em; }
+    section { scroll-margin-top: 24px; }
+    .section-head { display: flex; justify-content: space-between; align-items: end; gap: 30px; margin-bottom: 23px; }
+    .section-kicker { margin: 0 0 8px; color: var(--green); font-size: 11px; text-transform: uppercase; letter-spacing: .13em; font-weight: 800; }
+    h2 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: clamp(30px, 3.5vw, 43px); font-weight: 500; letter-spacing: -.035em; line-height: 1.1; }
+    .section-intro { max-width: 450px; color: var(--muted); font-size: 14px; margin: 0; }
+    .question { padding: 33px; background: var(--navy); color: white; border-radius: var(--radius); display: grid; grid-template-columns: 58px 1fr; gap: 21px; align-items: start; margin-bottom: 82px; box-shadow: var(--shadow); }
+    .question-icon { width: 52px; height: 52px; border: 1px solid #ffffff42; border-radius: 16px; display: grid; place-items: center; color: var(--yellow); font-family: Georgia, serif; font-size: 27px; }
+    .question h2 { max-width: 800px; font-size: clamp(25px, 3.5vw, 38px); }
+    .question p { max-width: 780px; margin: 14px 0 0; color: #c7d5d3; font-size: 14px; }
+    .comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 82px; }
+    .comparison { padding: 26px; border: 1px solid var(--line); background: var(--surface); border-radius: var(--radius); }
+    .comparison-tag { display: inline-block; padding: 5px 9px; border-radius: 99px; background: var(--green-soft); color: var(--green); font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .comparison h3 { margin: 15px 0 8px; font-size: 20px; letter-spacing: -.02em; }
+    .comparison p { margin: 0; color: var(--muted); font-size: 13px; }
+    .rail-list { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 21px; }
+    .rail { padding: 7px 10px; border: 1px solid var(--line); border-radius: 8px; font-size: 11px; font-weight: 750; background: #fbfcf8; }
+    .rail.primary { color: var(--green); border-color: #b7d5c5; background: #edf6ef; }
+    .data-section { padding: 70px 0; background: #eaf0eb; }
+    .data-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 13px; }
+    .data-card { min-height: 185px; padding: 22px; border-radius: 15px; background: var(--surface); border: 1px solid #d8e1d9; }
+    .data-card-top { display: flex; justify-content: space-between; gap: 10px; align-items: start; }
+    .source-mark { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 11px; color: var(--green); background: var(--green-soft); font-size: 11px; font-weight: 850; }
+    .status-pill { padding: 5px 8px; border-radius: 99px; background: #e5f1e8; color: #286247; font-size: 10px; font-weight: 800; white-space: nowrap; }
+    .status-pill.pending { background: #f9edcf; color: #80601c; }
+    .data-card h3 { margin: 17px 0 6px; font-size: 16px; }
+    .data-card p { color: var(--muted); font-size: 12px; line-height: 1.6; margin: 0; }
+    .data-footnote { margin: 17px 0 0; color: #53656a; font-size: 12px; }
+    .progress-section { padding: 80px 0; }
+    .progress-layout { display: grid; grid-template-columns: .8fr 1.2fr; gap: 60px; align-items: start; }
+    .progress-summary { padding: 25px; border: 1px solid var(--line); background: var(--surface); border-radius: var(--radius); }
+    .progress-summary .big { display: block; color: var(--green); font-family: Georgia, serif; font-size: 42px; line-height: 1; }
+    .progress-summary p { margin: 13px 0 18px; color: var(--muted); font-size: 13px; }
+    .stage-track { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 18px; }
+    .stage-track span { min-height: 8px; border-radius: 99px; background: #e5e9e2; }
+    .stage-track span.done { background: #6ca38a; }
+    .stage-track span.active { background: var(--yellow); }
+    .stage-labels { display: flex; justify-content: space-between; margin-top: 8px; color: var(--muted); font-size: 10px; }
+    .timeline { position: relative; padding-left: 25px; }
+    .timeline:before { content: ""; position: absolute; top: 9px; bottom: 15px; left: 6px; width: 1px; background: #cbd7d0; }
+    .step { position: relative; padding: 0 0 24px 14px; }
+    .step:last-child { padding-bottom: 0; }
+    .step:before { content: ""; position: absolute; left: -24px; top: 4px; width: 11px; height: 11px; border: 2px solid var(--paper); border-radius: 50%; background: #b8c6bd; box-shadow: 0 0 0 1px #b8c6bd; }
+    .step.done:before { background: var(--green); box-shadow: 0 0 0 1px var(--green); }
+    .step.current:before { background: var(--yellow); box-shadow: 0 0 0 1px #c79e45; }
+    .step h3 { margin: 0; font-size: 14px; }
+    .step p { margin: 4px 0 0; color: var(--muted); font-size: 12px; }
+    .tag { display: inline-block; margin-left: 7px; color: var(--green); font-size: 9px; text-transform: uppercase; letter-spacing: .08em; font-weight: 850; }
+    .limits { padding: 65px 0; border-top: 1px solid var(--line); }
+    .limits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 25px; }
+    .limit { display: flex; gap: 13px; padding: 17px; background: #ffffff8c; border: 1px solid var(--line); border-radius: 13px; }
+    .limit-icon { flex: 0 0 25px; width: 25px; height: 25px; display: grid; place-items: center; border-radius: 8px; background: #f8e8de; color: #a34b32; font-weight: 850; font-size: 12px; }
+    .limit strong { display: block; font-size: 12px; }
+    .limit p { margin: 3px 0 0; color: var(--muted); font-size: 11px; }
+    .sources { padding: 53px 0; background: var(--navy); color: white; }
+    .sources h2 { font-size: 29px; }
+    .sources p { color: #bdccca; font-size: 13px; }
+    .source-links { display: flex; gap: 9px; flex-wrap: wrap; margin-top: 22px; }
+    .source-links a { padding: 9px 12px; border: 1px solid #ffffff3b; border-radius: 9px; color: #f6f4ed; text-decoration: none; font-size: 11px; font-weight: 700; }
+    .source-links a:hover { background: #ffffff16; }
+    footer { padding: 22px 0; display: flex; justify-content: space-between; gap: 20px; color: var(--muted); font-size: 11px; }
+    .foot-right { text-align: right; }
+    @media (max-width: 800px) {
+      nav { gap: 12px; }
+      nav a { font-size: 11px; }
+      .hero { grid-template-columns: 1fr .6fr; gap: 20px; padding-top: 55px; }
+      .hero-art { min-height: 250px; }
+      .stats { grid-template-columns: repeat(2, 1fr); margin-bottom: 55px; }
+      .data-grid { grid-template-columns: repeat(2, 1fr); }
+      .progress-layout { grid-template-columns: 1fr 1.15fr; gap: 30px; }
+    }
+    @media (max-width: 590px) {
+      .wrap { width: min(100% - 28px, 1120px); }
+      .topbar { align-items: flex-start; }
+      nav { max-width: 190px; justify-content: flex-end; flex-wrap: wrap; row-gap: 7px; }
+      .hero { grid-template-columns: 1fr; padding: 48px 0 25px; }
+      .hero-art { min-height: 245px; }
+      .lede { font-size: 15px; }
+      .section-head { display: block; }
+      .section-intro { margin-top: 12px; }
+      .question { grid-template-columns: 1fr; padding: 24px; gap: 15px; margin-bottom: 61px; }
+      .comparison-grid, .limits-grid, .progress-layout { grid-template-columns: 1fr; }
+      .comparison-grid { margin-bottom: 60px; }
+      .data-grid { grid-template-columns: 1fr; }
+      .data-section { padding: 55px 0; }
+      .progress-section { padding: 60px 0; }
+      footer { display: block; }
+      .foot-right { margin-top: 7px; text-align: left; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="Utility Maximizers home">
+        <span class="brand-mark">U</span>
+        <span>Utility Maximizers<small>DA241o · Managerial Economics</small></span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="#question">Our question</a>
+        <a href="#data">The data</a>
+        <a href="#progress">Progress</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="page-title">
+        <div>
+          <span class="eyebrow">A student research project</span>
+          <h1 id="page-title">India’s payments are changing. <em>What is changing with them?</em></h1>
+          <p class="lede">We’re following the growth of UPI alongside IMPS and card payments. This page shares what we’re studying, which public data we’ve collected, and what still needs to happen.</p>
+          <div class="hero-note"><span class="pulse" aria-hidden="true"></span> Data collection is underway · Results have not been analysed yet</div>
+        </div>
+        <div class="hero-art" aria-label="Illustration showing UPI, merchant payments, cards and IMPS connected">
+          <div class="orbit">
+            <div class="orbit-core">India<br>payments</div>
+            <div class="node upi">UPI</div>
+            <div class="node card">Cards</div>
+            <div class="node imps">IMPS</div>
+            <div class="node p2m">P2M</div>
+          </div>
+        </div>
+      </section>
+
+      <div class="stats" aria-label="Project at a glance">
+        <div class="stat"><strong>51 months</strong><span>Core comparison · Jan 2022–Mar 2026</span></div>
+        <div class="stat"><strong>2 views</strong><span>Transfer payments and merchant payments</span></div>
+        <div class="stat"><strong>3 agencies</strong><span>NPCI · RBI · MoSPI</span></div>
+        <div class="stat"><strong>Not yet</strong><span>Analysis and findings</span></div>
+      </div>
+
+      <section id="question" aria-labelledby="question-title">
+        <div class="question">
+          <div class="question-icon" aria-hidden="true">?</div>
+          <div>
+            <p class="section-kicker" style="color:#a9d8bd">The question we're asking</p>
+            <h2 id="question-title">As UPI expands, how are other payment methods changing?</h2>
+            <p>We’ll compare changes in transaction volume and each method’s share of a clearly defined group. A payment method can grow in volume while losing share if the whole group grows faster, so we will keep those ideas separate.</p>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="comparison-title">
+        <div class="section-head">
+          <div><p class="section-kicker">Two comparisons</p><h2 id="comparison-title">Different payments, different jobs</h2></div>
+          <p class="section-intro">“Retail” here means payments made to merchants. It does not mean retail products or phone prices.</p>
+        </div>
+        <div class="comparison-grid">
+          <article class="comparison">
+            <span class="comparison-tag">Transfer view</span>
+            <h3>Total UPI and IMPS</h3>
+            <p>A longer monthly view of two instant-transfer systems. IMPS is not limited to merchant purchases, so this is a broad comparison.</p>
+            <div class="rail-list"><span class="rail primary">UPI total</span><span class="rail">IMPS</span></div>
+          </article>
+          <article class="comparison">
+            <span class="comparison-tag">Merchant view</span>
+            <h3>Payments at shops and online</h3>
+            <p>A common 51-month window compares UPI person-to-merchant payments with domestic card purchases.</p>
+            <div class="rail-list"><span class="rail primary">UPI P2M</span><span class="rail">Credit cards</span><span class="rail">Debit cards</span></div>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <section class="data-section" id="data" aria-labelledby="data-title">
+    <div class="wrap">
+      <div class="section-head">
+        <div><p class="section-kicker">Public sources</p><h2 id="data-title">What we’ve collected</h2></div>
+        <p class="section-intro">Monthly national totals let us describe broad patterns. They do not show what any one person or shop did.</p>
+      </div>
+      <div class="data-grid">
+        <article class="data-card">
+          <div class="data-card-top"><span class="source-mark">N</span><span class="status-pill">Collected</span></div>
+          <h3>UPI and IMPS</h3><p>Monthly volume and value from April 2016 to March 2026. Used for the long-run transfer comparison.</p>
+        </article>
+        <article class="data-card">
+          <div class="data-card-top"><span class="source-mark">N</span><span class="status-pill">Collected</span></div>
+          <h3>UPI P2P and P2M</h3><p>Person-to-person and person-to-merchant monthly totals from January 2022 to March 2026.</p>
+        </article>
+        <article class="data-card">
+          <div class="data-card-top"><span class="source-mark">R</span><span class="status-pill">Collected</span></div>
+          <h3>Domestic card payments</h3><p>Credit and debit card transaction totals, with point-of-sale and other activity where available.</p>
+        </article>
+        <article class="data-card">
+          <div class="data-card-top"><span class="source-mark">M</span><span class="status-pill">Collected</span></div>
+          <h3>Inflation measure</h3><p>Combined Consumer Price Index (CPI) for adjusting transaction values over time. The index’s base-year change is documented.</p>
+        </article>
+        <article class="data-card">
+          <div class="data-card-top"><span class="source-mark">R</span><span class="status-pill">Collected</span></div>
+          <h3>Wallet and prepaid payments</h3><p>RBI wallet and prepaid-instrument series are collected for context, not included in the main merchant comparison.</p>
+        </article>
+        <article class="data-card">
+          <div class="data-card-top"><span class="source-mark">M</span><span class="status-pill pending">Optional</span></div>
+          <h3>Industrial production</h3><p>A broad activity indicator may be added later. It is not needed for the core comparison and has not been collected.</p>
+        </article>
+      </div>
+      <p class="data-footnote">The files are organized by calendar year. Some source workbooks and MoSPI release PDFs are referenced in the source register but are not yet stored as local copies.</p>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <section class="progress-section" id="progress" aria-labelledby="progress-title">
+      <div class="section-head">
+        <div><p class="section-kicker">Where the work stands</p><h2 id="progress-title">From question to evidence</h2></div>
+        <p class="section-intro">The next step is careful checking. Analysis comes after the source series and definitions have been reconciled.</p>
+      </div>
+      <div class="progress-layout">
+        <div class="progress-summary">
+          <span class="big">In progress</span>
+          <p>Research plan drafted; the main monthly series have been gathered and sorted into year folders. Source-file archiving and data checks remain.</p>
+          <div class="stage-track" role="img" aria-label="Current stage: source data collection and checks"><span class="done"></span><span class="active"></span><span></span></div>
+          <div class="stage-labels"><span>Question</span><span>Data checks</span><span>Analysis</span></div>
+        </div>
+        <div class="timeline" aria-label="Project milestones">
+          <div class="step done"><h3>Assignment 1 submitted <span class="tag">Done</span></h3><p>The project has an initial research proposal to build on.</p></div>
+          <div class="step done"><h3>Assignment 2 question and method drafted <span class="tag">Done</span></h3><p>Two payment comparisons are defined, with limits stated.</p></div>
+          <div class="step current"><h3>Gather and check source data <span class="tag">Current</span></h3><p>Monthly series are collected; reconcile definitions, units, and source records.</p></div>
+          <div class="step"><h3>Describe the patterns <span class="tag" style="color:#75827e">Next</span></h3><p>Compare volume, value, average ticket, and within-group shares.</p></div>
+          <div class="step"><h3>Write up findings</h3><p>Explain what the data support, and what they cannot establish.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="limits" aria-labelledby="limits-title">
+      <div class="section-head">
+        <div><p class="section-kicker">How to read this study</p><h2 id="limits-title">What the data can—and can’t—say</h2></div>
+        <p class="section-intro">This is a descriptive study of public monthly totals, not a test of what caused each payment choice.</p>
+      </div>
+      <div class="limits-grid">
+        <article class="limit"><span class="limit-icon">1</span><div><strong>Growth is not the same as displacement</strong><p>A rail can gain transactions and still lose share if the comparison group grows faster.</p></div></article>
+        <article class="limit"><span class="limit-icon">2</span><div><strong>The payment types overlap in real life</strong><p>Some credit-card-funded UPI payments may also appear in card totals. Shares need careful interpretation.</p></div></article>
+        <article class="limit"><span class="limit-icon">3</span><div><strong>National data hide local differences</strong><p>These figures do not identify a merchant, customer, city, or individual switch between payment methods.</p></div></article>
+        <article class="limit"><span class="limit-icon">4</span><div><strong>Coincidence does not prove cause</strong><p>Several policy, technology, and economic changes happened at once. We will describe patterns, not claim causation.</p></div></article>
+      </div>
+    </section>
+  </div>
+
+  <section class="sources" aria-labelledby="sources-title">
+    <div class="wrap">
+      <p class="section-kicker" style="color:#a9d8bd">Where the numbers come from</p>
+      <h2 id="sources-title">Official data, carefully described</h2>
+      <p>We use monthly public statistics from the agencies that publish India’s payment-system and price data.</p>
+      <div class="source-links">
+        <a href="https://www.npci.org.in/product/upi/product-statistics" target="_blank" rel="noopener noreferrer">NPCI · UPI ↗</a>
+        <a href="https://www.npci.org.in/product/imps/product-statistics" target="_blank" rel="noopener noreferrer">NPCI · IMPS ↗</a>
+        <a href="https://www.npci.org.in/product/ecosystem-statistics/upi" target="_blank" rel="noopener noreferrer">NPCI · UPI ecosystem ↗</a>
+        <a href="https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=58" target="_blank" rel="noopener noreferrer">RBI · Payment indicators ↗</a>
+        <a href="https://cpi.mospi.gov.in/" target="_blank" rel="noopener noreferrer">MoSPI · CPI ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <footer>
+      <span>Utility Maximizers · DA241o · Managerial Economics</span>
+      <span class="foot-right">Progress snapshot · 30 September 2026<br>Student research project · Work in progress</span>
+    </footer>
+  </div>
+</body>
+</html>
