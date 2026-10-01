@@ -1,0 +1,541 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f4ef">
+  <meta name="description" content="Explore monthly Indian retail-payment time series: UPI, IMPS, cards by channel, PPI and context rails.">
+  <title>Explore the Time Series · Utility Maximizers</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f5f4ef;
+      --surface: #fffefa;
+      --ink: #152b33;
+      --muted: #53656a;
+      --line: #dce2dc;
+      --green: #126b54;
+      --green-soft: #e3f1e9;
+      --navy: #16323b;
+      --shadow: 0 14px 38px rgba(21, 43, 51, .07);
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; }
+    button, input, select { font: inherit; }
+    button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, rect:focus-visible { outline: 3px solid #bb8d31; outline-offset: 3px; }
+    .wrap { width: min(1120px, calc(100% - 40px)); margin-inline: auto; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 22px 0; border-bottom: 1px solid var(--line); }
+    .brand { display: flex; gap: 11px; align-items: center; text-decoration: none; font-weight: 750; letter-spacing: -.02em; }
+    .brand-mark { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 11px; background: var(--green); color: white; font-size: 17px; }
+    .brand small { display: block; color: var(--muted); font-size: 11px; font-weight: 600; letter-spacing: .11em; text-transform: uppercase; }
+    nav { display: flex; gap: 23px; align-items: center; }
+    nav a { color: #42575c; font-size: 13px; font-weight: 650; text-decoration: none; }
+    nav a:hover, nav a[aria-current="page"] { color: var(--green); }
+    .intro { display: grid; grid-template-columns: 1.2fr .8fr; gap: 32px; padding: 54px 0 34px; align-items: end; }
+    .eyebrow { display: inline-flex; gap: 8px; align-items: center; color: var(--green); font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .14em; }
+    .eyebrow::before { content: ""; width: 20px; height: 2px; background: var(--green); }
+    h1 { margin: 17px 0 15px; font-family: Georgia, "Times New Roman", serif; font-size: clamp(34px, 4.6vw, 56px); line-height: 1.06; letter-spacing: -.045em; font-weight: 500; }
+    h1 em { color: var(--green); font-weight: 500; }
+    .lede { margin: 0; max-width: 660px; color: var(--muted); font-size: 16px; line-height: 1.65; }
+    .intro-aside { padding: 22px 24px; background: var(--navy); color: #f6f5ed; border-radius: 18px; box-shadow: var(--shadow); }
+    .intro-aside strong { display: block; font-family: Georgia, "Times New Roman", serif; font-size: 23px; font-weight: 500; line-height: 1.2; }
+    .intro-aside p { margin: 10px 0 0; color: #c7d5d3; font-size: 13px; }
+    .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; box-shadow: var(--shadow); padding: 25px; margin-bottom: 18px; }
+    .panel-kicker { margin: 0 0 4px; color: var(--green); font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    h2 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: 27px; font-weight: 500; letter-spacing: -.025em; line-height: 1.15; }
+    h3 { margin: 0 0 8px; font-size: 15px; }
+    .hint { color: var(--muted); font-size: 13px; margin: 8px 0 0; }
+    .controls { display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(2, minmax(0, .6fr)); gap: 14px; margin-top: 20px; }
+    .picker { padding: 12px 14px; border: 1px solid #bfd4c7; border-radius: 12px; background: var(--green-soft); }
+    .picker label { display: block; font-size: 12px; font-weight: 750; }
+    .picker select { display: block; width: 100%; margin-top: 7px; padding: 9px 11px; border: 1px solid #9fbdac; border-radius: 8px; background: var(--surface); color: var(--ink); font-weight: 700; cursor: pointer; }
+    .chart-switch { display: flex; flex-wrap: wrap; gap: 7px; margin: 18px 0 11px; align-items: center; }
+    .chart-choice { border: 1px solid #bfd4c7; border-radius: 8px; background: #f7faf7; padding: 7px 11px; color: var(--green); font-size: 12px; font-weight: 750; cursor: pointer; }
+    .chart-choice[aria-pressed="true"] { background: var(--green); border-color: var(--green); color: white; }
+    .chart-choice:disabled { opacity: .45; cursor: not-allowed; }
+    .log-toggle { display: inline-flex; gap: 6px; align-items: center; margin-left: auto; color: var(--muted); font-size: 12px; font-weight: 650; }
+    .chart-frame { position: relative; overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: #fbfcf9; }
+    #chart { display: block; width: 100%; min-width: 560px; height: auto; }
+    .grid { stroke: #dce5df; stroke-width: 1; }
+    .zero { stroke: #96aaa0; stroke-width: 1.5; }
+    .axis-label { fill: var(--muted); font-size: 11px; }
+    .axis-title { fill: var(--ink); font-size: 12px; font-weight: 750; }
+    .series { fill: none; stroke-width: 3; stroke-linejoin: round; stroke-linecap: round; }
+    .hit { fill: transparent; cursor: crosshair; }
+    .hit:hover, .hit:focus { fill: rgba(22, 50, 59, .06); }
+    .cursor { stroke: var(--navy); stroke-width: 1; stroke-dasharray: 3 3; pointer-events: none; }
+    .tooltip { position: fixed; z-index: 20; transform: translate(-50%, calc(-100% - 12px)); width: max-content; max-width: min(320px, calc(100vw - 20px)); padding: 10px 13px; border-radius: 10px; background: var(--navy); color: white; box-shadow: 0 10px 28px rgba(21, 43, 51, .24); pointer-events: none; font-size: 12px; line-height: 1.45; }
+    .tooltip[hidden] { display: none; }
+    .tooltip strong, .tooltip span { display: block; }
+    .tooltip span { color: #d7e4df; font-variant-numeric: tabular-nums; }
+    .legend { display: flex; gap: 8px 16px; flex-wrap: wrap; margin-top: 13px; }
+    .legend label { display: inline-flex; align-items: center; gap: 6px; color: var(--ink); font-size: 12px; cursor: pointer; }
+    .legend input { accent-color: var(--green); }
+    .swatch { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+    .summary { margin: 12px 0 0; font-size: 12px; font-weight: 650; font-variant-numeric: tabular-nums; }
+    .note { margin: 7px 0 0; color: var(--muted); font-size: 12px; }
+    .badge { display: inline-block; margin-left: 8px; padding: 2px 8px; border-radius: 999px; background: #fbf2df; color: #795719; font-size: 11px; font-weight: 750; vertical-align: middle; }
+    .badge.core { background: var(--green-soft); color: var(--green); }
+    .two { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; font-variant-numeric: tabular-nums; }
+    th, td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--line); }
+    th { color: var(--muted); font-weight: 700; }
+    td.num, th.num { text-align: right; }
+    .empty { color: var(--muted); font-size: 13px; padding: 30px; text-align: center; }
+    .bottom-note { max-width: 880px; padding-bottom: 44px; color: var(--muted); font-size: 12px; }
+    .bottom-note a { color: var(--green); font-weight: 700; }
+    footer { border-top: 1px solid var(--line); padding: 20px 0 28px; display: flex; justify-content: space-between; gap: 20px; color: var(--muted); font-size: 11px; }
+    @media (max-width: 820px) {
+      .intro, .two { grid-template-columns: 1fr; }
+      .controls { grid-template-columns: 1fr 1fr; }
+      .controls .picker:first-child { grid-column: 1 / -1; }
+    }
+    @media (max-width: 570px) {
+      .wrap { width: min(100% - 28px, 1120px); }
+      .topbar { display: block; }
+      nav { margin-top: 14px; flex-wrap: wrap; gap: 7px 14px; }
+      .panel { padding: 18px; }
+      footer { display: block; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="topbar">
+      <a class="brand" href="index.html" aria-label="Utility Maximizers home">
+        <span class="brand-mark">U</span>
+        <span>Utility Maximizers<small>DA241o · Managerial Economics</small></span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="index.html">Project home</a>
+        <a href="play.html">Play the model</a>
+        <a href="explore.html" aria-current="page">Explore the series</a>
+        <a href="index.html#data">Data sources</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="intro" aria-labelledby="page-title">
+        <div>
+          <span class="eyebrow">Monthly time series</span>
+          <h1 id="page-title">Look past the headline: <em>which payments shrank, and where?</em></h1>
+          <p class="lede">Switch between comparison groups — merchant payments, the card in-store versus online split, UPI's own P2P/P2M mix, and wider context rails — and see levels, shares, 12-month rolling shares, ticket sizes and growth.</p>
+        </div>
+        <div class="intro-aside">
+          <strong>Each group is its own denominator</strong>
+          <p id="intro-coverage">Shares are within the chosen group only, not shares of India's whole payments market.</p>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="chart-title">
+        <p class="panel-kicker">Explore the data</p>
+        <h2 id="chart-title">Monthly series</h2>
+        <p class="hint" id="basket-hint"></p>
+        <div class="controls">
+          <div class="picker">
+            <label for="basket-select">Comparison group</label>
+            <select id="basket-select"></select>
+          </div>
+          <div class="picker">
+            <label for="from-select">From</label>
+            <select id="from-select"></select>
+          </div>
+          <div class="picker">
+            <label for="to-select">To</label>
+            <select id="to-select"></select>
+          </div>
+        </div>
+        <div class="chart-switch" role="group" aria-label="Measure" id="metric-switch">
+          <label class="log-toggle"><input type="checkbox" id="log-scale"> Log scale</label>
+        </div>
+        <div class="chart-frame">
+          <svg id="chart" viewBox="0 0 760 330" role="group" aria-labelledby="svg-title svg-desc">
+            <title id="svg-title">Monthly series</title>
+            <desc id="svg-desc"></desc>
+            <g id="drawing"></g>
+          </svg>
+        </div>
+        <div class="tooltip" id="tooltip" role="tooltip" hidden></div>
+        <div class="legend" id="legend" aria-label="Show or hide series"></div>
+        <p class="summary" id="summary" role="status" aria-live="polite"></p>
+        <p class="note" id="metric-note"></p>
+        <p class="note" id="basket-note"></p>
+      </section>
+
+      <div class="two">
+        <section class="panel" aria-labelledby="trend-title">
+          <p class="panel-kicker">Growth</p>
+          <h3 id="trend-title">Trend growth in this group</h3>
+          <p class="note">Log-linear least-squares trend of monthly volume, annualised. Descriptive only; not a forecast or causal estimate.</p>
+          <table id="trend-table"><thead><tr><th>Rail</th><th>Period</th><th class="num">% per year</th></tr></thead><tbody></tbody></table>
+        </section>
+        <section class="panel" aria-labelledby="hhi-title">
+          <p class="panel-kicker">Concentration</p>
+          <h3 id="hhi-title">How concentrated is this group?</h3>
+          <p class="note">Herfindahl-Hirschman index of volume shares (0–10,000). 10,000 means one rail has every transaction in the group.</p>
+          <table id="hhi-table"><thead><tr><th>Month</th><th class="num">HHI</th><th>Largest rail</th><th class="num">Its share</th></tr></thead><tbody></tbody></table>
+        </section>
+      </div>
+
+      <p class="bottom-note">Data: NPCI UPI and IMPS product statistics, NPCI UPI P2P/P2M ecosystem statistics, RBI Payment System Indicators (cards, PPI, other rails, infrastructure) and MoSPI CPI Combined. Values are nominal ₹ crore unless marked real (March 2026 rupees). Generated by <code>analysis/payment_mix_model.py</code>; full tables in <code>analysis/output/</code>. <a href="index.html#data">See the data sources</a>.</p>
+    </main>
+    <footer><span>Utility Maximizers · DA241o · Managerial Economics</span><span id="footer-through">Data through March 2026</span></footer>
+  </div>
+
+  <script src="explore-data.js"></script>
+  <script>
+    "use strict";
+    const DATA = window.EXPLORE_DATA;
+    const SVG_NS = "http://www.w3.org/2000/svg";
+    const COLOURS = ["#008738", "#d62828", "#b57700", "#1f5f9e", "#7a3fa0", "#4b6b72", "#c2410c"];
+    const FIXED_COLOURS = { "UPI P2M": "#008738", "UPI total": "#008738", "credit card": "#d62828", "debit card": "#b57700", "UPI P2P": "#1f5f9e", "IMPS": "#7a3fa0" };
+    const colourFor = (name, i) => FIXED_COLOURS[name] || COLOURS[(i + 1) % COLOURS.length];
+    const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const BASKET_ORDER = ["merchant", "merchant_channel", "upi_use", "transfer", "context_retail", "cash_context", "wholesale_context"];
+    const BASKET_NOTES = {
+      merchant: "Core comparison from the research question: UPI P2M (NPCI) vs domestic credit- and debit-card purchases (RBI). A card can fund a UPI payment, so rails may overlap.",
+      merchant_channel: "RBI splits card purchases into PoS (in-store terminals) and Others (mostly online / card-not-present). UPI QR competes most directly with in-store PoS.",
+      upi_use: "NPCI ecosystem split of UPI into person-to-person and person-to-merchant. Ecosystem totals can differ slightly from NPCI product totals.",
+      transfer: "Core comparison: total UPI vs IMPS from UPI's launch. Real values exist only from January 2022, when the CPI series starts.",
+      context_retail: "Context only: wider retail digital rails for scale. NEFT/AePS/NETC appear once RBI workbooks are archived. UPI can be funded from PPI wallets, so rails overlap.",
+      cash_context: "Context only: ATM cash withdrawals against UPI P2M. Cash withdrawn is not the same as cash spent.",
+      wholesale_context: "Context only: RTGS is a large-value system; shown in levels, not as a share.",
+      infrastructure: "Acceptance points and cards in force from RBI PSI (lakh). Intensity = monthly transactions per point or card. These measure deployment, not active merchants, and cannot test network effects."
+    };
+    const METRICS = {
+      volShare:     { label: "Volume share (%)", axis: "share of transactions in this group (%)", fmt: v => `${v.toFixed(2)}%`, share: true },
+      valShare:     { label: "Value share (%)", axis: "share of rupee value in this group (%)", fmt: v => `${v.toFixed(2)}%`, share: true },
+      rollVolShare: { label: "12-month rolling share (%)", axis: "trailing 12-month volume share (%)", fmt: v => `${v.toFixed(2)}%`, share: true },
+      volume:       { label: "Transactions (mn)", axis: "monthly transactions (million)", fmt: v => `${fmtNum(v)} mn`, log: true },
+      value:        { label: "Value (₹ crore)", axis: "monthly value (₹ crore, nominal)", fmt: v => `₹${fmtNum(v)} cr`, log: true },
+      real:         { label: "Real value (₹ crore)", axis: "monthly value (₹ crore, March 2026 prices)", fmt: v => `₹${fmtNum(v)} cr`, log: true },
+      ticket:       { label: "Average ticket (₹)", axis: "average rupees per transaction (nominal)", fmt: v => `₹${fmtNum(v)}`, log: true },
+      yoy:          { label: "Volume growth y/y (%)", axis: "change vs same month a year earlier (%)", fmt: v => `${v >= 0 ? "+" : ""}${v.toFixed(1)}%` }
+    };
+    const INFRA_METRICS = {
+      intensity: { label: "Use per point or card", axis: "monthly transactions per point or card", fmt: v => v.toFixed(2),
+        fields: { card_pos_txn_per_pos_terminal: "Card PoS per PoS terminal", upi_p2m_txn_per_upi_qr: "UPI P2M per UPI QR",
+                  credit_txn_per_credit_card: "Credit txns per credit card", debit_txn_per_debit_card: "Debit txns per debit card" } },
+      points: { label: "Acceptance points (lakh)", axis: "acceptance points (lakh)", fmt: v => `${fmtNum(v)} lakh`, log: true,
+        fields: { pos_terminals_lakh: "PoS terminals", upi_qr_codes_lakh: "UPI QR codes", bharat_qr_codes_lakh: "Bharat QR codes", atms_lakh: "ATMs" } },
+      cards: { label: "Cards in force (lakh)", axis: "cards outstanding (lakh)", fmt: v => `${fmtNum(v)} lakh`, log: true,
+        fields: { credit_cards_outstanding_lakh: "Credit cards", debit_cards_outstanding_lakh: "Debit cards" } }
+    };
+
+    const state = { basket: "merchant", metric: "volShare", from: null, to: null, log: false, hidden: new Set() };
+    const el = id => document.getElementById(id);
+    const basketSelect = el("basket-select"), fromSelect = el("from-select"), toSelect = el("to-select");
+    const tooltip = el("tooltip");
+
+    function fmtNum(v) {
+      const abs = Math.abs(v);
+      const digits = abs >= 1000 ? 0 : abs >= 100 ? 1 : 2;
+      return v.toLocaleString("en-IN", { minimumFractionDigits: digits, maximumFractionDigits: digits });
+    }
+    const monthLabel = m => `${MONTHS[Number(m.slice(5, 7)) - 1]} ${m.slice(0, 4)}`;
+    function svg(tag, attrs) {
+      const node = document.createElementNS(SVG_NS, tag);
+      for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, v);
+      return node;
+    }
+    function option(value, text) {
+      const o = document.createElement("option");
+      o.value = value; o.textContent = text; return o;
+    }
+    function cell(text, cls) {
+      const td = document.createElement("td");
+      td.textContent = text; if (cls) td.className = cls; return td;
+    }
+
+    function basketKeys() {
+      const keys = BASKET_ORDER.filter(k => DATA.baskets[k]);
+      for (const k of Object.keys(DATA.baskets)) if (!keys.includes(k)) keys.push(k);
+      return keys;
+    }
+
+    // Unified view: {months, series: [{name, values}], metric}
+    function currentView() {
+      if (state.basket === "infrastructure") {
+        const def = INFRA_METRICS[state.metric] || INFRA_METRICS.intensity;
+        const months = DATA.infrastructure.map(r => r.month);
+        const series = Object.entries(def.fields).map(([f, name]) => ({ name, values: DATA.infrastructure.map(r => r[f]) }));
+        return { months, series, metric: def };
+      }
+      const b = DATA.baskets[state.basket];
+      const metric = METRICS[state.metric];
+      const series = Object.entries(b.rails).map(([name, r]) => ({ name, values: r[state.metric] }));
+      return { months: b.months, series, metric };
+    }
+
+    function buildBasketSelect() {
+      for (const k of basketKeys()) {
+        const b = DATA.baskets[k];
+        const kind = k.includes("context") ? "context" : "extension";
+        basketSelect.appendChild(option(k, b.core ? b.label : `${b.label} (${kind})`));
+      }
+      const infra = option("infrastructure", "Acceptance infrastructure and usage intensity");
+      if (!DATA.infrastructure.length) { infra.disabled = true; infra.textContent += " (pending RBI workbooks)"; }
+      basketSelect.appendChild(infra);
+      basketSelect.value = state.basket;
+    }
+
+    function buildMetricButtons() {
+      const box = el("metric-switch");
+      const toggle = box.querySelector(".log-toggle");
+      for (const b of box.querySelectorAll(".chart-choice")) b.remove();
+      const defs = state.basket === "infrastructure" ? INFRA_METRICS : METRICS;
+      if (!defs[state.metric]) state.metric = Object.keys(defs)[0];
+      const isSingle = state.basket !== "infrastructure" && Object.keys(DATA.baskets[state.basket].rails).length < 2;
+      if (isSingle && METRICS[state.metric] && METRICS[state.metric].share) state.metric = "volume";
+      for (const [key, def] of Object.entries(defs)) {
+        const button = document.createElement("button");
+        button.type = "button"; button.className = "chart-choice"; button.textContent = def.label;
+        button.dataset.metric = key;
+        button.setAttribute("aria-pressed", String(key === state.metric));
+        if (isSingle && def.share) button.disabled = true;
+        button.addEventListener("click", () => { state.metric = key; updateButtons(); render(); });
+        box.insertBefore(button, toggle);
+      }
+    }
+    function updateButtons() {
+      for (const b of document.querySelectorAll("#metric-switch .chart-choice")) b.setAttribute("aria-pressed", String(b.dataset.metric === state.metric));
+    }
+
+    function buildRange() {
+      const months = currentView().months;
+      fromSelect.replaceChildren(); toSelect.replaceChildren();
+      for (const m of months) { fromSelect.appendChild(option(m, monthLabel(m))); toSelect.appendChild(option(m, monthLabel(m))); }
+      state.from = months[0]; state.to = months[months.length - 1];
+      fromSelect.value = state.from; toSelect.value = state.to;
+    }
+
+    function buildLegend(view) {
+      const legend = el("legend");
+      legend.replaceChildren();
+      view.series.forEach((s, i) => {
+        const label = document.createElement("label");
+        const box = document.createElement("input");
+        box.type = "checkbox"; box.checked = !state.hidden.has(s.name);
+        box.addEventListener("change", () => { box.checked ? state.hidden.delete(s.name) : state.hidden.add(s.name); render(); });
+        const sw = document.createElement("i");
+        sw.className = "swatch"; sw.style.background = colourFor(s.name, i);
+        label.append(box, sw, document.createTextNode(s.name));
+        legend.appendChild(label);
+      });
+    }
+
+    function niceTicks(low, high, count) {
+      const raw = (high - low) / count;
+      const mag = 10 ** Math.floor(Math.log10(raw || 1));
+      const step = [1, 2, 2.5, 5, 10].map(x => x * mag).find(x => x >= raw) || raw;
+      const start = Math.floor(low / step) * step, end = Math.ceil(high / step) * step;
+      const ticks = [];
+      for (let t = start; t <= end + step / 2; t += step) ticks.push(Number(t.toPrecision(12)));
+      return ticks;
+    }
+
+    function render() {
+      hideTooltip();
+      const view = currentView();
+      const metric = view.metric;
+      const lo = view.months.indexOf(state.from), hi = view.months.indexOf(state.to);
+      const months = view.months.slice(lo, hi + 1);
+      const shown = view.series.map((s, i) => ({ ...s, colour: colourFor(s.name, i), values: s.values.slice(lo, hi + 1) }))
+        .filter(s => !state.hidden.has(s.name));
+      const logOk = Boolean(metric.log);
+      el("log-scale").disabled = !logOk;
+      const useLog = logOk && state.log;
+      const drawing = el("drawing");
+      const all = shown.flatMap(s => s.values).filter(v => v !== null && (!useLog || v > 0));
+      if (months.length < 2 || !all.length) {
+        drawing.replaceChildren();
+        const t = svg("text", { x: 380, y: 165, "text-anchor": "middle", class: "axis-label" });
+        t.textContent = months.length < 2 ? "Choose a range of at least two months." : "No observations for this measure in the selected range.";
+        drawing.appendChild(t);
+        el("summary").textContent = "";
+        return;
+      }
+      const left = 76, right = 742, top = 38, bottom = 290;
+      let low, high, ticks;
+      if (useLog) {
+        low = Math.floor(Math.log10(Math.min(...all))); high = Math.ceil(Math.log10(Math.max(...all)));
+        if (high === low) high += 1;
+        ticks = []; for (let p = low; p <= high; p++) ticks.push(p);
+      } else {
+        const min = Math.min(...all), max = Math.max(...all);
+        low = metric.share ? 0 : Math.min(0, min); high = metric.share ? Math.min(100, Math.max(max * 1.05, 1)) : max * 1.05;
+        ticks = niceTicks(low, high, 5); low = ticks[0]; high = ticks[ticks.length - 1];
+      }
+      const tv = v => useLog ? Math.log10(v) : v;
+      const x = i => left + (right - left) * i / (months.length - 1);
+      const y = v => bottom - (tv(v) - low) * (bottom - top) / (high - low);
+      const frag = document.createDocumentFragment();
+      const title = svg("text", { x: left, y: 22, class: "axis-title" });
+      title.textContent = `Y axis: ${metric.axis}${useLog ? " — log scale" : ""}`;
+      frag.appendChild(title);
+      for (const t of ticks) {
+        const yy = useLog ? bottom - (t - low) * (bottom - top) / (high - low) : y(t);
+        frag.appendChild(svg("line", { x1: left, x2: right, y1: yy, y2: yy, class: t === 0 && !useLog ? "zero" : "grid" }));
+        const label = svg("text", { x: left - 8, y: yy + 4, "text-anchor": "end", class: "axis-label" });
+        label.textContent = useLog ? fmtNum(10 ** t) : (metric.share || state.metric === "yoy" ? `${t}%` : fmtNum(t));
+        frag.appendChild(label);
+      }
+      const step = Math.max(1, Math.round(months.length / 8));
+      months.forEach((m, i) => {
+        const last = i === months.length - 1;
+        if ((i % step && !last) || (!last && months.length - 1 - i < step * .6)) return;
+        const label = svg("text", { x: x(i), y: 312, "text-anchor": i === 0 ? "start" : i === months.length - 1 ? "end" : "middle", class: "axis-label" });
+        label.textContent = `${MONTHS[Number(m.slice(5, 7)) - 1]} ${m.slice(2, 4)}`;
+        frag.appendChild(label);
+      });
+      for (const s of shown) {
+        let d = "", pen = false;
+        s.values.forEach((v, i) => {
+          if (v === null || (useLog && v <= 0)) { pen = false; return; }
+          d += `${pen ? "L" : "M"}${x(i).toFixed(1)},${y(v).toFixed(1)} `; pen = true;
+        });
+        if (d) frag.appendChild(svg("path", { d: d.trim(), class: "series", stroke: s.colour }));
+      }
+      const cursor = svg("line", { x1: 0, x2: 0, y1: top, y2: bottom, class: "cursor", visibility: "hidden" });
+      frag.appendChild(cursor);
+      const width = (right - left) / (months.length - 1);
+      months.forEach((m, i) => {
+        const rows = shown.map(s => `${s.name}: ${s.values[i] === null ? "n/a" : metric.fmt(s.values[i])}`);
+        const hit = svg("rect", { x: x(i) - width / 2, y: top, width, height: bottom - top, class: "hit", tabindex: i % step === 0 ? 0 : -1,
+          "aria-label": `${monthLabel(m)}. ${rows.join("; ")}` });
+        const show = event => {
+          cursor.setAttribute("x1", x(i)); cursor.setAttribute("x2", x(i)); cursor.setAttribute("visibility", "visible");
+          const box = event && event.clientX !== undefined ? { left: event.clientX, top: event.clientY } : hit.getBoundingClientRect();
+          showTooltip(monthLabel(m), rows, box.left + (box.width || 0) / 2, box.top + (event && event.clientY !== undefined ? 0 : 20));
+        };
+        hit.addEventListener("mousemove", show);
+        hit.addEventListener("focus", () => show(null));
+        hit.addEventListener("mouseleave", () => { cursor.setAttribute("visibility", "hidden"); hideTooltip(); });
+        hit.addEventListener("blur", () => { cursor.setAttribute("visibility", "hidden"); hideTooltip(); });
+        frag.appendChild(hit);
+      });
+      drawing.replaceChildren(frag);
+
+      const firstLast = shown.map(s => {
+        const a = s.values.find(v => v !== null), b = [...s.values].reverse().find(v => v !== null);
+        return a === undefined ? `${s.name}: n/a` : `${s.name} ${metric.fmt(a)} → ${metric.fmt(b)}`;
+      });
+      el("summary").textContent = `${monthLabel(months[0])} → ${monthLabel(months[months.length - 1])}: ${firstLast.join(" · ")}`;
+      el("svg-title").textContent = `${metric.label}, ${monthLabel(months[0])} to ${monthLabel(months[months.length - 1])}`;
+      el("svg-desc").textContent = `Y axis: ${metric.axis}. ${el("summary").textContent}`;
+      el("metric-note").textContent = metricNote();
+    }
+
+    function metricNote() {
+      const notes = {
+        volShare: "Shares sum to 100% across the rails in this group each month.",
+        valShare: "Value shares use nominal rupees; a common price deflator would not change them.",
+        rollVolShare: "Trailing 12-month totals smooth festival-season peaks and February troughs; the first 11 months have no value.",
+        volume: "RBI volumes (lakh) are divided by 10 to match NPCI millions. Use log scale to compare rails of very different size.",
+        value: "Nominal ₹ crore.",
+        real: "Deflated with MoSPI CPI Combined (2024 base, linked) to March 2026 prices; available from January 2022.",
+        ticket: "Average ticket = value ÷ volume. A lower UPI ticket reflects a different transaction mix, not switching of identical payments.",
+        yoy: "Percentage change from the same month a year earlier; empty in the first 12 months and from a zero base.",
+        intensity: "Monthly transactions ÷ points or cards in force. Lakh units cancel.",
+        points: "Counts at month end as published by RBI.",
+        cards: "Cards outstanding at month end as published by RBI."
+      };
+      return notes[state.metric] || "";
+    }
+
+    function showTooltip(heading, rows, px, py) {
+      tooltip.replaceChildren();
+      const strong = document.createElement("strong");
+      strong.textContent = heading; tooltip.appendChild(strong);
+      for (const r of rows) { const s = document.createElement("span"); s.textContent = r; tooltip.appendChild(s); }
+      tooltip.hidden = false;
+      tooltip.style.left = `${Math.min(Math.max(px, 160), window.innerWidth - 160)}px`;
+      tooltip.style.top = `${Math.max(py, tooltip.offsetHeight + 16)}px`;
+    }
+    function hideTooltip() { tooltip.hidden = true; }
+
+    function renderTables() {
+      const trendBody = el("trend-table").querySelector("tbody");
+      trendBody.replaceChildren();
+      const trends = DATA.trends.filter(t => t.basket === state.basket && t.statistic === "trend_growth_volume");
+      if (!trends.length) {
+        const tr = document.createElement("tr");
+        const td = cell(state.basket === "infrastructure" ? "Not computed for infrastructure counts." : "No trend rows for this group.");
+        td.colSpan = 3; tr.appendChild(td); trendBody.appendChild(tr);
+      }
+      for (const t of trends) {
+        const tr = document.createElement("tr");
+        tr.append(cell(t.rail), cell(t.period), cell(`${t.value >= 0 ? "+" : ""}${t.value.toFixed(1)}%`, "num"));
+        trendBody.appendChild(tr);
+      }
+      const hhiBody = el("hhi-table").querySelector("tbody");
+      hhiBody.replaceChildren();
+      const hhi = DATA.hhi[state.basket];
+      const basket = DATA.baskets[state.basket];
+      if (!hhi || !basket) {
+        const tr = document.createElement("tr");
+        const td = cell("Concentration applies to groups with two or more rails."); td.colSpan = 4;
+        tr.appendChild(td); hhiBody.appendChild(tr); return;
+      }
+      const months = basket.months;
+      const picks = [...new Set([months[0], ...months.filter(m => m.endsWith("-03")), months[months.length - 1]])];
+      for (const m of picks) {
+        const i = months.indexOf(m);
+        let top = null;
+        for (const [name, r] of Object.entries(basket.rails)) if (!top || r.volShare[i] > top[1]) top = [name, r.volShare[i]];
+        const tr = document.createElement("tr");
+        tr.append(cell(monthLabel(m)), cell(fmtNum(hhi[m]), "num"), cell(top[0]), cell(`${top[1].toFixed(1)}%`, "num"));
+        hhiBody.appendChild(tr);
+      }
+    }
+
+    function selectBasket(key) {
+      state.basket = key; state.hidden.clear();
+      const isInfra = key === "infrastructure";
+      const b = DATA.baskets[key];
+      const hint = el("basket-hint");
+      hint.replaceChildren(document.createTextNode(isInfra ? "Acceptance infrastructure and usage intensity" : b.label));
+      const badge = document.createElement("span");
+      badge.className = `badge${!isInfra && b.core ? " core" : ""}`;
+      badge.textContent = isInfra ? "context" : b.core ? "core research question" : key.includes("context") ? "context" : "extension";
+      hint.appendChild(badge);
+      el("basket-note").textContent = BASKET_NOTES[key] || "";
+      buildMetricButtons();
+      buildRange();
+      buildLegend(currentView());
+      renderTables();
+      render();
+    }
+
+    if (!DATA) {
+      el("drawing").appendChild(svg("text", { x: 380, y: 165, "text-anchor": "middle", class: "axis-label" })).textContent = "explore-data.js did not load.";
+    } else {
+      el("footer-through").textContent = `Data through ${monthLabel(DATA.dataThrough)}`;
+      buildBasketSelect();
+      basketSelect.addEventListener("change", () => selectBasket(basketSelect.value));
+      fromSelect.addEventListener("change", () => {
+        state.from = fromSelect.value;
+        if (state.from > state.to) { state.to = state.from; toSelect.value = state.to; }
+        render();
+      });
+      toSelect.addEventListener("change", () => {
+        state.to = toSelect.value;
+        if (state.to < state.from) { state.from = state.to; fromSelect.value = state.from; }
+        render();
+      });
+      el("log-scale").addEventListener("change", event => { state.log = event.target.checked; render(); });
+      window.addEventListener("scroll", hideTooltip, { passive: true });
+      const params = new URLSearchParams(window.location.search);
+      const wanted = params.get("basket");
+      if (wanted && (DATA.baskets[wanted] || (wanted === "infrastructure" && DATA.infrastructure.length))) {
+        state.basket = wanted; basketSelect.value = wanted;
+      }
+      const wantedMetric = params.get("metric");
+      if (wantedMetric && (METRICS[wantedMetric] || INFRA_METRICS[wantedMetric])) state.metric = wantedMetric;
+      if (params.get("log") === "1") { state.log = true; el("log-scale").checked = true; }
+      selectBasket(state.basket);
+    }
+  </script>
+</body>
+</html>
