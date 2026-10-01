@@ -76,7 +76,15 @@ The script reads `by_year/YYYY/*.csv` and writes:
 | `analysis/output/monthly_panel.csv` | Month-by-rail levels, shares, tickets, real values, and year-on-year labels |
 | `analysis/output/annual_summary.csv` | Complete fiscal-year totals and shares |
 | `analysis/output/period_comparison.csv` | First-to-last and most recent fiscal-year comparisons |
-| `analysis/output/source_checks.json` | Coverage, published-identity checks, and NPCI table mismatches |
+| `analysis/output/source_checks.json` | Coverage, extended-basket windows, optional-series counts, published-identity checks, and NPCI table mismatches |
+| `analysis/output/timeseries_stats.csv` | Trend growth, first-to-last 12-month growth, seasonal indices, and monthly HHI (long format) |
+| `analysis/output/infrastructure_panel.csv` | Acceptance points, cards in force, and use per point or card (header only until RBI workbooks are imported) |
+| `analysis/output/figures/*.svg` | Static charts for the paper, drawn without a plotting package |
+| `docs/explore-data.js` | Data file for the interactive `docs/explore.html` page |
+
+The merchant window starts at the first month in which NPCI P2M, RBI cards and
+MoSPI CPI are all observed (currently January 2022). Adding earlier months to
+all three series extends it automatically.
 
 The program stops if a required month is absent, a month appears twice, units
 are invalid, or the within-source component totals fail beyond published
@@ -102,6 +110,47 @@ average ticket is consistent with a different mix of transactions but does not
 prove that card payments were replaced. The data cannot identify a causal
 network effect, substitution elasticity, or the effect of any announced 2026
 merchant-side charge.
+
+## Additional time series
+
+The core baskets above answer the research question. The model also builds
+extension and context baskets with the same share and pattern definitions.
+Each basket is its own denominator, so shares are not comparable across baskets.
+
+| Basket | Rails | Role |
+| --- | --- | --- |
+| `merchant_channel` | UPI P2M; credit PoS; credit Others; debit PoS; debit Others | Extension: is card contraction concentrated in the in-store channel? |
+| `upi_use` | UPI P2P; UPI P2M | Extension: composition within UPI |
+| `context_retail` | UPI total; IMPS; cards; PPI; plus NEFT, AePS fund transfers, NETC once RBI workbooks are imported | Context for scale only |
+| `cash_context` | ATM cash withdrawals; UPI P2M | Context, needs RBI workbooks |
+| `wholesale_context` | RTGS | Context, levels only, needs RBI workbooks |
+
+An optional rail joins a basket only if it covers the basket's whole window, so
+basket composition never changes from month to month. RBI's "Others" card
+channel is mostly, but not only, online card-not-present purchases.
+
+Time-series measures, all computed with the standard library:
+
+```text
+rolling12_volume[r,t]        = sum of N[r,t-11..t]
+rolling12_volume_share[r,t]  = rolling12_volume[r,t] / sum over basket rails
+trend growth (% per year)    = 100 × (exp(12 × b) − 1), where b is the OLS slope
+                               of ln N[r,t] on the month index
+first-to-last 12m growth     = (last-12 total / first-12 total)^(1 / years apart) − 1
+seasonal index[m]            = mean over years of N[r,t] / centred 2×12 MA,
+                               for calendar month m, rescaled so 12 months average 100
+HHI[b,t]                     = sum over rails of volume_share[r,t]^2  (0–10,000)
+intensity                    = monthly transactions / points or cards in force
+```
+
+Trend slopes are reported for the full window and the last 24 months. The
+transfer basket is also split at April 2020, the first COVID-19 lockdown. That
+split is a descriptive comparison, not an estimated structural break. Seasonal
+indices need at least 36 positive months, and UPI's pre-launch zero months are
+dropped. HHI measures concentration within the analytical basket only, not market
+power. Intensity ratios measure deployed terminals, QR codes and cards, not
+active merchants or customers. None of these measures identifies demand,
+substitution, or a network effect.
 
 The `source_manifest.csv` and `by_year/README.md` document provenance. The
 P2P/P2M series was transcribed from NPCI's official monthly selector table;

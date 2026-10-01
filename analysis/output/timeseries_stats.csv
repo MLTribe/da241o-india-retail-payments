@@ -1,0 +1,927 @@
+basket,rail,statistic,period,value,unit,note
+context_retail,IMPS,annualised_growth_first12_to_last12_volume,2022-01..2022-12 -> 2025-04..2026-03,-3.699926,% per year,Compound growth between the first and last 12-month totals.
+context_retail,IMPS,trend_growth_volume,full window: 2022-01..2026-03,-4.187911,% per year,"log-linear OLS, R2=0.233"
+context_retail,IMPS,trend_growth_real_value,full window: 2022-01..2026-03,7.286389,% per year,"log-linear OLS, R2=0.727"
+context_retail,IMPS,trend_growth_volume,last 24 months: 2024-04..2026-03,-16.176937,% per year,"log-linear OLS, R2=0.644"
+context_retail,IMPS,trend_growth_real_value,last 24 months: 2024-04..2026-03,5.271415,% per year,"log-linear OLS, R2=0.253"
+context_retail,IMPS,seasonal_index_volume,month 01,98.758611,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,IMPS,seasonal_index_volume,month 02,95.562657,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,IMPS,seasonal_index_volume,month 03,106.337711,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,IMPS,seasonal_index_volume,month 04,103.81315,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,IMPS,seasonal_index_volume,month 05,106.214432,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,IMPS,seasonal_index_volume,month 06,100.759037,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,IMPS,seasonal_index_volume,month 07,102.331143,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,IMPS,seasonal_index_volume,month 08,100.843574,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,IMPS,seasonal_index_volume,month 09,94.176458,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,IMPS,seasonal_index_volume,month 10,99.638019,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,IMPS,seasonal_index_volume,month 11,92.872688,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,IMPS,seasonal_index_volume,month 12,98.692519,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,PPI (wallets + cards),annualised_growth_first12_to_last12_volume,2022-01..2022-12 -> 2025-04..2026-03,9.022231,% per year,Compound growth between the first and last 12-month totals.
+context_retail,PPI (wallets + cards),trend_growth_volume,full window: 2022-01..2026-03,7.234966,% per year,"log-linear OLS, R2=0.330"
+context_retail,PPI (wallets + cards),trend_growth_real_value,full window: 2022-01..2026-03,-7.295399,% per year,"log-linear OLS, R2=0.256"
+context_retail,PPI (wallets + cards),trend_growth_volume,last 24 months: 2024-04..2026-03,39.51082,% per year,"log-linear OLS, R2=0.926"
+context_retail,PPI (wallets + cards),trend_growth_real_value,last 24 months: 2024-04..2026-03,31.490829,% per year,"log-linear OLS, R2=0.927"
+context_retail,PPI (wallets + cards),seasonal_index_volume,month 01,106.243869,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,PPI (wallets + cards),seasonal_index_volume,month 02,101.132288,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,PPI (wallets + cards),seasonal_index_volume,month 03,99.46633,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,PPI (wallets + cards),seasonal_index_volume,month 04,95.721216,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,PPI (wallets + cards),seasonal_index_volume,month 05,100.552073,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,PPI (wallets + cards),seasonal_index_volume,month 06,94.686417,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,PPI (wallets + cards),seasonal_index_volume,month 07,96.330674,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,PPI (wallets + cards),seasonal_index_volume,month 08,98.472135,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,PPI (wallets + cards),seasonal_index_volume,month 09,98.27063,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,PPI (wallets + cards),seasonal_index_volume,month 10,101.910418,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,PPI (wallets + cards),seasonal_index_volume,month 11,99.577663,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,PPI (wallets + cards),seasonal_index_volume,month 12,107.636288,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,UPI total,annualised_growth_first12_to_last12_volume,2022-01..2022-12 -> 2025-04..2026-03,43.893578,% per year,Compound growth between the first and last 12-month totals.
+context_retail,UPI total,trend_growth_volume,full window: 2022-01..2026-03,44.615319,% per year,"log-linear OLS, R2=0.975"
+context_retail,UPI total,trend_growth_real_value,full window: 2022-01..2026-03,27.473756,% per year,"log-linear OLS, R2=0.964"
+context_retail,UPI total,trend_growth_volume,last 24 months: 2024-04..2026-03,30.031349,% per year,"log-linear OLS, R2=0.959"
+context_retail,UPI total,trend_growth_real_value,last 24 months: 2024-04..2026-03,18.466171,% per year,"log-linear OLS, R2=0.890"
+context_retail,UPI total,seasonal_index_volume,month 01,100.620858,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,UPI total,seasonal_index_volume,month 02,93.524335,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,UPI total,seasonal_index_volume,month 03,102.812014,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,UPI total,seasonal_index_volume,month 04,99.411517,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,UPI total,seasonal_index_volume,month 05,101.773766,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,UPI total,seasonal_index_volume,month 06,97.810428,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,UPI total,seasonal_index_volume,month 07,100.21571,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,UPI total,seasonal_index_volume,month 08,101.414584,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,UPI total,seasonal_index_volume,month 09,98.782871,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,UPI total,seasonal_index_volume,month 10,103.926021,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,UPI total,seasonal_index_volume,month 11,97.871162,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,UPI total,seasonal_index_volume,month 12,101.836733,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,cards (credit + debit),annualised_growth_first12_to_last12_volume,2022-01..2022-12 -> 2025-04..2026-03,4.059422,% per year,Compound growth between the first and last 12-month totals.
+context_retail,cards (credit + debit),trend_growth_volume,full window: 2022-01..2026-03,4.543814,% per year,"log-linear OLS, R2=0.348"
+context_retail,cards (credit + debit),trend_growth_real_value,full window: 2022-01..2026-03,5.494037,% per year,"log-linear OLS, R2=0.565"
+context_retail,cards (credit + debit),trend_growth_volume,last 24 months: 2024-04..2026-03,14.028334,% per year,"log-linear OLS, R2=0.798"
+context_retail,cards (credit + debit),trend_growth_real_value,last 24 months: 2024-04..2026-03,5.758315,% per year,"log-linear OLS, R2=0.240"
+context_retail,cards (credit + debit),seasonal_index_volume,month 01,100.475523,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,cards (credit + debit),seasonal_index_volume,month 02,91.951089,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,cards (credit + debit),seasonal_index_volume,month 03,101.591776,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,cards (credit + debit),seasonal_index_volume,month 04,99.207237,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,cards (credit + debit),seasonal_index_volume,month 05,101.199737,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,cards (credit + debit),seasonal_index_volume,month 06,97.423505,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,cards (credit + debit),seasonal_index_volume,month 07,101.78736,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,cards (credit + debit),seasonal_index_volume,month 08,102.376101,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,cards (credit + debit),seasonal_index_volume,month 09,98.870819,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,cards (credit + debit),seasonal_index_volume,month 10,106.346242,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,cards (credit + debit),seasonal_index_volume,month 11,96.429648,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,cards (credit + debit),seasonal_index_volume,month 12,102.340963,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,UPI P2M,annualised_growth_first12_to_last12_volume,2022-01..2022-12 -> 2025-04..2026-03,56.986539,% per year,Compound growth between the first and last 12-month totals.
+merchant,UPI P2M,trend_growth_volume,full window: 2022-01..2026-03,58.540561,% per year,"log-linear OLS, R2=0.944"
+merchant,UPI P2M,trend_growth_real_value,full window: 2022-01..2026-03,40.684056,% per year,"log-linear OLS, R2=0.954"
+merchant,UPI P2M,trend_growth_volume,last 24 months: 2024-04..2026-03,30.666657,% per year,"log-linear OLS, R2=0.957"
+merchant,UPI P2M,trend_growth_real_value,last 24 months: 2024-04..2026-03,23.160483,% per year,"log-linear OLS, R2=0.898"
+merchant,UPI P2M,seasonal_index_volume,month 01,100.353921,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,UPI P2M,seasonal_index_volume,month 02,92.808276,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,UPI P2M,seasonal_index_volume,month 03,102.314734,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,UPI P2M,seasonal_index_volume,month 04,99.975483,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,UPI P2M,seasonal_index_volume,month 05,102.256294,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,UPI P2M,seasonal_index_volume,month 06,98.27801,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,UPI P2M,seasonal_index_volume,month 07,100.055607,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,UPI P2M,seasonal_index_volume,month 08,101.826627,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,UPI P2M,seasonal_index_volume,month 09,99.266885,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,UPI P2M,seasonal_index_volume,month 10,104.115184,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,UPI P2M,seasonal_index_volume,month 11,97.269292,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,UPI P2M,seasonal_index_volume,month 12,101.479687,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,credit card,annualised_growth_first12_to_last12_volume,2022-01..2022-12 -> 2025-04..2026-03,27.012668,% per year,Compound growth between the first and last 12-month totals.
+merchant,credit card,trend_growth_volume,full window: 2022-01..2026-03,27.915316,% per year,"log-linear OLS, R2=0.975"
+merchant,credit card,trend_growth_real_value,full window: 2022-01..2026-03,14.69474,% per year,"log-linear OLS, R2=0.846"
+merchant,credit card,trend_growth_volume,last 24 months: 2024-04..2026-03,26.252137,% per year,"log-linear OLS, R2=0.923"
+merchant,credit card,trend_growth_real_value,last 24 months: 2024-04..2026-03,10.163206,% per year,"log-linear OLS, R2=0.457"
+merchant,credit card,seasonal_index_volume,month 01,101.774202,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,credit card,seasonal_index_volume,month 02,91.882289,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,credit card,seasonal_index_volume,month 03,101.931879,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,credit card,seasonal_index_volume,month 04,98.794813,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,credit card,seasonal_index_volume,month 05,101.288478,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,credit card,seasonal_index_volume,month 06,97.071522,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,credit card,seasonal_index_volume,month 07,100.930056,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,credit card,seasonal_index_volume,month 08,101.967365,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,credit card,seasonal_index_volume,month 09,98.952161,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,credit card,seasonal_index_volume,month 10,106.637415,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,credit card,seasonal_index_volume,month 11,96.054023,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,credit card,seasonal_index_volume,month 12,102.715798,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,debit card,annualised_growth_first12_to_last12_volume,2022-01..2022-12 -> 2025-04..2026-03,-27.548469,% per year,Compound growth between the first and last 12-month totals.
+merchant,debit card,trend_growth_volume,full window: 2022-01..2026-03,-27.655973,% per year,"log-linear OLS, R2=0.975"
+merchant,debit card,trend_growth_real_value,full window: 2022-01..2026-03,-18.026464,% per year,"log-linear OLS, R2=0.935"
+merchant,debit card,trend_growth_volume,last 24 months: 2024-04..2026-03,-21.023231,% per year,"log-linear OLS, R2=0.910"
+merchant,debit card,trend_growth_real_value,last 24 months: 2024-04..2026-03,-12.298875,% per year,"log-linear OLS, R2=0.616"
+merchant,debit card,seasonal_index_volume,month 01,98.418399,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,debit card,seasonal_index_volume,month 02,91.758889,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,debit card,seasonal_index_volume,month 03,100.971507,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,debit card,seasonal_index_volume,month 04,100.070613,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,debit card,seasonal_index_volume,month 05,101.109346,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,debit card,seasonal_index_volume,month 06,97.887025,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,debit card,seasonal_index_volume,month 07,102.878871,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,debit card,seasonal_index_volume,month 08,103.482189,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,debit card,seasonal_index_volume,month 09,98.738572,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,debit card,seasonal_index_volume,month 10,106.01578,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,debit card,seasonal_index_volume,month 11,96.980249,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,debit card,seasonal_index_volume,month 12,101.688562,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,UPI P2M,annualised_growth_first12_to_last12_volume,2022-01..2022-12 -> 2025-04..2026-03,56.986539,% per year,Compound growth between the first and last 12-month totals.
+merchant_channel,UPI P2M,trend_growth_volume,full window: 2022-01..2026-03,58.540561,% per year,"log-linear OLS, R2=0.944"
+merchant_channel,UPI P2M,trend_growth_real_value,full window: 2022-01..2026-03,40.684056,% per year,"log-linear OLS, R2=0.954"
+merchant_channel,UPI P2M,trend_growth_volume,last 24 months: 2024-04..2026-03,30.666657,% per year,"log-linear OLS, R2=0.957"
+merchant_channel,UPI P2M,trend_growth_real_value,last 24 months: 2024-04..2026-03,23.160483,% per year,"log-linear OLS, R2=0.898"
+merchant_channel,UPI P2M,seasonal_index_volume,month 01,100.353921,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,UPI P2M,seasonal_index_volume,month 02,92.808276,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,UPI P2M,seasonal_index_volume,month 03,102.314734,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,UPI P2M,seasonal_index_volume,month 04,99.975483,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,UPI P2M,seasonal_index_volume,month 05,102.256294,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,UPI P2M,seasonal_index_volume,month 06,98.27801,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,UPI P2M,seasonal_index_volume,month 07,100.055607,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,UPI P2M,seasonal_index_volume,month 08,101.826627,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,UPI P2M,seasonal_index_volume,month 09,99.266885,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,UPI P2M,seasonal_index_volume,month 10,104.115184,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,UPI P2M,seasonal_index_volume,month 11,97.269292,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,UPI P2M,seasonal_index_volume,month 12,101.479687,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card PoS,annualised_growth_first12_to_last12_volume,2022-01..2022-12 -> 2025-04..2026-03,24.658494,% per year,Compound growth between the first and last 12-month totals.
+merchant_channel,credit card PoS,trend_growth_volume,full window: 2022-01..2026-03,25.84863,% per year,"log-linear OLS, R2=0.965"
+merchant_channel,credit card PoS,trend_growth_real_value,full window: 2022-01..2026-03,14.591435,% per year,"log-linear OLS, R2=0.839"
+merchant_channel,credit card PoS,trend_growth_volume,last 24 months: 2024-04..2026-03,22.197862,% per year,"log-linear OLS, R2=0.900"
+merchant_channel,credit card PoS,trend_growth_real_value,last 24 months: 2024-04..2026-03,9.618542,% per year,"log-linear OLS, R2=0.382"
+merchant_channel,credit card PoS,seasonal_index_volume,month 01,101.532788,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card PoS,seasonal_index_volume,month 02,91.280624,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card PoS,seasonal_index_volume,month 03,101.148582,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card PoS,seasonal_index_volume,month 04,100.052522,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card PoS,seasonal_index_volume,month 05,100.83828,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card PoS,seasonal_index_volume,month 06,97.596148,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card PoS,seasonal_index_volume,month 07,99.143946,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card PoS,seasonal_index_volume,month 08,102.30431,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card PoS,seasonal_index_volume,month 09,97.173873,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card PoS,seasonal_index_volume,month 10,105.955261,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card PoS,seasonal_index_volume,month 11,97.926968,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card PoS,seasonal_index_volume,month 12,105.046699,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card online/other,annualised_growth_first12_to_last12_volume,2022-01..2022-12 -> 2025-04..2026-03,29.574215,% per year,Compound growth between the first and last 12-month totals.
+merchant_channel,credit card online/other,trend_growth_volume,full window: 2022-01..2026-03,30.217366,% per year,"log-linear OLS, R2=0.967"
+merchant_channel,credit card online/other,trend_growth_real_value,full window: 2022-01..2026-03,14.755562,% per year,"log-linear OLS, R2=0.790"
+merchant_channel,credit card online/other,trend_growth_volume,last 24 months: 2024-04..2026-03,30.637142,% per year,"log-linear OLS, R2=0.927"
+merchant_channel,credit card online/other,trend_growth_real_value,last 24 months: 2024-04..2026-03,10.456361,% per year,"log-linear OLS, R2=0.381"
+merchant_channel,credit card online/other,seasonal_index_volume,month 01,102.04786,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card online/other,seasonal_index_volume,month 02,92.556099,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card online/other,seasonal_index_volume,month 03,102.82796,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card online/other,seasonal_index_volume,month 04,97.422499,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card online/other,seasonal_index_volume,month 05,101.841202,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card online/other,seasonal_index_volume,month 06,96.567125,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card online/other,seasonal_index_volume,month 07,102.953955,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card online/other,seasonal_index_volume,month 08,101.63111,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card online/other,seasonal_index_volume,month 09,100.878885,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card online/other,seasonal_index_volume,month 10,107.265465,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card online/other,seasonal_index_volume,month 11,93.937713,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card online/other,seasonal_index_volume,month 12,100.070127,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card PoS,annualised_growth_first12_to_last12_volume,2022-01..2022-12 -> 2025-04..2026-03,-24.370344,% per year,Compound growth between the first and last 12-month totals.
+merchant_channel,debit card PoS,trend_growth_volume,full window: 2022-01..2026-03,-24.564158,% per year,"log-linear OLS, R2=0.971"
+merchant_channel,debit card PoS,trend_growth_real_value,full window: 2022-01..2026-03,-17.743491,% per year,"log-linear OLS, R2=0.919"
+merchant_channel,debit card PoS,trend_growth_volume,last 24 months: 2024-04..2026-03,-20.316046,% per year,"log-linear OLS, R2=0.902"
+merchant_channel,debit card PoS,trend_growth_real_value,last 24 months: 2024-04..2026-03,-13.647249,% per year,"log-linear OLS, R2=0.599"
+merchant_channel,debit card PoS,seasonal_index_volume,month 01,98.399895,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card PoS,seasonal_index_volume,month 02,91.472733,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card PoS,seasonal_index_volume,month 03,100.205453,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card PoS,seasonal_index_volume,month 04,100.509144,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card PoS,seasonal_index_volume,month 05,101.281759,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card PoS,seasonal_index_volume,month 06,98.17578,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card PoS,seasonal_index_volume,month 07,101.9302,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card PoS,seasonal_index_volume,month 08,103.68683,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card PoS,seasonal_index_volume,month 09,97.409256,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card PoS,seasonal_index_volume,month 10,106.389334,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card PoS,seasonal_index_volume,month 11,97.531212,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card PoS,seasonal_index_volume,month 12,103.008404,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card online/other,annualised_growth_first12_to_last12_volume,2022-01..2022-12 -> 2025-04..2026-03,-34.540357,% per year,Compound growth between the first and last 12-month totals.
+merchant_channel,debit card online/other,trend_growth_volume,full window: 2022-01..2026-03,-34.450193,% per year,"log-linear OLS, R2=0.966"
+merchant_channel,debit card online/other,trend_growth_real_value,full window: 2022-01..2026-03,-18.55795,% per year,"log-linear OLS, R2=0.898"
+merchant_channel,debit card online/other,trend_growth_volume,last 24 months: 2024-04..2026-03,-23.08026,% per year,"log-linear OLS, R2=0.905"
+merchant_channel,debit card online/other,trend_growth_real_value,last 24 months: 2024-04..2026-03,-9.595925,% per year,"log-linear OLS, R2=0.384"
+merchant_channel,debit card online/other,seasonal_index_volume,month 01,98.474608,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card online/other,seasonal_index_volume,month 02,92.584279,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card online/other,seasonal_index_volume,month 03,102.891247,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card online/other,seasonal_index_volume,month 04,98.887608,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card online/other,seasonal_index_volume,month 05,100.578217,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card online/other,seasonal_index_volume,month 06,96.996125,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card online/other,seasonal_index_volume,month 07,105.387682,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card online/other,seasonal_index_volume,month 08,102.828504,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card online/other,seasonal_index_volume,month 09,101.950002,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card online/other,seasonal_index_volume,month 10,105.535123,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card online/other,seasonal_index_volume,month 11,95.595729,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card online/other,seasonal_index_volume,month 12,98.290875,"index, mean=100",Ratio to centred 2x12 moving average.
+transfer,IMPS,annualised_growth_first12_to_last12_volume,2016-04..2017-03 -> 2025-04..2026-03,28.795953,% per year,Compound growth between the first and last 12-month totals.
+transfer,IMPS,trend_growth_volume,full window: 2016-04..2026-03,29.12796,% per year,"log-linear OLS, R2=0.791"
+transfer,IMPS,trend_growth_real_value,full window: 2016-04..2026-03,7.286389,% per year,"log-linear OLS, R2=0.727"
+transfer,IMPS,trend_growth_volume,last 24 months: 2024-04..2026-03,-16.176937,% per year,"log-linear OLS, R2=0.644"
+transfer,IMPS,trend_growth_real_value,last 24 months: 2024-04..2026-03,5.271415,% per year,"log-linear OLS, R2=0.253"
+transfer,IMPS,trend_growth_volume,before 2020-04: 2016-04..2020-03,75.497117,% per year,"log-linear OLS, R2=0.962"
+transfer,IMPS,trend_growth_volume,from 2020-04: 2020-04..2026-03,8.973323,% per year,"log-linear OLS, R2=0.295"
+transfer,IMPS,trend_growth_real_value,from 2020-04: 2020-04..2026-03,7.286389,% per year,"log-linear OLS, R2=0.727"
+transfer,IMPS,seasonal_index_volume,month 01,105.920693,"index, mean=100",Ratio to centred 2x12 moving average.
+transfer,IMPS,seasonal_index_volume,month 02,99.446999,"index, mean=100",Ratio to centred 2x12 moving average.
+transfer,IMPS,seasonal_index_volume,month 03,106.455273,"index, mean=100",Ratio to centred 2x12 moving average.
+transfer,IMPS,seasonal_index_volume,month 04,95.983654,"index, mean=100",Ratio to centred 2x12 moving average.
+transfer,IMPS,seasonal_index_volume,month 05,96.554946,"index, mean=100",Ratio to centred 2x12 moving average.
+transfer,IMPS,seasonal_index_volume,month 06,93.735193,"index, mean=100",Ratio to centred 2x12 moving average.
+transfer,IMPS,seasonal_index_volume,month 07,97.465986,"index, mean=100",Ratio to centred 2x12 moving average.
+transfer,IMPS,seasonal_index_volume,month 08,99.039813,"index, mean=100",Ratio to centred 2x12 moving average.
+transfer,IMPS,seasonal_index_volume,month 09,97.164745,"index, mean=100",Ratio to centred 2x12 moving average.
+transfer,IMPS,seasonal_index_volume,month 10,103.999675,"index, mean=100",Ratio to centred 2x12 moving average.
+transfer,IMPS,seasonal_index_volume,month 11,97.484559,"index, mean=100",Ratio to centred 2x12 moving average.
+transfer,IMPS,seasonal_index_volume,month 12,106.748464,"index, mean=100",Ratio to centred 2x12 moving average.
+transfer,UPI total,annualised_growth_first12_to_last12_volume,2016-04..2017-03 -> 2025-04..2026-03,187.757938,% per year,Compound growth between the first and last 12-month totals.
+transfer,UPI total,trend_growth_volume,full window: 2016-04..2026-03,151.129741,% per year,"log-linear OLS, R2=0.770"
+transfer,UPI total,trend_growth_real_value,full window: 2016-04..2026-03,27.473756,% per year,"log-linear OLS, R2=0.964"
+transfer,UPI total,trend_growth_volume,last 24 months: 2024-04..2026-03,30.031349,% per year,"log-linear OLS, R2=0.959"
+transfer,UPI total,trend_growth_real_value,last 24 months: 2024-04..2026-03,18.466171,% per year,"log-linear OLS, R2=0.890"
+transfer,UPI total,trend_growth_volume,before 2020-04: 2016-04..2020-03,1102.644723,% per year,"log-linear OLS, R2=0.842"
+transfer,UPI total,trend_growth_volume,from 2020-04: 2020-04..2026-03,61.841826,% per year,"log-linear OLS, R2=0.957"
+transfer,UPI total,trend_growth_real_value,from 2020-04: 2020-04..2026-03,27.473756,% per year,"log-linear OLS, R2=0.964"
+transfer,UPI total,seasonal_index_volume,month 01,108.771637,"index, mean=100",Ratio to centred 2x12 moving average.
+transfer,UPI total,seasonal_index_volume,month 02,100.129217,"index, mean=100",Ratio to centred 2x12 moving average.
+transfer,UPI total,seasonal_index_volume,month 03,105.177938,"index, mean=100",Ratio to centred 2x12 moving average.
+transfer,UPI total,seasonal_index_volume,month 04,94.889417,"index, mean=100",Ratio to centred 2x12 moving average.
+transfer,UPI total,seasonal_index_volume,month 05,91.946226,"index, mean=100",Ratio to centred 2x12 moving average.
+transfer,UPI total,seasonal_index_volume,month 06,89.73254,"index, mean=100",Ratio to centred 2x12 moving average.
+transfer,UPI total,seasonal_index_volume,month 07,91.657806,"index, mean=100",Ratio to centred 2x12 moving average.
+transfer,UPI total,seasonal_index_volume,month 08,93.932597,"index, mean=100",Ratio to centred 2x12 moving average.
+transfer,UPI total,seasonal_index_volume,month 09,96.013528,"index, mean=100",Ratio to centred 2x12 moving average.
+transfer,UPI total,seasonal_index_volume,month 10,108.19212,"index, mean=100",Ratio to centred 2x12 moving average.
+transfer,UPI total,seasonal_index_volume,month 11,107.078796,"index, mean=100",Ratio to centred 2x12 moving average.
+transfer,UPI total,seasonal_index_volume,month 12,112.478176,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2M,annualised_growth_first12_to_last12_volume,2022-01..2022-12 -> 2025-04..2026-03,56.986539,% per year,Compound growth between the first and last 12-month totals.
+upi_use,UPI P2M,trend_growth_volume,full window: 2022-01..2026-03,58.540561,% per year,"log-linear OLS, R2=0.944"
+upi_use,UPI P2M,trend_growth_real_value,full window: 2022-01..2026-03,40.684056,% per year,"log-linear OLS, R2=0.954"
+upi_use,UPI P2M,trend_growth_volume,last 24 months: 2024-04..2026-03,30.666657,% per year,"log-linear OLS, R2=0.957"
+upi_use,UPI P2M,trend_growth_real_value,last 24 months: 2024-04..2026-03,23.160483,% per year,"log-linear OLS, R2=0.898"
+upi_use,UPI P2M,seasonal_index_volume,month 01,100.353921,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2M,seasonal_index_volume,month 02,92.808276,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2M,seasonal_index_volume,month 03,102.314734,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2M,seasonal_index_volume,month 04,99.975483,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2M,seasonal_index_volume,month 05,102.256294,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2M,seasonal_index_volume,month 06,98.27801,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2M,seasonal_index_volume,month 07,100.055607,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2M,seasonal_index_volume,month 08,101.826627,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2M,seasonal_index_volume,month 09,99.266885,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2M,seasonal_index_volume,month 10,104.115184,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2M,seasonal_index_volume,month 11,97.269292,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2M,seasonal_index_volume,month 12,101.479687,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2P,annualised_growth_first12_to_last12_volume,2022-01..2022-12 -> 2025-04..2026-03,29.164885,% per year,Compound growth between the first and last 12-month totals.
+upi_use,UPI P2P,trend_growth_volume,full window: 2022-01..2026-03,29.619029,% per year,"log-linear OLS, R2=0.984"
+upi_use,UPI P2P,trend_growth_real_value,full window: 2022-01..2026-03,23.421091,% per year,"log-linear OLS, R2=0.960"
+upi_use,UPI P2P,trend_growth_volume,last 24 months: 2024-04..2026-03,28.968147,% per year,"log-linear OLS, R2=0.953"
+upi_use,UPI P2P,trend_growth_real_value,last 24 months: 2024-04..2026-03,16.655606,% per year,"log-linear OLS, R2=0.860"
+upi_use,UPI P2P,seasonal_index_volume,month 01,100.99511,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2P,seasonal_index_volume,month 02,94.50104,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2P,seasonal_index_volume,month 03,103.402283,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2P,seasonal_index_volume,month 04,98.682521,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2P,seasonal_index_volume,month 05,100.836052,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2P,seasonal_index_volume,month 06,96.882107,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2P,seasonal_index_volume,month 07,100.175902,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2P,seasonal_index_volume,month 08,100.870386,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2P,seasonal_index_volume,month 09,98.452254,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2P,seasonal_index_volume,month 10,103.973401,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2P,seasonal_index_volume,month 11,98.871932,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2P,seasonal_index_volume,month 12,102.357012,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,all rails,hhi_volume,2022-01,5831.638264,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2022-01,4455.859738,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2022-02,5905.724323,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2022-02,4483.076484,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2022-03,5980.663631,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2022-03,4434.238034,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2022-04,6089.154578,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2022-04,4516.953571,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2022-05,6190.559046,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2022-05,4566.452938,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2022-06,6298.498584,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2022-06,4596.19807,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2022-07,6452.130102,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2022-07,4636.105775,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2022-08,6552.327827,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2022-08,4678.860403,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2022-09,6663.582061,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2022-09,4698.478856,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2022-10,6765.28247,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2022-10,4783.928887,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2022-11,6884.951076,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2022-11,4891.433939,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2022-12,6932.60987,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2022-12,4902.985501,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2023-01,7051.030163,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2023-01,4961.380087,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2023-02,7032.033553,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2023-02,4943.693138,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2023-03,7184.706597,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2023-03,4933.727743,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2023-04,7238.698059,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2023-04,5015.392872,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2023-05,7273.525198,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2023-05,5080.888037,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2023-06,7376.388482,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2023-06,5148.868257,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2023-07,7469.613381,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2023-07,5163.442154,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2023-08,7576.638891,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2023-08,5204.403305,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2023-09,7664.690752,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2023-09,5271.815035,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2023-10,7662.281093,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2023-10,5219.299899,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2023-11,7718.020292,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2023-11,5333.612677,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2023-12,7706.45913,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2023-12,5331.573277,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2024-01,7743.619127,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2024-01,5368.148633,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2024-02,7798.45616,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2024-02,5435.473531,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2024-03,7958.075228,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2024-03,5404.92765,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2024-04,8032.13022,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2024-04,5530.914611,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2024-05,8075.455533,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2024-05,5551.604094,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2024-06,8135.4615,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2024-06,5612.020085,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2024-07,8180.857032,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2024-07,5575.529766,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2024-08,8257.351431,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2024-08,5627.883625,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2024-09,8291.383386,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2024-09,5644.406388,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2024-10,8306.77255,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2024-10,5667.410086,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2024-11,8328.726755,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2024-11,5780.65011,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2024-12,8321.013931,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2024-12,5775.887618,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2025-01,8334.218464,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2025-01,5802.879482,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2025-02,8347.996936,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2025-02,5834.710606,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2025-03,8381.67683,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2025-03,5721.000557,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2025-04,8371.168525,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2025-04,5806.846194,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2025-05,8379.62819,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2025-05,5859.450498,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2025-06,8402.372881,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2025-06,5866.367944,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2025-07,8408.877259,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2025-07,5860.496235,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2025-08,8382.072613,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2025-08,5926.838814,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2025-09,8379.291331,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2025-09,5854.184646,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2025-10,8396.970679,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2025-10,5943.130926,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2025-11,8421.569045,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2025-11,6022.753886,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2025-12,8406.089775,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2025-12,5985.734323,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2026-01,8431.463021,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2026-01,6003.931122,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2026-02,8499.672031,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2026-02,6035.766487,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2026-03,8520.597889,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2026-03,5895.333371,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2022-01,6380.954252,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2022-01,3935.829783,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2022-02,6562.864545,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2022-02,3973.127239,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2022-03,6605.438709,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2022-03,3909.266886,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2022-04,6653.992462,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2022-04,3868.135576,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2022-05,6849.213985,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2022-05,4072.731477,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2022-06,6983.206274,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2022-06,4165.30068,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2022-07,7270.057232,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2022-07,4190.471252,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2022-08,7451.073416,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2022-08,4307.725349,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2022-09,7632.559716,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2022-09,4345.488802,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2022-10,7732.540773,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2022-10,4403.802762,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2022-11,7934.803604,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2022-11,4585.544192,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2022-12,7981.903517,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2022-12,4588.341733,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2023-01,8087.243924,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2023-01,4687.095756,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2023-02,8158.688988,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2023-02,4716.450417,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2023-03,8249.899367,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2023-03,4767.324353,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2023-04,8346.362707,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2023-04,4786.062417,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2023-05,8412.469605,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2023-05,4878.817273,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2023-06,8477.764213,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2023-06,4967.965905,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2023-07,8536.467796,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2023-07,5061.388989,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2023-08,8595.638747,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2023-08,5099.796527,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2023-09,8693.181091,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2023-09,5235.881332,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2023-10,8664.075055,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2023-10,5083.077447,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2023-11,8725.639892,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2023-11,5282.154399,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2023-12,8779.831561,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2023-12,5391.367338,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2024-01,8817.326032,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2024-01,5523.10112,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2024-02,8869.84589,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2024-02,5652.713722,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2024-03,8907.091415,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2024-03,5624.153958,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2024-04,8923.148856,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2024-04,5764.33742,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2024-05,8951.507914,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2024-05,5789.711972,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2024-06,8961.681532,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2024-06,5894.052871,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2024-07,8938.219659,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2024-07,5838.09961,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2024-08,8968.093777,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2024-08,5833.58278,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2024-09,8978.314233,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2024-09,5768.364151,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2024-10,8984.427668,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2024-10,5820.518755,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2024-11,9025.020575,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2024-11,5967.906397,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2024-12,9018.400919,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2024-12,5891.075288,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2025-01,9047.777002,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2025-01,5989.70812,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2025-02,9082.230086,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2025-02,6021.5594,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2025-03,9076.918745,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2025-03,5923.685353,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2025-04,9086.00868,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2025-04,6061.239286,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2025-05,9099.802607,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2025-05,6129.590852,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2025-06,9111.931782,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2025-06,6166.817863,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2025-07,9114.642633,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2025-07,6191.964174,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2025-08,9125.316428,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2025-08,6194.347112,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2025-09,9111.248035,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2025-09,5978.827837,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2025-10,9116.541037,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2025-10,6230.037034,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2025-11,9135.97183,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2025-11,6371.882808,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2025-12,9123.189895,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2025-12,6313.632485,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2026-01,9134.695712,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2026-01,6438.83847,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2026-02,9158.119687,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2026-02,6513.145935,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2026-03,9122.806235,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2026-03,6324.073431,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2022-01,6260.38632,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2022-01,3393.24025,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2022-02,6459.15069,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2022-02,3441.08342,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2022-03,6506.911148,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2022-03,3334.644155,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2022-04,6559.333134,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2022-04,3281.401539,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2022-05,6768.319146,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2022-05,3560.223262,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2022-06,6910.66855,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2022-06,3675.535915,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2022-07,7212.936983,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2022-07,3710.608513,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2022-08,7402.995753,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2022-08,3851.883252,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2022-09,7591.521331,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2022-09,3888.864537,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2022-10,7696.726941,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2022-10,3965.05287,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2022-11,7905.51148,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2022-11,4186.092498,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2022-12,7954.362681,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2022-12,4179.242915,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2023-01,8062.41362,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2023-01,4300.262746,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2023-02,8135.921224,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2023-02,4331.941709,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2023-03,8229.23002,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2023-03,4384.057302,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2023-04,8328.309447,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2023-04,4412.945213,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2023-05,8395.638791,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2023-05,4520.444351,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2023-06,8462.338945,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2023-06,4629.718773,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2023-07,8522.045538,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2023-07,4744.919964,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2023-08,8582.36909,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2023-08,4782.295305,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2023-09,8681.594067,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2023-09,4938.779125,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2023-10,8651.495422,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2023-10,4747.390329,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2023-11,8714.371031,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2023-11,4980.26163,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2023-12,8769.28299,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2023-12,5107.133162,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2024-01,8807.058595,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2024-01,5256.323724,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2024-02,8860.447349,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2024-02,5406.053162,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2024-03,8898.173741,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2024-03,5369.535549,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2024-04,8914.406286,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2024-04,5529.693999,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2024-05,8943.060348,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2024-05,5555.220472,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2024-06,8953.27196,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2024-06,5676.511811,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2024-07,8929.202175,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2024-07,5614.62363,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2024-08,8959.508035,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2024-08,5606.346452,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2024-09,8969.705437,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2024-09,5526.634148,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2024-10,8975.823581,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2024-10,5578.037553,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2024-11,9016.972609,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2024-11,5746.305539,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2024-12,9010.087653,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2024-12,5654.411703,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2025-01,9039.833926,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2025-01,5769.253354,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2025-02,9074.781597,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2025-02,5804.977747,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2025-03,9069.283493,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2025-03,5691.480132,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2025-04,9078.512428,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2025-04,5851.985345,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2025-05,9092.40994,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2025-05,5926.223244,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2025-06,9104.65825,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2025-06,5967.782162,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2025-07,9107.350032,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2025-07,5998.442838,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2025-08,9118.182331,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2025-08,5997.468265,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2025-09,9103.709403,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2025-09,5751.182185,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2025-10,9109.100822,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2025-10,6033.597923,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2025-11,9128.762932,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2025-11,6191.017472,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2025-12,9115.686736,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2025-12,6128.147065,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2026-01,9127.335592,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2026-01,6272.348774,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2026-02,9151.135775,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2026-02,6354.661502,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2026-03,9115.077467,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2026-03,6142.014634,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2016-04,10000.0,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2016-04,10000.0,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2016-05,10000.0,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2016-05,10000.0,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2016-06,10000.0,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2016-06,10000.0,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2016-07,9944.376205,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2016-07,9999.706048,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2016-08,9947.167967,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2016-08,9997.698756,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2016-09,9950.152624,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2016-09,9977.471855,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2016-10,9952.730116,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2016-10,9971.817631,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2016-11,9842.186855,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2016-11,9938.522284,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2016-12,9300.710565,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2016-12,9682.74292,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2017-01,8755.382803,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2017-01,9354.762477,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2017-02,8727.319072,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2017-02,9257.220582,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2017-03,8422.328961,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2017-03,9210.345115,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2017-04,8206.20112,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2017-04,9253.373999,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2017-05,7842.151877,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2017-05,9129.815436,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2017-06,7652.183121,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2017-06,9061.27618,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2017-07,7533.096865,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2017-07,8989.099605,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2017-08,7026.295321,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2017-08,8872.44325,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2017-09,6038.219134,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2017-09,8713.673098,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2017-10,5022.851224,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2017-10,8428.478254,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2017-11,5031.873448,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2017-11,8042.468797,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2017-12,5191.072566,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2017-12,7717.702736,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2018-01,5215.862249,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2018-01,7449.530185,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2018-02,5355.325694,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2018-02,7072.52672,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2018-03,5277.436458,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2018-03,6935.876523,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2018-04,5361.172615,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2018-04,6693.073532,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2018-05,5283.283761,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2018-05,6408.193988,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2018-06,5588.684701,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2018-06,6100.535349,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2018-07,5665.738791,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2018-07,5746.938028,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2018-08,5801.796339,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2018-08,5763.184974,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2018-09,6243.776345,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2018-09,5629.374505,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2018-10,6323.662637,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2018-10,5460.410843,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2018-11,6543.75872,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2018-11,5292.967279,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2018-12,6546.045527,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2018-12,5157.664186,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2019-01,6762.418407,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2019-01,5130.49969,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2019-02,6824.955034,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2019-02,5138.40461,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2019-03,6895.366484,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2019-03,5095.58887,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2019-04,6904.82299,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2019-04,5038.084526,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2019-05,6800.575918,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2019-05,5035.388756,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2019-06,6983.900577,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2019-06,5034.256484,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2019-07,6957.939482,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2019-07,5058.86832,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2019-08,7060.018224,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2019-08,5050.719099,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2019-09,7097.906767,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2019-09,5020.847546,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2019-10,7164.388635,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2019-10,5013.897704,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2019-11,7344.220965,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2019-11,5006.080369,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2019-12,7259.368953,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2019-12,5002.070446,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2020-01,7232.702594,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2020-01,5000.008594,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2020-02,7346.339844,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2020-02,5001.654696,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2020-03,7476.172584,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2020-03,5000.607142,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2020-04,8055.28373,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2020-04,5060.697757,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2020-05,7903.877198,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2020-05,5079.796328,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2020-06,7745.224365,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2020-06,5068.535531,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2020-07,7750.320623,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2020-07,5078.66699,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2020-08,7708.901501,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2020-08,5070.116926,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2020-09,7672.623143,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2020-09,5096.766723,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2020-10,7687.510698,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2020-10,5142.281184,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2020-11,7693.504873,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2020-11,5147.244207,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2020-12,7630.445506,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2020-12,5152.79049,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2021-01,7726.038036,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2021-01,5196.40626,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2021-02,7856.731667,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2021-02,5228.892043,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2021-03,7928.604071,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2021-03,5227.89638,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2021-04,8058.243622,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2021-04,5299.52276,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2021-05,8212.087808,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2021-05,5439.492177,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2021-06,8237.997627,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2021-06,5501.622293,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2021-07,8244.619913,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2021-07,5527.213102,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2021-08,8256.41968,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2021-08,5552.573679,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2021-09,8275.857637,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2021-09,5569.641731,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2021-10,8318.994112,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2021-10,5615.498956,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2021-11,8368.485692,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2021-11,5634.834086,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2021-12,8387.766505,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2021-12,5619.086774,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2022-01,8410.781725,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2022-01,5666.279029,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2022-02,8443.445728,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2022-02,5667.131355,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2022-03,8470.726967,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2022-03,5613.242354,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2022-04,8563.476379,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2022-04,5711.402621,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2022-05,8607.725615,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2022-05,5777.804988,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2022-06,8661.589629,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2022-06,5765.659331,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2022-07,8727.662164,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2022-07,5841.485896,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2022-08,8762.59234,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2022-08,5851.613344,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2022-09,8804.071228,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2022-09,5885.620785,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2022-10,8837.754174,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2022-10,5987.315746,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2022-11,8878.559644,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2022-11,6000.344504,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2022-12,8899.733832,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2022-12,6011.55799,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2023-01,8947.162398,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2023-01,6068.456788,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2023-02,8940.95029,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2023-02,6012.968262,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2023-03,8975.96452,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2023-03,5975.364517,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2023-04,8996.619759,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2023-04,6066.661952,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2023-05,9042.339914,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2023-05,6142.862582,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2023-06,9090.602892,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2023-06,6217.346464,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2023-07,9107.028301,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2023-07,6245.849709,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2023-08,9155.670321,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2023-08,6290.617546,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2023-09,9179.183735,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2023-09,6318.783487,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2023-10,9206.04668,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2023-10,6364.593747,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2023-11,9225.600901,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2023-11,6402.463214,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2023-12,9234.897106,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2023-12,6370.367046,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2024-01,9231.540295,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2024-01,6401.981662,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2024-02,9189.681188,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2024-02,6382.28686,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2024-03,9206.036498,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2024-03,6322.03302,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2024-04,9237.0669,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2024-04,6440.195623,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2024-05,9264.897765,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2024-05,6472.649594,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2024-06,9308.134357,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2024-06,6528.725979,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2024-07,9364.624409,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2024-07,6532.241824,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2024-08,9429.179227,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2024-08,6579.094968,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2024-09,9459.67985,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2024-09,6624.722043,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2024-10,9467.457602,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2024-10,6667.434785,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2024-11,9499.74884,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2024-11,6731.566308,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2024-12,9499.363455,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2024-12,6733.77994,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2025-01,9503.555267,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2025-01,6737.480078,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2025-02,9521.647889,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2025-02,6751.759183,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2025-03,9520.035794,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2025-03,6654.979381,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2025-04,9522.155786,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2025-04,6727.751824,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2025-05,9527.270451,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2025-05,6762.790831,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2025-06,9535.698805,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2025-06,6782.903974,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2025-07,9528.288437,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2025-07,6786.917682,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2025-08,9544.90786,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2025-08,6874.933779,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2025-09,9613.922821,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2025-09,6880.461498,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2025-10,9624.846076,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2025-10,6915.71162,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2025-11,9652.141366,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2025-11,6928.562921,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2025-12,9660.786368,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2025-12,6903.366914,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2026-01,9666.906313,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2026-01,6898.168763,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2026-02,9681.006439,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2026-02,6883.429245,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_volume,2026-03,9687.163901,HHI 0-10000,Concentration within the analytical basket only.
+transfer,all rails,hhi_value,2026-03,6794.698737,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2022-01,5189.16571,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2022-01,6824.256789,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2022-02,5132.064587,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2022-02,6834.524631,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2022-03,5169.965001,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2022-03,6918.801944,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2022-04,5179.097401,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2022-04,7043.030652,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2022-05,5104.734813,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2022-05,6730.82921,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2022-06,5080.216821,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2022-06,6671.141215,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2022-07,5010.626399,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2022-07,6601.176162,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2022-08,5000.000142,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2022-08,6532.628054,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2022-09,5010.69313,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2022-09,6481.230459,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2022-10,5017.49235,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2022-10,6422.152986,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2022-11,5024.005351,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2022-11,6502.279493,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2022-12,5031.872487,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2022-12,6496.717212,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2023-01,5047.70042,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2023-01,6439.4446,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2023-02,5052.439751,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2023-02,6504.084761,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2023-03,5062.005888,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2023-03,6473.779744,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2023-04,5085.172375,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2023-04,6477.048285,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2023-05,5098.908368,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2023-05,6446.637894,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2023-06,5111.20877,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2023-06,6380.835932,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2023-07,5128.230101,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2023-07,6238.057688,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2023-08,5145.905071,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2023-08,6229.11315,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2023-09,5146.923046,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2023-09,6240.942155,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2023-10,5158.292928,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2023-10,6174.031968,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2023-11,5148.513331,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2023-11,6182.318737,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2023-12,5218.130702,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2023-12,6145.235317,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2024-01,5244.200034,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2024-01,6039.751693,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2024-02,5233.835967,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2024-02,6130.565892,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2024-03,5274.996616,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2024-03,6133.363937,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2024-04,5309.678767,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2024-04,6055.480485,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2024-05,5324.159338,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2024-05,6037.545825,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2024-06,5328.005338,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2024-06,5976.981476,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2024-07,5304.71129,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2024-07,5905.43917,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2024-08,5307.631654,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2024-08,5971.681904,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2024-09,5296.67884,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2024-09,6019.247728,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2024-10,5293.96323,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2024-10,5930.918234,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2024-11,5303.714073,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2024-11,5985.53772,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2024-12,5294.280989,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2024-12,6040.66495,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2025-01,5297.174298,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2025-01,6016.360111,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2025-02,5312.615261,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2025-02,6070.460941,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2025-03,5318.709335,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2025-03,6052.211695,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2025-04,5361.872657,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2025-04,5993.956892,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2025-05,5362.615337,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2025-05,5993.995713,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2025-06,5372.928854,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2025-06,5932.559747,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2025-07,5371.736811,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2025-07,5860.209815,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2025-08,5364.468464,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2025-08,5871.855693,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2025-09,5337.446443,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2025-09,5890.306679,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2025-10,5334.487498,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2025-10,5778.430189,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2025-11,5324.492399,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2025-11,5877.605096,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2025-12,5303.485914,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2025-12,5892.464209,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2026-01,5322.588625,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2026-01,5826.239145,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2026-02,5324.733019,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2026-02,5900.906486,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2026-03,5319.108065,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2026-03,5867.138644,HHI 0-10000,Concentration within the analytical basket only.

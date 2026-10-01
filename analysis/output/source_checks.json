@@ -3,10 +3,32 @@
     "transfer_months": 120,
     "merchant_months": 51
   },
+  "extended_windows": {
+    "merchant_channel": {
+      "start": "2022-01",
+      "end": "2026-03"
+    },
+    "upi_use": {
+      "start": "2022-01",
+      "end": "2026-03"
+    },
+    "context_retail": {
+      "start": "2022-01",
+      "end": "2026-03"
+    }
+  },
+  "optional_series": {
+    "rbi_psi_other_rails": 0,
+    "rbi_psi_infrastructure": 0
+  },
   "maximum_absolute_source_difference": {
     "CPI linked-index rounding": 2.842170943040401e-14,
     "P2P + P2M value vs ecosystem total (crore)": 0.02000000001862645,
     "P2P + P2M volume vs ecosystem total (mn)": 0.010000000002037268,
+    "PPI card PoS + Other value (crore)": 1.0,
+    "PPI card PoS + Other volume (lakh)": 0.009999999999990905,
+    "PPI wallets + cards value (crore)": 1.0,
+    "PPI wallets + cards volume (lakh)": 0.010000000000218279,
     "UPI ecosystem vs product value (crore)": 7667.09999999986,
     "UPI ecosystem vs product volume (mn)": 34.8799999999992,
     "credit + debit value vs card total (crore)": 1.0,
