@@ -97,6 +97,16 @@
     .chart-point.upi-series { fill: var(--upi-series); }
     .chart-point.credit-series { fill: var(--credit-series); }
     .chart-point.debit-series { fill: var(--debit-series); }
+    .chart-point { pointer-events: none; }
+    .chart-hit { fill: transparent; cursor: help; }
+    .chart-hit:hover, .chart-hit.active, .chart-hit:focus-visible { stroke: var(--ink); stroke-width: 1.5; }
+    .chart-tooltip { position: fixed; z-index: 20; transform: translateX(-50%); width: max-content; max-width: min(280px, calc(100vw - 20px)); padding: 10px 13px; border-radius: 10px; background: var(--navy); color: white; box-shadow: 0 10px 28px rgba(21, 43, 51, .24); pointer-events: none; font-size: 12px; line-height: 1.45; }
+    .chart-tooltip[hidden] { display: none; }
+    .chart-tooltip strong, .chart-tooltip-row { display: block; }
+    .chart-tooltip strong { margin-bottom: 4px; }
+    .chart-tooltip-row { color: #d7e4df; }
+    .chart-tooltip-row.active { color: white; font-weight: 750; }
+    .chart-detail { margin: 10px 0 0; color: var(--ink); font-size: 12px; font-weight: 650; }
     .chart-summary { margin: 10px 0 0; color: var(--ink); font-size: 12px; font-weight: 650; font-variant-numeric: tabular-nums; }
     .chart-note { margin: 7px 0 0; color: var(--muted); font-size: 11px; }
     .history-row { display: grid; grid-template-columns: 96px minmax(0, 1fr) 58px; align-items: center; gap: 10px; padding: 6px 8px; border-radius: 8px; }
@@ -216,17 +226,24 @@
           <button class="chart-choice" type="button" data-series-mode="index" aria-pressed="false">Count index (Apr = 100)</button>
         </div>
         <div class="chart-frame">
-          <svg id="series-chart" viewBox="0 0 640 300" role="img" aria-labelledby="series-title series-desc">
+          <svg id="series-chart" viewBox="0 0 640 300" role="group" aria-labelledby="series-title series-desc">
             <title id="series-title">Monthly payment trends</title>
             <desc id="series-desc">Three observed monthly lines for UPI P2M, credit card, and debit card payments.</desc>
             <g id="series-drawing"></g>
           </svg>
+        </div>
+        <div class="chart-tooltip" id="series-tooltip" role="tooltip" hidden>
+          <strong id="series-tooltip-month"></strong>
+          <span class="chart-tooltip-row" id="series-tooltip-upi"></span>
+          <span class="chart-tooltip-row" id="series-tooltip-credit"></span>
+          <span class="chart-tooltip-row" id="series-tooltip-debit"></span>
         </div>
         <div class="legend" aria-hidden="true">
           <span><i class="swatch upi"></i>UPI P2M</span>
           <span><i class="swatch credit"></i>Credit card</span>
           <span><i class="swatch debit"></i>Debit card</span>
         </div>
+        <p class="chart-detail" id="series-detail" role="status" aria-live="polite">Hover, focus, or tap a dot to see that month's values.</p>
         <p class="chart-summary" id="series-summary"></p>
         <p class="chart-note" id="series-note">Observed monthly data. The sliders model annual totals below.</p>
       </section>
@@ -339,12 +356,20 @@
       Object.freeze({ label: "FY2025–26", upi: 152311.65, credit: 6023.628, debit: 1280.211 })
     ]);
     const RAILS = Object.freeze(["upi", "credit", "debit"]);
+    const RAIL_NAMES = Object.freeze(["UPI P2M", "Credit card", "Debit card"]);
     const SCALE_MAX = 230;
     const SVG_NS = "http://www.w3.org/2000/svg";
     const MONTH_NAMES = Object.freeze(["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]);
     const yearSelect = document.getElementById("year-select");
+    const seriesDrawing = document.getElementById("series-drawing");
+    const seriesTooltip = document.getElementById("series-tooltip");
+    const seriesDetail = document.getElementById("series-detail");
+    const tooltipRows = RAILS.map(rail => document.getElementById(`series-tooltip-${rail}`));
     let seriesMode = "share";
     let renderedSeriesKey = "";
+    let chartPointDetails = [];
+    let activeChartPoint = null;
+    let pinnedChartPoint = null;
     const inputs = {
       growth: document.getElementById("market-growth"),
       credit: document.getElementById("credit-shift"),
@@ -432,17 +457,67 @@
       return `${MONTH_NAMES[Number(month) - 1]} ’${year.slice(2)}`;
     }
 
+    function chartHit(target) {
+      return target instanceof Element ? target.closest(".chart-hit") : null;
+    }
+
+    function hideChartTooltip() {
+      seriesTooltip.hidden = true;
+      activeChartPoint?.classList.remove("active");
+      activeChartPoint = null;
+      pinnedChartPoint = null;
+    }
+
+    function showChartTooltip(point) {
+      const month = chartPointDetails[Number(point.dataset.monthIndex)];
+      const railIndex = RAILS.indexOf(point.dataset.rail);
+      if (!month || railIndex < 0) return;
+      activeChartPoint?.classList.remove("active");
+      activeChartPoint = point;
+      point.classList.add("active");
+      document.getElementById("series-tooltip-month").textContent = month.label;
+      tooltipRows.forEach((row, index) => {
+        row.textContent = `${RAIL_NAMES[index]}: ${month.values[index]}`;
+        row.classList.toggle("active", index === railIndex);
+      });
+      seriesDetail.textContent = `${month.label} · ${RAIL_NAMES[railIndex]}: ${month.values[railIndex]}`;
+      seriesTooltip.hidden = false;
+      const pointBox = point.getBoundingClientRect();
+      const width = seriesTooltip.offsetWidth;
+      const height = seriesTooltip.offsetHeight;
+      const center = pointBox.left + pointBox.width / 2;
+      const halfWidth = width / 2;
+      const left = Math.max(halfWidth + 8, Math.min(window.innerWidth - halfWidth - 8, center));
+      let top = pointBox.top - height - 10;
+      if (top < 8) top = pointBox.bottom + 10;
+      top = Math.max(8, Math.min(window.innerHeight - height - 8, top));
+      seriesTooltip.style.left = `${left}px`;
+      seriesTooltip.style.top = `${top}px`;
+    }
+
+    function toggleChartTooltip(point) {
+      if (pinnedChartPoint === point) {
+        hideChartTooltip();
+      } else {
+        pinnedChartPoint = point;
+        showChartTooltip(point);
+      }
+    }
+
     function renderSeries(selectedIndex) {
       const key = `${selectedIndex}:${seriesMode}`;
       if (key === renderedSeriesKey) return;
       renderedSeriesKey = key;
+      hideChartTooltip();
+      seriesDetail.textContent = "Hover, focus, or tap a dot to see that month's values.";
 
       const firstYear = 2022 + selectedIndex;
       const start = `${firstYear}-04`;
       const end = `${firstYear + 2}-03`;
       const months = MONTHLY_MERCHANT.filter(row => row[0] >= start && row[0] <= end);
-      const drawing = document.getElementById("series-drawing");
+      const drawing = seriesDrawing;
       if (months.length !== 24) {
+        chartPointDetails = [];
         drawing.replaceChildren();
         document.getElementById("series-summary").textContent = "Monthly observations are incomplete for this period.";
         return;
@@ -461,6 +536,14 @@
         });
         return { rail, values };
       });
+      const formatPointValue = value => seriesMode === "share" ? `${value.toFixed(2)}% of these three methods`
+        : seriesMode === "count" ? `${value.toLocaleString("en-IN", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} crore transactions`
+        : seriesMode === "change" ? `${value >= 0 ? "+" : ""}${value.toFixed(2)} percentage points from Apr ${firstYear}`
+        : `${value.toFixed(1)} (Apr ${firstYear} = 100; no unit)`;
+      chartPointDetails = months.map((row, index) => ({
+        label: shortMonth(row[0]),
+        values: lines.map(line => formatPointValue(line.values[index]))
+      }));
       const allValues = lines.flatMap(line => line.values);
       let low, high, ticks;
       if (seriesMode === "share") {
@@ -533,16 +616,17 @@
           class: `chart-line ${line.rail}-series`
         });
         fragment.appendChild(path);
+      }
+      for (const [railIndex, line] of lines.entries()) {
         line.values.forEach((value, index) => {
+          const detail = chartPointDetails[index];
+          const hit = svgElement("circle", {
+            cx: x(index), cy: y(value), r: 10, class: "chart-hit", tabindex: 0, role: "button",
+            "data-month-index": index, "data-rail": line.rail,
+            "aria-label": `${detail.label} · ${RAIL_NAMES[railIndex]}: ${detail.values[railIndex]}`
+          });
           const point = svgElement("circle", { cx: x(index), cy: y(value), r: 3.2, class: `chart-point ${line.rail}-series` });
-          const title = svgElement("title", {});
-          const name = line.rail === "upi" ? "UPI P2M" : `${line.rail} card`;
-          const amount = seriesMode === "share" ? `${value.toFixed(2)}% of these three methods`
-            : seriesMode === "count" ? `${value.toLocaleString("en-IN", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} crore transactions`
-            : seriesMode === "change" ? `${value >= 0 ? "+" : ""}${value.toFixed(2)} percentage points from Apr ${firstYear}`
-            : `${value.toFixed(1)} (Apr ${firstYear} = 100; no unit)`;
-          title.textContent = `${shortMonth(months[index][0])} · ${name}: ${amount}`;
-          point.appendChild(title);
+          fragment.appendChild(hit);
           fragment.appendChild(point);
         });
       }
@@ -648,6 +732,47 @@
       });
       render();
     }
+
+    seriesDrawing.addEventListener("pointerover", event => {
+      if (event.pointerType === "touch") return;
+      const point = chartHit(event.target);
+      if (!point) return;
+      if (pinnedChartPoint !== point) pinnedChartPoint = null;
+      showChartTooltip(point);
+    });
+    seriesDrawing.addEventListener("pointerout", event => {
+      if (event.pointerType === "touch") return;
+      const point = chartHit(event.target);
+      if (point && pinnedChartPoint !== point && document.activeElement !== point) hideChartTooltip();
+    });
+    seriesDrawing.addEventListener("focusin", event => {
+      const point = chartHit(event.target);
+      if (point) showChartTooltip(point);
+    });
+    seriesDrawing.addEventListener("focusout", event => {
+      const point = chartHit(event.target);
+      if (point && pinnedChartPoint !== point && !point.matches(":hover")) hideChartTooltip();
+    });
+    seriesDrawing.addEventListener("click", event => {
+      const point = chartHit(event.target);
+      if (point) toggleChartTooltip(point);
+    });
+    seriesDrawing.addEventListener("keydown", event => {
+      const point = chartHit(event.target);
+      if (point && (event.key === "Enter" || event.key === " ")) {
+        event.preventDefault();
+        toggleChartTooltip(point);
+      }
+    });
+    document.addEventListener("click", event => {
+      if (!chartHit(event.target)) hideChartTooltip();
+    });
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape") hideChartTooltip();
+    });
+    window.addEventListener("scroll", hideChartTooltip, { passive: true });
+    window.addEventListener("resize", hideChartTooltip);
+    document.querySelector(".chart-frame").addEventListener("scroll", hideChartTooltip, { passive: true });
 
     Object.values(inputs).forEach(input => input.addEventListener("input", () => {
       document.querySelectorAll("[data-preset]").forEach(button => button.setAttribute("aria-pressed", "false"));
