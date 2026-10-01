@@ -210,8 +210,10 @@
         </div>
         <div class="section-title"><h3>Time series</h3><small id="series-period">Apr 2022–Mar 2024</small></div>
         <div class="chart-switch" role="group" aria-label="Monthly chart measure">
-          <button class="chart-choice" type="button" data-series-mode="share" aria-pressed="true">Payment mix change</button>
-          <button class="chart-choice" type="button" data-series-mode="index" aria-pressed="false">Count index</button>
+          <button class="chart-choice" type="button" data-series-mode="share" aria-pressed="true">Payment share (%)</button>
+          <button class="chart-choice" type="button" data-series-mode="count" aria-pressed="false">Transactions (crore)</button>
+          <button class="chart-choice" type="button" data-series-mode="change" aria-pressed="false">Share change (pp)</button>
+          <button class="chart-choice" type="button" data-series-mode="index" aria-pressed="false">Count index (Apr = 100)</button>
         </div>
         <div class="chart-frame">
           <svg id="series-chart" viewBox="0 0 640 300" role="img" aria-labelledby="series-title series-desc">
@@ -451,33 +453,51 @@
       const lines = RAILS.map((rail, railIndex) => {
         const column = railIndex + 1;
         const values = months.map(row => {
+          if (seriesMode === "count") return row[column] / 10;
           if (seriesMode === "index") return 100 * row[column] / base[column];
           const total = row[1] + row[2] + row[3];
-          return 100 * (row[column] / total - base[column] / baseTotal);
+          const share = 100 * row[column] / total;
+          return seriesMode === "change" ? share - 100 * base[column] / baseTotal : share;
         });
         return { rail, values };
       });
       const allValues = lines.flatMap(line => line.values);
       let low, high, ticks;
       if (seriesMode === "share") {
+        low = 0;
+        high = 100;
+        ticks = [0, 25, 50, 75, 100];
+      } else if (seriesMode === "change") {
         const largest = Math.max(...allValues.map(Math.abs));
         const step = largest > 8 ? 5 : largest > 3 ? 1 : largest > 1 ? .5 : .25;
         high = Math.max(step, Math.ceil(largest * 1.05 / step) * step);
         low = -high;
         ticks = [-high, -high / 2, 0, high / 2, high];
-      } else {
+      } else if (seriesMode === "index") {
         low = 0;
         high = Math.max(200, Math.ceil(Math.max(...allValues) * 1.05 / 50) * 50);
         ticks = [];
         for (let tick = 0; tick <= high; tick += 50) ticks.push(tick);
+      } else {
+        low = 0;
+        const largest = Math.max(...allValues);
+        const targetStep = largest / 5;
+        const magnitude = 10 ** Math.floor(Math.log10(targetStep));
+        const step = [1, 2, 2.5, 5, 10].map(multiplier => multiplier * magnitude)
+          .find(candidate => candidate >= targetStep);
+        high = Math.ceil(largest / step) * step;
+        ticks = Array.from({ length: Math.round(high / step) + 1 }, (_, index) => index * step);
       }
 
-      const left = 49, right = 612, top = 40, bottom = 249;
+      const left = 67, right = 612, top = 40, bottom = 249;
       const x = index => left + (right - left) * index / (months.length - 1);
       const y = value => bottom - (value - low) * (bottom - top) / (high - low);
-      const yAxisMeaning = seriesMode === "share"
-        ? `change in payment share (percentage points from Apr ${firstYear})`
-        : `transaction count index (Apr ${firstYear} = 100)`;
+      const yAxisMeaning = {
+        share: "share of these three payment methods (%)",
+        count: "monthly transaction count (crore)",
+        change: `share change from Apr ${firstYear} (percentage points)`,
+        index: `transaction count index (Apr ${firstYear} = 100; no unit)`
+      }[seriesMode];
       const fragment = document.createDocumentFragment();
       const axisTitle = svgElement("text", { x: left, y: 23, class: "chart-axis-title" });
       axisTitle.textContent = `Y axis: ${yAxisMeaning}`;
@@ -490,9 +510,12 @@
       for (const tick of ticks) {
         const ordinate = y(tick);
         fragment.appendChild(svgElement("line", { x1: left, x2: right, y1: ordinate, y2: ordinate,
-          class: tick === (seriesMode === "share" ? 0 : 100) ? "chart-zero" : "chart-grid" }));
+          class: tick === (seriesMode === "index" ? 100 : 0) ? "chart-zero" : "chart-grid" }));
         const label = svgElement("text", { x: left - 8, y: ordinate + 4, "text-anchor": "end", class: "chart-label" });
-        label.textContent = seriesMode === "share" ? tick.toFixed(Math.abs(tick) < 10 ? 1 : 0) : tick.toFixed(0);
+        label.textContent = seriesMode === "share" ? `${tick}%`
+          : seriesMode === "count" ? `${tick.toLocaleString("en-IN")} cr`
+          : seriesMode === "change" ? `${tick > 0 ? "+" : ""}${tick.toFixed(Math.abs(tick) < 10 ? 1 : 0)} pp`
+          : tick.toFixed(0);
         fragment.appendChild(label);
       }
 
@@ -514,7 +537,10 @@
           const point = svgElement("circle", { cx: x(index), cy: y(value), r: 3.2, class: `chart-point ${line.rail}-series` });
           const title = svgElement("title", {});
           const name = line.rail === "upi" ? "UPI P2M" : `${line.rail} card`;
-          const amount = seriesMode === "share" ? `${value >= 0 ? "+" : ""}${value.toFixed(2)} percentage points` : `${value.toFixed(1)} (Apr ${firstYear} = 100)`;
+          const amount = seriesMode === "share" ? `${value.toFixed(2)}% of these three methods`
+            : seriesMode === "count" ? `${value.toLocaleString("en-IN", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} crore transactions`
+            : seriesMode === "change" ? `${value >= 0 ? "+" : ""}${value.toFixed(2)} percentage points from Apr ${firstYear}`
+            : `${value.toFixed(1)} (Apr ${firstYear} = 100; no unit)`;
           title.textContent = `${shortMonth(months[index][0])} · ${name}: ${amount}`;
           point.appendChild(title);
           fragment.appendChild(point);
@@ -523,18 +549,30 @@
       drawing.replaceChildren(fragment);
 
       const formatEnd = value => {
-        if (seriesMode === "index") return value.toFixed(0);
+        if (seriesMode === "share") return `${value.toFixed(1)}%`;
+        if (seriesMode === "count") return `${value.toLocaleString("en-IN", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} crore`;
+        if (seriesMode === "index") return `${value.toFixed(0)} index`;
         const shown = Math.abs(value) < .1 ? value.toFixed(2) : value.toFixed(1);
         return `${value >= 0 ? "+" : ""}${shown} pp`;
       };
       const [upi, credit, debit] = lines.map(line => formatEnd(line.values.at(-1)));
       document.getElementById("series-period").textContent = `Apr ${firstYear}–Mar ${firstYear + 2}`;
-      document.getElementById("series-title").textContent = `${seriesMode === "share" ? "Payment mix change" : "Transaction count index"}, Apr ${firstYear} to Mar ${firstYear + 2}`;
+      const chartTitles = {
+        share: "Payment share (%)",
+        count: "Monthly transactions (crore)",
+        change: "Payment share change (percentage points)",
+        index: "Transaction count index (April = 100)"
+      };
+      document.getElementById("series-title").textContent = `${chartTitles[seriesMode]}, Apr ${firstYear} to Mar ${firstYear + 2}`;
       document.getElementById("series-desc").textContent = `Y axis: ${yAxisMeaning}. Observed monthly lines for UPI P2M, credit cards, and debit cards. In March ${firstYear + 2}: UPI ${upi}, credit ${credit}, debit ${debit}.`;
       document.getElementById("series-summary").textContent = `Mar ${firstYear + 2}: UPI ${upi} · credit ${credit} · debit ${debit}`;
-      document.getElementById("series-note").textContent = seriesMode === "share"
-        ? `Share change in percentage points from Apr ${firstYear}. Shading marks the second fiscal year. Sliders model annual totals below.`
-        : `Each method's Apr ${firstYear} count = 100. Shading marks the second fiscal year. Sliders model annual totals below.`;
+      const chartNotes = {
+        share: "Shares sum to 100% across these three payment methods each month. Shading marks the second fiscal year. Sliders model annual totals below.",
+        count: "1 crore = 10 million transactions. Card lines sit near the bottom because UPI has many more payments; point details show exact counts. Shading marks the second fiscal year.",
+        change: `Each line shows the change in share, in percentage points, from Apr ${firstYear}. Shading marks the second fiscal year.`,
+        index: `Each method's Apr ${firstYear} count = 100; the index has no count unit. Shading marks the second fiscal year.`
+      };
+      document.getElementById("series-note").textContent = chartNotes[seriesMode];
     }
 
     function render() {
