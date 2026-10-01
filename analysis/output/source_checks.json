@@ -1,0 +1,31 @@
+{
+  "coverage": {
+    "transfer_months": 120,
+    "merchant_months": 51
+  },
+  "maximum_absolute_source_difference": {
+    "CPI linked-index rounding": 2.842170943040401e-14,
+    "P2P + P2M value vs ecosystem total (crore)": 0.02000000001862645,
+    "P2P + P2M volume vs ecosystem total (mn)": 0.010000000002037268,
+    "UPI ecosystem vs product value (crore)": 7667.09999999986,
+    "UPI ecosystem vs product volume (mn)": 34.8799999999992,
+    "credit + debit value vs card total (crore)": 1.0,
+    "credit + debit volume vs card total (lakh)": 0.010000000000218279,
+    "credit PoS + Other value (crore)": 1.0,
+    "credit PoS + Other volume (lakh)": 0.010000000000218279,
+    "debit PoS + Other value (crore)": 1.0,
+    "debit PoS + Other volume (lakh)": 0.010000000000218279
+  },
+  "cross_source_discrepancies": [
+    {
+      "month": "2023-04",
+      "ecosystem_minus_product_volume_mn": 34.88,
+      "ecosystem_minus_product_value_crore": -7667.1
+    },
+    {
+      "month": "2023-07",
+      "ecosystem_minus_product_volume_mn": 0.0,
+      "ecosystem_minus_product_value_crore": 108.76
+    }
+  ]
+}

@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f4ef">
+  <meta name="description" content="An interactive payment-mix game showing market growth, changing shares, and card-payment contraction in India.">
+  <title>Play with the Payment Mix · Utility Maximizers</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f5f4ef;
+      --surface: #fffefa;
+      --ink: #152b33;
+      --muted: #53656a;
+      --line: #dce2dc;
+      --green: #126b54;
+      --green-soft: #e3f1e9;
+      --blue: #447893;
+      --coral: #c96d53;
+      --navy: #16323b;
+      --yellow: #f0c66b;
+      --shadow: 0 14px 38px rgba(21, 43, 51, .07);
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; }
+    button, input, select { font: inherit; }
+    button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible { outline: 3px solid #bb8d31; outline-offset: 3px; }
+    .wrap { width: min(1120px, calc(100% - 40px)); margin-inline: auto; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 22px 0; border-bottom: 1px solid var(--line); }
+    .brand { display: flex; gap: 11px; align-items: center; text-decoration: none; font-weight: 750; letter-spacing: -.02em; }
+    .brand-mark { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 11px; background: var(--green); color: white; font-size: 17px; }
+    .brand small { display: block; color: var(--muted); font-size: 11px; font-weight: 600; letter-spacing: .11em; text-transform: uppercase; }
+    nav { display: flex; gap: 23px; align-items: center; }
+    nav a { color: #42575c; font-size: 13px; font-weight: 650; text-decoration: none; }
+    nav a:hover, nav a[aria-current="page"] { color: var(--green); }
+    .intro { display: grid; grid-template-columns: 1.2fr .8fr; gap: 32px; padding: 62px 0 40px; align-items: end; }
+    .eyebrow { display: inline-flex; gap: 8px; align-items: center; color: var(--green); font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .14em; }
+    .eyebrow::before { content: ""; width: 20px; height: 2px; background: var(--green); }
+    h1 { margin: 17px 0 15px; font-family: Georgia, "Times New Roman", serif; font-size: clamp(37px, 5vw, 62px); line-height: 1.06; letter-spacing: -.045em; font-weight: 500; }
+    h1 em { color: var(--green); font-weight: 500; }
+    .lede { margin: 0; max-width: 660px; color: var(--muted); font-size: 16px; line-height: 1.65; }
+    .intro-aside { padding: 22px 24px; background: var(--navy); color: #f6f5ed; border-radius: 18px; box-shadow: var(--shadow); }
+    .intro-aside strong { display: block; font-family: Georgia, "Times New Roman", serif; font-size: 25px; font-weight: 500; line-height: 1.2; }
+    .intro-aside p { margin: 10px 0 0; color: #c7d5d3; font-size: 13px; }
+    .timeline { padding: 25px; margin-bottom: 18px; }
+    .timeline-top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(230px, 310px); gap: 24px; align-items: end; }
+    .timeline-picker { padding: 13px 15px; border: 1px solid #bfd4c7; border-radius: 12px; background: var(--green-soft); }
+    .timeline-picker label { display: block; font-size: 13px; font-weight: 750; }
+    .timeline-picker select { display: block; width: 100%; margin-top: 8px; padding: 10px 12px; border: 1px solid #9fbdac; border-radius: 8px; background: var(--surface); color: var(--ink); font-weight: 750; cursor: pointer; }
+    .lab { display: grid; grid-template-columns: minmax(280px, 350px) minmax(0, 1fr); gap: 18px; align-items: start; padding-bottom: 54px; }
+    .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; box-shadow: var(--shadow); }
+    .controls { padding: 25px; }
+    .panel-kicker { margin: 0 0 4px; color: var(--green); font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    h2 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: 29px; font-weight: 500; letter-spacing: -.025em; line-height: 1.15; }
+    .hint { color: var(--muted); font-size: 13px; margin: 9px 0 0; }
+    .control { padding-top: 24px; margin-top: 24px; border-top: 1px solid var(--line); }
+    .control:first-of-type { margin-top: 18px; }
+    .control-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+    .control label { font-weight: 750; font-size: 14px; }
+    .control output { color: var(--green); font-size: 19px; font-weight: 750; white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .control p { color: var(--muted); font-size: 12px; margin: 2px 0 10px; }
+    input[type="range"] { display: block; width: 100%; margin: 14px 0 2px; accent-color: var(--green); cursor: pointer; }
+    .range-ends { display: flex; justify-content: space-between; color: var(--muted); font-size: 11px; }
+    .presets { margin-top: 27px; padding-top: 23px; border-top: 1px solid var(--line); }
+    .presets p { margin: 0 0 10px; font-size: 12px; color: var(--muted); }
+    .preset-list { display: flex; flex-wrap: wrap; gap: 7px; }
+    .preset { border: 1px solid #bfd4c7; border-radius: 9px; background: #f7faf7; padding: 8px 10px; color: var(--green); font-size: 12px; font-weight: 750; cursor: pointer; }
+    .preset:hover { background: var(--green-soft); }
+    .preset[aria-pressed="true"] { background: var(--green); color: white; border-color: var(--green); }
+    .outcomes { padding: 25px; }
+    .outcomes-top { display: flex; align-items: start; justify-content: space-between; gap: 18px; }
+    .total { min-width: 120px; text-align: right; font-variant-numeric: tabular-nums; }
+    .total strong { display: block; color: var(--green); font-family: Georgia, "Times New Roman", serif; font-size: 30px; font-weight: 500; line-height: 1.1; }
+    .total span { display: block; color: var(--muted); font-size: 11px; }
+    .section-title { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin: 31px 0 12px; }
+    h3 { margin: 0; font-size: 15px; }
+    .section-title small { color: var(--muted); font-size: 11px; }
+    .chart-switch { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 11px; }
+    .chart-choice { border: 1px solid #bfd4c7; border-radius: 8px; background: #f7faf7; padding: 7px 11px; color: var(--green); font-size: 12px; font-weight: 750; cursor: pointer; }
+    .chart-choice[aria-pressed="true"] { background: var(--green); border-color: var(--green); color: white; }
+    .chart-frame { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: #fbfcf9; }
+    #series-chart { display: block; width: 100%; min-width: 500px; height: auto; }
+    .chart-highlight { fill: #f6e6c3; opacity: .55; }
+    .chart-grid { stroke: #dce5df; stroke-width: 1; }
+    .chart-zero { stroke: #96aaa0; stroke-width: 1.5; }
+    .chart-year-divider { stroke: #9daea8; stroke-width: 1.5; stroke-dasharray: 5 5; }
+    .chart-label { fill: var(--muted); font-size: 11px; font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    .chart-line { fill: none; stroke-width: 3; stroke-linejoin: round; stroke-linecap: round; }
+    .chart-line.upi-series { stroke: var(--green); }
+    .chart-line.credit-series { stroke: var(--blue); }
+    .chart-line.debit-series { stroke: var(--coral); }
+    .chart-point { stroke: #fffefa; stroke-width: 1.2; }
+    .chart-point.upi-series { fill: var(--green); }
+    .chart-point.credit-series { fill: var(--blue); }
+    .chart-point.debit-series { fill: var(--coral); }
+    .chart-summary { margin: 10px 0 0; color: var(--ink); font-size: 12px; font-weight: 650; font-variant-numeric: tabular-nums; }
+    .chart-note { margin: 7px 0 0; color: var(--muted); font-size: 11px; }
+    .history-row { display: grid; grid-template-columns: 96px minmax(0, 1fr) 58px; align-items: center; gap: 10px; padding: 6px 8px; border-radius: 8px; }
+    .history-row.selected { background: var(--green-soft); }
+    .history-row.target { outline: 1px solid #a8cabb; }
+    .history-row.scenario-history { margin: 3px 0 8px; background: #fbf2df; outline: 1px dashed #c9aa66; }
+    .history-row.scenario-history > span, .history-row.scenario-history > strong { color: #795719; font-weight: 750; }
+    .history-row > span, .history-row > strong { font-size: 11px; font-variant-numeric: tabular-nums; }
+    .history-row > span { color: var(--muted); }
+    .history-row > strong { text-align: right; color: var(--green); }
+    .history-row .stack { height: 21px; }
+    .history-hint { margin: 8px 0 0; color: var(--muted); font-size: 11px; }
+    .stack { display: flex; overflow: hidden; height: 23px; border-radius: 7px; background: #e9efea; }
+    .segment { height: 100%; transition: width .18s ease; }
+    .upi { background: var(--green); }
+    .credit { background: var(--blue); }
+    .debit { background: var(--coral); }
+    .legend { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 13px; }
+    .legend span { display: inline-flex; align-items: center; gap: 5px; color: var(--muted); font-size: 11px; }
+    .swatch { width: 9px; height: 9px; border-radius: 3px; }
+    .mix-numbers { margin: 11px 0 0; color: var(--ink); font-size: 12px; font-weight: 650; font-variant-numeric: tabular-nums; }
+    .rail-row { margin: 18px 0 0; }
+    .rail-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 5px; font-size: 13px; }
+    .rail-head strong { font-size: 13px; }
+    .rail-head span { color: var(--green); font-weight: 750; font-variant-numeric: tabular-nums; }
+    .plot { height: 23px; position: relative; border-radius: 6px; background: #e9efea; overflow: visible; }
+    .plot::before { content: ""; position: absolute; z-index: 2; left: 43.4783%; top: -3px; bottom: -3px; border-left: 1px dashed #78928b; }
+    .scenario-bar { height: 100%; width: 0; border-radius: 6px; transition: width .18s ease; }
+    .observed-tick { position: absolute; z-index: 3; top: -5px; bottom: -5px; border-left: 3px solid var(--navy); }
+    .rail-foot { display: flex; justify-content: space-between; gap: 15px; margin-top: 5px; color: var(--muted); font-size: 11px; }
+    .axis { display: flex; justify-content: space-between; color: var(--muted); font-size: 11px; margin-top: 10px; }
+    .axis-note { color: var(--muted); font-size: 11px; margin: 7px 0 0; }
+    .readout { margin-top: 24px; border-radius: 13px; background: var(--green-soft); padding: 16px 18px; }
+    .readout strong { display: block; color: var(--green); font-size: 13px; }
+    .readout p { margin: 5px 0 0; color: #2f5147; font-size: 13px; }
+    .threshold { margin: 14px 1px 0; color: var(--muted); font-size: 12px; }
+    .method { margin-top: 17px; border-top: 1px solid var(--line); padding-top: 16px; }
+    .method summary { cursor: pointer; color: var(--green); font-size: 12px; font-weight: 750; }
+    .method p { margin: 11px 0 0; color: var(--muted); font-size: 12px; }
+    .method code { font-size: 11px; }
+    .bottom-note { max-width: 880px; padding-bottom: 44px; color: var(--muted); font-size: 12px; }
+    .bottom-note a { color: var(--green); font-weight: 700; }
+    footer { border-top: 1px solid var(--line); padding: 20px 0 28px; display: flex; justify-content: space-between; gap: 20px; color: var(--muted); font-size: 11px; }
+    @media (max-width: 820px) {
+      .intro { grid-template-columns: 1fr; padding-top: 48px; }
+      .intro-aside { max-width: 580px; }
+      .lab { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 570px) {
+      .wrap { width: min(100% - 28px, 1120px); }
+      .topbar { display: block; }
+      nav { margin-top: 14px; flex-wrap: wrap; justify-content: flex-start; gap: 7px 14px; }
+      nav a { font-size: 11px; }
+      .intro { padding-top: 35px; gap: 18px; }
+      .controls, .outcomes, .timeline { padding: 18px; }
+      .timeline-top { grid-template-columns: 1fr; gap: 14px; }
+      .outcomes-top { display: block; }
+      .total { text-align: left; margin-top: 13px; }
+      .history-row { grid-template-columns: 69px minmax(0, 1fr) 43px; gap: 6px; padding-inline: 4px; }
+      .history-row > span, .history-row > strong { font-size: 10px; }
+      footer { display: block; }
+      footer span { display: block; margin-top: 5px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .segment, .scenario-bar { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="topbar">
+      <a class="brand" href="index.html" aria-label="Utility Maximizers home">
+        <span class="brand-mark">U</span>
+        <span>Utility Maximizers<small>DA241o · Managerial Economics</small></span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="index.html">Project home</a>
+        <a href="play.html" aria-current="page">Play the model</a>
+        <a href="index.html#data">Data sources</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="intro" aria-labelledby="page-title">
+        <div>
+          <span class="eyebrow">Interactive economics lab</span>
+          <h1 id="page-title">Can a payment method <em>grow and still lose share?</em></h1>
+          <p class="lede">Change the size of the market and its payment mix. Watch transaction counts and shares respond differently.</p>
+        </div>
+        <div class="intro-aside">
+          <strong>Play with the payment mix</strong>
+          <p id="intro-period">Start in FY2022–23. Your scenario models FY2023–24; dark markers show what happened.</p>
+        </div>
+      </section>
+
+      <section class="panel timeline" aria-labelledby="timeline-title">
+        <div class="timeline-top">
+          <div>
+            <p class="panel-kicker">Explore the data</p>
+            <h2 id="timeline-title">Monthly payment paths</h2>
+            <p class="hint">Follow UPI, credit cards, and debit cards through two fiscal years.</p>
+          </div>
+          <div class="timeline-picker">
+            <label for="year-select">Starting fiscal year</label>
+            <select id="year-select">
+              <option value="0" selected>FY2022–23</option>
+              <option value="1">FY2023–24</option>
+              <option value="2">FY2024–25</option>
+            </select>
+          </div>
+        </div>
+        <div class="section-title"><h3>Time series</h3><small id="series-period">Apr 2022–Mar 2024</small></div>
+        <div class="chart-switch" role="group" aria-label="Monthly chart measure">
+          <button class="chart-choice" type="button" data-series-mode="share" aria-pressed="true">Payment mix change</button>
+          <button class="chart-choice" type="button" data-series-mode="index" aria-pressed="false">Count index</button>
+        </div>
+        <div class="chart-frame">
+          <svg id="series-chart" viewBox="0 0 640 300" role="img" aria-labelledby="series-title series-desc">
+            <title id="series-title">Monthly payment trends</title>
+            <desc id="series-desc">Three observed monthly lines for UPI P2M, credit card, and debit card payments.</desc>
+            <g id="series-drawing"></g>
+          </svg>
+        </div>
+        <div class="legend" aria-hidden="true">
+          <span><i class="swatch upi"></i>UPI P2M</span>
+          <span><i class="swatch credit"></i>Credit card</span>
+          <span><i class="swatch debit"></i>Debit card</span>
+        </div>
+        <p class="chart-summary" id="series-summary"></p>
+        <p class="chart-note" id="series-note">Observed monthly data. The sliders model annual totals below.</p>
+      </section>
+
+      <div class="lab">
+        <section class="panel controls" aria-labelledby="control-title">
+          <p class="panel-kicker">Your decisions</p>
+          <h2 id="control-title">Change the scenario</h2>
+          <p class="hint">Adjust the next fiscal year's market, then compare it with what happened.</p>
+
+          <div class="control">
+            <div class="control-head"><label for="market-growth">Grow the whole market</label><output id="market-growth-value" for="market-growth">+30.5%</output></div>
+            <p>More or fewer payments across these three methods.</p>
+            <input id="market-growth" type="range" min="-20" max="100" step="any" value="30.45">
+            <div class="range-ends"><span>−20%</span><span>+100%</span></div>
+          </div>
+
+          <div class="control">
+            <div class="control-head"><label for="credit-shift">Shift credit activity to UPI</label><output id="credit-shift-value" for="credit-shift">3.3%</output></div>
+            <p>Part of credit volume after market growth, reassigned in the model.</p>
+            <input id="credit-shift" type="range" min="0" max="60" step="any" value="3.29">
+            <div class="range-ends"><span>0%</span><span>60%</span></div>
+          </div>
+
+          <div class="control">
+            <div class="control-head"><label for="debit-shift">Shift debit activity to UPI</label><output id="debit-shift-value" for="debit-shift">39.2%</output></div>
+            <p>Part of debit volume after market growth, reassigned in the model.</p>
+            <input id="debit-shift" type="range" min="0" max="70" step="any" value="39.20">
+            <div class="range-ends"><span>0%</span><span>70%</span></div>
+          </div>
+
+          <div class="presets">
+            <p>Try a starting move</p>
+            <div class="preset-list">
+              <button class="preset" type="button" data-preset="growth" aria-pressed="false">Growth only</button>
+              <button class="preset" type="button" data-preset="observed" aria-pressed="true">Match next observed year</button>
+              <button class="preset" type="button" data-preset="substitution" aria-pressed="false">Strong shift</button>
+            </div>
+            <p style="margin-top:11px">Matching totals does not reveal actual customer switching.</p>
+          </div>
+        </section>
+
+        <section class="panel outcomes" aria-labelledby="outcome-title">
+          <div class="outcomes-top">
+            <div>
+              <p class="panel-kicker">The result</p>
+              <h2 id="outcome-title">Your FY2023–24 market</h2>
+              <p class="hint" id="outcome-hint">Starting from actual FY2022–23 transactions.</p>
+            </div>
+            <div class="total"><strong id="market-total">159.62 bn</strong><span>Total payments in this group</span></div>
+          </div>
+
+          <div class="section-title"><h3>How did the mix change over time?</h3><small>Share of three methods</small></div>
+          <div id="history" aria-label="Annual payment mix and your scenario">
+            <div class="history-row actual"><span>FY2022–23</span><div class="stack" role="img"></div><strong>87.0%</strong></div>
+            <div class="history-row actual"><span>FY2023–24</span><div class="stack" role="img"></div><strong>93.0%</strong></div>
+            <div class="history-row actual"><span>FY2024–25</span><div class="stack" role="img"></div><strong>94.8%</strong></div>
+            <div class="history-row actual"><span>FY2025–26</span><div class="stack" role="img"></div><strong>95.4%</strong></div>
+            <div class="history-row scenario-history" id="history-scenario"><span>Your scenario</span><div class="stack" id="mix-scenario" role="img"></div><strong id="history-scenario-upi">95.4%</strong></div>
+          </div>
+          <p class="history-hint">Your scenario sits below its observed year. Right number = UPI share.</p>
+          <p class="mix-numbers" id="mix-numbers">Scenario: UPI 95.4% · credit 3.8% · debit 0.8%</p>
+
+          <div class="section-title"><h3>What happens to transaction counts?</h3><small id="count-base-label">Each method's FY2024–25 = 100</small></div>
+          <div class="rail-row">
+            <div class="rail-head"><strong>UPI P2M</strong><span id="index-upi">131</span></div>
+            <div class="plot"><div class="scenario-bar upi" id="bar-upi"></div><div class="observed-tick" id="tick-upi"></div></div>
+            <div class="rail-foot"><span id="volume-upi">152.31 billion payments</span><span id="outcome-upi">Growing, gaining share</span></div>
+          </div>
+          <div class="rail-row">
+            <div class="rail-head"><strong>Credit card</strong><span id="index-credit">126</span></div>
+            <div class="plot"><div class="scenario-bar credit" id="bar-credit"></div><div class="observed-tick" id="tick-credit"></div></div>
+            <div class="rail-foot"><span id="volume-credit">6.02 billion payments</span><span id="outcome-credit">Growing, losing share</span></div>
+          </div>
+          <div class="rail-row">
+            <div class="rail-head"><strong>Debit card</strong><span id="index-debit">79</span></div>
+            <div class="plot"><div class="scenario-bar debit" id="bar-debit"></div><div class="observed-tick" id="tick-debit"></div></div>
+            <div class="rail-foot"><span id="volume-debit">1.28 billion payments</span><span id="outcome-debit">Shrinking, losing share</span></div>
+          </div>
+          <div class="axis"><span>0</span><span>100: starting count</span><span>230</span></div>
+          <p class="axis-note" id="count-note">Filled bar = your scenario. Dark tick = observed FY2025–26 count.</p>
+
+          <div class="readout" aria-live="polite">
+            <strong>What this shows</strong>
+            <p id="story">Credit-card payments can grow even while their share falls.</p>
+          </div>
+          <p class="threshold" id="threshold">At this market growth rate, a card can lose up to 23.3% of its growth baseline and still grow.</p>
+
+          <details class="method">
+            <summary>How is this scenario calculated?</summary>
+            <p>First, every method grows by the market-growth setting. Then the chosen fractions of credit and debit counts after that growth are assigned to UPI. The total stays fixed for that growth setting. These are hypothetical accounting moves, not measured customer switches or estimated effects.</p>
+          </details>
+        </section>
+      </div>
+
+      <p class="bottom-note">The actual comparison uses NPCI UPI P2M and RBI domestic card-purchase totals for the April–March fiscal years. The three rails may overlap when a card funds a UPI payment, so these are shares of a defined analytical group rather than shares of India's entire retail-payments market. <a href="index.html#data">See the data sources</a>.</p>
+    </main>
+    <footer><span>Utility Maximizers · DA241o · Managerial Economics</span><span>Interactive scenario · Data through March 2026</span></footer>
+  </div>
+
+  <script src="monthly-payment-data.js"></script>
+  <script>
+    "use strict";
+
+    // Millions of transactions from analysis/output/annual_summary.csv, NPCI + RBI.
+    const YEARS = Object.freeze([
+      Object.freeze({ label: "FY2022–23", upi: 42601.15, credit: 2916.327, debit: 3421.688 }),
+      Object.freeze({ label: "FY2023–24", upi: 77599.51, credit: 3560.008, debit: 2286.257 }),
+      Object.freeze({ label: "FY2024–25", upi: 115966.78, credit: 4774.367, debit: 1614.092 }),
+      Object.freeze({ label: "FY2025–26", upi: 152311.65, credit: 6023.628, debit: 1280.211 })
+    ]);
+    const RAILS = Object.freeze(["upi", "credit", "debit"]);
+    const SCALE_MAX = 230;
+    const SVG_NS = "http://www.w3.org/2000/svg";
+    const MONTH_NAMES = Object.freeze(["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]);
+    const yearSelect = document.getElementById("year-select");
+    let seriesMode = "share";
+    let renderedSeriesKey = "";
+    const inputs = {
+      growth: document.getElementById("market-growth"),
+      credit: document.getElementById("credit-shift"),
+      debit: document.getElementById("debit-shift")
+    };
+
+    function bounded(input) {
+      const value = Number(input.value);
+      const low = Number(input.min);
+      const high = Number(input.max);
+      return Number.isFinite(value) ? Math.min(high, Math.max(low, value)) : low;
+    }
+
+    function selectedYearIndex() {
+      const value = Number(yearSelect.value);
+      return Number.isInteger(value) && value >= 0 && value < YEARS.length - 1 ? value : 0;
+    }
+
+    function shares(values) {
+      const total = RAILS.reduce((sum, rail) => sum + values[rail], 0);
+      return Object.fromEntries(RAILS.map(rail => [rail, 100 * values[rail] / total]));
+    }
+
+    function scenario(base, growth, creditShift, debitShift) {
+      const multiplier = 1 + growth / 100;
+      const neutralCredit = base.credit * multiplier;
+      const neutralDebit = base.debit * multiplier;
+      const movedCredit = neutralCredit * creditShift / 100;
+      const movedDebit = neutralDebit * debitShift / 100;
+      return {
+        upi: base.upi * multiplier + movedCredit + movedDebit,
+        credit: neutralCredit - movedCredit,
+        debit: neutralDebit - movedDebit
+      };
+    }
+
+    function observedSettings(base, observed) {
+      const baseTotal = RAILS.reduce((sum, rail) => sum + base[rail], 0);
+      const observedTotal = RAILS.reduce((sum, rail) => sum + observed[rail], 0);
+      const growth = (observedTotal / baseTotal - 1) * 100;
+      const multiplier = 1 + growth / 100;
+      return {
+        growth,
+        credit: (1 - observed.credit / (base.credit * multiplier)) * 100,
+        debit: (1 - observed.debit / (base.debit * multiplier)) * 100
+      };
+    }
+
+    function pattern(levelChange, shareChange) {
+      const level = Math.abs(levelChange) < 0.000001 ? 0 : Math.sign(levelChange);
+      const share = Math.abs(shareChange) < 0.000001 ? 0 : Math.sign(shareChange);
+      if (level > 0 && share < 0) return "Growing, losing share";
+      if (level < 0 && share < 0) return "Shrinking, losing share";
+      if (level > 0 && share > 0) return "Growing, gaining share";
+      if (level < 0 && share > 0) return "Shrinking, gaining share";
+      if (share === 0) return level > 0 ? "Growing, share steady" : level < 0 ? "Shrinking, share steady" : "No change";
+      return share > 0 ? "Share rose, count steady" : "Share fell, count steady";
+    }
+
+    function setMix(element, values, label) {
+      const parts = shares(values);
+      if (element.children.length === 0) {
+        for (const rail of RAILS) {
+          const segment = document.createElement("span");
+          segment.className = `segment ${rail}`;
+          element.appendChild(segment);
+        }
+      }
+      RAILS.forEach((rail, index) => {
+        element.children[index].style.width = `${parts[rail]}%`;
+      });
+      element.setAttribute("aria-label", `${label}: UPI ${parts.upi.toFixed(1)} percent, credit ${parts.credit.toFixed(1)} percent, debit ${parts.debit.toFixed(1)} percent`);
+    }
+
+    function svgElement(name, attributes) {
+      const element = document.createElementNS(SVG_NS, name);
+      for (const [key, value] of Object.entries(attributes)) {
+        element.setAttribute(key, String(value));
+      }
+      return element;
+    }
+
+    function shortMonth(isoMonth) {
+      const [year, month] = isoMonth.split("-");
+      return `${MONTH_NAMES[Number(month) - 1]} ’${year.slice(2)}`;
+    }
+
+    function renderSeries(selectedIndex) {
+      const key = `${selectedIndex}:${seriesMode}`;
+      if (key === renderedSeriesKey) return;
+      renderedSeriesKey = key;
+
+      const firstYear = 2022 + selectedIndex;
+      const start = `${firstYear}-04`;
+      const end = `${firstYear + 2}-03`;
+      const months = MONTHLY_MERCHANT.filter(row => row[0] >= start && row[0] <= end);
+      const drawing = document.getElementById("series-drawing");
+      if (months.length !== 24) {
+        drawing.replaceChildren();
+        document.getElementById("series-summary").textContent = "Monthly observations are incomplete for this period.";
+        return;
+      }
+
+      const base = months[0];
+      const baseTotal = base[1] + base[2] + base[3];
+      const lines = RAILS.map((rail, railIndex) => {
+        const column = railIndex + 1;
+        const values = months.map(row => {
+          if (seriesMode === "index") return 100 * row[column] / base[column];
+          const total = row[1] + row[2] + row[3];
+          return 100 * (row[column] / total - base[column] / baseTotal);
+        });
+        return { rail, values };
+      });
+      const allValues = lines.flatMap(line => line.values);
+      let low, high, ticks;
+      if (seriesMode === "share") {
+        const largest = Math.max(...allValues.map(Math.abs));
+        const step = largest > 8 ? 5 : largest > 3 ? 1 : largest > 1 ? .5 : .25;
+        high = Math.max(step, Math.ceil(largest * 1.05 / step) * step);
+        low = -high;
+        ticks = [-high, -high / 2, 0, high / 2, high];
+      } else {
+        low = 0;
+        high = Math.max(200, Math.ceil(Math.max(...allValues) * 1.05 / 50) * 50);
+        ticks = [];
+        for (let tick = 0; tick <= high; tick += 50) ticks.push(tick);
+      }
+
+      const left = 49, right = 612, top = 20, bottom = 249;
+      const x = index => left + (right - left) * index / (months.length - 1);
+      const y = value => bottom - (value - low) * (bottom - top) / (high - low);
+      const fragment = document.createDocumentFragment();
+      fragment.appendChild(svgElement("rect", {
+        x: (x(11) + x(12)) / 2, y: top, width: right - (x(11) + x(12)) / 2 + 12,
+        height: bottom - top, class: "chart-highlight"
+      }));
+
+      for (const tick of ticks) {
+        const ordinate = y(tick);
+        fragment.appendChild(svgElement("line", { x1: left, x2: right, y1: ordinate, y2: ordinate,
+          class: tick === (seriesMode === "share" ? 0 : 100) ? "chart-zero" : "chart-grid" }));
+        const label = svgElement("text", { x: left - 8, y: ordinate + 4, "text-anchor": "end", class: "chart-label" });
+        label.textContent = seriesMode === "share" ? tick.toFixed(Math.abs(tick) < 10 ? 1 : 0) : tick.toFixed(0);
+        fragment.appendChild(label);
+      }
+
+      fragment.appendChild(svgElement("line", { x1: (x(11) + x(12)) / 2, x2: (x(11) + x(12)) / 2,
+        y1: top, y2: bottom, class: "chart-year-divider" }));
+      for (const index of [0, 6, 12, 18, 23]) {
+        const label = svgElement("text", { x: x(index), y: 274, "text-anchor": index === 0 ? "start" : index === 23 ? "end" : "middle", class: "chart-label" });
+        label.textContent = shortMonth(months[index][0]);
+        fragment.appendChild(label);
+      }
+
+      for (const line of lines) {
+        const path = svgElement("path", {
+          d: line.values.map((value, index) => `${index === 0 ? "M" : "L"}${x(index).toFixed(1)},${y(value).toFixed(1)}`).join(" "),
+          class: `chart-line ${line.rail}-series`
+        });
+        fragment.appendChild(path);
+        line.values.forEach((value, index) => {
+          const point = svgElement("circle", { cx: x(index), cy: y(value), r: 2.5, class: `chart-point ${line.rail}-series` });
+          const title = svgElement("title", {});
+          const name = line.rail === "upi" ? "UPI P2M" : `${line.rail} card`;
+          const amount = seriesMode === "share" ? `${value >= 0 ? "+" : ""}${value.toFixed(2)} percentage points` : `${value.toFixed(1)} (Apr ${firstYear} = 100)`;
+          title.textContent = `${shortMonth(months[index][0])} · ${name}: ${amount}`;
+          point.appendChild(title);
+          fragment.appendChild(point);
+        });
+      }
+      drawing.replaceChildren(fragment);
+
+      const formatEnd = value => {
+        if (seriesMode === "index") return value.toFixed(0);
+        const shown = Math.abs(value) < .1 ? value.toFixed(2) : value.toFixed(1);
+        return `${value >= 0 ? "+" : ""}${shown} pp`;
+      };
+      const [upi, credit, debit] = lines.map(line => formatEnd(line.values.at(-1)));
+      document.getElementById("series-period").textContent = `Apr ${firstYear}–Mar ${firstYear + 2}`;
+      document.getElementById("series-title").textContent = `${seriesMode === "share" ? "Payment mix change" : "Transaction count index"}, Apr ${firstYear} to Mar ${firstYear + 2}`;
+      document.getElementById("series-desc").textContent = `Observed monthly lines for UPI P2M, credit cards, and debit cards. In March ${firstYear + 2}: UPI ${upi}, credit ${credit}, debit ${debit}.`;
+      document.getElementById("series-summary").textContent = `Mar ${firstYear + 2}: UPI ${upi} · credit ${credit} · debit ${debit}`;
+      document.getElementById("series-note").textContent = seriesMode === "share"
+        ? `Share change in percentage points from Apr ${firstYear}. Shading marks the second fiscal year. Sliders model annual totals below.`
+        : `Each method's Apr ${firstYear} count = 100. Shading marks the second fiscal year. Sliders model annual totals below.`;
+    }
+
+    function render() {
+      const selectedIndex = selectedYearIndex();
+      const base = YEARS[selectedIndex];
+      const observed = YEARS[selectedIndex + 1];
+      const growth = bounded(inputs.growth);
+      const creditShift = bounded(inputs.credit);
+      const debitShift = bounded(inputs.debit);
+      const result = scenario(base, growth, creditShift, debitShift);
+      const baseShares = shares(base);
+      const resultShares = shares(result);
+      const total = RAILS.reduce((sum, rail) => sum + result[rail], 0);
+
+      document.getElementById("intro-period").textContent = `Start in ${base.label}. Your scenario models ${observed.label}; dark markers show what happened.`;
+      document.getElementById("outcome-title").textContent = `Your ${observed.label} market`;
+      document.getElementById("outcome-hint").textContent = `Starting from actual ${base.label} transactions.`;
+      document.getElementById("market-growth-value").textContent = `${growth >= 0 ? "+" : ""}${growth.toFixed(1)}%`;
+      document.getElementById("credit-shift-value").textContent = `${creditShift.toFixed(1)}%`;
+      document.getElementById("debit-shift-value").textContent = `${debitShift.toFixed(1)}%`;
+      document.getElementById("market-total").textContent = `${(total / 1000).toFixed(2)} bn`;
+      renderSeries(selectedIndex);
+      const historyRows = document.querySelectorAll("#history .history-row.actual");
+      historyRows.forEach((row, yearIndex) => {
+        row.classList.toggle("selected", yearIndex === selectedIndex || yearIndex === selectedIndex + 1);
+        row.classList.toggle("target", yearIndex === selectedIndex + 1);
+        setMix(row.querySelector(".stack"), YEARS[yearIndex], `Actual ${YEARS[yearIndex].label}`);
+        row.querySelector("strong").textContent = `${shares(YEARS[yearIndex]).upi.toFixed(1)}%`;
+      });
+      historyRows[selectedIndex + 1].after(document.getElementById("history-scenario"));
+      setMix(document.getElementById("mix-scenario"), result, `Your ${observed.label} scenario`);
+      document.getElementById("history-scenario-upi").textContent = `${resultShares.upi.toFixed(1)}%`;
+      document.getElementById("mix-numbers").textContent = `Scenario: UPI ${resultShares.upi.toFixed(1)}% · credit ${resultShares.credit.toFixed(1)}% · debit ${resultShares.debit.toFixed(1)}%`;
+      document.getElementById("count-base-label").textContent = `Each method's ${base.label} = 100`;
+      document.getElementById("count-note").textContent = `Filled bar = your scenario. Dark tick = observed ${observed.label} count.`;
+
+      for (const rail of RAILS) {
+        const index = 100 * result[rail] / base[rail];
+        const observedIndex = 100 * observed[rail] / base[rail];
+        const change = result[rail] - base[rail];
+        const shareChange = resultShares[rail] - baseShares[rail];
+        document.getElementById(`index-${rail}`).textContent = index.toFixed(0);
+        document.getElementById(`bar-${rail}`).style.width = `${Math.min(100, 100 * index / SCALE_MAX)}%`;
+        document.getElementById(`tick-${rail}`).style.left = `${Math.min(100, 100 * observedIndex / SCALE_MAX)}%`;
+        document.getElementById(`volume-${rail}`).textContent = `${(result[rail] / 1000).toFixed(2)} billion payments`;
+        document.getElementById(`outcome-${rail}`).textContent = pattern(change, shareChange);
+      }
+
+      const creditPattern = pattern(result.credit - base.credit, resultShares.credit - baseShares.credit);
+      const debitPattern = pattern(result.debit - base.debit, resultShares.debit - baseShares.debit);
+      document.getElementById("story").textContent = `Credit: ${creditPattern.toLowerCase()}. Debit: ${debitPattern.toLowerCase()}. Market growth and payment mix can point in different directions.`;
+      const threshold = 100 * growth / (100 + growth);
+      document.getElementById("threshold").textContent = growth > 0
+        ? `At ${growth.toFixed(1)}% market growth, a card can shift up to ${threshold.toFixed(1)}% of its count after common growth and still grow in number.`
+        : "When the whole market contracts, a card needs a gain elsewhere to avoid losing transactions.";
+    }
+
+    function selectPreset(name) {
+      const selectedIndex = selectedYearIndex();
+      const observed = observedSettings(YEARS[selectedIndex], YEARS[selectedIndex + 1]);
+      const presets = {
+        growth: { growth: observed.growth, credit: 0, debit: 0 },
+        observed,
+        substitution: { growth: 10, credit: 40, debit: 60 }
+      };
+      const chosen = presets[name];
+      if (!chosen) return;
+      inputs.growth.value = String(chosen.growth);
+      inputs.credit.value = String(chosen.credit);
+      inputs.debit.value = String(chosen.debit);
+      document.querySelectorAll("[data-preset]").forEach(button => {
+        button.setAttribute("aria-pressed", String(button.dataset.preset === name));
+      });
+      render();
+    }
+
+    Object.values(inputs).forEach(input => input.addEventListener("input", () => {
+      document.querySelectorAll("[data-preset]").forEach(button => button.setAttribute("aria-pressed", "false"));
+      render();
+    }));
+    yearSelect.addEventListener("change", () => selectPreset("observed"));
+    document.querySelectorAll("[data-series-mode]").forEach(button => {
+      button.addEventListener("click", () => {
+        seriesMode = button.dataset.seriesMode;
+        document.querySelectorAll("[data-series-mode]").forEach(choice => {
+          choice.setAttribute("aria-pressed", String(choice === button));
+        });
+        renderSeries(selectedYearIndex());
+      });
+    });
+    document.querySelectorAll("[data-preset]").forEach(button => {
+      button.addEventListener("click", () => selectPreset(button.dataset.preset));
+    });
+    selectPreset("observed");
+  </script>
+</body>
+</html>

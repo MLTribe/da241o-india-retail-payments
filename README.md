@@ -2,6 +2,9 @@
 
 This folder is the home for DA241o Assignment 2 inputs. The existing `data/` files at the parent level belong to the earlier smartphone project and are not part of the UPI assignment.
 
+The reproducible payment-mix model and its findings are in [`analysis/`](analysis/README.md).
+The interactive market-mix game is in [`docs/play.html`](docs/play.html), linked from the project's home page.
+
 ## Organization
 
 - `by_year/YYYY/` contains cleaned monthly extracts assigned by **observation calendar year**. Use these files for analysis.

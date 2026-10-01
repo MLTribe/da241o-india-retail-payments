@@ -1,0 +1,394 @@
+month,basket,rail,volume_mn,value_nominal_crore,value_real_mar2026_crore,average_ticket_nominal_rs,average_ticket_real_mar2026_rs,basket_volume_mn,volume_share_pct,value_share_pct,volume_yoy_pct,volume_share_yoy_pp,real_value_yoy_pct,volume_pattern_yoy,source_url
+2016-04,transfer,UPI total,0.0,0.0,,,,26.78,0.0,0.0,,,,,https://www.npci.org.in/product/upi/product-statistics
+2016-04,transfer,IMPS,26.78,21044.3,,7858.215086,,26.78,100.0,100.0,,,,,https://www.npci.org.in/product/imps/product-statistics
+2016-05,transfer,UPI total,0.0,0.0,,,,27.66,0.0,0.0,,,,,https://www.npci.org.in/product/upi/product-statistics
+2016-05,transfer,IMPS,27.66,21617.76,,7815.531453,,27.66,100.0,100.0,,,,,https://www.npci.org.in/product/imps/product-statistics
+2016-06,transfer,UPI total,0.0,0.0,,,,29.68,0.0,0.0,,,,,https://www.npci.org.in/product/upi/product-statistics
+2016-06,transfer,IMPS,29.68,23716.52,,7990.74124,,29.68,100.0,100.0,,,,,https://www.npci.org.in/product/imps/product-statistics
+2016-07,transfer,UPI total,0.09,0.38,,42.222222,,32.27,0.278897,0.00147,,,,,https://www.npci.org.in/product/upi/product-statistics
+2016-07,transfer,IMPS,32.18,25853.79,,8034.117464,,32.27,99.721103,99.99853,,,,,https://www.npci.org.in/product/imps/product-statistics
+2016-08,transfer,UPI total,0.09,3.09,,343.333333,,33.98,0.264862,0.011508,,,,,https://www.npci.org.in/product/upi/product-statistics
+2016-08,transfer,IMPS,33.89,26848.86,,7922.354677,,33.98,99.735138,99.988492,,,,,https://www.npci.org.in/product/imps/product-statistics
+2016-09,transfer,UPI total,0.09,32.64,,3626.666667,,36.02,0.249861,0.112768,,,,,https://www.npci.org.in/product/upi/product-statistics
+2016-09,transfer,IMPS,35.93,28911.77,,8046.693571,,36.02,99.750139,99.887232,,,,,https://www.npci.org.in/product/imps/product-statistics
+2016-10,transfer,UPI total,0.1,48.57,,4857.0,,42.21,0.236911,0.141111,,,,,https://www.npci.org.in/product/upi/product-statistics
+2016-10,transfer,IMPS,42.11,34371.15,,8162.229874,,42.21,99.763089,99.858889,,,,,https://www.npci.org.in/product/imps/product-statistics
+2016-11,transfer,UPI total,0.29,100.46,,3464.137931,,36.46,0.795392,0.308339,,,,,https://www.npci.org.in/product/upi/product-statistics
+2016-11,transfer,IMPS,36.17,32480.53,,8979.964059,,36.46,99.204608,99.691661,,,,,https://www.npci.org.in/product/imps/product-statistics
+2016-12,transfer,UPI total,1.99,707.93,,3557.437186,,54.85,3.628077,1.61228,,,,,https://www.npci.org.in/product/upi/product-statistics
+2016-12,transfer,IMPS,52.86,43200.7,,8172.66364,,54.85,96.371923,98.38772,,,,,https://www.npci.org.in/product/imps/product-statistics
+2017-01,transfer,UPI total,4.46,1696.22,,3803.183857,,66.89,6.667663,3.337582,,,,,https://www.npci.org.in/product/upi/product-statistics
+2017-01,transfer,IMPS,62.43,49125.6,,7868.909178,,66.89,93.332337,96.662418,,,,,https://www.npci.org.in/product/imps/product-statistics
+2017-02,transfer,UPI total,4.38,1937.71,,4423.995434,,64.13,6.829877,3.863135,,,,,https://www.npci.org.in/product/upi/product-statistics
+2017-02,transfer,IMPS,59.75,48221.29,,8070.508787,,64.13,93.170123,96.136865,,,,,https://www.npci.org.in/product/imps/product-statistics
+2017-03,transfer,UPI total,6.37,2425.14,,3807.127159,,73.78,8.633776,4.117841,,,,,https://www.npci.org.in/product/upi/product-statistics
+2017-03,transfer,IMPS,67.41,56468.35,,8376.850616,,73.78,91.366224,95.882159,,,,,https://www.npci.org.in/product/imps/product-statistics
+2017-04,transfer,UPI total,7.2,2271.24,,3154.5,,72.28,9.961262,3.883983,,9.961262,,,https://www.npci.org.in/product/upi/product-statistics
+2017-04,transfer,IMPS,65.08,56205.84,,8636.422864,,72.28,90.038738,96.116017,143.017177,-9.961262,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2017-05,transfer,UPI total,9.36,2797.07,,2988.32265,,76.08,12.302839,4.558744,,12.302839,,,https://www.npci.org.in/product/upi/product-statistics
+2017-05,transfer,IMPS,66.72,58559.08,,8776.840528,,76.08,87.697161,95.441256,141.214751,-12.302839,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2017-06,transfer,UPI total,10.35,3098.36,,2993.584541,,76.19,13.58446,4.937398,,13.58446,,,https://www.npci.org.in/product/upi/product-statistics
+2017-06,transfer,IMPS,65.84,59654.53,,9060.530073,,76.19,86.41554,95.062602,121.832884,-13.58446,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2017-07,transfer,UPI total,11.63,3411.35,,2933.233018,,80.7,14.4114,5.339617,12822.222222,14.132503,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2017-07,transfer,IMPS,69.07,60476.19,,8755.782539,,80.7,85.5886,94.660383,114.63642,-14.132503,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2017-08,transfer,UPI total,16.8,4156.62,,2474.178571,,92.46,18.170019,5.997482,18566.666667,17.905158,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2017-08,transfer,IMPS,75.66,65149.47,,8610.820777,,92.46,81.829981,94.002518,123.251697,-17.905158,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2017-09,transfer,UPI total,30.98,5325.81,,1719.112331,,113.83,27.216024,6.908974,34322.222222,26.966163,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2017-09,transfer,IMPS,82.85,71759.59,,8661.386844,,113.83,72.783976,93.091026,130.587253,-26.966163,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2017-10,transfer,UPI total,76.96,7057.78,,917.071206,,165.08,46.619821,8.596629,76860.0,46.38291,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2017-10,transfer,IMPS,88.12,75041.61,,8515.843168,,165.08,53.380179,91.403371,109.261458,-46.38291,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2017-11,transfer,UPI total,105.02,9669.33,,920.713197,,194.51,53.992083,10.996995,36113.793103,53.19669,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2017-11,transfer,IMPS,89.49,78257.69,,8744.853056,,194.51,46.007917,89.003005,147.414985,-53.19669,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2017-12,transfer,UPI total,145.64,13174.24,,904.575666,,243.65,59.774266,13.137399,7218.592965,56.14619,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2017-12,transfer,IMPS,98.01,87106.19,,8887.479849,,243.65,40.225734,86.862601,85.414302,-56.14619,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2018-01,transfer,UPI total,151.83,15571.2,,1025.56807,,251.42,60.388991,15.003356,3304.26009,53.721327,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2018-01,transfer,IMPS,99.59,88213.58,,8857.674465,,251.42,39.611009,84.996644,59.522665,-53.721327,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2018-02,transfer,UPI total,171.4,19126.2,,1115.88098,,270.65,63.329023,17.808955,3813.242009,56.499146,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2018-02,transfer,IMPS,99.25,88270.33,,8893.73602,,270.65,36.670977,82.191045,66.108787,-56.499146,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2018-03,transfer,UPI total,178.05,24172.6,,1357.629879,,288.21,61.77787,18.888294,2695.133438,53.144094,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2018-03,transfer,IMPS,110.16,103804.02,,9423.022876,,288.21,38.22213,81.111706,63.417891,-53.144094,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2018-04,transfer,UPI total,190.08,27021.85,,1421.604061,,299.63,63.43824,20.904695,2540.0,53.476979,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2018-04,transfer,IMPS,109.55,102240.26,,9332.748517,,299.63,36.56176,79.095305,68.331285,-53.476979,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2018-05,transfer,UPI total,189.48,33288.51,,1756.835022,,306.1,61.901339,23.465174,1924.358974,49.5985,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2018-05,transfer,IMPS,116.62,108574.96,,9310.149203,,306.1,38.098661,76.534826,74.790168,-49.5985,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2018-06,transfer,UPI total,246.37,40834.03,,1657.427041,,366.86,67.156408,26.542215,2280.386473,53.571949,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2018-06,transfer,IMPS,120.49,113011.57,,9379.331895,,366.86,32.843592,73.457785,83.004253,-53.571949,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2018-07,transfer,UPI total,273.75,51843.14,,1893.813333,,401.13,68.244709,30.674654,2253.826311,53.833308,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2018-07,transfer,IMPS,127.38,117166.56,,9198.191239,,401.13,31.755291,69.325346,84.421601,-53.833308,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2018-08,transfer,UPI total,312.02,54212.26,,1737.46106,,445.6,70.022442,30.465608,1757.261905,51.852422,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2018-08,transfer,IMPS,133.58,123733.51,,9262.876928,,445.6,29.977558,69.534392,76.553,-51.852422,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2018-09,transfer,UPI total,405.87,59835.36,,1474.24939,,541.61,74.937686,32.260574,1210.103292,47.721662,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2018-09,transfer,IMPS,135.74,125639.83,,9255.917931,,541.61,25.062314,67.739426,63.838262,-47.721662,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2018-10,transfer,UPI total,482.36,74978.27,,1554.404801,,636.98,75.726082,34.827478,526.767152,29.106262,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2018-10,transfer,IMPS,154.62,140306.54,,9074.281464,,636.98,24.273918,65.172522,75.465275,-29.106262,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2018-11,transfer,UPI total,524.94,82232.21,,1566.506839,,674.88,77.782717,37.896957,399.847648,23.790634,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2018-11,transfer,IMPS,149.94,134756.74,,8987.377618,,674.88,22.217283,62.103043,67.549447,-23.790634,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2018-12,transfer,UPI total,620.17,102594.82,,1654.301562,,797.1,77.803287,41.121256,325.823949,18.029021,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2018-12,transfer,IMPS,176.93,146898.58,,8302.638332,,797.1,22.196713,58.878744,80.522396,-18.029021,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2019-01,transfer,UPI total,672.75,109932.43,,1634.075511,,844.26,79.685168,41.922262,343.09425,19.296178,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2019-01,transfer,IMPS,171.51,152296.81,,8879.762696,,844.26,20.314832,58.077738,72.216086,-19.296178,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2019-02,transfer,UPI total,674.19,106737.12,,1583.190495,,840.56,80.207243,41.681208,293.343057,16.87822,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2019-02,transfer,IMPS,166.37,149342.6,,8976.534231,,840.56,19.792757,58.318792,67.627204,-16.87822,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2019-03,transfer,UPI total,799.54,133460.72,,1669.218801,,989.72,80.784464,43.086648,349.053637,19.006594,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2019-03,transfer,IMPS,190.18,176288.88,,9269.580398,,989.72,19.215536,56.913352,72.639797,-19.006594,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2019-04,transfer,UPI total,781.79,142034.39,,1816.784431,,966.83,80.861165,45.636256,311.295244,17.422924,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2019-04,transfer,IMPS,185.04,169197.08,,9143.811068,,966.83,19.138835,54.363744,68.909174,-17.422924,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2019-05,transfer,UPI total,733.54,152449.29,,2078.268261,,916.87,80.004799,45.793531,287.133207,18.10346,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2019-05,transfer,IMPS,183.33,180456.44,,9843.257514,,916.87,19.995201,54.206469,57.202881,-18.10346,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2019-06,transfer,UPI total,754.54,146566.35,,1942.459644,,925.87,81.495242,45.861372,206.262938,14.338834,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2019-06,transfer,IMPS,171.33,173019.27,,10098.597444,,925.87,18.504758,54.138628,42.194373,-14.338834,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2019-07,transfer,UPI total,822.29,146386.64,,1780.231305,,1011.57,81.288492,44.574674,200.379909,13.043783,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2019-07,transfer,IMPS,189.28,182021.01,,9616.494611,,1011.57,18.711508,55.425326,48.594756,-13.043783,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2019-08,transfer,UPI total,918.35,154504.89,,1682.418359,,1118.66,82.093755,44.964173,194.324082,12.071313,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2019-08,transfer,IMPS,200.31,189112.88,,9441.010434,,1118.66,17.906245,55.035827,49.955083,-12.071313,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2019-09,transfer,UPI total,955.02,161456.56,,1690.609202,,1159.18,82.38755,46.771413,135.301944,7.449864,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2019-09,transfer,IMPS,204.16,183746.95,,9000.144495,,1159.18,17.61245,53.228587,50.405186,-7.449864,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2019-10,transfer,UPI total,1148.36,191359.94,,1666.375875,,1385.29,82.896722,47.363932,138.07115,7.17064,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2019-10,transfer,IMPS,236.93,212660.44,,8975.665386,,1385.29,17.103278,52.636068,53.233734,-7.17064,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2019-11,transfer,UPI total,1218.77,189229.09,,1552.623465,,1446.85,84.236099,48.256388,132.173201,6.453382,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2019-11,transfer,IMPS,228.08,202903.64,,8896.160996,,1446.85,15.763901,51.743612,52.114179,-6.453382,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2019-12,transfer,UPI total,1308.4,202520.76,,1547.850504,,1564.87,83.610779,48.982541,110.97441,5.807492,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2019-12,transfer,IMPS,256.47,210934.23,,8224.518657,,1564.87,16.389221,51.017459,44.955632,-5.807492,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2020-01,transfer,UPI total,1305.02,216242.97,,1657.008858,,1564.55,83.411844,49.93445,93.982906,3.726676,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2020-01,transfer,IMPS,259.53,216810.7,,8353.974492,,1564.55,16.588156,50.06555,51.320623,-3.726676,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2020-02,transfer,UPI total,1325.69,222516.95,,1678.499121,,1573.49,84.251568,50.909587,96.63448,4.044325,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2020-02,transfer,IMPS,247.8,214565.66,,8658.824052,,1573.49,15.748432,49.090413,48.945122,-4.044325,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2020-03,transfer,UPI total,1246.84,206462.31,,1655.884556,,1463.66,85.18645,50.550973,55.944668,4.401986,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2020-03,transfer,IMPS,216.82,201961.7,,9314.717277,,1463.66,14.81355,49.449027,14.007782,-4.401986,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2020-04,transfer,UPI total,999.57,151140.66,,1512.056784,,1122.04,89.085059,55.508982,27.856586,8.223895,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2020-04,transfer,IMPS,122.47,121140.79,,9891.466482,,1122.04,10.914941,44.491018,-33.81431,-8.223895,,absolute contraction,https://www.npci.org.in/product/imps/product-statistics
+2020-05,transfer,UPI total,1234.5,218391.6,,1769.069259,,1401.18,88.104312,56.316499,68.293481,8.099513,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2020-05,transfer,IMPS,166.68,169401.68,,10163.287737,,1401.18,11.895688,43.683501,-9.081983,-8.099513,,absolute contraction,https://www.npci.org.in/product/imps/product-statistics
+2020-06,transfer,UPI total,1336.93,261835.0,,1958.479502,,1535.84,87.048781,55.853868,77.184775,5.553539,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2020-06,transfer,IMPS,198.91,206950.8,,10404.243125,,1535.84,12.951219,44.146132,16.097589,-5.553539,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2020-07,transfer,UPI total,1497.36,290537.86,,1940.334055,,1719.46,87.083154,56.271642,82.096341,5.794662,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2020-07,transfer,IMPS,222.1,225775.24,,10165.476812,,1719.46,12.916846,43.728358,17.339391,-5.794662,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2020-08,transfer,UPI total,1618.83,298307.61,,1842.735865,,1864.95,86.802863,55.921019,76.27593,4.709108,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2020-08,transfer,IMPS,246.12,235136.91,,9553.750609,,1864.95,13.197137,44.078981,22.869552,-4.709108,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2020-09,transfer,UPI total,1800.14,329027.66,,1827.789283,,2079.75,86.555596,56.955815,88.492388,4.168046,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2020-09,transfer,IMPS,279.61,248661.66,,8893.160474,,2079.75,13.444404,43.044185,36.956309,-4.168046,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2020-10,transfer,UPI total,2071.62,386106.74,,1863.791332,,2390.59,86.657269,58.434488,80.398133,3.760547,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2020-10,transfer,IMPS,318.97,274644.73,,8610.362417,,2390.59,13.342731,41.565512,34.626261,-3.760547,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2020-11,transfer,UPI total,2210.23,390999.15,,1769.042815,,2549.34,86.698126,58.580332,81.349229,2.462027,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2020-11,transfer,IMPS,339.11,276458.91,,8152.484739,,2549.34,13.301874,41.419668,48.680288,-2.462027,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2020-12,transfer,UPI total,2234.16,416176.21,,1862.786058,,2589.85,86.266,58.740437,70.755121,2.655221,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2020-12,transfer,IMPS,355.69,292324.15,,8218.509095,,2589.85,13.734,41.259563,38.686786,-2.655221,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2021-01,transfer,UPI total,2302.73,431181.89,,1872.481316,,2649.28,86.919087,59.909749,76.451702,3.507244,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2021-01,transfer,IMPS,346.55,288537.18,,8325.9899,,2649.28,13.080913,40.090251,33.529842,-3.507244,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2021-02,transfer,UPI total,2292.9,425062.76,,1853.821623,,2611.69,87.793727,60.697945,72.958987,3.542159,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2021-02,transfer,IMPS,318.79,275229.09,,8633.554691,,2611.69,12.206273,39.302055,28.648103,-3.542159,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2021-03,transfer,UPI total,2731.68,504886.44,,1848.263486,,3094.82,88.2662,60.674652,119.088255,3.079749,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2021-03,transfer,IMPS,363.14,327234.43,,9011.247177,,3094.82,11.7338,39.325348,67.484549,-3.079749,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2021-04,transfer,UPI total,2641.06,493663.68,,1869.187675,,2964.02,89.103987,62.237703,164.219614,0.018928,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2021-04,transfer,IMPS,322.96,299527.03,,9274.431199,,2964.02,10.896013,37.762297,163.705397,-0.018928,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2021-05,transfer,UPI total,2539.57,490638.65,,1931.975295,,2819.38,90.075478,64.823835,105.716484,1.971166,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2021-05,transfer,IMPS,279.81,266241.36,,9515.076659,,2819.38,9.924522,35.176165,67.87257,-1.971166,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2021-06,transfer,UPI total,2807.51,547373.17,,1949.674872,,3111.27,90.236784,65.837018,109.996784,3.188003,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2021-06,transfer,IMPS,303.76,284033.21,,9350.579734,,3111.27,9.763216,34.162982,52.712282,-3.188003,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2021-07,transfer,UPI total,3247.82,606281.14,,1866.732578,,3597.58,90.277909,66.235965,116.903083,3.194755,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2021-07,transfer,IMPS,349.76,309054.12,,8836.176807,,3597.58,9.722091,33.764035,57.478613,-3.194755,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2021-08,transfer,UPI total,3555.55,639116.95,,1797.51923,,3935.26,90.351082,66.621878,119.637022,3.548219,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2021-08,transfer,IMPS,379.71,320202.97,,8432.829528,,3935.26,9.648918,33.378122,54.278401,-3.548219,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2021-09,transfer,UPI total,3654.3,654351.81,,1790.63517,,4039.18,90.471333,66.876637,103.000878,3.915738,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2021-09,transfer,IMPS,384.88,324094.24,,8420.656828,,4039.18,9.528667,33.123363,37.648868,-3.915738,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2021-10,transfer,UPI total,4218.65,771444.98,,1828.653669,,4649.32,90.736925,67.54279,103.640146,4.079656,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2021-10,transfer,IMPS,430.67,370712.43,,8607.807138,,4649.32,9.263075,32.45721,35.018967,-4.079656,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2021-11,transfer,UPI total,4186.48,768436.11,,1835.518407,,4598.53,91.039528,67.816202,89.413771,4.341402,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2021-11,transfer,IMPS,412.05,364679.71,,8850.375197,,4598.53,8.960472,32.183798,21.509245,-4.341402,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2021-12,transfer,UPI total,4566.3,826848.22,,1810.76193,,5009.28,91.156813,67.593845,104.385541,4.890813,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2021-12,transfer,IMPS,442.98,396411.41,,8948.742833,,5009.28,8.843187,32.406155,24.541033,-4.890813,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2022-01,transfer,UPI total,4617.15,831993.11,999449.638575,1801.962488,2164.64624,5057.32,91.296378,68.25211,100.507658,4.377291,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2022-01,transfer,IMPS,440.17,387006.73,464900.167772,8792.21051,10561.832196,5057.32,8.703622,31.74789,27.014861,-4.377291,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2022-01,merchant,UPI P2M,1859.54,164722.46,197876.40202,885.823698,1064.114792,2374.645,78.308126,52.708411,,,,,https://www.npci.org.in/product/ecosystem-statistics/upi
+2022-01,merchant,credit card,195.805,87769.0,105434.401167,4482.469804,5384.663373,2374.645,8.245654,28.084601,,,,,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=8
+2022-01,merchant,debit card,319.3,60025.0,72106.32376,1879.893517,2258.262567,2374.645,13.44622,19.206988,,,,,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=8
+2022-02,transfer,UPI total,4527.49,826843.0,990870.994264,1826.272394,2188.565837,4948.42,91.493648,68.26378,97.456932,3.699921,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2022-02,transfer,IMPS,420.93,384404.01,460661.556774,9132.255007,10943.899384,4948.42,8.506352,31.73622,32.039901,-3.699921,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2022-02,merchant,UPI P2M,1895.84,163001.03,195336.953524,859.782629,1030.345143,2379.883,79.661059,53.249685,,,,,https://www.npci.org.in/product/ecosystem-statistics/upi
+2022-02,merchant,credit card,188.424,86041.0,103109.697025,4566.350359,5472.216757,2379.883,7.917364,28.108142,,,,,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=9
+2022-02,merchant,debit card,295.619,57065.0,68385.477397,1930.356303,2313.297772,2379.883,12.421577,18.642172,,,,,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=9
+2022-03,transfer,UPI total,5405.65,960581.66,1140157.692907,1776.995662,2109.196291,5897.65,91.657694,67.510602,97.887381,3.391495,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2022-03,transfer,IMPS,492.0,462278.8,548699.555733,9395.910569,11152.429995,5897.65,8.342306,32.489398,35.484937,-3.391495,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2022-03,merchant,UPI P2M,2204.5,182758.36,216924.139585,829.024087,984.006077,2756.04,79.987954,51.630687,,,,,https://www.npci.org.in/product/ecosystem-statistics/upi
+2022-03,merchant,credit card,223.751,107101.0,127123.006979,4786.615479,5681.44978,2756.04,8.118569,30.256882,,,,,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=10
+2022-03,merchant,debit card,327.789,64113.0,76098.611091,1955.922865,2321.573057,2756.04,11.893478,18.112431,,,,,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=10
+2022-04,transfer,UPI total,5583.05,983302.27,1150658.426021,1761.22777,2060.98535,6054.67,92.210641,68.860045,111.394289,3.106654,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2022-04,transfer,IMPS,471.62,444669.88,520351.838728,9428.562826,11033.286093,6054.67,7.789359,31.139955,46.030468,-3.106654,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2022-04,merchant,UPI P2M,2263.2,177376.39,207565.510584,783.741561,917.132868,2817.317,80.331748,50.98526,,,,,https://www.npci.org.in/product/ecosystem-statistics/upi
+2022-04,merchant,credit card,222.93,105459.0,123407.919062,4730.588077,5535.725073,2817.317,7.912848,30.313248,,,,,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=11
+2022-04,merchant,debit card,331.187,65062.0,76135.427323,1964.509477,2298.865213,2817.317,11.755404,18.701491,,,,,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=11
+2022-05,transfer,UPI total,5955.2,1041520.07,1207427.441472,1748.925427,2027.517869,6440.01,92.471906,69.720611,134.496391,2.396429,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2022-05,transfer,IMPS,484.81,452328.1,524381.023679,9330.007632,10816.217151,6440.01,7.528094,30.279389,73.264001,-2.396429,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2022-05,merchant,UPI P2M,2546.65,214366.39,248513.561352,841.758349,975.844978,3116.468,81.715904,54.40476,,,,,https://www.npci.org.in/product/ecosystem-statistics/upi
+2022-05,merchant,credit card,237.795,113696.0,131807.033143,4781.26117,5542.88497,3116.468,7.630272,28.855286,,,,,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=12
+2022-05,merchant,debit card,332.023,65959.0,76465.839599,1986.579243,2303.028393,3116.468,10.653823,16.739954,,,,,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=12
+2022-06,transfer,UPI total,5862.75,1014384.31,1169837.195063,1730.219283,1995.372812,6318.45,92.787788,69.566033,108.823833,2.551004,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2022-06,transfer,IMPS,455.7,443776.03,511784.045803,9738.337283,11230.722971,6318.45,7.212212,30.433967,50.019752,-2.551004,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2022-06,merchant,UPI P2M,2560.08,213971.81,246762.671273,835.801264,963.886563,3097.959,82.637633,55.761641,,,,,https://www.npci.org.in/product/ecosystem-statistics/upi
+2022-06,merchant,credit card,227.946,108752.0,125418.082065,4770.954524,5502.096201,3097.959,7.357941,28.34107,,,,,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=13
+2022-06,merchant,debit card,309.933,61002.0,70350.465666,1968.231844,2269.860443,3097.959,10.004425,15.897289,,,,,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=13
+2022-07,transfer,UPI total,6288.4,1062991.76,1220237.868945,1690.400992,1940.458414,6749.23,93.17211,70.51202,93.619105,2.894201,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2022-07,transfer,IMPS,460.83,444540.95,510300.946723,9646.528004,11073.518363,6749.23,6.82789,29.48798,31.756061,-2.894201,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2022-07,merchant,UPI P2M,2999.25,230725.92,264856.714347,769.27872,883.076484,3547.431,84.547099,56.124458,,,,,https://www.npci.org.in/product/ecosystem-statistics/upi
+2022-07,merchant,credit card,234.834,115856.0,132994.331531,4933.527513,5663.333739,3547.431,6.619833,28.182162,,,,,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=14
+2022-07,merchant,debit card,313.347,64515.0,74058.566658,2058.899559,2363.468189,3547.431,8.833068,15.69338,,,,,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=14
+2022-08,transfer,UPI total,6579.63,1072792.68,1225129.812926,1630.475695,1862.004114,7046.54,93.373911,70.635084,85.052383,3.022829,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2022-08,transfer,IMPS,466.91,445988.96,509319.630268,9551.925639,10908.304176,7046.54,6.626089,29.364916,22.964894,-3.022829,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2022-08,merchant,UPI P2M,3290.37,239421.82,273419.846178,727.644064,830.96991,3838.5,85.720203,57.839905,,,,,https://www.npci.org.in/product/ecosystem-statistics/upi
+2022-08,merchant,credit card,244.783,112358.0,128312.895946,4590.106339,5241.903888,3838.5,6.377048,27.143625,,,,,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=15
+2022-08,merchant,debit card,303.347,62159.0,70985.611164,2049.10548,2340.079551,3838.5,7.902748,15.01647,,,,,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=15
+2022-09,transfer,UPI total,6780.8,1116438.1,1267699.814547,1646.469591,1869.543143,7243.49,93.612333,71.04306,85.556741,3.141,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2022-09,transfer,IMPS,462.69,455056.84,516710.663741,9835.026476,11167.534715,7243.49,6.387667,28.95694,20.216691,-3.141,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2022-09,merchant,UPI P2M,3547.19,254388.83,288854.95095,717.155918,814.320493,4083.514,86.866116,58.030643,,,,,https://www.npci.org.in/product/ecosystem-statistics/upi
+2022-09,merchant,credit card,246.017,122554.0,139158.349282,4981.525667,5656.452574,4083.514,6.02464,27.95676,,,,,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=16
+2022-09,merchant,debit card,290.307,61427.0,69749.497539,2115.932444,2402.611633,4083.514,7.109245,14.012598,,,,,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=16
+2022-10,transfer,UPI total,7305.42,1211582.51,1364834.964545,1658.470711,1868.249826,7787.88,93.804989,72.218413,73.169616,3.068064,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2022-10,transfer,IMPS,482.46,466081.76,525036.204414,9660.526469,10882.481541,7787.88,6.195011,27.781587,12.025449,-3.068064,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2022-10,merchant,UPI P2M,3868.76,282710.45,318470.350816,730.752101,823.184563,4422.145,87.48605,58.980651,,,,,https://www.npci.org.in/product/ecosystem-statistics/upi
+2022-10,merchant,credit card,256.133,129334.0,145693.391781,5049.486009,5688.192922,4422.145,5.792053,26.98239,,,,,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=17
+2022-10,merchant,debit card,297.252,67283.0,75793.592398,2263.50033,2549.809333,4422.145,6.721896,14.036959,,,,,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=17
+2022-11,transfer,UPI total,7309.45,1190593.39,1342710.704554,1628.841281,1836.95176,7772.93,94.037255,72.364531,74.596558,2.997727,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2022-11,transfer,IMPS,463.48,454678.64,512771.095647,9810.102701,11063.499949,7772.93,5.962745,27.635469,12.481495,-2.997727,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2022-11,merchant,UPI P2M,3907.96,268991.61,303359.58289,688.317204,776.260716,4404.895,88.718573,61.172048,,,,,https://www.npci.org.in/product/ecosystem-statistics/upi
+2022-11,merchant,credit card,235.141,114821.0,129491.215979,4883.070158,5506.960334,4404.895,5.338175,26.111728,,,,,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=18
+2022-11,merchant,debit card,261.794,55917.0,63061.289519,2135.916026,2408.8134,4404.895,5.943252,12.716223,,,,,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=18
+2022-12,transfer,UPI total,7829.49,1282055.01,1452441.310171,1637.469375,1855.090574,8315.33,94.157297,72.489531,71.462453,3.000484,,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2022-12,transfer,IMPS,485.84,486552.12,551215.348115,10014.6575,11345.614773,8315.33,5.842703,27.510469,9.67538,-3.000484,,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2022-12,merchant,UPI P2M,4227.3,290306.69,328888.718414,686.742578,778.011304,4749.655,89.002254,61.058621,,,,,https://www.npci.org.in/product/ecosystem-statistics/upi
+2022-12,merchant,credit card,255.647,126524.0,143339.156974,4949.168189,5606.917233,4749.655,5.382433,26.611102,,,,,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=19
+2022-12,merchant,debit card,266.708,58625.0,66416.316885,2198.096795,2490.225898,4749.655,5.615313,12.330276,,,,,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=19
+2023-01,transfer,UPI total,8036.89,1298726.62,1464659.681138,1615.956695,1822.420963,8511.4,94.425006,73.113381,74.066036,3.128628,46.546622,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2023-01,transfer,IMPS,474.51,477592.02,538612.025776,10064.951634,11350.909902,8511.4,5.574994,26.886619,7.801531,-3.128628,15.855417,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2023-01,merchant,UPI P2M,4410.94,300945.6,339396.205289,682.270899,769.4419,4921.301,89.629551,62.12678,137.205976,11.321425,71.519293,co-expansion,https://www.npci.org.in/product/ecosystem-statistics/upi
+2023-01,merchant,credit card,259.352,127682.0,143995.414067,4923.116074,5552.122755,4921.301,5.269989,26.35849,32.454227,-2.975665,36.573464,relative share loss,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=20
+2023-01,merchant,debit card,251.009,55778.0,62904.53005,2222.151397,2506.066717,4921.301,5.10046,11.514731,-21.387723,-8.34576,-12.761424,absolute contraction,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=20
+2023-02,transfer,UPI total,7534.76,1235846.62,1391380.80399,1640.193742,1846.615956,7982.58,94.390034,72.505202,66.422455,2.896386,40.419975,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2023-02,transfer,IMPS,447.82,468647.1,527627.432266,10465.077486,11782.131934,7982.58,5.609966,27.494798,6.388236,-2.896386,14.536893,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2023-02,merchant,UPI P2M,4153.2,279012.26,314126.604677,671.800684,756.348369,4612.051,90.051042,62.364541,119.06912,10.389983,60.812688,co-expansion,https://www.npci.org.in/product/ecosystem-statistics/upi
+2023-02,merchant,credit card,232.32,118684.0,133620.658639,5108.643251,5751.577937,4612.051,5.037238,26.528129,23.296395,-2.880126,29.590778,relative share loss,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=21
+2023-02,merchant,debit card,226.531,49693.0,55946.98013,2193.6512,2469.727328,4612.051,4.911719,11.10733,-23.370622,-7.509858,-18.188799,absolute contraction,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=21
+2023-03,transfer,UPI total,8685.3,1410443.01,1584366.019014,1623.942765,1824.192623,9182.36,94.586795,72.083529,60.67078,2.929101,38.960253,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2023-03,transfer,IMPS,497.06,546235.62,613592.430582,10989.329658,12344.433883,9182.36,5.413205,27.916471,1.028455,-2.929101,11.826668,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2023-03,merchant,UPI P2M,4826.25,322346.66,362095.519511,667.902947,750.262667,5327.929,90.583977,62.788893,118.927194,10.596024,66.922649,co-expansion,https://www.npci.org.in/product/ecosystem-statistics/upi
+2023-03,merchant,credit card,263.429,137311.0,154242.944163,5212.448136,5855.199851,5327.929,4.944304,26.746378,17.733105,-3.174265,21.333618,relative share loss,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=22
+2023-03,merchant,debit card,238.25,53724.0,60348.755251,2254.942288,2533.00127,5327.929,4.471719,10.464729,-27.316048,-7.421759,-20.69664,absolute contraction,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=22
+2023-04,transfer,UPI total,8863.26,1415504.71,1582016.807759,1597.047486,1784.915266,9359.06,94.702459,73.09396,58.753011,2.491819,37.487961,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2023-04,transfer,IMPS,495.8,521050.26,582343.713295,10509.283179,11745.536775,9359.06,5.297541,26.90604,5.127009,-2.491819,11.913454,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2023-04,merchant,UPI P2M,5029.74,321327.66,359126.857952,638.855408,714.006803,5518.533,91.1427,63.163498,122.240191,10.810952,73.01856,co-expansion,https://www.npci.org.in/product/ecosystem-statistics/upi
+2023-04,merchant,credit card,259.255,132769.0,148387.20639,5121.174134,5723.600563,5518.533,4.697897,26.098452,16.294352,-3.214951,20.241235,relative share loss,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=23
+2023-04,merchant,debit card,229.538,54627.0,61053.016318,2379.867386,2659.821743,5518.533,4.159403,10.73805,-30.692328,-7.596002,-19.809977,absolute contraction,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=23
+2023-05,transfer,UPI total,9415.19,1489145.44,1655027.536577,1581.641411,1757.827018,9915.17,94.957424,73.904629,58.100316,2.485518,37.070558,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2023-05,transfer,IMPS,499.98,525810.13,584382.304633,10516.623265,11688.113617,9915.17,5.042576,26.095371,3.129061,-2.485518,11.442306,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2023-05,merchant,UPI P2M,5369.7,344073.18,382400.920825,640.767976,712.145782,5867.151,91.521422,64.012522,110.853474,9.805518,53.875273,co-expansion,https://www.npci.org.in/product/ecosystem-statistics/upi
+2023-05,merchant,credit card,273.474,140660.0,156328.701712,5143.450566,5716.40089,5867.151,4.661104,26.168855,15.0041,-2.969169,18.604219,relative share loss,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=24
+2023-05,merchant,debit card,223.977,52776.0,58654.937875,2356.313371,2618.792906,5867.151,3.817475,9.818623,-32.541722,-6.836349,-23.292626,absolute contraction,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=24
+2023-06,transfer,UPI total,9335.06,1475464.26,1622608.748293,1580.56216,1738.187808,9803.16,95.225009,74.671304,59.226643,2.437221,38.703809,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2023-06,transfer,IMPS,468.1,500481.23,550393.014707,10691.758812,11758.022104,9803.16,4.774991,25.328696,2.721088,-2.437221,7.543996,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2023-06,merchant,UPI P2M,5363.63,350042.01,384950.854517,652.621471,717.705835,5836.759,91.893977,65.024289,109.51025,9.256344,56.000441,co-expansion,https://www.npci.org.in/product/ecosystem-statistics/upi
+2023-06,merchant,credit card,262.905,137234.0,150920.015483,5219.908332,5740.477187,5836.759,4.504298,25.492778,15.336527,-2.853643,20.333538,relative share loss,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=25
+2023-06,merchant,debit card,210.224,51049.0,56139.993517,2428.31456,2670.484508,5836.759,3.601725,9.482933,-32.171147,-6.402701,-20.199542,absolute contraction,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=25
+2023-07,transfer,UPI total,9964.61,1533536.44,1638494.31623,1538.9829,1644.313542,10454.32,95.315716,74.958463,58.460181,2.143606,34.276632,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2023-07,transfer,IMPS,489.71,512311.87,547375.377094,10461.535807,11177.541343,10454.32,4.684284,25.041537,6.266953,-2.143606,7.265209,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2023-07,merchant,UPI P2M,5780.19,385247.22,411614.203516,666.495773,712.111892,6267.402,92.226253,66.046469,92.72118,7.679154,55.410145,co-expansion,https://www.npci.org.in/product/ecosystem-statistics/upi
+2023-07,merchant,credit card,277.081,144737.0,154643.049661,5223.634966,5581.149543,6267.402,4.420987,24.813593,17.990155,-2.198846,16.277925,relative share loss,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=26
+2023-07,merchant,debit card,210.131,53313.0,56961.833578,2537.131599,2710.777257,6267.402,3.352761,9.139937,-32.93984,-5.480307,-23.085423,absolute contraction,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=26
+2023-08,transfer,UPI total,10586.02,1576536.56,1685342.077328,1489.262782,1592.045053,11075.18,95.583277,75.402928,60.89081,2.209366,37.564367,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2023-08,transfer,IMPS,489.16,514279.53,549772.807944,10513.523796,11239.120287,11075.18,4.416723,24.597072,4.765372,-2.209366,7.942592,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2023-08,merchant,UPI P2M,6197.18,397440.9,424870.497149,641.325409,685.586827,6695.376,92.559103,66.380334,88.342952,6.8389,55.391243,co-expansion,https://www.npci.org.in/product/ecosystem-statistics/upi
+2023-08,merchant,credit card,290.578,148602.0,158857.846833,5114.014137,5466.960569,6695.376,4.33998,24.819414,18.708407,-2.037068,23.805051,relative share loss,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=27
+2023-08,merchant,debit card,207.618,52690.0,56326.428646,2537.833907,2712.983876,6695.376,3.100916,8.800251,-31.557589,-4.801832,-20.650921,absolute contraction,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=27
+2023-09,transfer,UPI total,10555.69,1579133.18,1707374.002222,1496.001853,1617.491611,11028.59,95.712054,75.678624,55.670275,2.099721,34.682831,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2023-09,transfer,IMPS,472.9,507497.22,548710.881769,10731.596955,11603.105979,11028.59,4.287946,24.321376,2.206661,-2.099721,6.193063,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2023-09,merchant,UPI P2M,6182.57,396216.25,428392.825302,640.860112,692.904125,6640.447,93.104726,67.681116,74.294864,6.23861,48.307247,co-expansion,https://www.npci.org.in/product/ecosystem-statistics/upi
+2023-09,merchant,credit card,273.943,142320.0,153877.754627,5195.241346,5617.144976,6640.447,4.12537,24.310907,11.351248,-1.89927,10.57745,relative share loss,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=28
+2023-09,merchant,debit card,183.934,46880.0,50687.107483,2548.740309,2755.722568,6640.447,2.769904,8.007977,-36.641555,-4.339341,-27.329788,absolute contraction,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=28
+2023-10,transfer,UPI total,11408.79,1715768.34,1843091.619505,1503.900361,1615.501398,11901.67,95.858732,76.120813,56.168845,2.053743,35.041354,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2023-10,transfer,IMPS,492.88,538238.51,578179.969841,10920.274915,11730.643764,11901.67,4.141268,23.879187,2.159765,-2.053743,10.121924,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2023-10,merchant,UPI P2M,6719.37,442180.74,474993.970457,658.068748,706.902538,7229.922,92.938347,65.717508,73.682782,5.452297,49.148569,co-expansion,https://www.npci.org.in/product/ecosystem-statistics/upi
+2023-10,merchant,credit card,320.048,178569.0,191820.200741,5579.444333,5993.482251,7229.922,4.426714,26.53917,24.953833,-1.365339,31.660193,relative share loss,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=29
+2023-10,merchant,debit card,190.504,52101.0,55967.297116,2734.903204,2937.854172,7229.922,2.634939,7.743322,-35.911617,-4.086958,-26.158274,absolute contraction,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=29
+2023-11,transfer,UPI total,11235.29,1739740.61,1858811.454914,1548.460796,1654.440121,11707.67,95.965209,76.480778,53.709103,1.927954,38.437226,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2023-11,transfer,IMPS,472.38,535001.69,571618.127469,11325.663449,12100.811369,11707.67,4.034791,23.519222,1.920255,-1.927954,11.476277,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2023-11,merchant,UPI P2M,6585.81,446873.79,477458.602149,678.540362,724.980833,7060.066,93.282556,68.026453,68.522963,4.563982,57.390315,co-expansion,https://www.npci.org.in/product/ecosystem-statistics/upi
+2023-11,merchant,credit card,297.09,160644.0,171638.752149,5407.250328,5777.331857,7060.066,4.208034,24.454425,26.345469,-1.130141,32.548568,relative share loss,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=30
+2023-11,merchant,debit card,177.166,49394.0,52774.610466,2788.006728,2978.822712,7060.066,2.50941,7.519122,-32.32618,-3.433842,-16.312193,absolute contraction,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=30
+2023-12,transfer,UPI total,12020.23,1822949.42,1954008.321724,1516.567836,1625.599778,12519.02,96.015742,76.17601,53.52507,1.858445,34.532687,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2023-12,transfer,IMPS,498.79,570126.05,611114.622221,11430.182041,12251.942144,12519.02,3.984258,23.82399,2.665487,-1.858445,10.866765,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2023-12,merchant,UPI P2M,7265.44,475253.29,509421.091665,654.128711,701.15656,7763.757,93.581497,69.046273,71.869515,4.579243,54.891628,co-expansion,https://www.npci.org.in/product/ecosystem-statistics/upi
+2023-12,merchant,credit card,321.5,165119.0,176990.045108,5135.894246,5505.133596,7763.757,4.141036,23.989001,25.759348,-1.241397,23.47641,relative share loss,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=31
+2023-12,merchant,debit card,176.817,47939.0,51385.520579,2711.221206,2906.141411,7763.757,2.277467,6.964727,-33.703901,-3.337846,-22.63118,absolute contraction,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=31
+2024-01,transfer,UPI total,12203.02,1841083.97,1975574.340102,1508.711753,1618.92248,12711.81,95.997502,76.476231,51.837589,1.572495,34.882824,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2024-01,transfer,IMPS,508.79,566309.72,607678.394692,11130.519861,11943.599416,12711.81,4.002498,23.523769,7.224295,-1.572495,12.823028,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2024-01,merchant,UPI P2M,7449.93,500760.37,537340.693652,672.167886,721.269453,7943.511,93.786362,70.263384,68.896652,4.156811,58.32254,co-expansion,https://www.npci.org.in/product/ecosystem-statistics/upi
+2024-01,merchant,credit card,328.952,166444.0,178602.660618,5059.826358,5429.444436,7943.511,4.141141,23.354321,26.836115,-1.128847,24.033575,relative share loss,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=32
+2024-01,merchant,debit card,164.629,45486.0,48808.732192,2762.939701,2964.771224,7943.511,2.072497,6.382295,-34.413109,-3.027964,-22.40824,absolute contraction,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=32
+2024-02,transfer,UPI total,12102.67,1827869.35,1958227.453284,1510.302561,1618.012764,12637.3,95.769429,76.289607,60.624492,1.379394,40.739864,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2024-02,transfer,IMPS,534.63,568091.81,608606.396474,10625.887249,11383.693329,12637.3,4.230571,23.710393,19.385021,-1.379394,15.347755,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2024-02,merchant,UPI P2M,7359.98,479346.31,513531.836328,651.287517,697.735369,7823.468,94.075671,71.543765,77.21227,4.024628,63.479256,co-expansion,https://www.npci.org.in/product/ecosystem-statistics/upi
+2024-02,merchant,credit card,311.244,149206.0,159846.9198,4793.85948,5135.743012,7823.468,3.978338,22.269409,33.972107,-1.0589,19.6274,relative share loss,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=33
+2024-02,merchant,debit card,152.244,41452.0,44408.231033,2722.734558,2916.911736,7823.468,1.945991,6.186826,-32.793304,-2.965728,-20.624436,absolute contraction,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=33
+2024-03,transfer,UPI total,13440.0,1978353.23,2119443.387614,1471.98901,1576.966806,14020.64,95.858677,75.710241,54.744223,1.271882,33.772333,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2024-03,transfer,IMPS,580.64,634705.71,679970.99797,10931.139949,11710.715727,14020.64,4.141323,24.289759,16.814871,-1.271882,10.818023,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2024-03,merchant,UPI P2M,8295.97,518227.99,555186.439927,624.674378,669.224262,8799.383,94.278997,71.240356,71.89267,3.695019,53.325962,co-expansion,https://www.npci.org.in/product/ecosystem-statistics/upi
+2024-03,merchant,credit card,343.938,164459.0,176187.717541,4781.646692,5122.659245,8799.383,3.90866,22.608037,30.561935,-1.035643,14.227408,relative share loss,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=34
+2024-03,merchant,debit card,159.475,44749.0,47940.363083,2806.019752,3006.136578,8799.383,1.812343,6.151607,-33.064008,-2.659376,-20.56114,absolute contraction,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=34
+2024-04,transfer,UPI total,13303.99,1964464.52,2094418.982691,1476.598013,1574.278831,13854.35,96.027529,76.834638,50.102671,1.32507,32.389174,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2024-04,transfer,IMPS,550.36,592278.85,631459.644019,10761.662366,11473.574461,13854.35,3.972471,23.165362,11.004437,-1.32507,8.434182,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2024-04,merchant,UPI P2M,8307.47,530943.73,566067.045514,639.116037,681.395233,8803.482,94.365729,72.597491,65.166987,3.223029,57.623144,co-expansion,https://www.npci.org.in/product/ecosystem-statistics/upi
+2024-04,merchant,credit card,344.151,156498.0,166850.751753,4547.364384,4848.184423,8803.482,3.90926,21.39843,32.746138,-0.788637,12.442815,relative share loss,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=35
+2024-04,merchant,debit card,151.861,43911.0,46815.827424,2891.525803,3082.807793,8803.482,1.725011,6.00408,-33.840584,-2.434392,-23.319387,absolute contraction,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=35
+2024-05,transfer,UPI total,14035.84,2044937.05,2168599.557442,1456.939556,1545.04437,14593.54,96.178446,77.135305,49.076545,1.221022,31.031026,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2024-05,transfer,IMPS,557.7,606166.8,642823.237134,10869.047875,11526.326648,14593.54,3.821554,22.864695,11.544462,-1.221022,10.000462,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2024-05,merchant,UPI P2M,8804.83,556701.66,590366.815205,632.268494,670.503366,9315.348,94.519604,72.750379,63.972475,2.998182,54.384256,co-expansion,https://www.npci.org.in/product/ecosystem-statistics/upi
+2024-05,merchant,credit card,360.136,164955.0,174930.245407,4580.352978,4857.338489,9315.348,3.86605,21.556499,31.689301,-0.795054,11.898995,relative share loss,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=36
+2024-05,merchant,debit card,150.382,43565.0,46199.485564,2896.955753,3072.141983,9315.348,1.614347,5.693122,-32.858285,-2.203128,-21.23513,absolute contraction,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=36
+2024-06,transfer,UPI total,13885.14,2007081.2,2100477.937726,1445.48863,1512.752437,14401.89,96.411929,77.647115,48.74184,1.18692,29.450673,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2024-06,transfer,IMPS,516.75,577794.22,604681.072024,11181.310498,11701.617262,14401.89,3.588071,22.352885,10.393078,-1.18692,9.863508,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2024-06,merchant,UPI P2M,8720.75,559938.98,585994.963215,642.076633,671.954778,9221.093,94.57393,73.674245,62.590447,2.679952,52.225916,co-expansion,https://www.npci.org.in/product/ecosystem-statistics/upi
+2024-06,merchant,credit card,357.949,158822.0,166212.561318,4437.000802,4643.470475,9221.093,3.88185,20.897082,36.151462,-0.622448,10.132881,relative share loss,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=37
+2024-06,merchant,debit card,142.394,41259.0,43178.930296,2897.523772,3032.356019,9221.093,1.54422,5.428673,-32.265583,-2.057504,-23.087041,absolute contraction,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=37
+2024-07,transfer,UPI total,14435.55,2064292.41,2129009.506492,1430.006068,1474.837818,14925.83,96.715225,77.678889,44.868189,1.399508,29.936948,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2024-07,transfer,IMPS,490.28,593176.6,611773.125896,12098.731337,12478.035529,14925.83,3.284775,22.321111,0.116395,-1.399508,11.764824,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2024-07,merchant,UPI P2M,8999.59,592922.41,611510.966851,658.832691,679.487584,9529.026,94.443965,73.168012,55.697131,2.217713,48.564107,co-expansion,https://www.npci.org.in/product/ecosystem-statistics/upi
+2024-07,merchant,credit card,383.78,172670.0,178083.332432,4499.192246,4640.245256,9529.026,4.027484,21.307882,38.508234,-0.393503,15.15767,relative share loss,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=38
+2024-07,merchant,debit card,145.656,44765.0,46168.415916,3073.337178,3169.688576,9529.026,1.528551,5.524106,-30.68324,-1.82421,-18.948508,absolute contraction,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=38
+2024-08,transfer,UPI total,14963.05,2060735.57,2125341.156923,1377.216256,1420.393006,15416.38,97.059426,78.098888,41.347267,1.476149,26.107405,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2024-08,transfer,IMPS,453.33,577887.89,596005.10351,12747.620718,13147.268072,15416.38,2.940574,21.901112,-7.324802,-1.476149,8.409346,absolute contraction,https://www.npci.org.in/product/imps/product-statistics
+2024-08,merchant,UPI P2M,9337.28,576144.57,594207.129136,617.036835,636.381397,9869.593,94.606535,73.125134,50.669821,2.047432,39.856058,co-expansion,https://www.npci.org.in/product/ecosystem-statistics/upi
+2024-08,merchant,credit card,390.068,168202.0,173475.257321,4312.119938,4447.308093,9869.593,3.95222,21.34845,34.238655,-0.387761,9.201567,relative share loss,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=39
+2024-08,merchant,debit card,142.245,43542.0,44907.07396,3061.056628,3157.023021,9869.593,1.441245,5.526416,-31.487154,-1.659671,-20.273529,absolute contraction,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=39
+2024-09,transfer,UPI total,15041.75,2063994.71,2115548.802068,1372.177247,1406.451245,15471.68,97.221181,78.501948,42.498974,1.509127,23.906584,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2024-09,transfer,IMPS,429.93,565232.68,579350.961158,13147.08627,13475.471848,15471.68,2.778819,21.498052,-9.086488,-1.509127,5.584012,absolute contraction,https://www.npci.org.in/product/imps/product-statistics
+2024-09,merchant,UPI P2M,9352.88,566053.64,580192.426951,605.218542,620.335583,9880.406,94.660887,72.352286,51.27819,1.556161,35.434674,co-expansion,https://www.npci.org.in/product/ecosystem-statistics/upi
+2024-09,merchant,credit card,392.162,176202.0,180603.142157,4493.09214,4605.319795,9880.406,3.969088,22.521925,43.154598,-0.156282,17.367934,relative share loss,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=40
+2024-09,merchant,debit card,135.364,40102.0,41103.66061,2962.530658,3036.528221,9880.406,1.370025,5.125789,-26.406211,-1.399879,-18.90707,absolute contraction,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=40
+2024-10,transfer,UPI total,16584.97,2349821.46,2376695.071267,1416.837932,1433.041526,17051.79,97.26234,78.874165,45.370105,1.403608,28.951542,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2024-10,transfer,IMPS,466.82,629381.51,636579.399,13482.316739,13636.506555,17051.79,2.73766,21.125835,-5.287291,-1.403608,10.100562,absolute contraction,https://www.npci.org.in/product/imps/product-statistics
+2024-10,merchant,UPI P2M,10303.18,667948.46,675587.417924,648.293498,655.707673,10880.581,94.693289,72.867837,53.335506,1.754942,42.230736,co-expansion,https://www.npci.org.in/product/ecosystem-statistics/upi
+2024-10,merchant,credit card,433.214,201789.0,204096.749434,4657.951959,4711.222385,10880.581,3.981534,22.013567,35.359071,-0.445181,6.400029,relative share loss,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=41
+2024-10,merchant,debit card,144.187,46920.0,47456.598147,3254.107513,3291.322945,10880.581,1.325177,5.118597,-24.312875,-1.309761,-15.206557,absolute contraction,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=41
+2024-11,transfer,UPI total,15482.02,2155187.4,2183163.081436,1392.058271,1410.128059,15889.94,97.432841,79.424193,37.798134,1.467632,17.44941,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2024-11,transfer,IMPS,407.92,558327.6,565575.041719,13687.183762,13864.851974,15889.94,2.567159,20.575807,-13.645794,-1.467632,-1.057189,absolute contraction,https://www.npci.org.in/product/imps/product-statistics
+2024-11,merchant,UPI P2M,9648.87,599176.63,606954.317697,620.981141,629.041865,10165.972,94.913403,74.195594,46.509996,1.630848,27.121873,co-expansion,https://www.npci.org.in/product/ecosystem-statistics/upi
+2024-11,merchant,credit card,393.604,169298.0,171495.594008,4301.226614,4357.059227,10165.972,3.871779,20.964045,32.486452,-0.336255,-0.083407,relative share loss,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=42
+2024-11,merchant,debit card,123.498,39089.0,39596.399687,3165.152472,3206.238132,10165.972,1.214817,4.840362,-30.292494,-1.294593,-24.97074,absolute contraction,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=42
+2024-12,transfer,UPI total,16730.01,2324699.91,2368132.692369,1389.538865,1415.499867,17171.17,97.43081,79.442995,39.182112,1.415067,21.193583,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2024-12,transfer,IMPS,441.16,601549.16,612788.010072,13635.623357,13890.380136,17171.17,2.56919,20.557005,-11.553961,-1.415067,0.273826,absolute contraction,https://www.npci.org.in/product/imps/product-statistics
+2024-12,merchant,UPI P2M,10394.38,632067.37,643876.397223,608.085687,619.44666,10955.786,94.875712,73.425822,43.066077,1.294216,26.393745,co-expansion,https://www.npci.org.in/product/ecosystem-statistics/upi
+2024-12,merchant,credit card,433.122,188086.0,191600.04423,4342.563989,4423.696885,10955.786,3.953363,21.849521,34.719129,-0.187673,8.254701,relative share loss,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=43
+2024-12,merchant,debit card,128.284,40671.0,41430.863535,3170.387578,3229.620493,10955.786,1.170925,4.724657,-27.448153,-1.106542,-19.372494,absolute contraction,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=43
+2025-01,transfer,UPI total,16996.0,2348037.12,2416641.240496,1381.52337,1421.888233,17440.22,97.452899,79.474396,39.276999,1.455398,22.326009,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2025-01,transfer,IMPS,444.22,606420.2,624138.371539,13651.348431,14050.208715,17440.22,2.547101,20.525604,-12.690894,-1.455398,2.708666,absolute contraction,https://www.npci.org.in/product/imps/product-statistics
+2025-01,merchant,UPI P2M,10569.75,644704.09,663540.826735,609.952071,627.773435,11121.991,95.034693,74.292374,41.877172,1.248331,23.486055,co-expansion,https://www.npci.org.in/product/ecosystem-statistics/upi
+2025-01,merchant,credit card,430.572,184126.0,189505.728533,4276.311511,4401.255273,11121.991,3.871357,21.217731,30.892045,-0.269784,6.10465,relative share loss,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=44
+2025-01,merchant,debit card,121.669,38963.0,40101.407193,3202.376941,3295.942861,11121.991,1.09395,4.489895,-26.095038,-0.978547,-17.839687,absolute contraction,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=44
+2025-02,transfer,UPI total,16106.19,2196481.69,2271227.026199,1363.750018,1410.15785,16511.02,97.548122,79.595263,33.079643,1.778694,15.983821,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2025-02,transfer,IMPS,404.83,563081.64,582243.068334,13909.088753,14382.409118,16511.02,2.451878,20.404737,-24.278473,-1.778694,-4.331753,absolute contraction,https://www.npci.org.in/product/imps/product-statistics
+2025-02,merchant,UPI P2M,10066.74,590083.74,610164.038294,586.171631,606.118801,10571.949,95.221231,74.54263,36.77673,1.14556,18.817178,co-expansion,https://www.npci.org.in/product/ecosystem-statistics/upi
+2025-02,merchant,credit card,396.959,167208.0,172898.017009,4212.223429,4355.563597,10571.949,3.754833,21.122636,27.539487,-0.223505,8.164747,relative share loss,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=45
+2025-02,merchant,debit card,108.25,34314.0,35481.690802,3169.884527,3277.754347,10571.949,1.023936,4.334734,-28.897034,-0.922055,-20.101094,absolute contraction,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=45
+2025-03,transfer,UPI total,18301.51,2477221.61,2568191.032138,1353.561324,1403.267289,18763.15,97.539646,78.766121,36.171949,1.680969,21.172901,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2025-03,transfer,IMPS,461.64,667812.82,692336.482351,14466.095226,14997.324373,18763.15,2.460354,21.233879,-20.494627,-1.680969,1.818531,absolute contraction,https://www.npci.org.in/product/imps/product-statistics
+2025-03,merchant,UPI P2M,11461.06,670410.55,695029.607125,584.946375,606.426986,12040.012,95.191433,73.593888,38.152139,0.912437,25.188506,co-expansion,https://www.npci.org.in/product/ecosystem-statistics/upi
+2025-03,merchant,credit card,458.65,201494.0,208893.335074,4393.197427,4554.526002,12040.012,3.809382,22.118875,33.352523,-0.099279,18.562938,relative share loss,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=46
+2025-03,merchant,debit card,120.302,39055.0,40489.191744,3246.413193,3365.629145,12040.012,0.999185,4.287238,-24.563725,-0.813158,-15.542584,absolute contraction,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=46
+2025-04,transfer,UPI total,17893.42,2394925.87,2475138.39093,1338.439421,1383.267364,18342.67,97.550793,79.391766,34.496643,1.523264,18.177805,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2025-04,transfer,IMPS,449.25,621666.39,642487.672589,13837.871786,14301.339401,18342.67,2.449207,20.608234,-18.371611,-1.523264,1.746434,absolute contraction,https://www.npci.org.in/product/imps/product-statistics
+2025-04,merchant,UPI P2M,11353.6,663561.79,685786.262429,584.450562,604.025386,11920.963,95.240628,74.901564,36.667361,0.874898,21.1493,co-expansion,https://www.npci.org.in/product/ecosystem-statistics/upi
+2025-04,merchant,credit card,450.27,184237.0,190407.593589,4091.700535,4228.742612,11920.963,3.777128,20.796314,30.835011,-0.132132,14.118511,relative share loss,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=47
+2025-04,merchant,debit card,117.093,38113.0,39389.507072,3254.934112,3363.950627,11920.963,0.982244,4.302121,-22.894621,-0.742766,-15.862841,absolute contraction,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=47
+2025-05,transfer,UPI total,18677.46,2514297.01,2593122.084112,1346.166454,1388.36977,19141.12,97.577676,79.688304,33.06977,1.39923,19.575884,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2025-05,transfer,IMPS,463.66,640867.39,660959.057497,13821.925333,14255.252933,19141.12,2.422324,20.311696,-16.862112,-1.39923,2.821276,absolute contraction,https://www.npci.org.in/product/imps/product-statistics
+2025-05,merchant,UPI P2M,11853.66,696624.99,718464.699567,587.687676,606.11212,12436.4,95.314239,75.438444,34.62679,0.794635,21.698016,co-expansion,https://www.npci.org.in/product/ecosystem-statistics/upi
+2025-05,merchant,credit card,467.693,189832.0,195783.373847,4058.901886,4186.151468,12436.4,3.760678,20.557159,29.865662,-0.105372,11.920825,relative share loss,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=48
+2025-05,merchant,debit card,115.047,36978.0,38137.287697,3214.164646,3314.931089,12436.4,0.925083,4.004397,-23.496828,-0.689264,-17.450839,absolute contraction,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=48
+2025-06,transfer,UPI total,18395.01,2403930.69,2463975.642401,1306.83848,1339.480458,18843.11,97.621942,79.857193,32.479831,1.210013,17.305476,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2025-06,transfer,IMPS,448.1,606356.29,621501.749361,13531.718143,13869.710988,18843.11,2.378058,20.142807,-13.284954,-1.210013,2.781744,absolute contraction,https://www.npci.org.in/product/imps/product-statistics
+2025-06,merchant,UPI P2M,11709.38,682872.22,699928.880625,583.183926,597.75059,12276.662,95.379184,75.754896,34.270332,0.805254,19.442815,co-expansion,https://www.npci.org.in/product/ecosystem-statistics/upi
+2025-06,merchant,credit card,458.71,183088.0,187661.139438,3991.367095,4091.062751,12276.662,3.736439,20.310992,28.149541,-0.145411,12.904306,relative share loss,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=49
+2025-06,merchant,debit card,108.572,35463.0,36348.788495,3266.311756,3347.897109,12276.662,0.884377,3.934112,-23.752405,-0.659843,-15.818228,absolute contraction,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=49
+2025-07,transfer,UPI total,19467.95,2508498.09,2546243.157516,1288.527087,1307.915398,19950.14,97.583024,79.890782,34.861159,0.8678,19.597548,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2025-07,transfer,IMPS,482.19,631411.21,640911.978148,13094.655841,13291.689545,19950.14,2.416976,20.109218,-1.650078,-0.8678,4.763016,absolute contraction,https://www.npci.org.in/product/imps/product-statistics
+2025-07,merchant,UPI P2M,12388.11,734012.36,745056.955249,592.513596,601.429076,12986.352,95.393302,75.984767,37.651937,0.949337,21.838691,co-expansion,https://www.npci.org.in/product/ecosystem-statistics/upi
+2025-07,merchant,credit card,486.181,193849.0,196765.822469,3987.177615,4047.172194,12986.352,3.743784,20.067198,26.682214,-0.2837,10.49087,relative share loss,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=50
+2025-07,merchant,debit card,112.061,38138.0,38711.857876,3403.324975,3454.534394,12986.352,0.862914,3.948036,-23.064618,-0.665637,-16.150777,absolute contraction,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=50
+2025-08,transfer,UPI total,20008.31,2485472.91,2511345.71144,1242.220312,1255.15134,20485.57,97.670263,80.618081,33.718126,0.610836,18.162004,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2025-08,transfer,IMPS,477.26,597548.76,603769.009014,12520.403135,12650.735637,20485.57,2.329737,19.381919,5.278715,-0.610836,1.302658,relative share loss,https://www.npci.org.in/product/imps/product-statistics
+2025-08,merchant,UPI P2M,12705.16,723797.42,731331.868215,569.687765,575.617992,13310.683,95.45085,76.000208,36.069176,0.844314,23.076926,co-expansion,https://www.npci.org.in/product/ecosystem-statistics/upi
+2025-08,merchant,credit card,493.443,191159.0,193148.890467,3873.983419,3914.310072,13310.683,3.70712,20.072086,26.501789,-0.2451,11.340887,relative share loss,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=51
+2025-08,merchant,debit card,112.08,37406.0,37795.381838,3337.437545,3372.178965,13310.683,0.84203,3.927706,-21.206369,-0.599214,-15.836463,absolute contraction,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=51
+2025-09,transfer,UPI total,19633.43,2489736.54,2515653.724161,1268.11084,1281.311378,20027.81,98.030838,80.663182,30.526235,0.809657,18.912583,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2025-09,transfer,IMPS,394.38,596847.04,603059.984383,15133.805974,15291.342978,20027.81,1.969162,19.336818,-8.268788,-0.809657,4.092342,absolute contraction,https://www.npci.org.in/product/imps/product-statistics
+2025-09,merchant,UPI P2M,12366.97,719567.29,727057.704215,581.846071,587.902861,12966.951,95.372999,73.949651,32.22633,0.712111,25.313201,co-expansion,https://www.npci.org.in/product/ecosystem-statistics/upi
+2025-09,merchant,credit card,495.241,216707.0,218962.835161,4375.788757,4421.339008,12966.951,3.819256,22.270894,26.284801,-0.149832,21.239771,relative share loss,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=52
+2025-09,merchant,debit card,104.74,36776.0,37158.823785,3511.170517,3547.72043,12966.951,0.807746,3.779455,-22.623445,-0.562279,-9.597288,absolute contraction,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=52
+2025-10,transfer,UPI total,20700.92,2727790.68,2751995.059285,1317.71471,1329.407127,21104.51,98.08766,80.949246,24.81735,0.82532,15.790835,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2025-10,transfer,IMPS,403.59,641963.61,647659.916105,15906.33093,16047.471843,21104.51,1.91234,19.050754,-13.544835,-0.82532,1.740634,absolute contraction,https://www.npci.org.in/product/imps/product-statistics
+2025-10,merchant,UPI P2M,13027.56,825742.2,833069.220195,633.842561,639.466807,13655.475,95.401734,76.30816,26.442128,0.708446,23.310352,co-expansion,https://www.npci.org.in/product/ecosystem-statistics/upi
+2025-10,merchant,credit card,518.29,214230.0,216130.917183,4133.40022,4170.07693,13655.475,3.795474,19.797338,19.638331,-0.18606,5.896305,relative share loss,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=53
+2025-10,merchant,debit card,109.625,42143.0,42516.945539,3844.287343,3878.398681,13655.475,0.802792,3.894502,-23.970261,-0.522386,-10.408779,absolute contraction,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=53
+2025-11,transfer,UPI total,20466.98,2631632.63,2646934.303726,1285.794304,1293.270577,20835.91,98.229355,81.052882,32.198382,0.796514,21.243087,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2025-11,transfer,IMPS,368.93,615176.83,618753.786384,16674.622015,16771.576895,20835.91,1.770645,18.947118,-9.558247,-0.796514,9.402597,absolute contraction,https://www.npci.org.in/product/imps/product-statistics
+2025-11,merchant,UPI P2M,12840.49,764552.06,768997.561259,595.422807,598.884903,13444.685,95.506068,77.423459,33.077656,0.592665,26.697766,co-expansion,https://www.npci.org.in/product/ecosystem-statistics/upi
+2025-11,merchant,credit card,502.984,188799.0,189896.775071,3753.578643,3775.403891,13444.685,3.741136,19.119001,27.789352,-0.130643,10.729827,relative share loss,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=54
+2025-11,merchant,debit card,101.211,34143.0,34341.525068,3373.44755,3393.06252,13444.685,0.752796,3.45754,-18.046446,-0.462022,-13.271092,absolute contraction,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=54
+2025-12,transfer,UPI total,21634.67,2796712.73,2811553.570767,1292.69951,1299.559259,22014.61,98.274146,80.849367,29.31654,0.843336,18.724495,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2025-12,transfer,IMPS,379.94,662451.92,665967.241168,17435.698268,17528.221329,22014.61,1.725854,19.150633,-13.877051,-0.843336,8.678243,absolute contraction,https://www.npci.org.in/product/imps/product-statistics
+2025-12,merchant,UPI P2M,13482.38,807572.99,811858.400519,598.984,602.162527,14127.138,95.436032,76.945863,29.708362,0.56032,26.089169,co-expansion,https://www.npci.org.in/product/ecosystem-statistics/upi
+2025-12,merchant,credit card,539.834,204687.0,205773.177762,3791.665586,3811.786174,14127.138,3.821255,19.502656,24.637862,-0.132108,7.39725,relative share loss,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=55
+2025-12,merchant,debit card,104.924,37274.0,37471.795609,3552.476078,3571.3274,14127.138,0.742712,3.551481,-18.209597,-0.428212,-9.555842,absolute contraction,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=55
+2026-01,transfer,UPI total,21703.44,2833481.22,2844060.996695,1305.544752,1310.419453,22077.47,98.305829,80.807213,27.697341,0.85293,17.686521,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2026-01,transfer,IMPS,374.03,672989.44,675502.277545,17992.926771,18060.109551,22077.47,1.694171,19.192787,-15.800729,-0.85293,8.22957,absolute contraction,https://www.npci.org.in/product/imps/product-statistics
+2026-01,merchant,UPI P2M,13608.1,840825.83,843965.342434,617.886281,620.193372,14249.64,95.497851,78.00825,28.745713,0.463158,27.19117,co-expansion,https://www.npci.org.in/product/ecosystem-statistics/upi
+2026-01,merchant,credit card,539.711,199085.0,199828.352322,3688.733415,3702.50657,14249.64,3.787541,18.470261,25.347445,-0.083816,5.44713,relative share loss,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=56
+2026-01,merchant,debit card,101.829,37957.0,38098.725515,3727.523593,3741.441585,14249.64,0.714608,3.521489,-16.306537,-0.379342,-4.994043,absolute contraction,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=56
+2026-02,transfer,UPI total,20394.18,2684229.29,2691159.976701,1316.174168,1319.572533,20730.27,98.378748,80.687369,26.623242,0.830625,18.489255,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2026-02,transfer,IMPS,336.09,642473.91,644132.779233,19116.12693,19165.484818,20730.27,1.621252,19.312631,-16.979967,-0.830625,10.629532,absolute contraction,https://www.npci.org.in/product/imps/product-statistics
+2026-02,merchant,UPI P2M,12795.78,772416.94,774411.32246,603.64975,605.208375,13381.287,95.624434,78.589989,27.109471,0.403203,26.918545,co-expansion,https://www.npci.org.in/product/ecosystem-statistics/upi
+2026-02,merchant,credit card,493.795,177292.0,177749.768385,3590.396825,3599.667238,13381.287,3.690191,18.038673,24.394459,-0.064642,2.806135,relative share loss,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=57
+2026-02,merchant,debit card,91.712,33135.0,33220.554652,3612.940509,3622.269131,13381.287,0.685375,3.371339,-15.277598,-0.338561,-6.372684,absolute contraction,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=57
+2026-03,transfer,UPI total,22641.11,2952542.05,2952542.05,1304.062411,1304.062411,23006.79,98.410556,79.95579,23.711705,0.870911,14.965827,co-expansion,https://www.npci.org.in/product/upi/product-statistics
+2026-03,transfer,IMPS,365.68,740176.19,740176.19,20241.090298,20241.090298,23006.79,1.589444,20.04421,-20.78676,-0.870911,6.909893,absolute contraction,https://www.npci.org.in/product/imps/product-statistics
+2026-03,merchant,UPI P2M,14180.46,861483.05,861483.05,607.514178,607.514178,14859.253,95.43185,76.991956,23.727299,0.240416,23.949115,co-expansion,https://www.npci.org.in/product/ecosystem-statistics/upi
+2026-03,merchant,credit card,577.476,219495.0,219495.0,3800.937182,3800.937182,14859.253,3.886306,19.616578,25.907773,0.076924,5.075157,co-expansion,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=58
+2026-03,merchant,debit card,101.317,37948.0,37948.0,3745.472132,3745.472132,14859.253,0.681845,3.391466,-15.781118,-0.317341,-6.276222,absolute contraction,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=58

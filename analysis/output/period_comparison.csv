@@ -1,0 +1,11 @@
+basket,rail,first_year,last_year,volume_growth_pct,volume_share_change_pp,value_share_change_pp,nominal_value_growth_pct,real_value_growth_pct,real_ticket_growth_pct,pattern
+transfer,IMPS,FY2016-17,FY2025-26,875.258952,-94.591388,-78.720427,1762.263253,,,relative share loss
+transfer,UPI total,FY2016-17,FY2025-26,1352738.073908,94.591388,78.720427,451893.914248,,,co-expansion
+merchant,UPI P2M,FY2022-23,FY2025-26,257.529433,8.374907,17.60457,195.750157,163.174909,-26.390701,co-expansion
+merchant,credit card,FY2022-23,FY2025-26,106.548443,-2.185249,-7.555818,64.857564,46.590924,-29.028308,relative share loss
+merchant,debit card,FY2022-23,FY2025-26,-62.585396,-6.189658,-10.048752,-38.226762,-45.131363,46.650324,absolute contraction
+transfer,IMPS,FY2024-25,FY2025-26,-12.121729,-0.932618,-1.886283,7.435367,5.218713,19.732343,absolute contraction
+transfer,UPI total,FY2024-25,FY2025-26,29.995187,0.932618,1.886283,20.594483,18.152831,-9.109842,co-expansion
+merchant,UPI P2M,FY2024-25,FY2025-26,31.34076,0.645342,3.012707,26.518824,23.949906,-5.627236,co-expansion
+merchant,credit card,FY2024-25,FY2025-26,26.166003,-0.128217,-1.689242,11.999431,9.774833,-12.991748,relative share loss
+merchant,debit card,FY2024-25,FY2025-26,-20.685376,-0.517126,-1.323465,-10.214932,-12.046557,10.891836,absolute contraction
