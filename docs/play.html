@@ -16,8 +16,9 @@
       --line: #dce2dc;
       --green: #126b54;
       --green-soft: #e3f1e9;
-      --blue: #447893;
-      --coral: #c96d53;
+      --upi-series: #008738;
+      --credit-series: #d62828;
+      --debit-series: #b57700;
       --navy: #16323b;
       --yellow: #f0c66b;
       --shadow: 0 14px 38px rgba(21, 43, 51, .07);
@@ -87,14 +88,14 @@
     .chart-zero { stroke: #96aaa0; stroke-width: 1.5; }
     .chart-year-divider { stroke: #9daea8; stroke-width: 1.5; stroke-dasharray: 5 5; }
     .chart-label { fill: var(--muted); font-size: 11px; font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
-    .chart-line { fill: none; stroke-width: 3; stroke-linejoin: round; stroke-linecap: round; }
-    .chart-line.upi-series { stroke: var(--green); }
-    .chart-line.credit-series { stroke: var(--blue); }
-    .chart-line.debit-series { stroke: var(--coral); }
+    .chart-line { fill: none; stroke-width: 4.2; stroke-linejoin: round; stroke-linecap: round; }
+    .chart-line.upi-series { stroke: var(--upi-series); }
+    .chart-line.credit-series { stroke: var(--credit-series); }
+    .chart-line.debit-series { stroke: var(--debit-series); }
     .chart-point { stroke: #fffefa; stroke-width: 1.2; }
-    .chart-point.upi-series { fill: var(--green); }
-    .chart-point.credit-series { fill: var(--blue); }
-    .chart-point.debit-series { fill: var(--coral); }
+    .chart-point.upi-series { fill: var(--upi-series); }
+    .chart-point.credit-series { fill: var(--credit-series); }
+    .chart-point.debit-series { fill: var(--debit-series); }
     .chart-summary { margin: 10px 0 0; color: var(--ink); font-size: 12px; font-weight: 650; font-variant-numeric: tabular-nums; }
     .chart-note { margin: 7px 0 0; color: var(--muted); font-size: 11px; }
     .history-row { display: grid; grid-template-columns: 96px minmax(0, 1fr) 58px; align-items: center; gap: 10px; padding: 6px 8px; border-radius: 8px; }
@@ -109,12 +110,12 @@
     .history-hint { margin: 8px 0 0; color: var(--muted); font-size: 11px; }
     .stack { display: flex; overflow: hidden; height: 23px; border-radius: 7px; background: #e9efea; }
     .segment { height: 100%; transition: width .18s ease; }
-    .upi { background: var(--green); }
-    .credit { background: var(--blue); }
-    .debit { background: var(--coral); }
+    .upi { background: var(--upi-series); }
+    .credit { background: var(--credit-series); }
+    .debit { background: var(--debit-series); }
     .legend { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 13px; }
     .legend span { display: inline-flex; align-items: center; gap: 5px; color: var(--muted); font-size: 11px; }
-    .swatch { width: 9px; height: 9px; border-radius: 3px; }
+    .swatch { width: 12px; height: 12px; border-radius: 3px; }
     .mix-numbers { margin: 11px 0 0; color: var(--ink); font-size: 12px; font-weight: 650; font-variant-numeric: tabular-nums; }
     .rail-row { margin: 18px 0 0; }
     .rail-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 5px; font-size: 13px; }
@@ -503,7 +504,7 @@
         });
         fragment.appendChild(path);
         line.values.forEach((value, index) => {
-          const point = svgElement("circle", { cx: x(index), cy: y(value), r: 2.5, class: `chart-point ${line.rail}-series` });
+          const point = svgElement("circle", { cx: x(index), cy: y(value), r: 3.2, class: `chart-point ${line.rail}-series` });
           const title = svgElement("title", {});
           const name = line.rail === "upi" ? "UPI P2M" : `${line.rail} card`;
           const amount = seriesMode === "share" ? `${value >= 0 ? "+" : ""}${value.toFixed(2)} percentage points` : `${value.toFixed(1)} (Apr ${firstYear} = 100)`;
