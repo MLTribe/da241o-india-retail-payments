@@ -92,7 +92,7 @@ def drift(values: list[float | None]) -> dict[str, float]:
     se = hac_se(fit, x)[0]
     est = fit["beta"][0]
     return {"est": est, "se": se, "lo": est - Z95 * se, "hi": est + Z95 * se, "n": len(clean),
-            "neg": sum(v < 0 for v in clean), "pos": sum(v > 0 for v in clean)}
+            "neg": sum(v < 0 for v in clean), "pos": sum(v > 0 for v in clean), "values": values}
 
 
 def p_two_sided(est: float, se: float) -> float:
@@ -203,7 +203,31 @@ def drift_line(d, unit="log"):
         text = f"{pct(d['est'])} a year [95% CI {pct(d['lo'])}, {pct(d['hi'])}]"
     else:
         text = f"{d['est']:+.3f} log points a year [95% CI {d['lo']:+.3f}, {d['hi']:+.3f}]"
-    return text, f"{consistent} of {d['n']} months on the same side of zero"
+    sign = "below" if d["est"] < 0 else "above"
+    return text, f"{consistent} of the {d['n']} year-on-year changes were {sign} zero"
+
+
+def yoy_example(series, unit="log"):
+    """Explain which year-on-year comparisons the average covers, with first, latest and extreme values."""
+    months = month_range(MERCHANT_START, END_MONTH)
+    points = [(m, v) for m, v in zip(months, series) if v is not None]
+    show = (lambda v: pct(v)) if unit == "growth" else (lambda v: f"{v:+.3f}")
+
+    def vs(m):
+        return f"{label_month(m)} vs {label_month(f'{int(m[:4]) - 1}{m[4:]}')}"
+
+    (m0, v0), (m1, v1) = points[0], points[1]
+    last_m, last_v = points[-1]
+    low = min(points, key=lambda p: p[1])
+    high = max(points, key=lambda p: p[1])
+    return (f"The result is the average of {len(points)} year-on-year changes, one per month from "
+            f"{label_month(m0)} to {label_month(last_m)} — not a single year. Each compares a month with "
+            f"the same month a year earlier: {vs(m0)} = {show(v0)}, {vs(m1)} = {show(v1)}, …, "
+            f"{vs(last_m)} = {show(last_v)}. Range: {show(low[1])} ({label_month(low[0])}) to "
+            f"{show(high[1])} ({label_month(high[0])}). Each bar or point in the chart is one of these changes."
+            + (f" The average is taken in log points ({sum(v for _, v in points) / len(points):+.3f}) and "
+               f"then converted to a percentage, so it differs slightly from averaging the percentages."
+               if unit == "growth" else ""))
 
 
 def hypothesis(**fields):
@@ -240,6 +264,11 @@ def drift_formulas(series_tex, direction, where="", tag=""):
     return rows
 
 
+MULTI_COVERAGE = ("Each figure is an average of 39 year-on-year changes, one per month from Jan 2023 "
+                  "(vs Jan 2022) to Mar 2026 (vs Mar 2025) — not a single year. The steps below show "
+                  "the first, latest and range of each.")
+
+
 def check_text(lo, hi, direction, fmt="{:+.3f}"):
     """Plain-language reason for a verdict from a 95% interval and the predicted sign."""
     side = "below" if direction == "<0" else "above"
@@ -260,7 +289,7 @@ def drift_step(question, d, direction, sym=r"\hat\mu", unit="log"):
     if unit == "growth":
         calc += r"\;\Rightarrow\; e^{" + f"{d['est']:+.3f}" + r"} - 1 = " + pct(d["est"]).replace("%", r"\%") + r"\text{ a year}"
     return {"question": question, "calc": calc, "check": check_text(d["lo"], d["hi"], direction),
-            "verdict": verdict(d["lo"], d["hi"], direction)}
+            "verdict": verdict(d["lo"], d["hi"], direction), "example": yoy_example(d["values"], unit)}
 
 
 def derivation(steps, final):
@@ -284,9 +313,10 @@ def drift_hypothesis(hid, group, title, statement, framework, metric, direction,
         test=f"{metric}. {DRIFT_TEST}. Supported if the 95% interval is {'below' if direction == '<0' else 'above'} zero.",
         estimate=estimate, consistency=consistency, p_value=p_two_sided(d["est"], d["se"]),
         ci=[d["lo"], d["hi"]], point=d["est"], verdict=final,
-        chart=chart_spec, data=data,
+        chart=chart_spec, data=data, coverage=yoy_example(series, unit),
         formulas=drift_formulas(formula, direction, where) if formula else [],
-        derivation=derivation([drift_step(question, d, direction, unit=unit)], final))
+        derivation=derivation([{k: v for k, v in drift_step(question, d, direction, unit=unit).items()
+                                if k != "example"}], final))
 
 
 # ---------- Hypotheses ----------
@@ -330,6 +360,7 @@ def h2(s):
                     {"name": "P2M grows faster than credit", "verdict": parts[1]}],
         chart=growth_chart("12-month volume change", s["months"], [("UPI P2M", gp), ("Credit card", gc)]),
         data=f"{RBI_CARDS}; {NPCI_P2M}",
+        coverage=MULTI_COVERAGE,
         derivation=derivation([
             drift_step("Is credit-card purchase volume growing year on year?", d_credit, ">0",
                        r"\hat\mu_{C}", "growth"),
@@ -360,6 +391,7 @@ def h3(s):
                     [("Debit card", s["debit_total_ticket_real"]), ("UPI P2M", s["p2m_ticket_real"]),
                      ("Credit card", s["credit_total_ticket_real"])], "₹ per transaction"),
         data=f"{RBI_CARDS}; {NPCI_P2M}; MoSPI CPI",
+        coverage=MULTI_COVERAGE,
         derivation=derivation([
             drift_step("Is the average real debit-card payment getting larger?", dd, ">0", r"\hat\mu_{D}", "growth"),
             drift_step("Is the average real UPI P2M payment getting smaller?", dp, "<0", r"\hat\mu_{P}", "growth")],
@@ -434,7 +466,15 @@ def comovement(s, rail, hid, title, framework):
                      + r",\quad \text{95\% interval} = " + f"{b:+.3f}" + r" \pm 1.96 \times " + f"{sb:.3f}"
                      + f" = [{lo:+.3f},\\ {hi:+.3f}]"),
             "check": check_text(lo, hi, "<0"), "verdict": verdict(lo, hi, "<0")}
+    first = next(i for i, r in enumerate(zip(y, xp, xc)) if None not in r)
+    coverage = (f"b is estimated from {len(rows)} months, {label_month(s['months'][first])} to "
+                f"{label_month(s['months'][-1])}. Each month pairs that month's year-on-year change in "
+                f"{name}-card volume with the year-on-year change in UPI P2M volume (e.g. "
+                f"{label_month(s['months'][first])} vs {label_month(s['months'][first - 12])}: {name} "
+                f"{pct(y[first])}, P2M {pct(xp[first])}). b is the average link across all of them, "
+                "not the result for one year.")
     return hypothesis(formulas=formulas, derivation=derivation([step], verdict(lo, hi, "<0")),
+                      coverage=coverage,
         id=hid, group="Merchant payments", title=title,
         statement=f"Months with faster UPI P2M growth show slower {name}-card growth, beyond common trends.",
         framework=framework,
@@ -559,6 +599,9 @@ def h7(s):
         chart=chart("lines", "IMPS volume, rolling 12 months", s["long_months"],
                     [("IMPS (bn)", rolling)], "billion transactions", marker=months[b]),
         data="NPCI IMPS product statistics",
+        coverage=(f"The break search uses every monthly IMPS volume from {label_month(months[0])} to "
+                  f"{label_month(months[-1])} ({n} months). The trends are average yearly rates over the "
+                  f"whole period before {label_month(months[b])} and the whole period after it, not one year."),
         derivation=derivation([
             {"question": "Is there a clear break in the level or trend of IMPS volume?",
              "calc": r"\sup F = " + f"{f:.1f}" + r"\ \text{at } \hat\tau = \text{" + label_month(months[b])
@@ -620,6 +663,11 @@ def h10(s):
         chart=chart("lines", "Debit-card volume: actual vs out-of-sample forecasts", months, series,
                     "million transactions", marker=months[train_n]),
         data=RBI_CARDS,
+        coverage=(f"Models are fitted on {label_month(months[0])}–{label_month(FORECAST_TRAIN_END)} only. "
+                  f"Each MAPE is the average % error over the {len(test)} held-out months "
+                  f"{label_month(months[train_n])}–{label_month(months[-1])}; e.g. log-linear in "
+                  f"{label_month(months[train_n])}: forecast {forecasts['Log-linear + month dummies'][0]:,.0f} mn "
+                  f"vs actual {y[train_n]:,.0f} mn."),
         derivation=derivation([
             {"question": f"Fit each model on {months[0]} to {FORECAST_TRAIN_END}, forecast the next "
                          f"{len(test)} months, and measure the average % error (MAPE).",
@@ -691,6 +739,7 @@ def h8(s):
                      f"payments/card fell in {use_test['neg']} of {use_test['n']}."),
         p_value=None, ci=None, point=None,
         verdict=combine([card_verdict, use_verdict]), formulas=H8_FORMULAS,
+        coverage=MULTI_COVERAGE,
         derivation=derivation([
             drift_step("Is the number of debit cards in force rising?", card_test, ">0", r"\hat\mu_{K}", "growth"),
             drift_step("Are payments per card falling?", use_test, "<0", r"\hat\mu_{u}", "growth")],
@@ -749,6 +798,7 @@ def h9(s):
                      f"card payments/terminal fell in {use_test['neg']} of {use_test['n']}."),
         p_value=None, ci=None, point=None,
         verdict=combine([gap_verdict, use_verdict]), formulas=H9_FORMULAS,
+        coverage=MULTI_COVERAGE,
         derivation=derivation([
             drift_step("Are UPI QR codes growing faster than card PoS terminals?", gap_test, ">0", r"\hat\mu_{Q-T}"),
             drift_step("Are card payments per PoS terminal falling?", use_test, "<0", r"\hat\mu_{w}", "growth")],

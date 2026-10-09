@@ -80,6 +80,9 @@
     .components { margin: 8px 0 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 6px; }
     .components li { font-size: 12px; }
     .note { margin: 8px 0 0; color: var(--muted); font-size: 12px; }
+    .coverage { margin: 8px 0 0; padding: 8px 10px; border-radius: 8px; background: #fbf6e6; border: 1px solid #efe0b4; color: #5a4a1c; font-size: 12px; }
+    .coverage b { color: #7a5712; }
+    .step-example { margin: 6px 0 0; padding: 6px 9px; border-radius: 7px; background: #fbf6e6; color: #5a4a1c; font-size: 12px; }
     .derive { margin-top: 16px; border: 1px solid #c9dccf; border-radius: 12px; background: #f6faf6; padding: 12px 16px; }
     .derive > h4 { margin: 0 0 8px; color: var(--green); font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
     .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
@@ -320,7 +323,8 @@
         const steps = d.steps.map((s, i) => `<li class="step"><span class="step-n">Step ${i + 1}</span><div>
             <p class="step-q">${esc(s.question)}</p>
             <div class="step-calc">${tex(s.calc)}</div>
-            <p class="step-check">${esc(s.check)} ${pill(s.verdict)}</p></div></li>`).join("");
+            <p class="step-check">${esc(s.check)} ${pill(s.verdict)}</p>
+            ${s.example ? `<p class="step-example"><b>Example:</b> ${esc(s.example)}</p>` : ""}</div></li>`).join("");
         const chain = d.steps.length > 1
           ? d.steps.map((s, i) => `<span>Step ${i + 1}</span> ${pill(s.verdict)}`).join(' <span class="op">+</span> ') + ` <span class="op">⇒</span> ${pill(d.verdict)}`
           : `Step 1 ${pill(d.steps[0].verdict)} <span class="op">⇒</span> ${pill(d.verdict)}`;
@@ -337,7 +341,7 @@
           <div class="facts">
             <div class="fact"><h4>Why we expect it</h4><p>${esc(h.framework)}</p></div>
             <div class="fact"><h4>Test</h4><p>${esc(h.test)}</p></div>
-            <div class="fact"><h4>Result</h4><p class="result">${esc(h.estimate)}</p><p>${esc(h.consistency)}</p>${components}${h.note ? `<p class="note">${esc(h.note)}</p>` : ""}</div>
+            <div class="fact"><h4>Result</h4><p class="result">${esc(h.estimate)}</p><p>${esc(h.consistency)}</p>${h.coverage ? `<p class="coverage"><b>Over what period?</b> ${esc(h.coverage)}</p>` : ""}${components}${h.note ? `<p class="note">${esc(h.note)}</p>` : ""}</div>
             <div class="fact"><h4>Data</h4><p>${esc(h.data)}</p></div>
           </div>
           ${derivationBlock(h.derivation)}
