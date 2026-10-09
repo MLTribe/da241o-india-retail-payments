@@ -177,6 +177,11 @@ def pct(log_points: float) -> str:
     return f"{100 * (math.exp(log_points) - 1):+.1f}%"
 
 
+def label_month(month: str) -> str:
+    names = "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split()
+    return f"{names[int(month[5:7]) - 1]} {month[:4]}"
+
+
 def rounded(values, digits=2):
     return [None if v is None else round(v, digits) for v in values]
 
@@ -235,17 +240,53 @@ def drift_formulas(series_tex, direction, where="", tag=""):
     return rows
 
 
+def check_text(lo, hi, direction, fmt="{:+.3f}"):
+    """Plain-language reason for a verdict from a 95% interval and the predicted sign."""
+    side = "below" if direction == "<0" else "above"
+    result = verdict(lo, hi, direction)
+    bounds = f"[{fmt.format(lo)}, {fmt.format(hi)}]"
+    if result == "Supported":
+        return f"The whole interval {bounds} is {side} 0, as predicted."
+    if result == "Contradicted":
+        return f"The whole interval {bounds} is on the opposite side of 0 to the prediction."
+    return f"The interval {bounds} includes 0, so the data cannot rule out no change."
+
+
+def drift_step(question, d, direction, sym=r"\hat\mu", unit="log"):
+    """One step of a verdict walk-through: the question, the numbers, the check and its verdict."""
+    calc = (sym + f" = {d['est']:+.3f}" + r",\quad \widehat{\mathrm{SE}}_{\mathrm{NW}} = "
+            + f"{d['se']:.3f}" + r",\quad \text{95\% interval} = " + f"{d['est']:+.3f}"
+            + r" \pm 1.96 \times " + f"{d['se']:.3f} = [{d['lo']:+.3f},\\ {d['hi']:+.3f}]")
+    if unit == "growth":
+        calc += r"\;\Rightarrow\; e^{" + f"{d['est']:+.3f}" + r"} - 1 = " + pct(d["est"]).replace("%", r"\%") + r"\text{ a year}"
+    return {"question": question, "calc": calc, "check": check_text(d["lo"], d["hi"], direction),
+            "verdict": verdict(d["lo"], d["hi"], direction)}
+
+
+def derivation(steps, final):
+    if len(steps) == 1:
+        rule = "One test, so the final verdict is that test's verdict."
+    else:
+        rule = ("Every step must be Supported for the hypothesis to be Supported. If only some are, "
+                "it is Partially supported; if none are, Not supported (Contradicted when every step "
+                "points the opposite way).")
+    return {"steps": steps, "rule": rule, "verdict": final}
+
+
 def drift_hypothesis(hid, group, title, statement, framework, metric, direction, series,
-                     unit, chart_spec, data, formula="", where=""):
+                     unit, chart_spec, data, formula="", where="", question=""):
     d = drift(series)
     estimate, consistency = drift_line(d, unit)
+    final = verdict(d["lo"], d["hi"], direction)
+    question = question or f"Is the average 12-month change {'below' if direction == '<0' else 'above'} zero?"
     return hypothesis(
         id=hid, group=group, title=title, statement=statement, framework=framework,
         test=f"{metric}. {DRIFT_TEST}. Supported if the 95% interval is {'below' if direction == '<0' else 'above'} zero.",
         estimate=estimate, consistency=consistency, p_value=p_two_sided(d["est"], d["se"]),
-        ci=[d["lo"], d["hi"]], point=d["est"], verdict=verdict(d["lo"], d["hi"], direction),
+        ci=[d["lo"], d["hi"]], point=d["est"], verdict=final,
         chart=chart_spec, data=data,
-        formulas=drift_formulas(formula, direction, where) if formula else [])
+        formulas=drift_formulas(formula, direction, where) if formula else [],
+        derivation=derivation([drift_step(question, d, direction, unit=unit)], final))
 
 
 # ---------- Hypotheses ----------
@@ -263,7 +304,8 @@ def h1(s):
         "for RuPay debit since Jan 2020); with close substitutes consumers move to a corner solution.",
         "Mean of Δ12 ln(debit volume)", "<0", g, "growth",
         growth_chart("Debit-card purchase volume, 12-month change", s["months"], [("Debit", g)]),
-        RBI_CARDS, D12 + r"\ln N^{D}_t", r"N^{D}_t = \text{domestic debit-card purchase volume in month } t")
+        RBI_CARDS, D12 + r"\ln N^{D}_t", r"N^{D}_t = \text{domestic debit-card purchase volume in month } t",
+        question="Is debit-card purchase volume lower than a year earlier, on average?")
 
 
 def h2(s):
@@ -288,6 +330,11 @@ def h2(s):
                     {"name": "P2M grows faster than credit", "verdict": parts[1]}],
         chart=growth_chart("12-month volume change", s["months"], [("UPI P2M", gp), ("Credit card", gc)]),
         data=f"{RBI_CARDS}; {NPCI_P2M}",
+        derivation=derivation([
+            drift_step("Is credit-card purchase volume growing year on year?", d_credit, ">0",
+                       r"\hat\mu_{C}", "growth"),
+            drift_step("Is UPI P2M growing faster than credit cards (so credit loses share)?", d_gap, ">0",
+                       r"\hat\mu_{P-C}")], combine(parts)),
         formulas=drift_formulas(D12 + r"\ln N^{C}_t", ">0", CARD_SYMBOLS, tag="C")
         + drift_formulas(D12 + r"\ln N^{P}_t - " + D12 + r"\ln N^{C}_t", ">0", tag="P-C"))
 
@@ -313,6 +360,10 @@ def h3(s):
                     [("Debit card", s["debit_total_ticket_real"]), ("UPI P2M", s["p2m_ticket_real"]),
                      ("Credit card", s["credit_total_ticket_real"])], "₹ per transaction"),
         data=f"{RBI_CARDS}; {NPCI_P2M}; MoSPI CPI",
+        derivation=derivation([
+            drift_step("Is the average real debit-card payment getting larger?", dd, ">0", r"\hat\mu_{D}", "growth"),
+            drift_step("Is the average real UPI P2M payment getting smaller?", dp, "<0", r"\hat\mu_{P}", "growth")],
+            combine(parts)),
         formulas=[("Real ticket", REAL_TICKET), ("where", CARD_SYMBOLS)]
         + drift_formulas(D12 + r"\ln \tau^{D}_t", ">0", tag="D")
         + drift_formulas(D12 + r"\ln \tau^{P}_t", "<0", tag="P"))
@@ -337,7 +388,8 @@ def h4(s):
         D12 + r"\,\mathrm{logit}\, s^{N}_t - " + D12 + r"\,\mathrm{logit}\, s^{V}_t",
         r"s^{N}_t = \frac{N^{P}_t}{N^{P}_t + N^{D}_t + N^{C}_t},\quad "
         r"s^{V}_t = \frac{V^{P}_t}{V^{P}_t + V^{D}_t + V^{C}_t},\quad "
-        r"\mathrm{logit}\, s = \ln\frac{s}{1-s}")
+        r"\mathrm{logit}\, s = \ln\frac{s}{1-s}",
+        question="Does UPI P2M's volume share (in log-odds) rise faster than its value share?")
     result["note"] = (f"In percentage points the ranking flips: volume share {100 * vol[0]:.1f}% → "
                       f"{100 * vol[-1]:.1f}%, value share {100 * val[0]:.1f}% → {100 * val[-1]:.1f}%. "
                       "The metric is fixed in advance as log-odds.")
@@ -354,7 +406,8 @@ def h5(s):
         growth_chart("Debit volume by channel, 12-month change", s["months"],
                      [("Debit PoS", gpos), ("Debit online/other", goth)]),
         RBI_CARDS, D12 + r"\ln N^{D,\mathrm{PoS}}_t - " + D12 + r"\ln N^{D,\mathrm{online}}_t",
-        r"N^{D,\mathrm{PoS}}_t,\ N^{D,\mathrm{online}}_t = \text{debit purchases at PoS terminals and online (RBI 'Others')}")
+        r"N^{D,\mathrm{PoS}}_t,\ N^{D,\mathrm{online}}_t = \text{debit purchases at PoS terminals and online (RBI 'Others')}",
+        question="Does in-store (PoS) debit volume grow more slowly than online debit volume?")
 
 
 def comovement(s, rail, hid, title, framework):
@@ -376,7 +429,12 @@ def comovement(s, rail, hid, title, framework):
         ("Hypothesis", r"H_0:\ b = 0 \qquad H_1:\ b < 0"),
         ("Supported if", r"\hat b + 1.96\,\widehat{\mathrm{SE}}_{\mathrm{NW}}(\hat b) < 0"),
     ]
-    return hypothesis(formulas=formulas,
+    step = {"question": f"In months when UPI P2M grows faster, does {name}-card volume grow more slowly?",
+            "calc": (r"\hat b = " + f"{b:+.3f}" + r",\quad \widehat{\mathrm{SE}}_{\mathrm{NW}} = " + f"{sb:.3f}"
+                     + r",\quad \text{95\% interval} = " + f"{b:+.3f}" + r" \pm 1.96 \times " + f"{sb:.3f}"
+                     + f" = [{lo:+.3f},\\ {hi:+.3f}]"),
+            "check": check_text(lo, hi, "<0"), "verdict": verdict(lo, hi, "<0")}
+    return hypothesis(formulas=formulas, derivation=derivation([step], verdict(lo, hi, "<0")),
         id=hid, group="Merchant payments", title=title,
         statement=f"Months with faster UPI P2M growth show slower {name}-card growth, beyond common trends.",
         framework=framework,
@@ -415,7 +473,8 @@ def s1(s):
         chart("lines", "Debit share of card purchases (volume)", s["months"],
               [("Debit share of cards", [100 * v for v in share])], "%"),
         RBI_CARDS, D12 + r"\ln N^{D}_t - " + D12 + r"\ln N^{C}_t",
-        r"N^{D}_t,\ N^{C}_t = \text{debit- and credit-card purchase volume}")
+        r"N^{D}_t,\ N^{C}_t = \text{debit- and credit-card purchase volume}",
+        question="Does debit volume grow more slowly than credit volume?")
     result["note"] = (f"Debit share of card purchases {100 * share[0]:.1f}% → {100 * share[-1]:.1f}%. "
                       "Rival explanations (bank push on credit, rewards, income growth) also predict this.")
     return result
@@ -431,7 +490,8 @@ def s2(s):
         growth_chart("Debit card, 12-month change", s["months"],
                      [("Value", diff(ln(s["debit_total_v"]))), ("Volume", diff(ln(s["debit_total_n"])))]),
         RBI_CARDS, D12 + r"\ln V^{D}_t - " + D12 + r"\ln N^{D}_t \;=\; " + D12 + r"\ln \frac{V^{D}_t}{N^{D}_t}",
-        r"V^{D}_t,\ N^{D}_t = \text{debit-card purchase value (nominal) and volume}")
+        r"V^{D}_t,\ N^{D}_t = \text{debit-card purchase value (nominal) and volume}",
+        question="Does debit value grow faster (fall more slowly) than debit volume, i.e. does the average debit payment rise?")
 
 
 def s3(s):
@@ -443,7 +503,8 @@ def s3(s):
         "Adhikari (2026)'s reading of falling credit tickets.",
         "Mean of Δ12 ln(real credit ticket)", "<0", g, "growth",
         growth_chart("Real credit-card ticket, 12-month change", s["months"], [("Credit ticket", g)]),
-        f"{RBI_CARDS}; MoSPI CPI", D12 + r"\ln \tau^{C}_t", REAL_TICKET.replace("{X}", "{C}"))
+        f"{RBI_CARDS}; MoSPI CPI", D12 + r"\ln \tau^{C}_t", REAL_TICKET.replace("{X}", "{C}"),
+        question="Is the average real credit-card payment smaller than a year earlier?")
 
 
 def u1(s):
@@ -457,7 +518,8 @@ def u1(s):
               [("P2M share", [100 * v for v in share])], "%"),
         NPCI_P2M, D12 + r"\,\mathrm{logit}\, \pi_t",
         r"\pi_t = \frac{N^{\mathrm{P2M}}_t}{N^{\mathrm{P2M}}_t + N^{\mathrm{P2P}}_t},\quad "
-        r"\mathrm{logit}\, \pi = \ln\frac{\pi}{1-\pi}")
+        r"\mathrm{logit}\, \pi = \ln\frac{\pi}{1-\pi}",
+        question="Is P2M's share of UPI transactions (in log-odds) higher than a year earlier?")
 
 
 def h7(s):
@@ -497,6 +559,20 @@ def h7(s):
         chart=chart("lines", "IMPS volume, rolling 12 months", s["long_months"],
                     [("IMPS (bn)", rolling)], "billion transactions", marker=months[b]),
         data="NPCI IMPS product statistics",
+        derivation=derivation([
+            {"question": "Is there a clear break in the level or trend of IMPS volume?",
+             "calc": r"\sup F = " + f"{f:.1f}" + r"\ \text{at } \hat\tau = \text{" + label_month(months[b])
+                     + r"},\qquad \text{5\% critical value} = " + f"{SUP_F_CRITICAL_5PCT:.2f}",
+             "check": (f"{f:.1f} is {'above' if f > SUP_F_CRITICAL_5PCT else 'not above'} "
+                       f"{SUP_F_CRITICAL_5PCT:.2f}, so {'a break is detected' if f > SUP_F_CRITICAL_5PCT else 'no break is detected'}."),
+             "verdict": parts[0]},
+            {"question": "After the break, is IMPS volume falling (not just growing more slowly)?",
+             "calc": (r"\text{before: } 12\hat\beta = " + f"{before:+.3f}" + r"\ (" + pct(before).replace("%", r"\%")
+                      + r"),\qquad \text{after: } 12(\hat\beta + \hat\theta) = " + f"{after:+.3f}" + r"\ ("
+                      + pct(after).replace("%", r"\%") + r")\ \text{a year}"),
+             "check": (f"The post-break trend {pct(after)} a year is "
+                       f"{'below 0: IMPS is contracting' if after < 0 else 'not below 0'}."),
+             "verdict": parts[1]}], combine(parts)),
         formulas=[
             ("Model", r"\ln I_t = \alpha + \beta t + \sum_{m=2}^{12} \gamma_m M_{mt} + \delta\,\mathbf{1}[t \ge \tau]"
              r" + \theta\,(t-\tau)\,\mathbf{1}[t \ge \tau] + e_t"),
@@ -544,6 +620,18 @@ def h10(s):
         chart=chart("lines", "Debit-card volume: actual vs out-of-sample forecasts", months, series,
                     "million transactions", marker=months[train_n]),
         data=RBI_CARDS,
+        derivation=derivation([
+            {"question": f"Fit each model on {months[0]} to {FORECAST_TRAIN_END}, forecast the next "
+                         f"{len(test)} months, and measure the average % error (MAPE).",
+             "calc": r",\quad ".join(r"\text{" + k.replace("×", r"$\times$") + r"} = " + f"{v:.1f}" + r"\%"
+                                     for k, v in mape.items()),
+             "check": (f"Log-linear ({mape['Log-linear + month dummies']:.1f}%) "
+                       f"{'beats' if ok else 'does not beat'} both the linear trend "
+                       f"({mape['Linear level trend']:.1f}%) and seasonal naive "
+                       f"({mape['Seasonal naive']:.1f}%). "
+                       + (f"The best overall is {best} ({mape[best]:.1f}%), which is reported but is "
+                          "not part of the pre-set rule." if best != "Log-linear + month dummies" else "")),
+             "verdict": "Supported" if ok else "Not supported"}], "Supported" if ok else "Not supported"),
         formulas=[
             ("Linear trend", r"\hat N^{D}_t = \hat\alpha + \hat\beta t"),
             ("Log-linear", r"\ln N^{D}_t = \alpha + \beta t + \sum_{m=2}^{12} \gamma_m M_{mt} + e_t,\qquad "
@@ -603,6 +691,10 @@ def h8(s):
                      f"payments/card fell in {use_test['neg']} of {use_test['n']}."),
         p_value=None, ci=None, point=None,
         verdict=combine([card_verdict, use_verdict]), formulas=H8_FORMULAS,
+        derivation=derivation([
+            drift_step("Is the number of debit cards in force rising?", card_test, ">0", r"\hat\mu_{K}", "growth"),
+            drift_step("Are payments per card falling?", use_test, "<0", r"\hat\mu_{u}", "growth")],
+            combine([card_verdict, use_verdict])),
         components=[{"name": "Cards in force rise", "verdict": card_verdict},
                     {"name": "Payments per card fall", "verdict": use_verdict}],
         chart=growth_chart("Debit cards in force and payments per card, 12-month change",
@@ -657,6 +749,10 @@ def h9(s):
                      f"card payments/terminal fell in {use_test['neg']} of {use_test['n']}."),
         p_value=None, ci=None, point=None,
         verdict=combine([gap_verdict, use_verdict]), formulas=H9_FORMULAS,
+        derivation=derivation([
+            drift_step("Are UPI QR codes growing faster than card PoS terminals?", gap_test, ">0", r"\hat\mu_{Q-T}"),
+            drift_step("Are card payments per PoS terminal falling?", use_test, "<0", r"\hat\mu_{w}", "growth")],
+            combine([gap_verdict, use_verdict])),
         components=[{"name": "UPI QR grows faster than PoS terminals", "verdict": gap_verdict},
                     {"name": "Card PoS payments per terminal fall", "verdict": use_verdict}],
         chart=growth_chart("QR and PoS infrastructure and card use, 12-month change",

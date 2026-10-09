@@ -80,6 +80,20 @@
     .components { margin: 8px 0 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 6px; }
     .components li { font-size: 12px; }
     .note { margin: 8px 0 0; color: var(--muted); font-size: 12px; }
+    .derive { margin-top: 16px; border: 1px solid #c9dccf; border-radius: 12px; background: #f6faf6; padding: 12px 16px; }
+    .derive > h4 { margin: 0 0 8px; color: var(--green); font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+    .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+    .step { display: grid; grid-template-columns: 58px 1fr; gap: 12px; padding: 10px 12px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+    .step-n { align-self: start; display: inline-grid; place-items: center; height: 26px; border-radius: 999px; background: var(--navy); color: white; font-size: 11px; font-weight: 800; }
+    .step-q { margin: 0; font-size: 14px; font-weight: 700; }
+    .step-calc { overflow-x: auto; overflow-y: hidden; font-size: 13.5px; }
+    .step-calc .katex-display { margin: 6px 0; text-align: left; }
+    .step-calc .katex-display > .katex { text-align: left; }
+    .step-check { margin: 0; font-size: 13px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+    .final { margin-top: 10px; padding: 10px 12px; border-radius: 10px; background: var(--navy); color: #eef3ef; font-size: 13px; }
+    .final .chain { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 4px; font-weight: 700; }
+    .final .op { opacity: .7; font-weight: 800; }
+    .final .rule { color: #b9cbc8; font-size: 12px; margin: 4px 0 0; }
     .formulas { margin-top: 16px; border: 1px solid var(--line); border-left: 3px solid var(--green); border-radius: 10px; background: #fbfcf9; padding: 10px 14px; }
     .formulas h4 { margin: 0 0 4px; color: var(--muted); font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
     .formula-row { display: grid; grid-template-columns: 130px 1fr; gap: 12px; align-items: center; padding: 3px 0; }
@@ -116,6 +130,8 @@
       .intro, .facts { grid-template-columns: 1fr; }
       .picker { margin-left: 0; }
       .formula-row { grid-template-columns: 1fr; gap: 0; }
+      .step { grid-template-columns: 1fr; gap: 6px; }
+      .step-n { justify-self: start; padding: 0 10px; }
       .hide-narrow { display: none; }
     }
     @media (max-width: 570px) {
@@ -299,6 +315,19 @@
         ["Shown as %", String.raw`\big(e^{\hat\mu} - 1\big) \times 100\% \text{ a year}`],
       ], "Common formulas");
 
+      function derivationBlock(d) {
+        if (!d || !d.steps || !d.steps.length) return "";
+        const steps = d.steps.map((s, i) => `<li class="step"><span class="step-n">Step ${i + 1}</span><div>
+            <p class="step-q">${esc(s.question)}</p>
+            <div class="step-calc">${tex(s.calc)}</div>
+            <p class="step-check">${esc(s.check)} ${pill(s.verdict)}</p></div></li>`).join("");
+        const chain = d.steps.length > 1
+          ? d.steps.map((s, i) => `<span>Step ${i + 1}</span> ${pill(s.verdict)}`).join(' <span class="op">+</span> ') + ` <span class="op">⇒</span> ${pill(d.verdict)}`
+          : `Step 1 ${pill(d.steps[0].verdict)} <span class="op">⇒</span> ${pill(d.verdict)}`;
+        return `<div class="derive"><h4>How the verdict is reached</h4><ol class="steps">${steps}</ol>
+          <div class="final"><div class="chain">Final verdict: ${chain}</div><p class="rule">${esc(d.rule)}</p></div></div>`;
+      }
+
       function card(h) {
         const components = h.components.length
           ? `<ul class="components">${h.components.map(c => `<li>${esc(c.name)}: ${pill(c.verdict)}</li>`).join("")}</ul>` : "";
@@ -311,7 +340,8 @@
             <div class="fact"><h4>Result</h4><p class="result">${esc(h.estimate)}</p><p>${esc(h.consistency)}</p>${components}${h.note ? `<p class="note">${esc(h.note)}</p>` : ""}</div>
             <div class="fact"><h4>Data</h4><p>${esc(h.data)}</p></div>
           </div>
-          ${formulaBlock(h.formulas)}
+          ${derivationBlock(h.derivation)}
+          ${formulaBlock(h.formulas, "Formulas used")}
           ${drawChart(h.chart)}
         </article>`;
       }

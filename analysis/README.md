@@ -122,6 +122,13 @@ definitions in `where=`); the page renders it with KaTeX alongside the
 generated hypothesis and decision rule. Custom tests pass
 `formulas=[(label, latex), ...]`.
 
+Each card also shows "How the verdict is reached": one step per test, with
+the plain question, the estimate and interval filled in with this data's
+numbers, the check, and the step's verdict, then the rule that combines the
+steps into the final verdict. Drift tests build this automatically (pass a
+plain-language `question=`); custom tests pass
+`derivation=derivation([drift_step(...), ...], final_verdict)`.
+
 ## Reading the result
 
 The main comparison is **growth versus displacement**. For FY2022-23 to
