@@ -6,6 +6,8 @@
   <meta name="theme-color" content="#f5f4ef">
   <meta name="description" content="Hypothesis register for the Utility Maximizers' DA241o study: each hypothesis, its test on official NPCI, RBI and MoSPI data, and the verdict.">
   <title>Hypotheses · Utility Maximizers</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
   <style>
     :root {
       color-scheme: light;
@@ -78,6 +80,16 @@
     .components { margin: 8px 0 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 6px; }
     .components li { font-size: 12px; }
     .note { margin: 8px 0 0; color: var(--muted); font-size: 12px; }
+    .formulas { margin-top: 16px; border: 1px solid var(--line); border-left: 3px solid var(--green); border-radius: 10px; background: #fbfcf9; padding: 10px 14px; }
+    .formulas h4 { margin: 0 0 4px; color: var(--muted); font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+    .formula-row { display: grid; grid-template-columns: 130px 1fr; gap: 12px; align-items: center; padding: 3px 0; }
+    .formula-row + .formula-row { border-top: 1px dashed #e4e9e4; }
+    .formula-label { color: var(--muted); font-size: 12px; font-weight: 700; }
+    .formula-row.where .formula-label { font-style: italic; font-weight: 600; }
+    .formula-tex { overflow-x: auto; overflow-y: hidden; font-size: 14px; }
+    .formula-tex .katex-display { margin: 4px 0; text-align: left; }
+    .formula-tex .katex-display > .katex { text-align: left; }
+    .formula-tex code { white-space: pre-wrap; }
     .chart-wrap { margin-top: 18px; border: 1px solid var(--line); border-radius: 12px; background: #fbfcf9; padding: 10px 10px 4px; }
     .chart-title { margin: 2px 4px 4px; font-size: 12px; font-weight: 750; }
     .chart-unit { margin: 0 4px; color: var(--muted); font-size: 11px; }
@@ -103,6 +115,7 @@
     @media (max-width: 820px) {
       .intro, .facts { grid-template-columns: 1fr; }
       .picker { margin-left: 0; }
+      .formula-row { grid-template-columns: 1fr; gap: 0; }
       .hide-narrow { display: none; }
     }
     @media (max-width: 570px) {
@@ -158,6 +171,13 @@
         </table>
       </section>
 
+      <section class="panel" aria-labelledby="method-title">
+        <p class="panel-kicker">Method</p>
+        <h2 id="method-title">How every drift test works</h2>
+        <p class="hint">Most hypotheses test whether the average 12-month log change of one series is above or below zero. Comparing a month with the same month a year earlier removes ordinary seasonality; a log change of 0.10 is about a 10% rise.</p>
+        <div class="formulas" id="method-formulas"></div>
+      </section>
+
       <div class="cards" id="cards"></div>
 
       <section class="panel how" aria-labelledby="how-title" style="margin-top:18px">
@@ -165,7 +185,7 @@
         <h2 id="how-title">How to add or change one</h2>
         <ol>
           <li>Open <code>analysis/hypothesis_tests.py</code> and copy an existing function such as <code>s2</code>. State the predicted direction (<code>"&lt;0"</code> or <code>"&gt;0"</code>) before looking at the result.</li>
-          <li>Build the tested series from the loaded data (12-month log changes remove seasonality) and return <code>drift_hypothesis(...)</code>, or <code>hypothesis(...)</code> for a custom test.</li>
+          <li>Build the tested series from the loaded data (12-month log changes remove seasonality) and return <code>drift_hypothesis(...)</code>, or <code>hypothesis(...)</code> for a custom test. Pass the tested series as LaTeX in <code>formula=</code> (and symbol definitions in <code>where=</code>); the hypothesis and decision rule are written automatically. Custom tests pass <code>formulas=[(label, latex), ...]</code>.</li>
           <li>Add the function to <code>REGISTER</code>, then run <code>python3 analysis/hypothesis_tests.py</code>. It rewrites <code>analysis/output/hypotheses.csv</code> and <code>docs/hypotheses-data.js</code>, and this page updates.</li>
           <li>Hypotheses that need data we have not collected yet can be listed with <code>pending(...)</code> so they stay visible.</li>
         </ol>
@@ -259,6 +279,26 @@
           <svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(chart.label)}">${svg}</svg>${legend}</div>`;
       }
 
+      function tex(source) {
+        if (!window.katex) return `<code>${esc(source)}</code>`;
+        return window.katex.renderToString(source, { displayMode: true, throwOnError: false, output: "htmlAndMathml" });
+      }
+
+      function formulaBlock(rows, heading = "Formulas") {
+        if (!rows || !rows.length) return "";
+        return `<div class="formulas"><h4>${esc(heading)}</h4>${rows.map(([name, source]) =>
+          `<div class="formula-row${name === "where" ? " where" : ""}"><span class="formula-label">${esc(name)}</span><div class="formula-tex">${tex(source)}</div></div>`).join("")}</div>`;
+      }
+
+      document.getElementById("method-formulas").outerHTML = formulaBlock([
+        ["12-month log change", String.raw`\Delta_{12} \ln X_t = \ln X_t - \ln X_{t-12}`],
+        ["Mean drift", String.raw`\hat\mu = \frac{1}{T}\sum_{t=1}^{T} g_t,\qquad T = 39 \text{ months (Jan 2023 – Mar 2026)}`],
+        ["Newey-West SE", String.raw`\widehat{\mathrm{SE}}_{\mathrm{NW}}(\hat\mu)^2 = \frac{1}{T^2}\Big[\sum_{t=1}^{T}\hat e_t^{\,2} + 2\sum_{j=1}^{12}\Big(1 - \frac{j}{13}\Big)\sum_{t=j+1}^{T}\hat e_t\,\hat e_{t-j}\Big],\qquad \hat e_t = g_t - \hat\mu`],
+        ["95% interval", String.raw`\hat\mu \pm 1.96\,\widehat{\mathrm{SE}}_{\mathrm{NW}}(\hat\mu)`],
+        ["Verdict", String.raw`\text{Supported: interval on predicted side of 0;}\quad \text{Contradicted: on the other side;}\quad \text{Not supported: contains 0}`],
+        ["Shown as %", String.raw`\big(e^{\hat\mu} - 1\big) \times 100\% \text{ a year}`],
+      ], "Common formulas");
+
       function card(h) {
         const components = h.components.length
           ? `<ul class="components">${h.components.map(c => `<li>${esc(c.name)}: ${pill(c.verdict)}</li>`).join("")}</ul>` : "";
@@ -271,6 +311,7 @@
             <div class="fact"><h4>Result</h4><p class="result">${esc(h.estimate)}</p><p>${esc(h.consistency)}</p>${components}${h.note ? `<p class="note">${esc(h.note)}</p>` : ""}</div>
             <div class="fact"><h4>Data</h4><p>${esc(h.data)}</p></div>
           </div>
+          ${formulaBlock(h.formulas)}
           ${drawChart(h.chart)}
         </article>`;
       }

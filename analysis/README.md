@@ -117,7 +117,10 @@ To add a hypothesis, write a function that returns `drift_hypothesis(...)`
 (or `hypothesis(...)` for a custom test, or `pending(...)` when the data are
 not yet available), append it to `REGISTER`, and rerun the script. The page
 picks it up without HTML changes. Fix the direction and metric before
-looking at the result.
+looking at the result. Give the tested series as LaTeX in `formula=` (symbol
+definitions in `where=`); the page renders it with KaTeX alongside the
+generated hypothesis and decision rule. Custom tests pass
+`formulas=[(label, latex), ...]`.
 
 ## Reading the result
 

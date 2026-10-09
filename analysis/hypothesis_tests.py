@@ -204,15 +204,39 @@ def drift_line(d, unit="log"):
 def hypothesis(**fields):
     fields.setdefault("components", [])
     fields.setdefault("chart", None)
+    fields.setdefault("formulas", [])
     return fields
 
 
 DRIFT_TEST = ("Mean 12-month log change, Newey-West (12-lag) standard errors, "
               "39 matched months Jan 2023–Mar 2026")
 
+# LaTeX building blocks for the formulas shown on docs/hypotheses.html (rendered with KaTeX).
+D12 = r"\Delta_{12}"
+REAL_TICKET = (r"\tau^{X}_t = \frac{V^{X}_t}{N^{X}_t}\cdot"
+               r"\frac{\mathrm{CPI}_{\text{Mar 2026}}}{\mathrm{CPI}_t}")
+CARD_SYMBOLS = (r"N^{D}_t,\ N^{C}_t,\ N^{P}_t = \text{debit, credit, UPI P2M volume};\quad "
+                r"V^{X}_t = \text{value of rail } X")
+
+
+def drift_formulas(series_tex, direction, where="", tag=""):
+    """Tested series, hypotheses and decision rule for one drift test, as (label, LaTeX) pairs."""
+    g = "g_t" if not tag else "g^{" + tag + "}_t"
+    mu = r"\mu" if not tag else r"\mu_{" + tag + "}"
+    mu_hat = r"\hat\mu" if not tag else r"\hat\mu_{" + tag + "}"
+    se = r"1.96\,\widehat{\mathrm{SE}}_{\mathrm{NW}}(" + mu_hat + ")"
+    rule = mu_hat + " + " + se + " < 0" if direction == "<0" else mu_hat + " - " + se + " > 0"
+    rows = [("Tested series", g + " = " + series_tex)]
+    if where:
+        rows.append(("where", where))
+    rows += [("Hypothesis", "H_0:\\ " + mu + r" = 0 \qquad H_1:\ " + mu
+              + (" < 0" if direction == "<0" else " > 0") + r",\qquad " + mu + r" = \mathbb{E}[" + g + "]"),
+             ("Supported if", rule)]
+    return rows
+
 
 def drift_hypothesis(hid, group, title, statement, framework, metric, direction, series,
-                     unit, chart_spec, data):
+                     unit, chart_spec, data, formula="", where=""):
     d = drift(series)
     estimate, consistency = drift_line(d, unit)
     return hypothesis(
@@ -220,7 +244,8 @@ def drift_hypothesis(hid, group, title, statement, framework, metric, direction,
         test=f"{metric}. {DRIFT_TEST}. Supported if the 95% interval is {'below' if direction == '<0' else 'above'} zero.",
         estimate=estimate, consistency=consistency, p_value=p_two_sided(d["est"], d["se"]),
         ci=[d["lo"], d["hi"]], point=d["est"], verdict=verdict(d["lo"], d["hi"], direction),
-        chart=chart_spec, data=data)
+        chart=chart_spec, data=data,
+        formulas=drift_formulas(formula, direction, where) if formula else [])
 
 
 # ---------- Hypotheses ----------
@@ -238,7 +263,7 @@ def h1(s):
         "for RuPay debit since Jan 2020); with close substitutes consumers move to a corner solution.",
         "Mean of Δ12 ln(debit volume)", "<0", g, "growth",
         growth_chart("Debit-card purchase volume, 12-month change", s["months"], [("Debit", g)]),
-        RBI_CARDS)
+        RBI_CARDS, D12 + r"\ln N^{D}_t", r"N^{D}_t = \text{domestic debit-card purchase volume in month } t")
 
 
 def h2(s):
@@ -262,7 +287,9 @@ def h2(s):
         components=[{"name": "Credit volume grows", "verdict": parts[0]},
                     {"name": "P2M grows faster than credit", "verdict": parts[1]}],
         chart=growth_chart("12-month volume change", s["months"], [("UPI P2M", gp), ("Credit card", gc)]),
-        data=f"{RBI_CARDS}; {NPCI_P2M}")
+        data=f"{RBI_CARDS}; {NPCI_P2M}",
+        formulas=drift_formulas(D12 + r"\ln N^{C}_t", ">0", CARD_SYMBOLS, tag="C")
+        + drift_formulas(D12 + r"\ln N^{P}_t - " + D12 + r"\ln N^{C}_t", ">0", tag="P-C"))
 
 
 def h3(s):
@@ -285,7 +312,10 @@ def h3(s):
         chart=chart("lines", "Average real ticket, March 2026 rupees", s["months"],
                     [("Debit card", s["debit_total_ticket_real"]), ("UPI P2M", s["p2m_ticket_real"]),
                      ("Credit card", s["credit_total_ticket_real"])], "₹ per transaction"),
-        data=f"{RBI_CARDS}; {NPCI_P2M}; MoSPI CPI")
+        data=f"{RBI_CARDS}; {NPCI_P2M}; MoSPI CPI",
+        formulas=[("Real ticket", REAL_TICKET), ("where", CARD_SYMBOLS)]
+        + drift_formulas(D12 + r"\ln \tau^{D}_t", ">0", tag="D")
+        + drift_formulas(D12 + r"\ln \tau^{P}_t", "<0", tag="P"))
 
 
 def h4(s):
@@ -303,7 +333,11 @@ def h4(s):
         "are bounded near 100%", ">0", gap, "log",
         chart("lines", "UPI P2M share of the merchant basket", s["months"],
               [("Volume share", [100 * v for v in vol]), ("Value share", [100 * v for v in val])], "%"),
-        f"{RBI_CARDS}; {NPCI_P2M}")
+        f"{RBI_CARDS}; {NPCI_P2M}",
+        D12 + r"\,\mathrm{logit}\, s^{N}_t - " + D12 + r"\,\mathrm{logit}\, s^{V}_t",
+        r"s^{N}_t = \frac{N^{P}_t}{N^{P}_t + N^{D}_t + N^{C}_t},\quad "
+        r"s^{V}_t = \frac{V^{P}_t}{V^{P}_t + V^{D}_t + V^{C}_t},\quad "
+        r"\mathrm{logit}\, s = \ln\frac{s}{1-s}")
     result["note"] = (f"In percentage points the ranking flips: volume share {100 * vol[0]:.1f}% → "
                       f"{100 * vol[-1]:.1f}%, value share {100 * val[0]:.1f}% → {100 * val[-1]:.1f}%. "
                       "The metric is fixed in advance as log-odds.")
@@ -319,7 +353,8 @@ def h5(s):
         "Mean of [Δ12 ln(debit PoS) − Δ12 ln(debit online)]", "<0", sub(gpos, goth), "log",
         growth_chart("Debit volume by channel, 12-month change", s["months"],
                      [("Debit PoS", gpos), ("Debit online/other", goth)]),
-        RBI_CARDS)
+        RBI_CARDS, D12 + r"\ln N^{D,\mathrm{PoS}}_t - " + D12 + r"\ln N^{D,\mathrm{online}}_t",
+        r"N^{D,\mathrm{PoS}}_t,\ N^{D,\mathrm{online}}_t = \text{debit purchases at PoS terminals and online (RBI 'Others')}")
 
 
 def comovement(s, rail, hid, title, framework):
@@ -332,7 +367,16 @@ def comovement(s, rail, hid, title, framework):
     b, sb = fit["beta"][1], se[1]
     lo, hi = b - Z95 * sb, b + Z95 * sb
     name = "debit" if rail.startswith("debit") else "credit"
-    return hypothesis(
+    sym = "D" if name == "debit" else "C"
+    formulas = [
+        ("Regression", D12 + r"\ln N^{" + sym + r"}_t = a + b\," + D12 + r"\ln N^{P}_t + c\,"
+         + D12 + r"\ln \mathrm{CPI}_t + e_t"),
+        ("where", r"N^{" + sym + r"}_t = \text{" + name + r"-card purchase volume},\quad "
+         r"N^{P}_t = \text{UPI P2M volume}"),
+        ("Hypothesis", r"H_0:\ b = 0 \qquad H_1:\ b < 0"),
+        ("Supported if", r"\hat b + 1.96\,\widehat{\mathrm{SE}}_{\mathrm{NW}}(\hat b) < 0"),
+    ]
+    return hypothesis(formulas=formulas,
         id=hid, group="Merchant payments", title=title,
         statement=f"Months with faster UPI P2M growth show slower {name}-card growth, beyond common trends.",
         framework=framework,
@@ -370,7 +414,8 @@ def s1(s):
         "Mean of [Δ12 ln(debit) − Δ12 ln(credit)]", "<0", gap, "log",
         chart("lines", "Debit share of card purchases (volume)", s["months"],
               [("Debit share of cards", [100 * v for v in share])], "%"),
-        RBI_CARDS)
+        RBI_CARDS, D12 + r"\ln N^{D}_t - " + D12 + r"\ln N^{C}_t",
+        r"N^{D}_t,\ N^{C}_t = \text{debit- and credit-card purchase volume}")
     result["note"] = (f"Debit share of card purchases {100 * share[0]:.1f}% → {100 * share[-1]:.1f}%. "
                       "Rival explanations (bank push on credit, rewards, income growth) also predict this.")
     return result
@@ -385,7 +430,8 @@ def s2(s):
         "Mean of [Δ12 ln(debit value) − Δ12 ln(debit volume)], nominal", ">0", gap, "log",
         growth_chart("Debit card, 12-month change", s["months"],
                      [("Value", diff(ln(s["debit_total_v"]))), ("Volume", diff(ln(s["debit_total_n"])))]),
-        RBI_CARDS)
+        RBI_CARDS, D12 + r"\ln V^{D}_t - " + D12 + r"\ln N^{D}_t \;=\; " + D12 + r"\ln \frac{V^{D}_t}{N^{D}_t}",
+        r"V^{D}_t,\ N^{D}_t = \text{debit-card purchase value (nominal) and volume}")
 
 
 def s3(s):
@@ -397,7 +443,7 @@ def s3(s):
         "Adhikari (2026)'s reading of falling credit tickets.",
         "Mean of Δ12 ln(real credit ticket)", "<0", g, "growth",
         growth_chart("Real credit-card ticket, 12-month change", s["months"], [("Credit ticket", g)]),
-        f"{RBI_CARDS}; MoSPI CPI")
+        f"{RBI_CARDS}; MoSPI CPI", D12 + r"\ln \tau^{C}_t", REAL_TICKET.replace("{X}", "{C}"))
 
 
 def u1(s):
@@ -409,7 +455,9 @@ def u1(s):
         "Mean of Δ12 log-odds(P2M share of UPI volume)", ">0", diff(logodds(share)), "log",
         chart("lines", "P2M share of UPI transactions", s["months"],
               [("P2M share", [100 * v for v in share])], "%"),
-        NPCI_P2M)
+        NPCI_P2M, D12 + r"\,\mathrm{logit}\, \pi_t",
+        r"\pi_t = \frac{N^{\mathrm{P2M}}_t}{N^{\mathrm{P2M}}_t + N^{\mathrm{P2P}}_t},\quad "
+        r"\mathrm{logit}\, \pi = \ln\frac{\pi}{1-\pi}")
 
 
 def h7(s):
@@ -448,7 +496,17 @@ def h7(s):
                     {"name": "Declining after the break", "verdict": parts[1]}],
         chart=chart("lines", "IMPS volume, rolling 12 months", s["long_months"],
                     [("IMPS (bn)", rolling)], "billion transactions", marker=months[b]),
-        data="NPCI IMPS product statistics")
+        data="NPCI IMPS product statistics",
+        formulas=[
+            ("Model", r"\ln I_t = \alpha + \beta t + \sum_{m=2}^{12} \gamma_m M_{mt} + \delta\,\mathbf{1}[t \ge \tau]"
+             r" + \theta\,(t-\tau)\,\mathbf{1}[t \ge \tau] + e_t"),
+            ("where", r"I_t = \text{IMPS volume},\quad M_{mt} = \text{calendar-month dummies},\quad "
+             r"\tau = \text{candidate break month}"),
+            ("Break statistic", r"F(\tau) = \frac{\big(\mathrm{SSR}_0 - \mathrm{SSR}_1(\tau)\big)/2}"
+             r"{\mathrm{SSR}_1(\tau)/(n-k)},\qquad \sup F = \max_{0.15n \,\le\, \tau \,\le\, 0.85n} F(\tau)"),
+            ("Hypothesis", r"H_0:\ \delta = \theta = 0 \qquad H_1:\ \text{a break exists and } 12(\beta + \theta) < 0"),
+            ("Supported if", r"\sup F > " + f"{SUP_F_CRITICAL_5PCT:.2f}" + r"\quad\text{and}\quad 12(\hat\beta + \hat\theta) < 0"),
+        ])
 
 
 def h10(s):
@@ -485,13 +543,33 @@ def h10(s):
         point=mape["Log-linear + month dummies"], verdict="Supported" if ok else "Not supported",
         chart=chart("lines", "Debit-card volume: actual vs out-of-sample forecasts", months, series,
                     "million transactions", marker=months[train_n]),
-        data=RBI_CARDS)
+        data=RBI_CARDS,
+        formulas=[
+            ("Linear trend", r"\hat N^{D}_t = \hat\alpha + \hat\beta t"),
+            ("Log-linear", r"\ln N^{D}_t = \alpha + \beta t + \sum_{m=2}^{12} \gamma_m M_{mt} + e_t,\qquad "
+             r"\hat N^{D}_t = \exp\!\big(\widehat{\ln N^{D}_t} + \hat\sigma^2/2\big)"),
+            ("Seasonal naive", r"\hat N^{D}_t = N^{D}_{t-12}"),
+            ("Naive × growth", r"\hat N^{D}_t = N^{D}_{t-12}\cdot \frac{N^{D}_{t-12}}{N^{D}_{t-24}}"),
+            ("Accuracy", r"\mathrm{MAPE} = \frac{100}{h}\sum_{t \in \text{holdout}} "
+             r"\frac{\lvert N^{D}_t - \hat N^{D}_t\rvert}{N^{D}_t},\qquad h = " + str(len(test))),
+            ("Supported if", r"\mathrm{MAPE}_{\text{log-linear}} < \min\big(\mathrm{MAPE}_{\text{linear}},\ "
+             r"\mathrm{MAPE}_{\text{seasonal naive}}\big)"),
+        ])
 
 
-def pending(hid, group, title, statement, framework, test, data):
+def pending(hid, group, title, statement, framework, test, data, formulas=()):
     return hypothesis(id=hid, group=group, title=title, statement=statement, framework=framework,
                       test=test, estimate="—", consistency="—", p_value=None, ci=None, point=None,
-                      verdict="Pending data", data=data)
+                      verdict="Pending data", data=data, formulas=list(formulas))
+
+
+H8_FORMULAS = ([("Use per card", r"u_t = \frac{N^{D}_t}{K_t},\qquad K_t = \text{debit cards in force}")]
+               + drift_formulas(D12 + r"\ln K_t", ">0", tag="K")
+               + drift_formulas(D12 + r"\ln u_t", "<0", tag="u"))
+H9_FORMULAS = ([("Use per terminal", r"w_t = \frac{N^{D,\mathrm{PoS}}_t + N^{C,\mathrm{PoS}}_t}{T_t},\qquad "
+                 r"Q_t = \text{UPI QR codes},\ T_t = \text{PoS terminals}")]
+               + drift_formulas(D12 + r"\ln Q_t - " + D12 + r"\ln T_t", ">0", tag="Q-T")
+               + drift_formulas(D12 + r"\ln w_t", "<0", tag="w"))
 
 
 def h8(s):
@@ -502,7 +580,7 @@ def h8(s):
                        "Domestic debit-card payments per card in force fall while the number of cards rises.",
                        "Declining payment intensity alongside a stable or growing stock of card instruments.",
                        "Mean 12-month log growth in cards outstanding and in payments per card.",
-                       "RBI PSI Part III: debit cards outstanding")
+                       "RBI PSI Part III: debit cards outstanding", H8_FORMULAS)
     per_card = [payments * 10 / stock for payments, stock in zip(s["debit_total_n"], cards)]
     card_growth, use_growth = diff(ln(cards)), diff(ln(per_card))
     card_test, use_test = drift(card_growth), drift(use_growth)
@@ -524,7 +602,7 @@ def h8(s):
         consistency=(f"Cards rose in {card_test['pos']} of {card_test['n']} matched months; "
                      f"payments/card fell in {use_test['neg']} of {use_test['n']}."),
         p_value=None, ci=None, point=None,
-        verdict=combine([card_verdict, use_verdict]),
+        verdict=combine([card_verdict, use_verdict]), formulas=H8_FORMULAS,
         components=[{"name": "Cards in force rise", "verdict": card_verdict},
                     {"name": "Payments per card fall", "verdict": use_verdict}],
         chart=growth_chart("Debit cards in force and payments per card, 12-month change",
@@ -552,7 +630,8 @@ def h9(s):
                        "with a change in merchant payment infrastructure.",
                        "Mean 12-month log growth gap in UPI QR versus PoS terminal counts, "
                        "and in card PoS payments per terminal.",
-                       "RBI PSI Part III: UPI QR codes and PoS terminals; Part I: card PoS purchases")
+                       "RBI PSI Part III: UPI QR codes and PoS terminals; Part I: card PoS purchases",
+                       H9_FORMULAS)
     card_pos_per_terminal = [10 * (debit + credit) / terminals for debit, credit, terminals
                              in zip(s["debit_pos_n"], s["credit_pos_n"], pos)]
     qr_growth, pos_growth = diff(ln(qr)), diff(ln(pos))
@@ -577,7 +656,7 @@ def h9(s):
         consistency=(f"UPI QR grew faster in {gap_test['pos']} of {gap_test['n']} matched months; "
                      f"card payments/terminal fell in {use_test['neg']} of {use_test['n']}."),
         p_value=None, ci=None, point=None,
-        verdict=combine([gap_verdict, use_verdict]),
+        verdict=combine([gap_verdict, use_verdict]), formulas=H9_FORMULAS,
         components=[{"name": "UPI QR grows faster than PoS terminals", "verdict": gap_verdict},
                     {"name": "Card PoS payments per terminal fall", "verdict": use_verdict}],
         chart=growth_chart("QR and PoS infrastructure and card use, 12-month change",
