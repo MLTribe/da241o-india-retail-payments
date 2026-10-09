@@ -91,6 +91,26 @@ are invalid, or the within-source component totals fail beyond published
 rounding. It does not fill missing observations. Its results are deterministic
 from the checked-in CSVs and need only Python's standard library.
 
+## Hypothesis register
+
+```shell
+python3 analysis/hypothesis_tests.py
+```
+
+This tests each hypothesis in `REGISTER` against the same CSVs and writes
+`analysis/output/hypotheses.csv` and `docs/hypotheses-data.js`, which feeds
+`docs/hypotheses.html`. Most tests are drift tests: the mean 12-month log
+change of a series, with Newey-West (Bartlett, 12-lag) standard errors. A
+hypothesis is Supported when the 95% interval lies entirely on the predicted
+side of zero, Contradicted when it lies entirely on the other side, and Not
+supported otherwise.
+
+To add a hypothesis, write a function that returns `drift_hypothesis(...)`
+(or `hypothesis(...)` for a custom test, or `pending(...)` when the data are
+not yet available), append it to `REGISTER`, and rerun the script. The page
+picks it up without HTML changes. Fix the direction and metric before
+looking at the result.
+
 ## Reading the result
 
 The main comparison is **growth versus displacement**. For FY2022-23 to
