@@ -140,6 +140,7 @@ def load() -> dict[str, object]:
     months = month_range(MERCHANT_START, END_MONTH)
     split = read_series("npci_upi_p2p_p2m_transactions.csv", MERCHANT_START)
     rbi = read_series("rbi_psi_card_ppi_own_month.csv", MERCHANT_START)
+    infra = read_series("rbi_psi_infrastructure.csv", MERCHANT_START, optional=True)
     cpi = read_series("mospi_cpi_combined_monthly.csv", MERCHANT_START)
     imps = read_series("npci_imps_product_statistics.csv", TRANSFER_START)
     upi = read_series("npci_upi_product_statistics.csv", TRANSFER_START)
@@ -148,9 +149,14 @@ def load() -> dict[str, object]:
         return [float(rows[m][field]) * scale for m in ms]
 
     s = {"months": months}
+    s["debit_cards_outstanding_lakh"] = (
+        col(infra, "debit_cards_outstanding") if infra else None
+    )
+    s["pos_terminals_lakh"] = col(infra, "pos_terminals") if infra else None
+    s["upi_qr_codes_lakh"] = col(infra, "upi_qr_codes") if infra else None
     s["p2m_n"], s["p2m_v"] = col(split, "p2m_volume_mn"), col(split, "p2m_value_crore")
     s["p2p_n"] = col(split, "p2p_volume_mn")
-    for rail in ("debit_total", "debit_pos", "debit_other", "credit_total"):
+    for rail in ("debit_total", "debit_pos", "debit_other", "credit_total", "credit_pos"):
         s[f"{rail}_n"] = col(rbi, f"{rail}_volume_lakh", 0.1)
         s[f"{rail}_v"] = col(rbi, f"{rail}_value_crore")
     s["cpi"] = col(cpi, "cpi_combined_index_linked_2024")
@@ -488,20 +494,102 @@ def pending(hid, group, title, statement, framework, test, data):
                       verdict="Pending data", data=data)
 
 
-def h8(_):
-    return pending("H8", "Network and acceptance", "People stop using debit cards but keep them",
-                   "Debit transactions per debit card outstanding fall while the number of cards does not.",
-                   "Substitution in use rather than account closure.",
-                   "Growth of cards outstanding vs growth of transactions per card.",
-                   "RBI PSI infrastructure: debit cards outstanding (import RBI workbooks)")
+def h8(s):
+    title = "Debit-card payments fall while cards remain in force"
+    cards = s["debit_cards_outstanding_lakh"]
+    if cards is None:
+        return pending("H8", "Network and acceptance", title,
+                       "Domestic debit-card payments per card in force fall while the number of cards rises.",
+                       "Declining payment intensity alongside a stable or growing stock of card instruments.",
+                       "Mean 12-month log growth in cards outstanding and in payments per card.",
+                       "RBI PSI Part III: debit cards outstanding")
+    per_card = [payments * 10 / stock for payments, stock in zip(s["debit_total_n"], cards)]
+    card_growth, use_growth = diff(ln(cards)), diff(ln(per_card))
+    card_test, use_test = drift(card_growth), drift(use_growth)
+    card_verdict = verdict(card_test["lo"], card_test["hi"], ">0")
+    use_verdict = verdict(use_test["lo"], use_test["hi"], "<0")
+    march_2022 = s["months"].index("2022-03")
+    return hypothesis(
+        id="H8", group="Network and acceptance", title=title,
+        statement="Domestic debit-card payments per card in force fall while the number of cards rises.",
+        framework="A decline in payment intensity alongside growth in cards in force is consistent "
+                  "with substitution in use, but does not identify the payment method chosen instead.",
+        test="Mean 12-month log change in cards outstanding (> 0) and domestic debit-card "
+             "payments per card (< 0), each with Newey-West (12-lag) standard errors over "
+             "39 matched months, Jan 2023–Mar 2026. Both 95% intervals must be on the "
+             "predicted side of zero for full support.",
+        estimate=(f"Cards {pct(card_test['est'])}/year [95% CI {pct(card_test['lo'])}, "
+                  f"{pct(card_test['hi'])}]; payments/card {pct(use_test['est'])}/year "
+                  f"[95% CI {pct(use_test['lo'])}, {pct(use_test['hi'])}]."),
+        consistency=(f"Cards rose in {card_test['pos']} of {card_test['n']} matched months; "
+                     f"payments/card fell in {use_test['neg']} of {use_test['n']}."),
+        p_value=None, ci=None, point=None,
+        verdict=combine([card_verdict, use_verdict]),
+        components=[{"name": "Cards in force rise", "verdict": card_verdict},
+                    {"name": "Payments per card fall", "verdict": use_verdict}],
+        chart=growth_chart("Debit cards in force and payments per card, 12-month change",
+                           s["months"], [("Cards outstanding", card_growth),
+                                         ("Payments per card", use_growth)]),
+        data="RBI Payment System Indicators: Part I 4.2 domestic debit-card payments; "
+             "Part III 1.2 debit cards outstanding (lakh), own-month release pages.",
+        note=(f"Same-month comparison: Mar 2022 {s['debit_total_n'][march_2022] * 10:,.2f} "
+              f"lakh domestic debit-card payments / {cards[march_2022]:,.2f} lakh cards "
+              f"= {per_card[march_2022]:.3f} payments/card; Mar 2026 "
+              f"{s['debit_total_n'][-1] * 10:,.2f} lakh payments / {cards[-1]:,.2f} lakh "
+              f"cards = {per_card[-1]:.3f} payments/card. Cards in force are not distinct "
+              "people; aggregate data cannot show who kept a card or whether they switched to UPI. "
+              "ATM cash withdrawals are excluded."))
 
 
-def h9(_):
-    return pending("H9", "Network and acceptance", "UPI acceptance grows faster than card acceptance",
-                   "UPI QR codes grow faster than card PoS terminals, and card transactions per terminal fall.",
-                   "Cross-side network effect on the merchant side: cheaper QR acceptance widens UPI's network.",
-                   "Growth of UPI QR vs PoS terminals; transactions per acceptance point.",
-                   "RBI PSI infrastructure: PoS terminals, UPI QR, Bharat QR (import RBI workbooks)")
+def h9(s):
+    title = "UPI QR codes grow faster than PoS terminals"
+    pos, qr = s["pos_terminals_lakh"], s["upi_qr_codes_lakh"]
+    if pos is None or qr is None:
+        return pending("H9", "Network and acceptance", title,
+                       "UPI QR codes grow faster than card PoS terminals, while card purchases "
+                       "per PoS terminal fall.",
+                       "Wider QR deployment alongside lower card use per terminal is consistent "
+                       "with a change in merchant payment infrastructure.",
+                       "Mean 12-month log growth gap in UPI QR versus PoS terminal counts, "
+                       "and in card PoS payments per terminal.",
+                       "RBI PSI Part III: UPI QR codes and PoS terminals; Part I: card PoS purchases")
+    card_pos_per_terminal = [10 * (debit + credit) / terminals for debit, credit, terminals
+                             in zip(s["debit_pos_n"], s["credit_pos_n"], pos)]
+    qr_growth, pos_growth = diff(ln(qr)), diff(ln(pos))
+    gap_growth = sub(qr_growth, pos_growth)
+    use_growth = diff(ln(card_pos_per_terminal))
+    gap_test, use_test = drift(gap_growth), drift(use_growth)
+    gap_verdict = verdict(gap_test["lo"], gap_test["hi"], ">0")
+    use_verdict = verdict(use_test["lo"], use_test["hi"], "<0")
+    return hypothesis(
+        id="H9", group="Network and acceptance", title=title,
+        statement="UPI QR codes grow faster than card PoS terminals, while card purchases "
+                  "per PoS terminal fall.",
+        framework="Wider QR deployment alongside lower card use per terminal is consistent "
+                  "with a change in merchant payment infrastructure; these aggregate series "
+                  "do not establish a network effect.",
+        test="Two parts: mean [Δ12 ln(UPI QR codes) − Δ12 ln(PoS terminals)] > 0, and "
+             "mean Δ12 ln((debit + credit PoS purchase volume) / PoS terminals) < 0. "
+             "Newey-West (12-lag) standard errors over 39 matched months, Jan 2023–Mar 2026. "
+             "Both 95% intervals must be on the predicted side of zero for full support.",
+        estimate=(f"UPI QR minus PoS terminal growth {drift_line(gap_test)[0]}; "
+                  f"card PoS payments/terminal {drift_line(use_test, 'growth')[0]}"),
+        consistency=(f"UPI QR grew faster in {gap_test['pos']} of {gap_test['n']} matched months; "
+                     f"card payments/terminal fell in {use_test['neg']} of {use_test['n']}."),
+        p_value=None, ci=None, point=None,
+        verdict=combine([gap_verdict, use_verdict]),
+        components=[{"name": "UPI QR grows faster than PoS terminals", "verdict": gap_verdict},
+                    {"name": "Card PoS payments per terminal fall", "verdict": use_verdict}],
+        chart=growth_chart("QR and PoS infrastructure and card use, 12-month change",
+                           s["months"], [("UPI QR codes", qr_growth),
+                                         ("PoS terminals", pos_growth),
+                                         ("Card PoS payments per terminal", use_growth)]),
+        data="RBI Payment System Indicators: Part I 4.1/4.2 domestic credit- and debit-card "
+             "PoS purchase volume; Part III UPI QR codes and PoS terminals (lakh), "
+             "own-month release pages.",
+        note="QR-code and terminal counts measure deployed acceptance instruments, not unique "
+             "active merchants. Card PoS purchases per terminal is an aggregate ratio; these "
+             "series cannot show individual merchant switching or establish causality.")
 
 
 REGISTER = [h1, h2, h3, h4, h5, h6, h6b, s1, s2, s3, u1, h7, h10, h8, h9]

@@ -181,11 +181,21 @@ the full index is in `timeseries_stats.csv`.
 
 ### Acceptance infrastructure and usage intensity
 
-Pending. RBI PSI infrastructure counts (cards outstanding, PoS
-terminals, Bharat QR, UPI QR codes, ATMs) and NEFT/RTGS/AePS/NETC/ATM
-cash series need the monthly RBI workbooks, which RBI only serves to a
-browser. Save them in `source_archive/rbi/xlsx/` and run
-`scripts/import_rbi_psi_workbooks.py`; this section then fills in.
+| Measure | 2022-01 | 2026-03 |
+| --- | ---: | ---: |
+| credit_cards_outstanding_lakh | 702.52 | 1,186.34 |
+| debit_cards_outstanding_lakh | 9,409.29 | 10,447.56 |
+| pos_terminals_lakh | 56.20 | 117.69 |
+| bharat_qr_codes_lakh | 46.97 | 56.33 |
+| upi_qr_codes_lakh | 1,521.05 | 7,612.17 |
+| atms_lakh | 2.51 | 2.54 |
+| card_pos_txn_per_pos_terminal | 51.34 | 30.50 |
+| upi_p2m_txn_per_upi_qr | 12.23 | 18.63 |
+| credit_txn_per_credit_card | 2.79 | 4.87 |
+| debit_txn_per_debit_card | 0.34 | 0.10 |
+
+Rising acceptance points alongside falling use per terminal is
+consistent with, but does not test, cross-side network effects.
 
 ## Inflation and source checks
 
@@ -233,7 +243,7 @@ identify individual switching, substitution elasticities, merchant acceptance,
 or causal network effects. UPI-funded card transactions may overlap the card
 series. IMPS and UPI have different use cases; P2M and card totals are not
 identical products. RBI own-month release observations are provisional, and the
-original RBI workbooks are not yet archived locally. PPI is excluded from the
+original RBI workbooks are archived for the months listed in the source manifest. PPI is excluded from the
 primary baskets because it mixes uses; it appears only in the context basket.
 The card 'Others' channel is mostly, but not only, online purchases. Trend
 slopes, seasonal indices and HHI summarise national totals and are not

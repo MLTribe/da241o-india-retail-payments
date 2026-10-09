@@ -25,7 +25,7 @@ To preview the site locally, run `python3 -m http.server 8642` from `docs/` and 
 | RBI domestic cards and PPI components | January 2022–March 2026 | 51 own-month release-page observations transcribed and split by calendar year. Direct official workbook links are indexed, but original RBI XLSX files are not archived yet. |
 | MoSPI CPI Combined | January 2022–March 2026 | Complete: 51 monthly values, with original index base, official Combined link factor and source release URLs retained in annual and archive CSVs. MoSPI source PDFs are referenced but not downloaded. |
 | RBI other rails (RTGS, NEFT, AePS fund transfers, NETC, ATM cash withdrawals) | June 2021–March 2026 | Pending. Importer ready; RBI workbooks must be saved from a browser into `source_archive/rbi/xlsx/` because RBI's bot protection blocks scripted downloads |
-| RBI payment-system infrastructure (cards outstanding, PoS terminals, Bharat QR, UPI QR, ATMs) | June 2021–March 2026 | Pending, same importer and workbooks |
+| RBI payment-system infrastructure (cards outstanding, PoS terminals, Bharat QR, UPI QR, ATMs) | June 2021–March 2026 | January 2022–March 2026 collected: 51 own-month observations from official PSI Part III release pages. June–December 2021 remains pending. |
 | RBI cards/PPI, June–December 2021 | Extends the merchant window | Pending, same importer. The merchant window also needs NPCI P2M and MoSPI CPI for the same months |
 | NPCI UPI Lite | Context | Not collected. The NPCI site returned HTTP 403 to scripted requests on 2026-10-01 |
 | MoSPI IIP general index | At least January 2022–March 2026 for activity context | Optional context; not collected for the core comparison |
@@ -42,9 +42,21 @@ python3 scripts/import_assignment2_npci_workbooks.py
 
 The importer splits monthly rows into `by_year/YYYY/`, preserves units, retains source filenames and URLs, sorts months chronologically, and writes checksums to the source manifest.
 
-## Importing RBI PSI workbooks
+## Importing RBI PSI infrastructure from release pages
 
-Save each monthly RBI Payment System Indicators workbook from a browser into `source_archive/rbi/xlsx/`. Use either its official basename or a `YYYY-MM_` prefix; see [`source_archive/rbi/xlsx/README.md`](source_archive/rbi/xlsx/README.md). Then run:
+RBI's monthly Payment System Indicators release pages publish Part III counts for cards in force, PoS terminals, Bharat QR codes, UPI QR codes and ATMs. The release-page importer reads the own-month column for January 2022–March 2026, archives the original HTML under `source_archive/rbi/html/`, records each source URL and HTML checksum, and writes `by_year/YYYY/rbi_psi_infrastructure.csv`:
+
+```shell
+python3 scripts/import_rbi_psi_pages.py
+python3 analysis/payment_mix_model.py
+python3 analysis/hypothesis_tests.py
+```
+
+Cards in force count card instruments, not distinct people or active card users. Monthly debit-card payments divided by month-end debit cards in force is an aggregate use-per-card measure; it cannot show which people retained a card or which other method they chose.
+
+## Importing remaining RBI PSI workbooks
+
+The other-rails series and June–December 2021 observations still need the monthly workbooks. Save each RBI Payment System Indicators workbook from a browser into `source_archive/rbi/xlsx/`. Use either its official basename or a `YYYY-MM_` prefix; see [`source_archive/rbi/xlsx/README.md`](source_archive/rbi/xlsx/README.md). Then run:
 
 ```shell
 python3 scripts/import_rbi_psi_workbooks.py
@@ -55,4 +67,4 @@ The importer reads real XLSX files (needs `openpyxl`) or the HTML tables RBI som
 
 ## RBI extraction notes
 
-`source_archive/rbi/rbi_psi_card_ppi_monthly_own_release_extract_2022-01_2026-03.csv` contains 51 monthly rows transcribed from the current-month column of each RBI Payment System Indicators release page. It covers total cards, credit/debit cards and their PoS/Other splits, plus PPI, wallets, and PPI cards with PoS/Other splits. `rbi_psi_release_links_2022-01_2026-03.csv` maps every observation month to the official release page and linked XLSX. The original RBI workbook files have not yet been downloaded into the archive. Values use the published units: volume in lakh and value in ₹ crore; ₹ crore components may differ from parent totals by ₹1 due to rounding.
+`source_archive/rbi/rbi_psi_card_ppi_monthly_own_release_extract_2022-01_2026-03.csv` contains 51 monthly rows transcribed from the current-month column of each RBI Payment System Indicators release page. It covers total cards, credit/debit cards and their PoS/Other splits, plus PPI, wallets, and PPI cards with PoS/Other splits. `source_archive/rbi/rbi_psi_infrastructure_own_release_extract_2022-01_2026-03.csv` contains the corresponding 51 Part III infrastructure rows, with each release-page URL, archived HTML filename, and checksum of the original HTML response. `rbi_psi_release_links_2022-01_2026-03.csv` maps every observation month to the official release page and linked XLSX. The original RBI workbook files have not yet been downloaded into the archive. Card transaction volume and infrastructure counts use lakh; payment value uses ₹ crore. ₹ crore components may differ from parent totals by ₹1 due to rounding.

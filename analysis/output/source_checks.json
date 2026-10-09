@@ -19,7 +19,7 @@
   },
   "optional_series": {
     "rbi_psi_other_rails": 0,
-    "rbi_psi_infrastructure": 0
+    "rbi_psi_infrastructure": 51
   },
   "maximum_absolute_source_difference": {
     "CPI linked-index rounding": 2.842170943040401e-14,

@@ -1,0 +1,4 @@
+month,credit_cards_outstanding,debit_cards_outstanding,atms,pos_terminals,bharat_qr_codes,upi_qr_codes,unit,source_file
+2026-01,1166.52,10377.57,2.52,115.25,57.97,7384.20,lakh,rbi_psi_infrastructure_own_release_extract_2022-01_2026-03.csv
+2026-02,1177.04,10417.67,2.53,116.65,58.97,7542.04,lakh,rbi_psi_infrastructure_own_release_extract_2022-01_2026-03.csv
+2026-03,1186.34,10447.56,2.54,117.69,56.33,7612.17,lakh,rbi_psi_infrastructure_own_release_extract_2022-01_2026-03.csv

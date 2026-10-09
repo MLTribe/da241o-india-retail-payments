@@ -78,13 +78,21 @@ The script reads `by_year/YYYY/*.csv` and writes:
 | `analysis/output/period_comparison.csv` | First-to-last and most recent fiscal-year comparisons |
 | `analysis/output/source_checks.json` | Coverage, extended-basket windows, optional-series counts, published-identity checks, and NPCI table mismatches |
 | `analysis/output/timeseries_stats.csv` | Trend growth, first-to-last 12-month growth, seasonal indices, and monthly HHI (long format) |
-| `analysis/output/infrastructure_panel.csv` | Acceptance points, cards in force, and use per point or card (header only until RBI workbooks are imported) |
+| `analysis/output/infrastructure_panel.csv` | Monthly acceptance points, cards in force, and use per point or card from RBI PSI Part III, January 2022–March 2026 |
 | `analysis/output/figures/*.svg` | Static charts for the paper, drawn without a plotting package |
 | `docs/explore-data.js` | Data file for the interactive `docs/explore.html` page |
 
 The merchant window starts at the first month in which NPCI P2M, RBI cards and
 MoSPI CPI are all observed (currently January 2022). Adding earlier months to
 all three series extends it automatically.
+
+The infrastructure panel uses the 51 own-month RBI PSI Part III release-page
+observations imported by `scripts/import_rbi_psi_pages.py`. Its monthly
+debit-card payment intensity is domestic debit-card purchases divided by
+month-end debit cards in force. Cards in force count instruments, not distinct
+people or active users, so the ratio cannot identify who kept a card or what
+payment method they used instead. June–December 2021 infrastructure counts
+and other RBI payment rails still require the monthly workbooks.
 
 The program stops if a required month is absent, a month appears twice, units
 are invalid, or the within-source component totals fail beyond published

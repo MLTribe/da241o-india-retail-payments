@@ -911,11 +911,9 @@ def extension_sections(comparisons: list[dict[str, object]],
         lines += ["", "Rising acceptance points alongside falling use per terminal is",
                   "consistent with, but does not test, cross-side network effects."]
     else:
-        lines += ["Pending. RBI PSI infrastructure counts (cards outstanding, PoS",
-                  "terminals, Bharat QR, UPI QR codes, ATMs) and NEFT/RTGS/AePS/NETC/ATM",
-                  "cash series need the monthly RBI workbooks, which RBI only serves to a",
-                  "browser. Save them in `source_archive/rbi/xlsx/` and run",
-                  "`scripts/import_rbi_psi_workbooks.py`; this section then fills in."]
+        lines += ["Pending. Import RBI PSI Part III counts (cards outstanding, PoS",
+                  "terminals, Bharat QR, UPI QR codes, ATMs) from official monthly",
+                  "release pages with `scripts/import_rbi_psi_pages.py` to fill this section."]
     return lines + [""]
 
 

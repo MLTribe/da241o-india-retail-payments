@@ -1,0 +1,13 @@
+month,credit_cards_outstanding,debit_cards_outstanding,atms,pos_terminals,bharat_qr_codes,upi_qr_codes,unit,source_file
+2022-01,702.52,9409.29,2.51,56.20,46.97,1521.05,lakh,rbi_psi_infrastructure_own_release_extract_2022-01_2026-03.csv
+2022-02,717.08,9350.66,2.54,58.34,48.27,1600.19,lakh,rbi_psi_infrastructure_own_release_extract_2022-01_2026-03.csv
+2022-03,736.27,9176.66,2.48,60.70,49.72,1727.34,lakh,rbi_psi_infrastructure_own_release_extract_2022-01_2026-03.csv
+2022-04,751.66,9205.18,2.49,61.26,40.90,1807.21,lakh,rbi_psi_infrastructure_own_release_extract_2022-01_2026-03.csv
+2022-05,768.77,9233.33,2.52,61.69,41.38,1880.15,lakh,rbi_psi_infrastructure_own_release_extract_2022-01_2026-03.csv
+2022-06,787.23,9217.52,2.53,65.91,42.80,1951.71,lakh,rbi_psi_infrastructure_own_release_extract_2022-01_2026-03.csv
+2022-07,802.56,9281.34,2.54,68.19,45.21,2013.02,lakh,rbi_psi_infrastructure_own_release_extract_2022-01_2026-03.csv
+2022-08,779.91,9348.59,2.54,70.58,47.49,2092.54,lakh,rbi_psi_infrastructure_own_release_extract_2022-01_2026-03.csv
+2022-09,777.02,9385.38,2.55,70.35,48.64,2164.30,lakh,rbi_psi_infrastructure_own_release_extract_2022-01_2026-03.csv
+2022-10,793.68,9394.61,2.55,72.11,47.19,2253.23,lakh,rbi_psi_infrastructure_own_release_extract_2022-01_2026-03.csv
+2022-11,806.65,9477.28,2.55,73.52,48.25,2302.87,lakh,rbi_psi_infrastructure_own_release_extract_2022-01_2026-03.csv
+2022-12,811.87,9394.66,2.57,75.50,49.59,2379.44,lakh,rbi_psi_infrastructure_own_release_extract_2022-01_2026-03.csv
