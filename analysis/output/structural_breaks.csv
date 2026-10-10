@@ -1,0 +1,7 @@
+break,series,window,n,k,quadratic,seasonal,trendPp,levelPct,slopePp,wald,df,p,covidMean,covidTroughMonth,covidTrough,splice,spliceSe
+SA,UPI total volume,Aug 2017 – Jul 2019,24,4,True,False,162.8915,-5.8973,,0.1809,1,0.6706,,,,,
+SA,UPI share of transfers (log-odds),Aug 2017 – Jul 2019,24,4,True,False,120.1415,-12.1903,,0.7219,1,0.3955,,,,,
+SA,IMPS volume (placebo: not affected),Aug 2017 – Jul 2019,24,4,True,False,42.75,7.1667,,9.8542,1,0.0017,,,,,
+MDR,Debit-card payments (spliced),Apr 2017 – Mar 2023,72,29,False,True,22.512,2.4203,-45.3281,457.5987,2,0.0,-0.2883,2020-04,-0.8378,0.0742,0.0267
+MDR,Credit-card payments (spliced; no zero MDR),Apr 2017 – Mar 2023,72,29,False,True,22.6928,-12.8341,-7.8481,10.0495,2,0.0066,-0.3137,2020-04,-0.8431,-0.0819,0.0978
+MDR,Debit ÷ credit payments (nets common shocks),Apr 2017 – Mar 2023,72,29,False,True,-0.1808,17.5004,-37.48,41.5102,2,0.0,0.0254,2020-03,-0.1981,0.1562,0.1131

@@ -1,0 +1,1601 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Bankwise ATM/POS/Card Statistics | Official Website of Reserve Bank of India </title>
+    <meta name="description" content="Bankwise ATM/POS/Card Statistics - Reserve Bank of India" />
+    <meta name="keyword" content="RBI Bankwise ATM/POS/Card Statistics" />
+    <meta name="author " content="Reserve Bank of India" />
+    <meta name="viewport" content="width=device-width" />
+    <script type="text/javascript" src="/js/libs/modernizr-2.5.3.min.js"></script>
+
+</head>
+<body onload="SetTreeStyles()">
+    <form method="post" action="./ATMView.aspx?atmid=137" id="form1">
+<div class="aspNetHidden">
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTExMTI1NDcxODlkZPQF75J5T/7AaKAumc4UDeuWmqj6QeQmHCzuRfD7EH4N" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['form1'];
+if (!theForm) {
+    theForm = document.form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="A2040FBE" />
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdAAz3u/X1r9gsHkgquA++OWcJlK+XrsQEVyjeDxQ0A4GYXFBwzdjZXczwplb2HKGyLlrNyH2BRDHW7ZJm+s8yUnNgi6wX7g7V+51d5y/uZ409MaU74zTCJ05u4w6h9ODXzwxkOnLtYme9ze2BdjTwJgskP6t93AkC4GhUEhJREhdaXBugERoe+4YdP6+Dm7i9UwLINzYr5zRLekLCkqLwgivbfcX9ZaEV78oETjPwNTvjRyaLpyghhgB3dOM81YQT2c8uxT3bXCgCwzN+yuh3fGfN3OWVgCWuMFTZrFy6zqY3yg==" />
+</div>
+        <input type="hidden" name="hdnYear" id="hdnYear" />
+        <input type="hidden" name="hdnMonth" id="hdnMonth" value="0" />
+        
+<link href="/JQuery/css/jquery-ui-1.8.18.custom2.css" rel="stylesheet" type="text/css" />
+<link href="/includes/print.css" rel="stylesheet" media="print" type="text/css" />
+
+<link href="/Styles/960.css?v=1.0" rel="stylesheet" type="text/css" />
+<link href="/Includes1/rbi.css?v=5.0" rel="Stylesheet" type="text/css" />
+<script type="text/javascript" src="/js/libs/jquery.min.js"></script>
+<script type="text/javascript" src="/JQuery/ui/jquery.ui.revampRBI.js"></script>
+<script type="text/javascript" src="/js/ImgSaveDisable.js"></script>
+
+<script type="text/javascript">
+  
+//Redirect to mobile site start
+    function detectmob() {
+        if (screen.width <= 599 || screen.Height <= 975) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    if (detectmob()) {
+       window.location.href = "https://m.rbi.org.in" + window.location.pathname;
+		
+       
+    }
+
+	//Redirect to mobile site End
+    $(document).ready(function () {
+        Search();
+	SearchLastUpdateDate(); //Fetch Last Date Page
+    });
+
+
+
+  // Fetch Last Date Page
+
+    function SearchLastUpdateDate() {
+        var strFilterComments = new RegExp("^[a-zA-Z0-9 =_:.&?'%,()-–]+$");
+	var url=window.location.href;
+	if(url.indexOf("WSSViewDetail.aspx")>0 || url.indexOf("PublicationReportDetails.aspx")>0)
+	{
+		url=url.substring(url,url.indexOf("?"));
+	}
+        var param = { keyWord1: url.slice(url.lastIndexOf('/') + 1) };
+	param.keyWord1=param.keyWord1.replaceAll("%20"," ");
+	if(param.keyWord1.indexOf("#")>0)
+	{
+		param.keyWord1=param.keyWord1.substring(param.keyWord1,param.keyWord1.indexOf("#"));
+	}
+        if (!strFilterComments.test(param.keyWord1)) {            
+            return false;
+        }
+        else {
+            $.ajax({
+                url: "/Home.aspx/GetLastUpdateDate_new",
+                data: JSON.stringify(param),
+                dataType: "json",
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                dataFilter: function (data) { return data; },
+                success: function (data) {
+                    if (data.d.length > 0) {
+                        $('#lblGetLastUpdateDate').text(data.d);
+                    }
+                    else {
+                        response([{ label: "No results found", value: ""}]);
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                }
+            });
+
+        }
+    }
+    // Fetch Last Date Page
+
+
+
+    function Search() {
+        highlightTextAutocomplete();
+        $(".autoSuggest").autocomplete({
+
+
+            source: function (request, response) {
+                var param = { keyWord: document.getElementById('txtSearch').value };
+
+                $.ajax({
+                    url: "/Home.aspx/GetKeywords",
+                    data: JSON.stringify(param),
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataFilter: function (data) { return data; },
+                    success: function (data) {
+
+                        if (data.d.length > 0) {
+                            response($.map(data.d, function (item) {
+                                return {
+                                    value: RemoveSpecialChars(item)
+
+                                }
+                            }))
+                        }
+                        else {
+                            response([{ label: "No results found", value: ""}]);
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert(textStatus);
+                    }
+                });
+            },
+
+            
+            minLength: 3
+
+        });
+    }
+
+    function highlightTextAutocomplete() {
+
+        var oldFn = $.ui.autocomplete.prototype._renderItem;
+
+        $.ui.autocomplete.prototype._renderItem = function (ul, item) {
+
+            var t = String(item.value).replace(
+                new RegExp(this.term, "gi"),
+                "<span class='ui-state-highlight'>$&</span>");
+            if (item.value != "") {
+                return $("<li class='borderAutocomplete'></li>")
+                  .data("item.autocomplete", item)
+                  .append("<a role='link'>" + t + "</a>")
+                  .appendTo(ul);
+            }
+
+            else {
+                return $("<li></li>")
+                  .data("item.autocomplete", item)
+                  .append("")
+                  .appendTo(ul);
+            }
+        };
+    }
+
+
+    function RemoveSpecialChars(inputText) {
+        var filteredString = inputText.replace(/[\*\^\'\!\@\$\.\#\(\)\-\?\<\>\;\"\&\+\{\}\:]/g, '');
+        
+        return filteredString;
+    }
+    
+
+    function LoadSearchData(id, key) {
+        if (id == "txtSearch") {
+            if (key == 13) {
+                validateSearchText();
+                return false;
+            }
+        }
+        else validateSearchText();
+        return true;
+    }
+    function validateSearchText() {
+        if (validation()) {
+            var strloc = new String(document.location.href.toString());
+            if (strloc.indexOf("SearchResults.aspx") == -1) {//             
+                window.open("/scripts/SearchResults.aspx?search=" + document.getElementById("txtSearch").value,"_self");
+            }
+            else window.open("/scripts/SearchResults.aspx?search=" + document.getElementById("txtSearch").value,"_self");
+        }
+    }
+    function validation() {
+        strSearch = trim(document.getElementById('txtSearch').value);
+        if (strSearch == "") { alert('Please enter the search text'); return false; }
+        else {
+           
+            var strFilterChars = new RegExp("^[0-9a-zA-Z ]*$");
+            if (!strFilterChars.test(strSearch)) { alert("Please remove special characters from search text"); return false; }
+        }
+        return true;
+    }
+    function trim(value) {
+        value = value.replace(/^\s+/, '');
+        value = value.replace(/\s+$/, '');
+        return value;
+    }
+
+</script>
+
+    <style type="text/css">
+    .blink_msm1 
+{
+    -webkit-animation-name: blinker;
+    -webkit-animation-duration: 3s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+
+    -moz-animation-name: blinker;
+    -moz-animation-duration: 3s;
+    -moz-animation-timing-function: linear;
+    -moz-animation-iteration-count: infinite;
+
+    animation-name: blinker;
+    animation-duration: 3s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+@-moz-keyframes blinker {  
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+}
+
+@-webkit-keyframes blinker {  
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+}
+
+@keyframes blinker {  
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+}
+
+.blink_NewWebsite {
+        animation:blinker 1.5s linear 3;
+        color:blue;
+        font-size:1.5em;
+        margin-bottom:0px;
+        }
+    @keyframes blinker
+    {
+        50%{
+            opacity:0;
+        }
+    }
+
+.sr-only {
+position: absolute;
+left: -9999px;
+}
+</style>
+<div class="top_setting">
+    <div class="container_12">
+        <div class="grid_5 top_settings">
+            <a href="#mainsection">Skip to main content </a>
+        </div>
+        <div id="UsrFontCntr_tblThemes" style="float: right" class="grid_4 prefix_3 top_settings">
+            <ul style="margin:0px; padding:0px;">
+               <li class="fonts"> 
+                <a id="UsrFontCntr_LinkBtnSpace" role="button" title="Increase Letter Spacing" href="javascript:__doPostBack(&#39;UsrFontCntr$LinkBtnSpace&#39;,&#39;&#39;)" style="text-decoration:none;"><img src="/images/letspace.png" alt="Increase Letter Spacing" />
+                                <span id="UsrFontCntr_spanBtnSpace" class="sr-only">Not Pressed</span></a>                                
+            </li>
+
+            <li class="fonts">
+                <a id="UsrFontCntr_LinkBtnFontIncrease" role="button" title="Increase Font Size" href="javascript:__doPostBack(&#39;UsrFontCntr$LinkBtnFontIncrease&#39;,&#39;&#39;)" style="text-decoration:none;"><img src="/images/font-increase.gif" alt="Increase Font Size" />
+                    
+                </a>
+            </li>
+            <li class="fonts">
+                <a id="UsrFontCntr_LinkBtnFontRegular" role="button" title="Regular Font Size" href="javascript:__doPostBack(&#39;UsrFontCntr$LinkBtnFontRegular&#39;,&#39;&#39;)" style="text-decoration:none;"><img src="/images/font-reset.gif" alt="Regular Font Size" />
+                    
+                </a>
+            </li>
+            <li class="fonts">
+                <a id="UsrFontCntr_LinkBtnFontDecrease" role="button" title="Decrease Font Size" href="javascript:__doPostBack(&#39;UsrFontCntr$LinkBtnFontDecrease&#39;,&#39;&#39;)" style="text-decoration:none;"><img src="/images/font-decrease.gif" alt="Decrease Font Size" />
+                    
+                </a>
+            </li></ul>
+		<ul style="margin:0px;padding:0px;">
+            <li class="black">
+                <a id="UsrFontCntr_LinkBtnAccessibilty" role="button" title="Apply Dark Theme" href="javascript:__doPostBack(&#39;UsrFontCntr$LinkBtnAccessibilty&#39;,&#39;&#39;)" style="text-decoration:none;"><img src="/images/dark-theme.gif" alt="Apply Dark Theme" />
+                    
+                </a>
+            </li>
+            <li class="white">
+                <a id="UsrFontCntr_LinkBtnUndoAccessibilty" role="button" title="Apply Normal Theme" href="javascript:__doPostBack(&#39;UsrFontCntr$LinkBtnUndoAccessibilty&#39;,&#39;&#39;)" style="text-decoration:none;"><img src="/images/bright-theme.gif" alt="Apply Normal Theme" />
+                     
+                </a>
+            </li>
+            <li class="white">
+            <a id="UsrFontCntr_LinkBtnGreyScale" role="button" title="Apply Grey Theme" href="javascript:__doPostBack(&#39;UsrFontCntr$LinkBtnGreyScale&#39;,&#39;&#39;)" style="text-decoration:none;"><img src="/images/graytheme.gif" alt="Apply Grey Theme" />
+                                
+                                </a></li>
+
+            </ul>
+		<div>
+		     <a href="#" onclick="javascript:window.print();" id="A1" title="Print This Page" style="text-decoration:none;" >
+                <img src="/images/print-icon.png" alt="Print this page" class="print" />
+		</a></div>
+            <div style="float: right">
+                <label style="margin-right: 6px;">
+                    Change Language</label>
+			
+			<a href="#" onclick="SetLink();" class="link1" title="Change language to Hindi">हिंदी</a>
+			</div>
+                   
+        </div>
+        <div class="clearfix">
+        </div>
+    </div>
+   
+</div>
+<div class="container_12">
+    <div class="grid_4" role="banner">
+        <div class="logo">
+            <a href="/home.aspx" >
+                <img src="/images/rbi-company-logo.jpg" alt="Logo of Official website of Reserve Bank of India" /></a></div>
+    </div>
+    <div class="grid_5" align="right" role="search" style="float: right">
+        <label for="searchbox" class="search_label">
+            Search the Website</label>
+        <input name="UsrFontCntr$txtSearch" type="text" maxlength="103" id="txtSearch" class="search_box autoSuggest" title="Search the Website" aria-label="Search the Website" onkeydown="return LoadSearchData(&#39;txtSearch&#39;,event.keyCode);" placeHolder="Search" />
+        <button id="btnSearch" onclick="return LoadSearchData('btnSearch',event.keyCode);"
+            type="button" class="search_button">
+            Search</button>
+    </div>
+	<div class="grid_2" align="CENTER" role="" style="float: right">
+        <div class="logo" >
+           
+            <img src="../images/BBBP_Logo_4.png" alt="Beti Bachao Beti Padhao Logo" style="width:47%;">
+        </div>
+    	</div>
+    <div class="clearfix">
+    </div>
+</div>
+<!--  NAVIGATION START-->
+<nav role="navigation" aria-label="Main">
+       <div class="menu"><div class="centermenu">
+<ul class="menu">
+  <li><a href="https://rbi.org.in/home.aspx">Home</a></li>
+<li><a href="#" aria-expanded="false" role="button" aria-controls="Ab-Sub1">About Us ▼</a>
+ <ul class="submenu1" id="Ab-Sub1" >
+	 <li><a href="/scripts/AboutUsDisplay.aspx">About Us</a></li>
+     <li><a href="#" aria-expanded="false" role="button" aria-controls="Ab-org">Organisation & Functions <span aria-hidden="true">▶</span></a>
+		 <ul class="submenu1" id="Ab-org">             
+            <li><a href="/scripts/AboutUsDisplay.aspx?pg=OrganizationStructure.htm">Organisation Structure</a></li>
+            <li><a href="/scripts/AboutUsDisplay.aspx?pg=Depts.htm">Departments</a></li>
+            <li><a href="Regionaloffices.aspx">Offices</a></li>
+			<li><a href="#" aria-expanded="false" role="button" aria-controls="Ab-tra">Training Establishment <span aria-hidden="true">▶</span></a>                
+				<ul class="submenu1" id="Ab-tra">
+                    <li ><a href="https://cab.rbi.org.in" target="_blank" id="CBOverview">College of Agricultural Banking</a></li>
+                    <li ><a href="/scripts/rbsc.aspx" id="CBNotifications">Reserve Bank Staff College</a></li>
+					<li ><a href="https://cos.rbi.org.in/" id="CBSupervisors">College of Supervisors</a></li>
+                </ul>
+            </li>
+            <li><a href="/scripts/OccasionalPublications.aspx?head=RBI%27s%20Functions%20and%20Working">RBI's Functions and Working</a></li>
+            <li><a href="/scripts/AboutUsDisplay.aspx?pg=PastGovernors.htm">Governors</a></li>
+			<li><a href="/scripts/AboutUsDisplay.aspx?pg=deputygovernors.htm">Deputy Governors</a></li>
+			<li><a href="/scripts/AboutUsDisplay.aspx?pg=ExecutiveDirectors.htm">Executive Directors</a></li>
+        </ul>		
+	 </li>
+<li><a href="AboutUsDisplay.aspx?pg=MediaKit.htm">Media Kit</a></li>
+	 <li><a href="CommunicationPolicy.aspx">Communication Policy of RBI</a></li>
+	
+     <li>
+        <a href="#" aria-expanded="false" role="button" aria-controls="Ab-soi">Sources of Information <span aria-hidden="true">▶</span></a>
+        <ul class="submenu1" id="Ab-soi">
+            <li><a href="/scripts/AboutUsDisplay.aspx?pg=AllPublications.htm#AP">Annual Publications</a></li>
+            <li><a href="/scripts/AboutUsDisplay.aspx?pg=AllPublications.htm#HP">Half-yearly Publications</a></li>
+            <li><a href="/scripts/AboutUsDisplay.aspx?pg=AllPublications.htm#QP">Quarterly Publications</a></li>
+            <li><a href="/scripts/AboutUsDisplay.aspx?pg=AllPublications.htm#MP">Monthly Publications</a></li>
+            <li><a href="/scripts/AboutUsDisplay.aspx?pg=AllPublications.htm#WP">Weekly Publications</a></li>
+            <li><a href="/scripts/AboutUsDisplay.aspx?pg=AllPublications.htm#OP">Occasional Publications</a></li>
+            <li><a href="/scripts/SDDSview.aspx">SDDS</a></li>
+            <li><a href="/scripts/BS_NSDPDisplay.aspx">NSDP</a></li>
+            <li><a href="/scripts/Statistics.aspx">Data Releases</a></li>
+            <li><a href="/scripts/AboutUsDisplay.aspx?pg=AllPublications.htm#PS">Publications available on Subscription</a></li>
+            <li><a href="/scripts/AboutUsDisplay.aspx?pg=AllPublications.htm#GI">General Information</a></li>	  
+        </ul>
+     </li>  
+	 <li><a href="/scripts/Project1.aspx">RBI History</a></li>
+	 <li><a href="#" aria-expanded="false" role="button" aria-controls="Ab-mus">Museum <span aria-hidden="true">▶</span></a>
+		<ul class="submenu1" id="Ab-mus">
+			<li><a href="https://therbimuseum.rbi.org.in/">The RBI Museum</a></li>
+			<li><a href="/scripts/ic_museum.aspx">RBI Monetary Museum</a></li>
+         </ul>
+	 </li>
+</ul>
+</li>
+  <li>
+    <a href="#" aria-expanded="false" role="button" aria-controls="No-Sub1">Notifications ▼</a>
+    <ul class="submenu1" id="No-Sub1">
+      <li><a href="/scripts/NotificationUser.aspx">Notifications </a></li>
+             <li><a href="/scripts/BS_ViewMasterDirections.aspx">Master Directions </a></li>
+             <li><a href="/scripts/BS_ViewMasterCirculardetails.aspx">Master Circulars </a></li> 
+	     <li><a href="/scripts/Fs_AmendmentDirections.aspx">Amendment Directions </a></li> 
+	     <li><a href="#" aria-expanded="false" role="button" aria-controls="No-draft">Draft Notifications/Guidelines <span aria-hidden="true">▶</span></a>
+		<ul class="submenu1" id="No-draft">
+			<li><a href="/scripts/DraftNotificationsGuildelines.aspx">Draft Notifications/Guidelines</a></li>
+			<li><a href="/scripts/BS_ViewREwiseDraftDirections.aspx">Draft Directions (RE-wise)</a></li> 
+         	</ul>
+	     </li>
+
+            
+             <li><a href="/scripts/BS_CircularIndexDisplay.aspx">Index To RBI Circulars </a></li> 
+             <li><a href="/scripts/BS_ViewListofstandalonecirculars.aspx">Standalone Circulars </a></li>
+             <li><a href="/scripts/NotificationUserWithdrawnCircular.aspx">Circulars Withdrawn </a></li>
+
+      
+    </ul>
+  </li>
+
+  <li><a href="/scripts/BS_PressReleaseDisplay.aspx">Press Releases</a></li>
+  <li><a href="#" aria-expanded="false" role="button" aria-controls="Sp-Sub1">Speeches & Media Interactions ▼</a>
+	<ul class="submenu1" id="Sp-Sub1">
+	  <li><a href="/scripts/BS_ViewSpeeches.aspx">Speeches</a></li>
+      <li><a href="/scripts/BS_ViewInterviews.aspx">Media Interactions</a></li>
+      <li><a href="/scripts/Lectures.aspx">Memorial Lectures</a></li>
+      <li><a href="/scripts/BS_ViewPodcast.aspx">Podcasts</a></li>
+	</ul>
+  </li>
+  <li><a href="#"  aria-expanded="false" role="button" aria-controls="Pu-Sub1">Publications ▼</a>
+		<ul class="submenu1" id="Pu-Sub1">
+			<li><a href="/scripts/Publications.aspx?publication=Biennial">Biennial</a></li>
+            <li><a href="/scripts/Publications.aspx?publication=Annual">Annual</a></li>
+            <li><a href="/scripts/Publications.aspx?publication=HalfYearly">Half-Yearly</a></li>
+            <li><a href="/scripts/Publications.aspx?publication=Quarterly">Quarterly</a></li>
+		    <li><a href="/scripts/Publications.aspx?publication=Bimonthly">Bi-monthly</a></li>
+            <li><a href="/scripts/Publications.aspx?publication=Monthly">Monthly</a></li>
+            <li><a href="/scripts/Publications.aspx?publication=Weekly">Weekly</a></li>
+            <li><a href="/scripts/Publications.aspx?publication=Occasional">Occasional</a></li>
+            <li><a href="/scripts/Publications.aspx?publication=Reports">Reports</a></li>
+		    <li><a href="/scripts/OccasionalPublications.aspx?head=Working Papers">Working Papers</a></li>
+		</ul>
+	</li>				  
+  <li><a href="#" aria-expanded="false" role="button" aria-controls="Le-Sub1">Legal Framework ▼</a>
+	<ul class="submenu1" id="Le-Sub1">
+	   <li><a href="/scripts/Act.aspx">Act </a></li>
+       <li><a href="/scripts/Rules.aspx">Rules </a></li>
+       <li><a href="/scripts/Regulations.aspx">Regulations </a></li> 
+       <li class="last"><a href="/scripts/Schemes.aspx">Schemes </a></li>
+	   </ul>
+  </li>
+  <li><a href="#" aria-expanded="false" role="button" aria-controls="Re-Sub1">Research ▼</a>
+		<ul class="submenu1" id="Re-Sub1">
+			<li><a href="/Scripts/ExternalResearchSchemes.aspx">External Research Schemes</a></li>
+			<li><a href="/Scripts/OccasionalPapers.aspx">RBI Occasional Papers</a></li>
+			<li><a href="/Scripts/OccasionalPublications.aspx?head=Working%20Papers">Working Papers</a></li>
+			<li><a href="/Scripts/BS_ViewBulletin.aspx">RBI Bulletin</a></li>
+			<li><a href="/Scripts/Project1.aspx">History</a></li>
+			<li><a href="/Scripts/Occas_DRG_Studies.aspx">DRG Studies</a></li>
+			<li><a href="/Scripts/KLEMS.aspx">KLEMS</a></li>
+			<li class="last"><a href="/Scripts/StateStatisticsFinances.aspx">State Statistics and Finances</a></li>
+        </ul>
+  </li>
+  <li><a href="#" aria-expanded="false" role="button" aria-controls="St-Sub1">Statistics ▼</a>
+		<ul class="submenu1" id="St-Sub1">
+		  <li><a href="/scripts/Statistics.aspx">Data Releases</a></li>
+          <li><a href="https://data.rbi.org.in" target="_blank">Database on Indian Economy</a></li>
+          <li><a href="/scripts/FS_PDS.aspx">Public Debt Statistics</a></li>
+		</ul> 
+  </li>
+  <li><a href="#" aria-expanded="false" role="button" aria-controls="St-Sub1">Regulatory Reporting ▼</a>
+		<ul class="submenu1">
+			<li><a href="/scripts/BS_Listofallreturns.aspx">List of Returns</a></li>
+			<li><a href="/scripts/DataDefinition.aspx">Data Definition</a></li>
+			<li><a href="/scripts/ValidationRules.aspx">Validation rules/ Taxonomy</a></li>
+			<li><a href="/scripts/ReportingPlaform.aspx">List of RBI Reporting Portals</a></li>
+			<li class="last"><a href="/scripts/ReportingFAQ.aspx">FAQs of RBI Reporting Portals</a></li>
+		</ul>
+   </li>
+</ul>
+</div></div>
+</nav>
+<div class="container_12" >
+    <section>
+        <div class="grid_12" >
+            <div id="dialogAlert" title="" tabindex="-1"  style="text-align: center; display: none;">
+                <p id="AM_Message" tabindex="-1" style="color: #444; font-size: 15px; margin: 20px 0; min-height: 40px;"></p>
+            </div>
+        </div>
+    </section>
+</div>
+<!--  NAVIGATION END-->
+<!--HEADER END-->
+<input type="submit" name="UsrFontCntr$btn" value="" id="btn" style="visibility: hidden; height: 0px; width: 0px;" />
+
+<script type="text/javascript">
+    function SetLink() {
+        //a.href = "https://www.rbi.org.in/hindi/Home.aspx";
+        var txt="This will lead you to Hindi (हिन्दी) language website. Are you sure you want to switch to this language?"
+        if(window.confirm(txt)==true){
+            //document.cookie = 'preferLang' + '=;secure; expires=Thu, 01-Jan-70 00:00:01 GMT;path=/;';
+            window.location.replace("https://www.rbi.org.in/hindi/");
+        }
+        else return false;
+        
+    }
+
+
+
+
+	const allMenuItems = document.querySelectorAll("nav ul li");
+	
+	allMenuItems.forEach(item => {
+		item.addEventListener("focusin", (event) => {	
+			const MenuText =event.target.textContent;
+			const allMenuItems1 = document.querySelectorAll(".hasSubmenu");
+			allMenuItems1.forEach(item1 => {
+				if (MenuText === 'Press Releases')
+				{	
+					
+					item1.classList.remove('focused');
+					rollback(item1)
+					item1.classList.remove('open');
+				}
+			});
+			
+		});
+	});
+
+
+const menuItems = document.querySelectorAll(".hasSubmenu");
+menuItems.forEach(item => {
+	item.addEventListener("mouseenter", (event) => {
+		item.className="hasSubmenu open focused"
+		expandThis(item);
+	});
+	item.addEventListener("mouseleave", (event) => {		
+		rollback(item)
+		item.className="hasSubmenu"
+	});
+	item.addEventListener("focusin", (event) => {		
+		const allMenuItems = document.querySelectorAll("nav ul li");
+		allMenuItems.forEach(item1 => {
+			item1.classList.remove('focused');
+			if(item!==item1)
+			rollback(item1)
+			item1.classList.remove('open');	
+		});							
+		item.classList.add('focused');
+	});
+	item.addEventListener("focusout", (event) => {
+		
+		if(!item.className.includes('focused')){
+		
+		rollback(item)
+		item.className="hasSubmenu"
+		}
+		item.classList.remove('focused');
+		item.classList.remove('open');
+	});
+
+    item.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+		if(item.className.includes("hasSubmenu open")){
+			rollback(item)
+			item.className="hasSubmenu"
+		}
+		else{
+          	item.className="hasSubmenu open focused"
+		var ele=item.querySelectorAll("a")[0];
+		
+		expandThis(item);	
+		}
+				
+        }
+	
+    });
+	
+});
+function expandThis(menu){
+ var $targetul = $(menu).children("ul:eq(0)")
+				    if ($targetul.queue().length <= 1) 
+				        if (this.istopheader)
+					$targetul.css({ left: $(this).children('a').eq(0).position().left, top: $mainmenu.position().top + this._dimensions.h - 2 })
+				            
+				    if (document.all && !window.XMLHttpRequest) 
+				        $mainmenu.find('ul').css({ overflow: (this.istopheader) ? 'hidden' : 'visible' })
+					
+					
+				    $targetul.dequeue().stop(true, true).slideDown(droplinemenu.animateduration.over)
+}
+const menuItemsf = document.querySelectorAll("nav .midmenu ul li");
+
+menuItemsf.forEach(item => {
+    item.addEventListener("keydown", (event) => {
+	
+	if(item.className.includes("last") ){
+		 if (pressedKeys['shift'] && event.key === "Tab"){}else{
+		var lastItem = document.getElementsByClassName('hasSubmenu open');
+		rollback(lastItem[0])
+		lastItem[0].className="hasSubmenu";
+		}
+	}
+	
+	});
+	
+	});
+	
+
+function rollback(menu){
+ var $targetul = $(menu).children("ul:eq(0)")
+$targetul.dequeue().stop(true, true).slideUp(droplinemenu.animateduration.out);
+}
+ 
+
+function setLetterSpace(val) {
+    
+	
+    if (false) {
+                    document.body.setAttribute("style", "letter-spacing:1px; line-height:20px; word-spacing:2px;");
+       
+    }
+    else {
+                    document.body.removeAttribute("style");
+    }
+    return false;
+
+    
+    }
+   
+
+// Toggle submenu
+    document.querySelectorAll('.menu li > a').forEach(link => {
+        link.addEventListener('click', function (e) {
+            const submenu = this.nextElementSibling;
+
+            if (submenu && submenu.classList.contains('submenu1')) {linkMessage();
+                e.preventDefault();
+                e.stopPropagation();
+
+                const parentLi = this.parentElement;
+
+                // Close sibling menus ONLY (not entire menu)
+                closeSiblings(parentLi);   
+ 
+
+               
+ 
+                const isExpanded=link.getAttribute('aria-expanded') ==='true';
+                link.setAttribute('aria-expanded',!isExpanded);
+                submenu.hidden=isExpanded;
+                
+                submenu.setAttribute('aria-hidden', isExpanded);
+                setTimeout(()=>{
+                    // Toggle current submenu
+                    submenu.classList.toggle('show', !isExpanded);
+            },50);
+
+        }
+        });
+    });
+
+    //  Close only sibling menus (important fix)
+    function closeSiblings(currentLi) {
+        const siblings = currentLi.parentElement.children;
+
+        Array.from(siblings).forEach(li => {
+            if (li !== currentLi) {
+            const submenus = li.querySelectorAll('.submenu1');
+        submenus.forEach(menu => menu.classList.remove('show'));
+    }
+    });
+    }
+
+    //  Click outside → close all
+    document.addEventListener('click', function () {
+		
+        document.querySelectorAll('.menu li > a').forEach(menu => {
+		if(menu.hasAttribute('aria-expanded')){
+            menu.setAttribute('aria-expanded','false');
+	}
+	
+    });
+
+    document.querySelectorAll('.submenu1').forEach(menu => {
+        menu.setAttribute('aria-hidden','true');
+    menu.classList.remove('show');
+	
+
+    });
+    });
+
+    //  Prevent closing when clicking inside menu
+    document.querySelector('.menu').addEventListener('click', function (e) {linkMessage();
+        e.stopPropagation();
+    });
+
+
+    //  Keyboard support
+    document.querySelectorAll('.menu li > a').forEach(link => {
+        link.addEventListener('keydown', function (e) {
+            const submenu = this.nextElementSibling;
+
+            if ((e.key === 'Enter' || e.key === ' ') && submenu) {
+                e.preventDefault();
+
+                const parentLi = this.parentElement;
+                closeSiblings(parentLi);
+
+
+                const isExpanded=link.getAttribute('aria-expanded') ==='true';
+                link.setAttribute('aria-expanded',!isExpanded);
+                submenu.hidden=isExpanded;
+                submenu.setAttribute('aria-hidden', isExpanded);
+                setTimeout(()=>{
+                    // Toggle current submenu
+                    submenu.classList.toggle('show', !isExpanded);
+            },50);
+
+
+           
+        }
+
+          if (e.key === 'Escape') {
+        document.querySelectorAll('.submenu').forEach(menu => {
+            menu.classList.remove('show');
+    });
+    this.blur();
+    }
+    });
+    });
+    // When focusing main menu items → close other submenus
+    document.querySelectorAll('.menu > li > a').forEach(item => {
+        item.addEventListener('focus', function() {
+
+            document.querySelectorAll('.submenu1').forEach(menu => {
+                
+                if (menu !== this.nextElementSibling) {
+              
+
+            document.querySelectorAll('.menu li > a').forEach(menu => {
+                if(menu.hasAttribute('aria-expanded'))
+                menu.setAttribute('aria-expanded','false');
+		
+            document.querySelectorAll('.submenu1').forEach(menu => {
+                menu.setAttribute('aria-hidden','true');
+            
+            menu.classList.remove('show');
+            
+
+
+        });
+
+	
+    });
+
+    }
+    });
+
+    });
+    });
+
+    //  Close submenu when focus leaves it (TAB navigation)
+    document.querySelectorAll('.menu li').forEach(li => {
+        li.addEventListener('focusout', function (e) {
+            // Check if focus is still inside this <li>
+            if (!li.contains(e.relatedTarget)) {
+                const submenu = li.querySelector('.submenu1');
+                if (submenu) {
+                    submenu.classList.remove('show');
+                    if(li.querySelector('a').hasAttribute('aria-expanded'))
+                        li.querySelector('a').setAttribute('aria-expanded','false');
+	
+
+                    submenu.setAttribute('aria-hidden','true');
+                }
+            }
+        });
+    });
+</script>
+        <div>
+            <main class="container_12">
+            <a id="mainsection" name="mainsection"></a>
+    
+            
+<nav aria-label="Breadcrumb" class="grid_12 breadcrumbs">
+<ul>
+                    <li><a href="../Home.aspx">Home</a></li>
+                    <li>Statistics</li><li><a href="Statistics.aspx">Data Releases</a></li>
+						 <li>Bankwise ATM/POS/Card Statistics</li>
+                    <span id="lblNav"></span>
+                </ul>
+ </nav>
+
+            <div class="clear">
+            </div>
+            <div class="grid_11 omega right_blue_border">
+                <div class="text1">
+    <h1 class="page_title">Bankwise ATM/POS/Card Statistics </h1>
+                    <div>
+                        <div id="doublescroll">
+                            <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+                                <table class="tablebg" width="100%"><tr><td class="tableheader"><a id='ADOC_ATMJULY20224C14FCD4FB824FF88D5F00BD92FF64C7' target='_blank' href='https://rbidocs.rbi.org.in/rdocs/ATM/DOCs/ATMJULY20224C14FCD4FB824FF88D5F00BD92FF64C7.XLSX' aria-labelledby='ADOC_ATMJULY20224C14FCD4FB824FF88D5F00BD92FF64C7 SDOC_ATMJULY20224C14FCD4FB824FF88D5F00BD92FF64C7'>
+		<img alt='Document - Bank-wise ATM/POS/Card Statistics -  July 2022' style='padding: 8px;' src='../Images/xlsx.gif' width='16' alt="download file" height='16' border=0 align='absmiddle'></a> (<span id='SDOC_ATMJULY20224C14FCD4FB824FF88D5F00BD92FF64C7' aria-hidden="true">48 kb</span>) or <a id='APDF_ATMJULY20224C14FCD4FB824FF88D5F00BD92FF64C7' target='_blank' href='https://rbidocs.rbi.org.in/rdocs/ATM/PDFs/ATMJULY20224C14FCD4FB824FF88D5F00BD92FF64C7.PDF' aria-labelledby='APDF_ATMJULY20224C14FCD4FB824FF88D5F00BD92FF64C7 SPDF_ATMJULY20224C14FCD4FB824FF88D5F00BD92FF64C7'>
+			<img alt='PDF - Bank-wise ATM/POS/Card Statistics -  July 2022' style='padding: 8px;' src='../Images/pdf.gif' width='16' height='16' alt='PDF document' border=0 align='absmiddle'></a> (<span id='SPDF_ATMJULY20224C14FCD4FB824FF88D5F00BD92FF64C7' aria-hidden="true">119 kb</span>)</td></tr><tr><td><table width="100%" border="0" align="center" cellpadding="0" cellspacing="1" class="tablebg">  <tr>    <td colspan="28" align="center"><span class="head">ATM, Acceptance Infrastructure and Card Statistics for the Month of July 2022</span></td>  </tr>  <tr>    <td rowspan="5" align="center"><span class="head">Sr. No.</span></td>    <td rowspan="5" align="center"><span class="head">Bank Name</span></td>    <td colspan="8" align="center"><span class="head">Infrastructure</span></td>    <td colspan="18" align="center"><span class="head">Card Payments and Cash Withdrawal Transactions during the month</span></td>  </tr>  <tr>    <td colspan="8" align="center"><span class="head">Number - Outstanding (as on month end)</span></td>    <td colspan="8" align="center"><span class="head">Credit Card</span></td>    <td colspan="10" align="center"><span class="head">Debit Card</span></td>  </tr>  <tr>    <td colspan="2" rowspan="2" align="center"><span class="head">ATM</span></td>    <td rowspan="3" align="center"><span class="head">PoS</span></td>    <td rowspan="3" align="center"><span class="head">Micro ATMs</span></td>    <td rowspan="3" align="center"><span class="head">Bharat QR Codes</span></td>    <td rowspan="3" align="center"><span class="head">UPI QR Codes</span></td>    <td rowspan="3" align="center"><span class="head">Credit Cards</span></td>    <td rowspan="3" align="center"><span class="head">Debit Cards</span></td>    <td colspan="6" align="center"><span class="head">Card Payments Transactions</span></td>    <td colspan="2" align="center"><span class="head">Cash Withdrawal</span></td>    <td colspan="6" align="center"><span class="head">Card Payments Transactions</span></td>    <td colspan="4" align="center"><span class="head">Cash Withdrawal</span></td>  </tr>  <tr>    <td colspan="2" align="center"><span class="head">at PoS</span></td>    <td colspan="2" align="center"><span class="head">Online (e-com)</span></td>    <td colspan="2" align="center"><span class="head">Others</span></td>    <td colspan="2" align="center"><span class="head">At ATM</span></td>    <td colspan="2" align="center"><span class="head">at PoS</span></td>    <td colspan="2" align="center"><span class="head">Online (e-com)</span></td>    <td colspan="2" align="center"><span class="head">Others</span></td>    <td colspan="2" align="center"><span class="head">ATM</span></td>    <td colspan="2" align="center"><span class="head">PoS</span></td>  </tr>  <tr>    <td align="center"><span class="head">On-site</span></td>    <td align="center"><span class="head">Off-site</span></td>    <td align="center"><span class="head">Volume (in actuals)</span></td>    <td align="center"><span class="head">Value (in Rs'000)</span></td>    <td align="center"><span class="head">Volume (in actuals)</span></td>    <td align="center"><span class="head">Value (in Rs'000)</span></td>    <td align="center"><span class="head">Volume (in actuals)</span></td>    <td align="center"><span class="head">Value (in Rs'000)</span></td>    <td align="center"><span class="head">Volume (in actuals)</span></td>    <td align="center"><span class="head">Value (in Rs'000)</span></td>    <td align="center"><span class="head">Volume (in actuals)</span></td>    <td align="center"><span class="head">Value (in Rs'000)</span></td>    <td align="center"><span class="head">Volume (in actuals)</span></td>    <td align="center"><span class="head">Value (in Rs'000)</span></td>    <td align="center"><span class="head">Volume (in actuals)</span></td>    <td align="center"><span class="head">Value (in Rs'000)</span></td>    <td align="center"><span class="head">Volume (in actuals)</span></td>    <td align="center"><span class="head">Value (in Rs'000)</span></td>    <td align="center"><span class="head">Volume (in actuals)</span></td>    <td align="center"><span class="head">Value (in Rs'000)</span></td>  </tr>  <tr>    <td align="center">&nbsp;</td>    <td align="center">&nbsp;</td>    <td align="center"><span class="head">1</span></td>    <td align="center"><span class="head">2</span></td>    <td align="center"><span class="head">3</span></td>    <td align="center"><span class="head">4</span></td>    <td align="center"><span class="head">5</span></td>    <td align="center"><span class="head">6</span></td>    <td align="center"><span class="head">7</span></td>    <td align="center"><span class="head">8</span></td>    <td align="center"><span class="head">9</span></td>    <td align="center"><span class="head">10</span></td>    <td align="center"><span class="head">11</span></td>    <td align="center"><span class="head">12</span></td>    <td align="center"><span class="head">13</span></td>    <td align="center"><span class="head">14</span></td>    <td align="center"><span class="head">15</span></td>    <td align="center"><span class="head">16</span></td>    <td align="center"><span class="head">17</span></td>    <td align="center"><span class="head">18</span></td>    <td align="center"><span class="head">19</span></td>    <td align="center"><span class="head">20</span></td>    <td align="center"><span class="head">21</span></td>    <td align="center"><span class="head">22</span></td>    <td align="center"><span class="head">23</span></td>    <td align="center"><span class="head">24</span></td>    <td align="center"><span class="head">25</span></td>    <td align="center"><span class="head">26</span></td>  </tr>  <tr>    <td colspan="28">Scheduled Commercial Banks</td>  </tr>  <tr>    <td colspan="28">Public Sector Banks</td>  </tr>  <tr>    <td align="center">1</td>    <td>BANK OF BARODA</td>    <td align="right">8760</td>    <td align="right">2683</td>    <td align="right">25758</td>    <td align="right">37816</td>    <td align="right">11907</td>    <td align="right">802773</td>    <td align="right">1416927</td>    <td align="right">76491940</td>    <td align="right">1595737</td>    <td align="right">4965048</td>    <td align="right">1591195</td>    <td align="right">7782340</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">20703</td>    <td align="right">95340</td>    <td align="right">7928069</td>    <td align="right">14477325</td>    <td align="right">4041585</td>    <td align="right">6982928</td>    <td align="right">4</td>    <td align="right">7</td>    <td align="right">27799590</td>    <td align="right">127554009</td>    <td align="right">1538</td>    <td align="right">1370</td>  </tr>  <tr>    <td align="center">2</td>    <td>BANK OF INDIA</td>    <td align="right">5161</td>    <td align="right">2658</td>    <td align="right">46857</td>    <td align="right">11956</td>    <td align="right">103</td>    <td align="right">425143</td>    <td align="right">161832</td>    <td align="right">45431685</td>    <td align="right">140706</td>    <td align="right">475263</td>    <td align="right">106785</td>    <td align="right">314511</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">8537</td>    <td align="right">48267</td>    <td align="right">4755844</td>    <td align="right">8048259</td>    <td align="right">2760930</td>    <td align="right">3697356</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">17565150</td>    <td align="right">67388711</td>    <td align="right">3857</td>    <td align="right">3665</td>  </tr>  <tr>    <td align="center">3</td>    <td>BANK OF MAHARASHTRA</td>    <td align="right">1747</td>    <td align="right">434</td>    <td align="right">2871</td>    <td align="right">0</td>    <td align="right">355014</td>    <td align="right">601845</td>    <td align="right">76761</td>    <td align="right">12784888</td>    <td align="right">79760</td>    <td align="right">328789</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">904</td>    <td align="right">4187</td>    <td align="right">2377708</td>    <td align="right">3483842</td>    <td align="right">1062916</td>    <td align="right">1492120</td>    <td align="right">8809</td>    <td align="right">96675</td>    <td align="right">7043405</td>    <td align="right">29302557</td>    <td align="right">0</td>    <td align="right">0</td>  </tr>  <tr>    <td align="center">4</td>    <td>CANARA BANK</td>    <td align="right">8063</td>    <td align="right">4127</td>    <td align="right">50362</td>    <td align="right">8906</td>    <td align="right">66</td>    <td align="right">1504456</td>    <td align="right">913399</td>    <td align="right">46819589</td>    <td align="right">669447</td>    <td align="right">1750370</td>    <td align="right">304917</td>    <td align="right">1057839</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">56638</td>    <td align="right">285988</td>    <td align="right">9643828</td>    <td align="right">18907587</td>    <td align="right">3901673</td>    <td align="right">7081912</td>    <td align="right">4387</td>    <td align="right">67096</td>    <td align="right">31285845</td>    <td align="right">138755977</td>    <td align="right">1877</td>    <td align="right">1597</td>  </tr>  <tr>    <td align="center">5</td>    <td>CENTRAL BANK OF INDIA</td>    <td align="right">2414</td>    <td align="right">425</td>    <td align="right">2588</td>    <td align="right">8982</td>    <td align="right">8154</td>    <td align="right">195055</td>    <td align="right">0</td>    <td align="right">27305718</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">2788601</td>    <td align="right">5735354</td>    <td align="right">779735</td>    <td align="right">1416751</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">8623339</td>    <td align="right">37431116</td>    <td align="right">10238</td>    <td align="right">10331</td>  </tr>  <tr>    <td align="center">6</td>    <td>INDIAN BANK</td>    <td align="right">4239</td>    <td align="right">593</td>    <td align="right">14871</td>    <td align="right">9657</td>    <td align="right">0</td>    <td align="right">384662</td>    <td align="right">157121</td>    <td align="right">28168095</td>    <td align="right">129222</td>    <td align="right">381327</td>    <td align="right">69997</td>    <td align="right">304786</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">3172</td>    <td align="right">20220</td>    <td align="right">5885682</td>    <td align="right">10751459</td>    <td align="right">2777357</td>    <td align="right">4217591</td>    <td align="right">4980</td>    <td align="right">74591</td>    <td align="right">20607476</td>    <td align="right">94473840</td>    <td align="right">42372</td>    <td align="right">41987</td>  </tr>  <tr>    <td align="center">7</td>    <td>INDIAN OVERSEAS BANK</td>    <td align="right">2734</td>    <td align="right">674</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">112593</td>    <td align="right">78878</td>    <td align="right">15101912</td>    <td align="right">64615</td>    <td align="right">156914</td>    <td align="right">21577</td>    <td align="right">60707</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">840</td>    <td align="right">3911</td>    <td align="right">3764432</td>    <td align="right">6702439</td>    <td align="right">1121903</td>    <td align="right">1880929</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">15340800</td>    <td align="right">65077877</td>    <td align="right">0</td>    <td align="right">0</td>  </tr>  <tr>    <td align="center">8</td>    <td>PUNJAB AND SIND BANK</td>    <td align="right">776</td>    <td align="right">25</td>    <td align="right">1055</td>    <td align="right">357</td>    <td align="right">1139</td>    <td align="right">13794</td>    <td align="right">0</td>    <td align="right">3525744</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">553806</td>    <td align="right">1111026</td>    <td align="right">347351</td>    <td align="right">773235</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">1569033</td>    <td align="right">6905555</td>    <td align="right">0</td>    <td align="right">0</td>  </tr>  <tr>    <td align="center">9</td>    <td>PUNJAB NATIONAL BANK</td>    <td align="right">8218</td>    <td align="right">4908</td>    <td align="right">43978</td>    <td align="right">11265</td>    <td align="right">601551</td>    <td align="right">58560</td>    <td align="right">334350</td>    <td align="right">46524689</td>    <td align="right">429276</td>    <td align="right">1311720</td>    <td align="right">176772</td>    <td align="right">600419</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">2825</td>    <td align="right">8372</td>    <td align="right">8318698</td>    <td align="right">16578988</td>    <td align="right">5097474</td>    <td align="right">8974772</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">28850260</td>    <td align="right">138239976</td>    <td align="right">0</td>    <td align="right">0</td>  </tr>  <tr>    <td align="center">10</td>    <td>STATE BANK OF INDIA</td>    <td align="right">25993</td>    <td align="right">39646</td>    <td align="right">960482</td>    <td align="right">51824</td>    <td align="right">523555</td>    <td align="right">1798015</td>    <td align="right">14534667</td>    <td align="right">274637296</td>    <td align="right">23252233</td>    <td align="right">68104072</td>    <td align="right">18555938</td>    <td align="right">125573667</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">87546</td>    <td align="right">329434</td>    <td align="right">58908663</td>    <td align="right">115134648</td>    <td align="right">29102002</td>    <td align="right">51503012</td>    <td align="right">2035</td>    <td align="right">25100</td>    <td align="right">192085183</td>    <td align="right">932490547</td>    <td align="right">67185</td>    <td align="right">64510</td>  </tr>  <tr>    <td align="center">11</td>    <td>UCO BANK</td>    <td align="right">2155</td>    <td align="right">221</td>    <td align="right">10165</td>    <td align="right">3568</td>    <td align="right">1598</td>    <td align="right">418339</td>    <td align="right">0</td>    <td align="right">11643639</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">1918027</td>    <td align="right">3548020</td>    <td align="right">1015585</td>    <td align="right">1745968</td>    <td align="right">1271</td>    <td align="right">18339</td>    <td align="right">6898167</td>    <td align="right">29636149</td>    <td align="right">2644</td>    <td align="right">1640</td>  </tr>  <tr>    <td align="center">12</td>    <td>UNION BANK OF INDIA</td>    <td align="right">8042</td>    <td align="right">3190</td>    <td align="right">39115</td>    <td align="right">8032</td>    <td align="right">8936</td>    <td align="right">234203</td>    <td align="right">560409</td>    <td align="right">49339980</td>    <td align="right">486951</td>    <td align="right">1500869</td>    <td align="right">250338</td>    <td align="right">999098</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">5948</td>    <td align="right">30577</td>    <td align="right">10446474</td>    <td align="right">17968750</td>    <td align="right">6589816</td>    <td align="right">10497584</td>    <td align="right">2257</td>    <td align="right">8204</td>    <td align="right">47119469</td>    <td align="right">145568984</td>    <td align="right">13014</td>    <td align="right">13009</td>  </tr>  <tr>    <td colspan="28">Private Sector Banks</td>  </tr>  <tr>    <td align="center">13</td>    <td>AXIS BANK LTD</td>    <td align="right">5779</td>    <td align="right">10399</td>    <td align="right">1131376</td>    <td align="right">710</td>    <td align="right">393450</td>    <td align="right">41167353</td>    <td align="right">9932333</td>    <td align="right">29034253</td>    <td align="right">15514532</td>    <td align="right">46531244</td>    <td align="right">11195923</td>    <td align="right">54121094</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">56038</td>    <td align="right">233338</td>    <td align="right">12178597</td>    <td align="right">27115688</td>    <td align="right">5705569</td>    <td align="right">17532250</td>    <td align="right">20684</td>    <td align="right">511521</td>    <td align="right">21492417</td>    <td align="right">129879097</td>    <td align="right">0</td>    <td align="right">0</td>  </tr>  <tr>    <td align="center">14</td>    <td>BANDHAN BANK LTD</td>    <td align="right">423</td>    <td align="right">5</td>    <td align="right">36762</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">5096560</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">564058</td>    <td align="right">1268999</td>    <td align="right">306908</td>    <td align="right">756679</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">2986361</td>    <td align="right">13253269</td>    <td align="right">27365</td>    <td align="right">27456</td>  </tr>  <tr>    <td align="center">15</td>    <td>CITY UNION BANK LTD.</td>    <td align="right">1114</td>    <td align="right">573</td>    <td align="right">7260</td>    <td align="right">26236</td>    <td align="right">0</td>    <td align="right">35633</td>    <td align="right">1671</td>    <td align="right">2623101</td>    <td align="right">1508</td>    <td align="right">3898</td>    <td align="right">335</td>    <td align="right">1060</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">13</td>    <td align="right">48</td>    <td align="right">922452</td>    <td align="right">1733799</td>    <td align="right">187973</td>    <td align="right">342150</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">2763308</td>    <td align="right">14368482</td>    <td align="right">0</td>    <td align="right">0</td>  </tr>  <tr>    <td align="center">16</td>    <td>CSB BANK LTD.</td>    <td align="right">446</td>    <td align="right">53</td>    <td align="right">0</td>    <td align="right">1174</td>    <td align="right">4934</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">833519</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">264522</td>    <td align="right">448376</td>    <td align="right">47562</td>    <td align="right">92575</td>    <td align="right">2</td>    <td align="right">0</td>    <td align="right">501979</td>    <td align="right">2325569</td>    <td align="right">98</td>    <td align="right">18</td>  </tr>  <tr>    <td align="center">17</td>    <td>DCB BANK LTD</td>    <td align="right">372</td>    <td align="right">8</td>    <td align="right">8983</td>    <td align="right">0</td>    <td align="right">5976</td>    <td align="right">0</td>    <td align="right">3469</td>    <td align="right">895555</td>    <td align="right">5914</td>    <td align="right">13843</td>    <td align="right">2417</td>    <td align="right">11123</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">124</td>    <td align="right">716</td>    <td align="right">282514</td>    <td align="right">540238</td>    <td align="right">61642</td>    <td align="right">200137</td>    <td align="right">433</td>    <td align="right">14002</td>    <td align="right">283769</td>    <td align="right">1652874</td>    <td align="right">0</td>    <td align="right">0</td>  </tr>  <tr>    <td align="center">18</td>    <td>DHANALAKSHMI BANK LTD</td>    <td align="right">216</td>    <td align="right">43</td>    <td align="right">1547</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">22467</td>    <td align="right">7645</td>    <td align="right">515156</td>    <td align="right">18374</td>    <td align="right">38377</td>    <td align="right">5594</td>    <td align="right">18655</td>    <td align="right">4</td>    <td align="right">54</td>    <td align="right">123</td>    <td align="right">486</td>    <td align="right">260315</td>    <td align="right">411897</td>    <td align="right">46748</td>    <td align="right">86798</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">470714</td>    <td align="right">2000255</td>    <td align="right">0</td>    <td align="right">0</td>  </tr>  <tr>    <td align="center">19</td>    <td>FEDERAL BANK LTD</td>    <td align="right">1511</td>    <td align="right">353</td>    <td align="right">16175</td>    <td align="right">0</td>    <td align="right">98818</td>    <td align="right">3358314</td>    <td align="right">264497</td>    <td align="right">12437294</td>    <td align="right">595999</td>    <td align="right">1914937</td>    <td align="right">568934</td>    <td align="right">3089047</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">2560</td>    <td align="right">12532</td>    <td align="right">5727724</td>    <td align="right">9972839</td>    <td align="right">2124085</td>    <td align="right">4549081</td>    <td align="right">2232</td>    <td align="right">25109</td>    <td align="right">9418683</td>    <td align="right">45123828</td>    <td align="right">313</td>    <td align="right">266</td>  </tr>  <tr>    <td align="center">20</td>    <td>HDFC BANK LTD</td>    <td align="right">9106</td>    <td align="right">9639</td>    <td align="right">1343923</td>    <td align="right">3318</td>    <td align="right">1533482</td>    <td align="right">0</td>    <td align="right">17949861</td>    <td align="right">45803977</td>    <td align="right">31106524</td>    <td align="right">118646628</td>    <td align="right">28419157</td>    <td align="right">209802099</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">177877</td>    <td align="right">1030692</td>    <td align="right">25061455</td>    <td align="right">58117716</td>    <td align="right">17162436</td>    <td align="right">47619428</td>    <td align="right">575356</td>    <td align="right">3337232</td>    <td align="right">39947824</td>    <td align="right">235441316</td>    <td align="right">51583</td>    <td align="right">51573</td>  </tr>  <tr>    <td align="center">21</td>    <td>ICICI BANK LTD</td>    <td align="right">8611</td>    <td align="right">7968</td>    <td align="right">1058189</td>    <td align="right">2553</td>    <td align="right">518525</td>    <td align="right">3189402</td>    <td align="right">13725493</td>    <td align="right">35712273</td>    <td align="right">21235622</td>    <td align="right">76230296</td>    <td align="right">24997303</td>    <td align="right">157232089</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">47973</td>    <td align="right">238797</td>    <td align="right">17163013</td>    <td align="right">42593665</td>    <td align="right">6638948</td>    <td align="right">27082859</td>    <td align="right">26648</td>    <td align="right">252042</td>    <td align="right">22897632</td>    <td align="right">142661869</td>    <td align="right">95</td>    <td align="right">64</td>  </tr>  <tr>    <td align="center">22</td>    <td>IDBI BANK LTD</td>    <td align="right">2210</td>    <td align="right">1178</td>    <td align="right">22711</td>    <td align="right">216</td>    <td align="right">6232</td>    <td align="right">185996</td>    <td align="right">42508</td>    <td align="right">12779200</td>    <td align="right">67843</td>    <td align="right">204060</td>    <td align="right">46345</td>    <td align="right">167407</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">354</td>    <td align="right">1925</td>    <td align="right">2657426</td>    <td align="right">5004793</td>    <td align="right">828357</td>    <td align="right">1654088</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">6727152</td>    <td align="right">32496461</td>    <td align="right">500</td>    <td align="right">482</td>  </tr>  <tr>    <td align="center">23</td>    <td>IDFC FIRST BANK LTD</td>    <td align="right">593</td>    <td align="right">215</td>    <td align="right">32032</td>    <td align="right">11637</td>    <td align="right">0</td>    <td align="right">38079</td>    <td align="right">1042747</td>    <td align="right">4579140</td>    <td align="right">1513732</td>    <td align="right">5222812</td>    <td align="right">1269475</td>    <td align="right">8475636</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">13663</td>    <td align="right">48524</td>    <td align="right">1435524</td>    <td align="right">2211697</td>    <td align="right">450999</td>    <td align="right">1492308</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">3118291</td>    <td align="right">12769301</td>    <td align="right">0</td>    <td align="right">0</td>  </tr>  <tr>    <td align="center">24</td>    <td>INDUSIND BANK LTD</td>    <td align="right">1534</td>    <td align="right">1256</td>    <td align="right">234311</td>    <td align="right">164</td>    <td align="right">36081</td>    <td align="right">65571</td>    <td align="right">1822569</td>    <td align="right">7412670</td>    <td align="right">2428119</td>    <td align="right">10579315</td>    <td align="right">2634284</td>    <td align="right">46249643</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">20879</td>    <td align="right">105309</td>    <td align="right">1680339</td>    <td align="right">3441222</td>    <td align="right">1035879</td>    <td align="right">3129713</td>    <td align="right">946</td>    <td align="right">56792</td>    <td align="right">5487675</td>    <td align="right">24751101</td>    <td align="right">0</td>    <td align="right">0</td>  </tr>  <tr>    <td align="center">25</td>    <td>JAMMU AND KASHMIR BANK LTD</td>    <td align="right">842</td>    <td align="right">618</td>    <td align="right">11574</td>    <td align="right">945</td>    <td align="right">0</td>    <td align="right">37622</td>    <td align="right">81101</td>    <td align="right">3574096</td>    <td align="right">122521</td>    <td align="right">762696</td>    <td align="right">100480</td>    <td align="right">264450</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">5749</td>    <td align="right">24705</td>    <td align="right">1168365</td>    <td align="right">2650719</td>    <td align="right">3250074</td>    <td align="right">1525872</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">6030376</td>    <td align="right">32100093</td>    <td align="right">3</td>    <td align="right">1</td>  </tr>  <tr>    <td align="center">26</td>    <td>KARNATAKA BANK LTD</td>    <td align="right">835</td>    <td align="right">619</td>    <td align="right">9103</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">36423</td>    <td align="right">0</td>    <td align="right">5186059</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">1954061</td>    <td align="right">2772802</td>    <td align="right">398693</td>    <td align="right">643225</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">4446443</td>    <td align="right">18837140</td>    <td align="right">0</td>    <td align="right">0</td>  </tr>  <tr>    <td align="center">27</td>    <td>KARUR VYSYA BANK LTD</td>    <td align="right">1376</td>    <td align="right">860</td>    <td align="right">12216</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">18515</td>    <td align="right">9680</td>    <td align="right">3991619</td>    <td align="right">19715</td>    <td align="right">105246</td>    <td align="right">5541</td>    <td align="right">53972</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">459</td>    <td align="right">3527</td>    <td align="right">1975517</td>    <td align="right">4055695</td>    <td align="right">410368</td>    <td align="right">1135651</td>    <td align="right">10337</td>    <td align="right">206385</td>    <td align="right">5175839</td>    <td align="right">24526287</td>    <td align="right">0</td>    <td align="right">0</td>  </tr>  <tr>    <td align="center">28</td>    <td>KOTAK MAHINDRA BANK LTD</td>    <td align="right">1434</td>    <td align="right">1348</td>    <td align="right">61547</td>    <td align="right">6715</td>    <td align="right">28802</td>    <td align="right">285595</td>    <td align="right">4052093</td>    <td align="right">24983429</td>    <td align="right">4441587</td>    <td align="right">14361017</td>    <td align="right">3628302</td>    <td align="right">21958721</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">39354</td>    <td align="right">152583</td>    <td align="right">5237184</td>    <td align="right">9182085</td>    <td align="right">3811352</td>    <td align="right">8280606</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">10473227</td>    <td align="right">46907869</td>    <td align="right">0</td>    <td align="right">0</td>  </tr>  <tr>    <td align="center">29</td>    <td>RBL BANK LTD</td>    <td align="right">375</td>    <td align="right">41</td>    <td align="right">1022066</td>    <td align="right">0</td>    <td align="right">47147</td>    <td align="right">62244</td>    <td align="right">4005255</td>    <td align="right">1404224</td>    <td align="right">5500699</td>    <td align="right">20506676</td>    <td align="right">4230708</td>    <td align="right">26244885</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">36004</td>    <td align="right">120749</td>    <td align="right">320132</td>    <td align="right">625692</td>    <td align="right">148382</td>    <td align="right">466512</td>    <td align="right">138</td>    <td align="right">5680</td>    <td align="right">614671</td>    <td align="right">3022858</td>    <td align="right">0</td>    <td align="right">0</td>  </tr>  <tr>    <td align="center">30</td>    <td>SOUTH INDIAN BANK</td>    <td align="right">856</td>    <td align="right">417</td>    <td align="right">12296</td>    <td align="right">0</td>    <td align="right">4794</td>    <td align="right">59220</td>    <td align="right">115538</td>    <td align="right">3668438</td>    <td align="right">319340</td>    <td align="right">1009014</td>    <td align="right">291038</td>    <td align="right">1659153</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">1969550</td>    <td align="right">3568325</td>    <td align="right">424386</td>    <td align="right">1013287</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">3172357</td>    <td align="right">14184811</td>    <td align="right">0</td>    <td align="right">0</td>  </tr>  <tr>    <td align="center">31</td>    <td>TAMILNAD MERCANTILE BANK LTD</td>    <td align="right">477</td>    <td align="right">670</td>    <td align="right">4704</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">40991</td>    <td align="right">2105557</td>    <td align="right">49344</td>    <td align="right">215154</td>    <td align="right">21653</td>    <td align="right">106220</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">2225</td>    <td align="right">8668</td>    <td align="right">486404</td>    <td align="right">1001049</td>    <td align="right">136359</td>    <td align="right">239329</td>    <td align="right">123</td>    <td align="right">353</td>    <td align="right">5299032</td>    <td align="right">22071216</td>    <td align="right">0</td>    <td align="right">0</td>  </tr>  <tr>    <td align="center">32</td>    <td>YES BANK LTD</td>    <td align="right">1066</td>    <td align="right">190</td>    <td align="right">57662</td>    <td align="right">95630</td>    <td align="right">303938</td>    <td align="right">117226656</td>    <td align="right">1331990</td>    <td align="right">3958870</td>    <td align="right">1591393</td>    <td align="right">4619926</td>    <td align="right">1089753</td>    <td align="right">7168965</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">17207</td>    <td align="right">73405</td>    <td align="right">1326752</td>    <td align="right">2479897</td>    <td align="right">685565</td>    <td align="right">1648317</td>    <td align="right">56</td>    <td align="right">1114</td>    <td align="right">2608071</td>    <td align="right">12127748</td>    <td align="right">1128</td>    <td align="right">1122</td>  </tr>  <tr>    <td colspan="28">Foreign Banks</td>  </tr>  <tr>    <td align="center">33</td>    <td>AMERICAN EXPRESS BANKING CORPORATION</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">47948</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">1356420</td>    <td align="right">0</td>    <td align="right">1005261</td>    <td align="right">7204702</td>    <td align="right">3246269</td>    <td align="right">22976106</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>  </tr>  <tr>    <td align="center">34</td>    <td>BANK OF AMERICA</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">21092</td>    <td align="right">0</td>    <td align="right">29471</td>    <td align="right">125099</td>    <td align="right">13528</td>    <td align="right">171901</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">1</td>    <td align="right">10</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>  </tr>  <tr>    <td align="center">35</td>    <td>BARCLAYS BANK PLC</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">1</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">1645</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">50</td>    <td align="right">212</td>    <td align="right">19</td>    <td align="right">14</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">395</td>    <td align="right">3555</td>    <td align="right">0</td>    <td align="right">0</td>  </tr>  <tr>    <td align="center">36</td>    <td>CITI BANK</td>    <td align="right">47</td>    <td align="right">439</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">2545671</td>    <td align="right">1333354</td>    <td align="right">6427826</td>    <td align="right">17346416</td>    <td align="right">5721055</td>    <td align="right">24657323</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">10881</td>    <td align="right">64540</td>    <td align="right">972795</td>    <td align="right">2416646</td>    <td align="right">988675</td>    <td align="right">2907840</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">873389</td>    <td align="right">4901371</td>    <td align="right">0</td>    <td align="right">0</td>  </tr>  <tr>    <td align="center">37</td>    <td>DBS INDIA BANK LTD</td>    <td align="right">453</td>    <td align="right">515</td>    <td align="right">389</td>    <td align="right">99</td>    <td align="right">0</td>    <td align="right">2400</td>    <td align="right">34686</td>    <td align="right">2038403</td>    <td align="right">33022</td>    <td align="right">113665</td>    <td align="right">22266</td>    <td align="right">167808</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">305</td>    <td align="right">992</td>    <td align="right">649780</td>    <td align="right">952846</td>    <td align="right">262948</td>    <td align="right">483033</td>    <td align="right">441</td>    <td align="right">7276</td>    <td align="right">1198505</td>    <td align="right">5324917</td>    <td align="right">55</td>    <td align="right">48</td>  </tr>  <tr>    <td align="center">38</td>    <td>DEUTSCHE BANK LTD</td>    <td align="right">13</td>    <td align="right">18</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">6</td>    <td align="right">0</td>    <td align="right">121353</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">66553</td>    <td align="right">163657</td>    <td align="right">26256</td>    <td align="right">77109</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">48481</td>    <td align="right">275394</td>    <td align="right">0</td>    <td align="right">0</td>  </tr>  <tr>    <td align="center">39</td>    <td>HSBC LTD</td>    <td align="right">46</td>    <td align="right">28</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">762067</td>    <td align="right">530747</td>    <td align="right">664528</td>    <td align="right">3621772</td>    <td align="right">1055283</td>    <td align="right">3878483</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">1503</td>    <td align="right">11525</td>    <td align="right">383322</td>    <td align="right">1095029</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">254073</td>    <td align="right">1457471</td>    <td align="right">0</td>    <td align="right">0</td>  </tr>  <tr>    <td align="center">40</td>    <td>SBM BANK INDIA LTD</td>    <td align="right">8</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">230651</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">1275573</td>    <td align="right">134661</td>    <td align="right">510945</td>    <td align="right">2386880</td>    <td align="right">1429038</td>    <td align="right">7030081</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">66276</td>    <td align="right">410729</td>    <td align="right">7516</td>    <td align="right">15775</td>    <td align="right">20762</td>    <td align="right">42367</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">13762</td>    <td align="right">54054</td>    <td align="right">0</td>    <td align="right">0</td>  </tr>  <tr>    <td align="center">41</td>    <td>STANDARD CHARTERED BANK LTD</td>    <td align="right">99</td>    <td align="right">73</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">1321772</td>    <td align="right">1166145</td>    <td align="right">1617835</td>    <td align="right">4840812</td>    <td align="right">1381403</td>    <td align="right">6461999</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">2744</td>    <td align="right">18454</td>    <td align="right">911279</td>    <td align="right">2192402</td>    <td align="right">546969</td>    <td align="right">1141748</td>    <td align="right">35</td>    <td align="right">623</td>    <td align="right">1001958</td>    <td align="right">4676412</td>    <td align="right">0</td>    <td align="right">0</td>  </tr>  <tr>    <td colspan="28">Payment Banks</td>  </tr>  <tr>    <td align="center">42</td>    <td>AIRTEL PAYMENTS BANK</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">3682568</td>    <td align="right">0</td>    <td align="right">2348434</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">241706</td>    <td align="right">180150</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>  </tr>  <tr>    <td align="center">43</td>    <td>FINO PAYMENTS BANK</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">327162</td>    <td align="right">0</td>    <td align="right">15526</td>    <td align="right">0</td>    <td align="right">4987071</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">214322</td>    <td align="right">427017</td>    <td align="right">25535</td>    <td align="right">26543</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">1558744</td>    <td align="right">4803717</td>    <td align="right">203</td>    <td align="right">130</td>  </tr>  <tr>    <td align="center">44</td>    <td>INDIA POST PAYMENTS BANK</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">171343</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">6116946</td>    <td align="right">&nbsp;</td>    <td align="right">&nbsp;</td>    <td align="right">&nbsp;</td>    <td align="right">&nbsp;</td>    <td align="right">&nbsp;</td>    <td align="right">&nbsp;</td>    <td align="right">&nbsp;</td>    <td align="right">&nbsp;</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">557270</td>    <td align="right">334071</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>  </tr>  <tr>    <td align="center">45</td>    <td>JIO PAYMENTS BANK </td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>  </tr>  <tr>    <td align="center">46</td>    <td>NSDL PAYMENTS BANK</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">102468</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">387176</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">751</td>    <td align="right">595</td>    <td align="right">21852</td>    <td align="right">11407</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">4201</td>    <td align="right">16545</td>    <td align="right">0</td>    <td align="right">0</td>  </tr>  <tr>    <td align="center">47</td>    <td>PAYTM PAYMENTS BANK</td>    <td align="right">1</td>    <td align="right">65</td>    <td align="right">469429</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">23905927</td>    <td align="right">0</td>    <td align="right">38074943</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">654257</td>    <td align="right">758452</td>    <td align="right">1765013</td>    <td align="right">2137781</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">1981958</td>    <td align="right">7208340</td>    <td align="right">0</td>    <td align="right">0</td>  </tr>  <tr>    <td colspan="28">Small Finance Banks</td>  </tr>  <tr>    <td align="center">48</td>    <td>AU SMALL FINANCE BANK LIMITED</td>    <td align="right">439</td>    <td align="right">3</td>    <td align="right">0</td>    <td align="right">338</td>    <td align="right">0</td>    <td align="right">718238</td>    <td align="right">274656</td>    <td align="right">2158365</td>    <td align="right">399701</td>    <td align="right">2087335</td>    <td align="right">309557</td>    <td align="right">2229132</td>    <td align="right">1295</td>    <td align="right">651</td>    <td align="right">5638</td>    <td align="right">35496</td>    <td align="right">259927</td>    <td align="right">607301</td>    <td align="right">194402</td>    <td align="right">562329</td>    <td align="right">237</td>    <td align="right">3235</td>    <td align="right">908307</td>    <td align="right">5646407</td>    <td align="right">297</td>    <td align="right">295</td>  </tr>  <tr>    <td align="center">49</td>    <td>CAPITAL SMALL FINANCE BANK LIMITED</td>    <td align="right">165</td>    <td align="right">2</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">193436</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">47116</td>    <td align="right">108026</td>    <td align="right">17721</td>    <td align="right">39320</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">129232</td>    <td align="right">663437</td>    <td align="right">0</td>    <td align="right">0</td>  </tr>  <tr>    <td align="center">50</td>    <td>EQUITAS SMALL FINANCE BANK LIMITED</td>    <td align="right">339</td>    <td align="right">3</td>    <td align="right">19183</td>    <td align="right">299</td>    <td align="right">26890</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">3741667</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">285662</td>    <td align="right">481989</td>    <td align="right">146765</td>    <td align="right">415523</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">1061583</td>    <td align="right">3540172</td>    <td align="right">0</td>    <td align="right">0</td>  </tr>  <tr>    <td align="center">51</td>    <td>ESAF SMALL FINANCE BANK LIMITED</td>    <td align="right">424</td>    <td align="right">2</td>    <td align="right">0</td>    <td align="right">1130</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">4592274</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">287288</td>    <td align="right">347372</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">840853</td>    <td align="right">3609707</td>    <td align="right">81</td>    <td align="right">79</td>  </tr>  <tr>    <td align="center">52</td>    <td>FINCARE SMALL FINANCE BANK LIMITED</td>    <td align="right">126</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">3631296</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">53116</td>    <td align="right">58137</td>    <td align="right">5810</td>    <td align="right">9469</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">602486</td>    <td align="right">2665298</td>    <td align="right">0</td>    <td align="right">0</td>  </tr>  <tr>    <td align="center">53</td>    <td>JANA SMALL FINANCE BANK LIMITED</td>    <td align="right">60</td>    <td align="right">2</td>    <td align="right">0</td>    <td align="right">164</td>    <td align="right">0</td>    <td align="right">494034</td>    <td align="right">0</td>    <td align="right">2472660</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">60263</td>    <td align="right">90088</td>    <td align="right">10810</td>    <td align="right">23190</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">293315</td>    <td align="right">1444265</td>    <td align="right">0</td>    <td align="right">0</td>  </tr>  <tr>    <td align="center">54</td>    <td>NORTH EAST SMALL FINANCE BANK LIMITED</td>    <td align="right">8</td>    <td align="right">1</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">326990</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">18464</td>    <td align="right">23236</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">50452</td>    <td align="right">188490</td>    <td align="right">0</td>    <td align="right">0</td>  </tr>  <tr>    <td align="center">55</td>    <td>SURYODAY SMALL FINANCE BANK LIMITED</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">67</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">495938</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">29337</td>    <td align="right">36718</td>    <td align="right">2887</td>    <td align="right">5856</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">101763</td>    <td align="right">431464</td>    <td align="right">0</td>    <td align="right">0</td>  </tr>  <tr>    <td align="center">56</td>    <td>UJJIVAN SMALL FINANCE BANK LIMITED</td>    <td align="right">490</td>    <td align="right">3</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">135451</td>    <td align="right">0</td>    <td align="right">7504016</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">356014</td>    <td align="right">489398</td>    <td align="right">148929</td>    <td align="right">287765</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">3190593</td>    <td align="right">13745915</td>    <td align="right">231</td>    <td align="right">211</td>  </tr>  <tr>    <td align="center">57</td>    <td>UNITY SMALL FINANCE BANK LIMITED</td>    <td align="right">231</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">586</td>    <td align="right">2123</td>    <td align="right">0</td>    <td align="right">0</td>  </tr>  <tr>    <td align="center">58</td>    <td>UTKARSH SMALL FINANCE BANK LIMITED</td>    <td align="right">232</td>    <td align="right">7</td>    <td align="right">0</td>    <td align="right">450</td>    <td align="right">0</td>    <td align="right">8962</td>    <td align="right">0</td>    <td align="right">1406809</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">42925</td>    <td align="right">66079</td>    <td align="right">13703</td>    <td align="right">21840</td>    <td align="right">0</td>    <td align="right">0</td>    <td align="right">733671</td>    <td align="right">2104687</td>    <td align="right">0</td>    <td align="right">0</td>  </tr>  <tr>    <td colspan="2" align="center">Total</td>    <td align="right">120659</td>    <td align="right">97198</td>    <td align="right">6819488</td>    <td align="right">1135832</td>    <td align="right">4521093</td>    <td align="right">201301640</td>    <td align="right">80255722</td>    <td align="right">928134494</td>    <td align="right">122069302</td>    <td align="right">417666190</td>    <td align="right">112763160</td>    <td align="right">740890420</td>    <td align="right">1299</td>    <td align="right">705</td>    <td align="right">695063</td>    <td align="right">3424042</td>    <td align="right">205226473</td>    <td align="right">411975862</td>    <td align="right">107458644</td>    <td align="right">228462376</td>    <td align="right">661411</td>    <td align="right">4711377</td>    <td align="right">573551845</td>    <td align="right">2706090482</td>    <td align="right">224677</td>    <td align="right">219851</td>  </tr>  <tr>    <td width="100%" colspan="28">Note The data is provisional</td>  </tr>  <tr>    <td width="100%" colspan="28">1 Total number of ATMs deployed on-site by the bank</td>  </tr>  <tr>    <td width="100%" colspan="28">2 Total number of ATMs deployed off-site by the bank</td>  </tr>  <tr>    <td width="100%" colspan="28">3 Total number of PoS terminals deployed by the bank</td>  </tr>  <tr>    <td width="100%" colspan="28">4 Total number of Micro ATMs deployed by the bank</td>  </tr>  <tr>    <td width="100%" colspan="28">5 Total number of Bharat QR Codes deployed by the bank</td>  </tr>  <tr>    <td width="100%" colspan="28">6 Total number of UPI QR Codes deployed by the bank</td>  </tr>  <tr>    <td width="100%" colspan="28">7 Total number of credit cards issued outstanding (after adjusting the number of cards withdrawan/cancelled)</td>  </tr>  <tr>    <td width="100%" colspan="28">8 Total number of debit cards issued outstanding (after adjusting the number of cards withdrawan/cancelled)</td>  </tr>  <tr>    <td width="100%" colspan="28">9 Total number of financial transactions done by the credit card issued by the bank at PoS terminals</td>  </tr>  <tr>    <td width="100%" colspan="28">10 Total value of financial transactions done by the credit card issued by the bank at PoS terminals</td>  </tr>  <tr>    <td width="100%" colspan="28">11 Total number of financial transactions done by the credit card issued by the bank at online and e-commerce sites</td>  </tr>  <tr>    <td width="100%" colspan="28">12 Total value of financial transactions done by the credit card issued by the bank at online and e-commerce sites</td>  </tr>  <tr>    <td width="100%" colspan="28">13 Total number of other financial transactions done by the credit card issued by the bank (example: Mail-Order and Tele-Order transactions)</td>  </tr>  <tr>    <td width="100%" colspan="28">14 Total value of other financial transactions done by the credit card issued by the bank (example: Mail-Order and Tele-Order transactions)</td>  </tr>  <tr>    <td width="100%" colspan="28">15 Total number of cash withdrawal transactions done by the credit card issued by the bank at ATMs</td>  </tr>  <tr>    <td width="100%" colspan="28">16 Total value of cash withdrawal transactions done by the credit card issued by the bank at ATMs</td>  </tr>  <tr>    <td width="100%" colspan="28">17 Total number of financial transactions done by the debit card issued by the bank at PoS terminals</td>  </tr>  <tr>    <td width="100%" colspan="28">18 Total value of financial transactions done by the debit card issued by the bank at PoS terminals</td>  </tr>  <tr>    <td width="100%" colspan="28">19 Total number of financial transactions done by the debit card issued by the bank at online and e-commerce sites</td>  </tr>  <tr>    <td width="100%" colspan="28">20 Total value of financial transactions done by the debit card issued by the bank at online and e-commerce sites</td>  </tr>  <tr>    <td width="100%" colspan="28">21 Total number of other financial transactions done by the debit card issued by the bank (example: debit card transactions done at ATMs viz card to card transactions, Bill Payments, Credit Card Payments, Mobile Recharge etc)</td>  </tr>  <tr>    <td width="100%" colspan="28">22 Total value of other financial transactions done by the debit card issued by the bank (example: debit card transactions done at ATMs viz card to card transactions, Bill Payments, Credit Card Payments, Mobile Recharge etc)</td>  </tr>  <tr>    <td width="100%" colspan="28">23 Total number of cash withdrawal transactions done by the debit card issued by the bank at ATMs</td>  </tr>  <tr>    <td width="100%" colspan="28">24 Total value of cash withdrawal transactions done by the debit card issued by the bank at ATMs</td>  </tr>  <tr>    <td width="100%" colspan="28">25 Total number of cash withdrawal transactions done by the debit card issued by the bank at PoS terminals</td>  </tr>  <tr>    <td width="100%" colspan="28">26 Total value of cash withdrawal transactions done by the debit card issued by the bank at PoS terminals</td>  </tr></table></td></tr></table>
+                            </table>
+                        </div>
+                        <br />
+                        <div align="right">
+                          </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="grid_1 archives alpha">
+                <span id="DateSettree_lbltree"><div class="grid_subtree archives alpha" id="treeYearMonth_PR"><h2 class="accordionButton year" ><a href="#" onclick="event.preventDefault()" style="text-decoration:none;" aria-expanded="false"  id="btn2026">2026</a></h2><div class="accordionContent month" id="2026"><ul class="accordionlist"><li><a href="#" id="20260" onclick='GetYearMonth("2026","0")'>All Months</a></li><li><a href="#" id="20261" onclick='GetYearMonth("2026","1")'>January</a></li><li><a href="#" id="20262" onclick='GetYearMonth("2026","2")'>February</a></li><li><a href="#" id="20263" onclick='GetYearMonth("2026","3")'>March</a></li><li><a href="#" id="20264" onclick='GetYearMonth("2026","4")'>April</a></li><li><a href="#" id="20265" onclick='GetYearMonth("2026","5")'>May</a></li><li><a href="#" id="20266" onclick='GetYearMonth("2026","6")'>June</a></li><li><a href="#" id="20267" onclick='GetYearMonth("2026","7")'>July</a></li><li><a href="#" id="20268" onclick='GetYearMonth("2026","8")'>August</a></li><li><a href="#" id="20269" onclick='GetYearMonth("2026","9")'>September</a></li><li><a href="#" id="202610" onclick='GetYearMonth("2026","10")'>October</a></li><li><a href="#" id="202611" onclick='GetYearMonth("2026","11")'>November</a></li><li><a href="#" id="202612" onclick='GetYearMonth("2026","12")'>December</a></li></ul></div><h2 class="accordionButton year" ><a href="#" onclick="event.preventDefault()" style="text-decoration:none;" aria-expanded="false"  id="btn2025">2025</a></h2><div class="accordionContent month" id="2025"><ul class="accordionlist"><li><a href="#" id="20250" onclick='GetYearMonth("2025","0")'>All Months</a></li><li><a href="#" id="20251" onclick='GetYearMonth("2025","1")'>January</a></li><li><a href="#" id="20252" onclick='GetYearMonth("2025","2")'>February</a></li><li><a href="#" id="20253" onclick='GetYearMonth("2025","3")'>March</a></li><li><a href="#" id="20254" onclick='GetYearMonth("2025","4")'>April</a></li><li><a href="#" id="20255" onclick='GetYearMonth("2025","5")'>May</a></li><li><a href="#" id="20256" onclick='GetYearMonth("2025","6")'>June</a></li><li><a href="#" id="20257" onclick='GetYearMonth("2025","7")'>July</a></li><li><a href="#" id="20258" onclick='GetYearMonth("2025","8")'>August</a></li><li><a href="#" id="20259" onclick='GetYearMonth("2025","9")'>September</a></li><li><a href="#" id="202510" onclick='GetYearMonth("2025","10")'>October</a></li><li><a href="#" id="202511" onclick='GetYearMonth("2025","11")'>November</a></li><li><a href="#" id="202512" onclick='GetYearMonth("2025","12")'>December</a></li></ul></div><h2 class="accordionButton year" ><a href="#" onclick="event.preventDefault()" style="text-decoration:none;" aria-expanded="false"  id="btn2024">2024</a></h2><div class="accordionContent month" id="2024"><ul class="accordionlist"><li><a href="#" id="20240" onclick='GetYearMonth("2024","0")'>All Months</a></li><li><a href="#" id="20241" onclick='GetYearMonth("2024","1")'>January</a></li><li><a href="#" id="20242" onclick='GetYearMonth("2024","2")'>February</a></li><li><a href="#" id="20243" onclick='GetYearMonth("2024","3")'>March</a></li><li><a href="#" id="20244" onclick='GetYearMonth("2024","4")'>April</a></li><li><a href="#" id="20245" onclick='GetYearMonth("2024","5")'>May</a></li><li><a href="#" id="20246" onclick='GetYearMonth("2024","6")'>June</a></li><li><a href="#" id="20247" onclick='GetYearMonth("2024","7")'>July</a></li><li><a href="#" id="20248" onclick='GetYearMonth("2024","8")'>August</a></li><li><a href="#" id="20249" onclick='GetYearMonth("2024","9")'>September</a></li><li><a href="#" id="202410" onclick='GetYearMonth("2024","10")'>October</a></li><li><a href="#" id="202411" onclick='GetYearMonth("2024","11")'>November</a></li><li><a href="#" id="202412" onclick='GetYearMonth("2024","12")'>December</a></li></ul></div><h2 class="accordionButton year" ><a href="#" onclick="event.preventDefault()" style="text-decoration:none;" aria-expanded="false"  id="btn2023">2023</a></h2><div class="accordionContent month" id="2023"><ul class="accordionlist"><li><a href="#" id="20230" onclick='GetYearMonth("2023","0")'>All Months</a></li><li><a href="#" id="20231" onclick='GetYearMonth("2023","1")'>January</a></li><li><a href="#" id="20232" onclick='GetYearMonth("2023","2")'>February</a></li><li><a href="#" id="20233" onclick='GetYearMonth("2023","3")'>March</a></li><li><a href="#" id="20234" onclick='GetYearMonth("2023","4")'>April</a></li><li><a href="#" id="20235" onclick='GetYearMonth("2023","5")'>May</a></li><li><a href="#" id="20236" onclick='GetYearMonth("2023","6")'>June</a></li><li><a href="#" id="20237" onclick='GetYearMonth("2023","7")'>July</a></li><li><a href="#" id="20238" onclick='GetYearMonth("2023","8")'>August</a></li><li><a href="#" id="20239" onclick='GetYearMonth("2023","9")'>September</a></li><li><a href="#" id="202310" onclick='GetYearMonth("2023","10")'>October</a></li><li><a href="#" id="202311" onclick='GetYearMonth("2023","11")'>November</a></li><li><a href="#" id="202312" onclick='GetYearMonth("2023","12")'>December</a></li></ul></div><h2 class="accordionButton year" ><a href="#" onclick="event.preventDefault()" style="text-decoration:none;" aria-expanded="false"  id="btn2022">2022</a></h2><div class="accordionContent month" id="2022"><ul class="accordionlist"><li><a href="#" id="20220" onclick='GetYearMonth("2022","0")'>All Months</a></li><li><a href="#" id="20221" onclick='GetYearMonth("2022","1")'>January</a></li><li><a href="#" id="20222" onclick='GetYearMonth("2022","2")'>February</a></li><li><a href="#" id="20223" onclick='GetYearMonth("2022","3")'>March</a></li><li><a href="#" id="20224" onclick='GetYearMonth("2022","4")'>April</a></li><li><a href="#" id="20225" onclick='GetYearMonth("2022","5")'>May</a></li><li><a href="#" id="20226" onclick='GetYearMonth("2022","6")'>June</a></li><li><a href="#" id="20227" onclick='GetYearMonth("2022","7")'>July</a></li><li><a href="#" id="20228" onclick='GetYearMonth("2022","8")'>August</a></li><li><a href="#" id="20229" onclick='GetYearMonth("2022","9")'>September</a></li><li><a href="#" id="202210" onclick='GetYearMonth("2022","10")'>October</a></li><li><a href="#" id="202211" onclick='GetYearMonth("2022","11")'>November</a></li><li><a href="#" id="202212" onclick='GetYearMonth("2022","12")'>December</a></li></ul></div><h2 class="accordionButton year" ><a href="#" onclick="event.preventDefault()" style="text-decoration:none;" aria-expanded="false"  id="btn2021">2021</a></h2><div class="accordionContent month" id="2021"><ul class="accordionlist"><li><a href="#" id="20210" onclick='GetYearMonth("2021","0")'>All Months</a></li><li><a href="#" id="20211" onclick='GetYearMonth("2021","1")'>January</a></li><li><a href="#" id="20212" onclick='GetYearMonth("2021","2")'>February</a></li><li><a href="#" id="20213" onclick='GetYearMonth("2021","3")'>March</a></li><li><a href="#" id="20214" onclick='GetYearMonth("2021","4")'>April</a></li><li><a href="#" id="20215" onclick='GetYearMonth("2021","5")'>May</a></li><li><a href="#" id="20216" onclick='GetYearMonth("2021","6")'>June</a></li><li><a href="#" id="20217" onclick='GetYearMonth("2021","7")'>July</a></li><li><a href="#" id="20218" onclick='GetYearMonth("2021","8")'>August</a></li><li><a href="#" id="20219" onclick='GetYearMonth("2021","9")'>September</a></li><li><a href="#" id="202110" onclick='GetYearMonth("2021","10")'>October</a></li><li><a href="#" id="202111" onclick='GetYearMonth("2021","11")'>November</a></li><li><a href="#" id="202112" onclick='GetYearMonth("2021","12")'>December</a></li></ul></div><h2 class="accordionButton year" ><a href="#" onclick="event.preventDefault()" style="text-decoration:none;" aria-expanded="false"  id="btn2020">2020</a></h2><div class="accordionContent month" id="2020"><ul class="accordionlist"><li><a href="#" id="20200" onclick='GetYearMonth("2020","0")'>All Months</a></li><li><a href="#" id="20201" onclick='GetYearMonth("2020","1")'>January</a></li><li><a href="#" id="20202" onclick='GetYearMonth("2020","2")'>February</a></li><li><a href="#" id="20203" onclick='GetYearMonth("2020","3")'>March</a></li><li><a href="#" id="20204" onclick='GetYearMonth("2020","4")'>April</a></li><li><a href="#" id="20205" onclick='GetYearMonth("2020","5")'>May</a></li><li><a href="#" id="20206" onclick='GetYearMonth("2020","6")'>June</a></li><li><a href="#" id="20207" onclick='GetYearMonth("2020","7")'>July</a></li><li><a href="#" id="20208" onclick='GetYearMonth("2020","8")'>August</a></li><li><a href="#" id="20209" onclick='GetYearMonth("2020","9")'>September</a></li><li><a href="#" id="202010" onclick='GetYearMonth("2020","10")'>October</a></li><li><a href="#" id="202011" onclick='GetYearMonth("2020","11")'>November</a></li><li><a href="#" id="202012" onclick='GetYearMonth("2020","12")'>December</a></li></ul></div><h2 class="accordionButton year" ><a href="#" onclick="event.preventDefault()" style="text-decoration:none;" aria-expanded="false"  id="btn2019">2019</a></h2><div class="accordionContent month" id="2019"><ul class="accordionlist"><li><a href="#" id="20190" onclick='GetYearMonth("2019","0")'>All Months</a></li><li><a href="#" id="20191" onclick='GetYearMonth("2019","1")'>January</a></li><li><a href="#" id="20192" onclick='GetYearMonth("2019","2")'>February</a></li><li><a href="#" id="20193" onclick='GetYearMonth("2019","3")'>March</a></li><li><a href="#" id="20194" onclick='GetYearMonth("2019","4")'>April</a></li><li><a href="#" id="20195" onclick='GetYearMonth("2019","5")'>May</a></li><li><a href="#" id="20196" onclick='GetYearMonth("2019","6")'>June</a></li><li><a href="#" id="20197" onclick='GetYearMonth("2019","7")'>July</a></li><li><a href="#" id="20198" onclick='GetYearMonth("2019","8")'>August</a></li><li><a href="#" id="20199" onclick='GetYearMonth("2019","9")'>September</a></li><li><a href="#" id="201910" onclick='GetYearMonth("2019","10")'>October</a></li><li><a href="#" id="201911" onclick='GetYearMonth("2019","11")'>November</a></li><li><a href="#" id="201912" onclick='GetYearMonth("2019","12")'>December</a></li></ul></div><h2 class="accordionButton year" ><a href="#" onclick="event.preventDefault()" style="text-decoration:none;" aria-expanded="false"  id="btn2018">2018</a></h2><div class="accordionContent month" id="2018"><ul class="accordionlist"><li><a href="#" id="20180" onclick='GetYearMonth("2018","0")'>All Months</a></li><li><a href="#" id="20181" onclick='GetYearMonth("2018","1")'>January</a></li><li><a href="#" id="20182" onclick='GetYearMonth("2018","2")'>February</a></li><li><a href="#" id="20183" onclick='GetYearMonth("2018","3")'>March</a></li><li><a href="#" id="20184" onclick='GetYearMonth("2018","4")'>April</a></li><li><a href="#" id="20185" onclick='GetYearMonth("2018","5")'>May</a></li><li><a href="#" id="20186" onclick='GetYearMonth("2018","6")'>June</a></li><li><a href="#" id="20187" onclick='GetYearMonth("2018","7")'>July</a></li><li><a href="#" id="20188" onclick='GetYearMonth("2018","8")'>August</a></li><li><a href="#" id="20189" onclick='GetYearMonth("2018","9")'>September</a></li><li><a href="#" id="201810" onclick='GetYearMonth("2018","10")'>October</a></li><li><a href="#" id="201811" onclick='GetYearMonth("2018","11")'>November</a></li><li><a href="#" id="201812" onclick='GetYearMonth("2018","12")'>December</a></li></ul></div><h2 class="accordionButton year" ><a href="#" onclick="event.preventDefault()" style="text-decoration:none;" aria-expanded="false"  id="btn2017">2017</a></h2><div class="accordionContent month" id="2017"><ul class="accordionlist"><li><a href="#" id="20170" onclick='GetYearMonth("2017","0")'>All Months</a></li><li><a href="#" id="20171" onclick='GetYearMonth("2017","1")'>January</a></li><li><a href="#" id="20172" onclick='GetYearMonth("2017","2")'>February</a></li><li><a href="#" id="20173" onclick='GetYearMonth("2017","3")'>March</a></li><li><a href="#" id="20174" onclick='GetYearMonth("2017","4")'>April</a></li><li><a href="#" id="20175" onclick='GetYearMonth("2017","5")'>May</a></li><li><a href="#" id="20176" onclick='GetYearMonth("2017","6")'>June</a></li><li><a href="#" id="20177" onclick='GetYearMonth("2017","7")'>July</a></li><li><a href="#" id="20178" onclick='GetYearMonth("2017","8")'>August</a></li><li><a href="#" id="20179" onclick='GetYearMonth("2017","9")'>September</a></li><li><a href="#" id="201710" onclick='GetYearMonth("2017","10")'>October</a></li><li><a href="#" id="201711" onclick='GetYearMonth("2017","11")'>November</a></li><li><a href="#" id="201712" onclick='GetYearMonth("2017","12")'>December</a></li></ul></div><h2 class="year"><a href="javascript:void(0);" style="text-decoration:none;" id="divArchiveMain"  onclick="hideshow('divArchiveSub');" style="cursor: pointer;">Archives</a></h2><div  id="divArchiveSub" style="display: none;"><div class="grid_subtree archives alpha" id="treeYearMonth_PR"><h2 class="accordionButton year" ><a href="#" onclick="event.preventDefault()" style="text-decoration:none;" aria-expanded="false"  id="btn2016">2016</a></h2><div class="accordionContent month" id="2016"><ul class="accordionlist"><li><a href="#" id="20160" onclick='GetYearMonth("2016","0")'>All Months</a></li><li><a href="#" id="20161" onclick='GetYearMonth("2016","1")'>January</a></li><li><a href="#" id="20162" onclick='GetYearMonth("2016","2")'>February</a></li><li><a href="#" id="20163" onclick='GetYearMonth("2016","3")'>March</a></li><li><a href="#" id="20164" onclick='GetYearMonth("2016","4")'>April</a></li><li><a href="#" id="20165" onclick='GetYearMonth("2016","5")'>May</a></li><li><a href="#" id="20166" onclick='GetYearMonth("2016","6")'>June</a></li><li><a href="#" id="20167" onclick='GetYearMonth("2016","7")'>July</a></li><li><a href="#" id="20168" onclick='GetYearMonth("2016","8")'>August</a></li><li><a href="#" id="20169" onclick='GetYearMonth("2016","9")'>September</a></li><li><a href="#" id="201610" onclick='GetYearMonth("2016","10")'>October</a></li><li><a href="#" id="201611" onclick='GetYearMonth("2016","11")'>November</a></li><li><a href="#" id="201612" onclick='GetYearMonth("2016","12")'>December</a></li></ul></div><h2 class="accordionButton year" ><a href="#" onclick="event.preventDefault()" style="text-decoration:none;" aria-expanded="false"  id="btn2015">2015</a></h2><div class="accordionContent month" id="2015"><ul class="accordionlist"><li><a href="#" id="20150" onclick='GetYearMonth("2015","0")'>All Months</a></li><li><a href="#" id="20151" onclick='GetYearMonth("2015","1")'>January</a></li><li><a href="#" id="20152" onclick='GetYearMonth("2015","2")'>February</a></li><li><a href="#" id="20153" onclick='GetYearMonth("2015","3")'>March</a></li><li><a href="#" id="20154" onclick='GetYearMonth("2015","4")'>April</a></li><li><a href="#" id="20155" onclick='GetYearMonth("2015","5")'>May</a></li><li><a href="#" id="20156" onclick='GetYearMonth("2015","6")'>June</a></li><li><a href="#" id="20157" onclick='GetYearMonth("2015","7")'>July</a></li><li><a href="#" id="20158" onclick='GetYearMonth("2015","8")'>August</a></li><li><a href="#" id="20159" onclick='GetYearMonth("2015","9")'>September</a></li><li><a href="#" id="201510" onclick='GetYearMonth("2015","10")'>October</a></li><li><a href="#" id="201511" onclick='GetYearMonth("2015","11")'>November</a></li><li><a href="#" id="201512" onclick='GetYearMonth("2015","12")'>December</a></li></ul></div><h2 class="accordionButton year" ><a href="#" onclick="event.preventDefault()" style="text-decoration:none;" aria-expanded="false"  id="btn2014">2014</a></h2><div class="accordionContent month" id="2014"><ul class="accordionlist"><li><a href="#" id="20140" onclick='GetYearMonth("2014","0")'>All Months</a></li><li><a href="#" id="20141" onclick='GetYearMonth("2014","1")'>January</a></li><li><a href="#" id="20142" onclick='GetYearMonth("2014","2")'>February</a></li><li><a href="#" id="20143" onclick='GetYearMonth("2014","3")'>March</a></li><li><a href="#" id="20144" onclick='GetYearMonth("2014","4")'>April</a></li><li><a href="#" id="20145" onclick='GetYearMonth("2014","5")'>May</a></li><li><a href="#" id="20146" onclick='GetYearMonth("2014","6")'>June</a></li><li><a href="#" id="20147" onclick='GetYearMonth("2014","7")'>July</a></li><li><a href="#" id="20148" onclick='GetYearMonth("2014","8")'>August</a></li><li><a href="#" id="20149" onclick='GetYearMonth("2014","9")'>September</a></li><li><a href="#" id="201410" onclick='GetYearMonth("2014","10")'>October</a></li><li><a href="#" id="201411" onclick='GetYearMonth("2014","11")'>November</a></li><li><a href="#" id="201412" onclick='GetYearMonth("2014","12")'>December</a></li></ul></div><h2 class="accordionButton year" ><a href="#" onclick="event.preventDefault()" style="text-decoration:none;" aria-expanded="false"  id="btn2013">2013</a></h2><div class="accordionContent month" id="2013"><ul class="accordionlist"><li><a href="#" id="20130" onclick='GetYearMonth("2013","0")'>All Months</a></li><li><a href="#" id="20131" onclick='GetYearMonth("2013","1")'>January</a></li><li><a href="#" id="20132" onclick='GetYearMonth("2013","2")'>February</a></li><li><a href="#" id="20133" onclick='GetYearMonth("2013","3")'>March</a></li><li><a href="#" id="20134" onclick='GetYearMonth("2013","4")'>April</a></li><li><a href="#" id="20135" onclick='GetYearMonth("2013","5")'>May</a></li><li><a href="#" id="20136" onclick='GetYearMonth("2013","6")'>June</a></li><li><a href="#" id="20137" onclick='GetYearMonth("2013","7")'>July</a></li><li><a href="#" id="20138" onclick='GetYearMonth("2013","8")'>August</a></li><li><a href="#" id="20139" onclick='GetYearMonth("2013","9")'>September</a></li><li><a href="#" id="201310" onclick='GetYearMonth("2013","10")'>October</a></li><li><a href="#" id="201311" onclick='GetYearMonth("2013","11")'>November</a></li><li><a href="#" id="201312" onclick='GetYearMonth("2013","12")'>December</a></li></ul></div><h2 class="accordionButton year" ><a href="#" onclick="event.preventDefault()" style="text-decoration:none;" aria-expanded="false"  id="btn2012">2012</a></h2><div class="accordionContent month" id="2012"><ul class="accordionlist"><li><a href="#" id="20120" onclick='GetYearMonth("2012","0")'>All Months</a></li><li><a href="#" id="20121" onclick='GetYearMonth("2012","1")'>January</a></li><li><a href="#" id="20122" onclick='GetYearMonth("2012","2")'>February</a></li><li><a href="#" id="20123" onclick='GetYearMonth("2012","3")'>March</a></li><li><a href="#" id="20124" onclick='GetYearMonth("2012","4")'>April</a></li><li><a href="#" id="20125" onclick='GetYearMonth("2012","5")'>May</a></li><li><a href="#" id="20126" onclick='GetYearMonth("2012","6")'>June</a></li><li><a href="#" id="20127" onclick='GetYearMonth("2012","7")'>July</a></li><li><a href="#" id="20128" onclick='GetYearMonth("2012","8")'>August</a></li><li><a href="#" id="20129" onclick='GetYearMonth("2012","9")'>September</a></li><li><a href="#" id="201210" onclick='GetYearMonth("2012","10")'>October</a></li><li><a href="#" id="201211" onclick='GetYearMonth("2012","11")'>November</a></li><li><a href="#" id="201212" onclick='GetYearMonth("2012","12")'>December</a></li></ul></div><h2 class="accordionButton year" ><a href="#" onclick="event.preventDefault()" style="text-decoration:none;" aria-expanded="false"  id="btn2011">2011</a></h2><div class="accordionContent month" id="2011"><ul class="accordionlist"><li><a href="#" id="20110" onclick='GetYearMonth("2011","0")'>All Months</a></li><li><a href="#" id="20111" onclick='GetYearMonth("2011","1")'>January</a></li><li><a href="#" id="20112" onclick='GetYearMonth("2011","2")'>February</a></li><li><a href="#" id="20113" onclick='GetYearMonth("2011","3")'>March</a></li><li><a href="#" id="20114" onclick='GetYearMonth("2011","4")'>April</a></li><li><a href="#" id="20115" onclick='GetYearMonth("2011","5")'>May</a></li><li><a href="#" id="20116" onclick='GetYearMonth("2011","6")'>June</a></li><li><a href="#" id="20117" onclick='GetYearMonth("2011","7")'>July</a></li><li><a href="#" id="20118" onclick='GetYearMonth("2011","8")'>August</a></li><li><a href="#" id="20119" onclick='GetYearMonth("2011","9")'>September</a></li><li><a href="#" id="201110" onclick='GetYearMonth("2011","10")'>October</a></li><li><a href="#" id="201111" onclick='GetYearMonth("2011","11")'>November</a></li><li><a href="#" id="201112" onclick='GetYearMonth("2011","12")'>December</a></li></ul></div><h2 class="accordionButton year" ><a href="#" onclick="event.preventDefault()" style="text-decoration:none;" aria-expanded="false"  id="btn2010">2010</a></h2><div class="accordionContent month" id="2010"><ul class="accordionlist"><li><a href="#" id="20100" onclick='GetYearMonth("2010","0")'>All Months</a></li><li><a href="#" id="20101" onclick='GetYearMonth("2010","1")'>January</a></li><li><a href="#" id="20102" onclick='GetYearMonth("2010","2")'>February</a></li><li><a href="#" id="20103" onclick='GetYearMonth("2010","3")'>March</a></li><li><a href="#" id="20104" onclick='GetYearMonth("2010","4")'>April</a></li><li><a href="#" id="20105" onclick='GetYearMonth("2010","5")'>May</a></li><li><a href="#" id="20106" onclick='GetYearMonth("2010","6")'>June</a></li><li><a href="#" id="20107" onclick='GetYearMonth("2010","7")'>July</a></li><li><a href="#" id="20108" onclick='GetYearMonth("2010","8")'>August</a></li><li><a href="#" id="20109" onclick='GetYearMonth("2010","9")'>September</a></li><li><a href="#" id="201010" onclick='GetYearMonth("2010","10")'>October</a></li><li><a href="#" id="201011" onclick='GetYearMonth("2010","11")'>November</a></li><li><a href="#" id="201012" onclick='GetYearMonth("2010","12")'>December</a></li></ul></div><h2 class="accordionButton year" ><a href="#" onclick="event.preventDefault()" style="text-decoration:none;" aria-expanded="false"  id="btn2009">2009</a></h2><div class="accordionContent month" id="2009"><ul class="accordionlist"><li><a href="#" id="20090" onclick='GetYearMonth("2009","0")'>All Months</a></li><li><a href="#" id="20091" onclick='GetYearMonth("2009","1")'>January</a></li><li><a href="#" id="20092" onclick='GetYearMonth("2009","2")'>February</a></li><li><a href="#" id="20093" onclick='GetYearMonth("2009","3")'>March</a></li><li><a href="#" id="20094" onclick='GetYearMonth("2009","4")'>April</a></li><li><a href="#" id="20095" onclick='GetYearMonth("2009","5")'>May</a></li><li><a href="#" id="20096" onclick='GetYearMonth("2009","6")'>June</a></li><li><a href="#" id="20097" onclick='GetYearMonth("2009","7")'>July</a></li><li><a href="#" id="20098" onclick='GetYearMonth("2009","8")'>August</a></li><li><a href="#" id="20099" onclick='GetYearMonth("2009","9")'>September</a></li><li><a href="#" id="200910" onclick='GetYearMonth("2009","10")'>October</a></li><li><a href="#" id="200911" onclick='GetYearMonth("2009","11")'>November</a></li><li><a href="#" id="200912" onclick='GetYearMonth("2009","12")'>December</a></li></ul></div><h2 class="accordionButton year" ><a href="#" onclick="event.preventDefault()" style="text-decoration:none;" aria-expanded="false"  id="btn2008">2008</a></h2><div class="accordionContent month" id="2008"><ul class="accordionlist"><li><a href="#" id="20080" onclick='GetYearMonth("2008","0")'>All Months</a></li><li><a href="#" id="20081" onclick='GetYearMonth("2008","1")'>January</a></li><li><a href="#" id="20082" onclick='GetYearMonth("2008","2")'>February</a></li><li><a href="#" id="20083" onclick='GetYearMonth("2008","3")'>March</a></li><li><a href="#" id="20084" onclick='GetYearMonth("2008","4")'>April</a></li><li><a href="#" id="20085" onclick='GetYearMonth("2008","5")'>May</a></li><li><a href="#" id="20086" onclick='GetYearMonth("2008","6")'>June</a></li><li><a href="#" id="20087" onclick='GetYearMonth("2008","7")'>July</a></li><li><a href="#" id="20088" onclick='GetYearMonth("2008","8")'>August</a></li><li><a href="#" id="20089" onclick='GetYearMonth("2008","9")'>September</a></li><li><a href="#" id="200810" onclick='GetYearMonth("2008","10")'>October</a></li><li><a href="#" id="200811" onclick='GetYearMonth("2008","11")'>November</a></li><li><a href="#" id="200812" onclick='GetYearMonth("2008","12")'>December</a></li></ul></div><h2 class="accordionButton year" ><a href="#" onclick="event.preventDefault()" style="text-decoration:none;" aria-expanded="false"  id="btn2007">2007</a></h2><div class="accordionContent month" id="2007"><ul class="accordionlist"><li><a href="#" id="20070" onclick='GetYearMonth("2007","0")'>All Months</a></li><li><a href="#" id="20071" onclick='GetYearMonth("2007","1")'>January</a></li><li><a href="#" id="20072" onclick='GetYearMonth("2007","2")'>February</a></li><li><a href="#" id="20073" onclick='GetYearMonth("2007","3")'>March</a></li><li><a href="#" id="20074" onclick='GetYearMonth("2007","4")'>April</a></li><li><a href="#" id="20075" onclick='GetYearMonth("2007","5")'>May</a></li><li><a href="#" id="20076" onclick='GetYearMonth("2007","6")'>June</a></li><li><a href="#" id="20077" onclick='GetYearMonth("2007","7")'>July</a></li><li><a href="#" id="20078" onclick='GetYearMonth("2007","8")'>August</a></li><li><a href="#" id="20079" onclick='GetYearMonth("2007","9")'>September</a></li><li><a href="#" id="200710" onclick='GetYearMonth("2007","10")'>October</a></li><li><a href="#" id="200711" onclick='GetYearMonth("2007","11")'>November</a></li><li><a href="#" id="200712" onclick='GetYearMonth("2007","12")'>December</a></li></ul></div><h2 class="accordionButton year" ><a href="#" onclick="event.preventDefault()" style="text-decoration:none;" aria-expanded="false"  id="btn2006">2006</a></h2><div class="accordionContent month" id="2006"><ul class="accordionlist"><li><a href="#" id="20060" onclick='GetYearMonth("2006","0")'>All Months</a></li><li><a href="#" id="20061" onclick='GetYearMonth("2006","1")'>January</a></li><li><a href="#" id="20062" onclick='GetYearMonth("2006","2")'>February</a></li><li><a href="#" id="20063" onclick='GetYearMonth("2006","3")'>March</a></li><li><a href="#" id="20064" onclick='GetYearMonth("2006","4")'>April</a></li><li><a href="#" id="20065" onclick='GetYearMonth("2006","5")'>May</a></li><li><a href="#" id="20066" onclick='GetYearMonth("2006","6")'>June</a></li><li><a href="#" id="20067" onclick='GetYearMonth("2006","7")'>July</a></li><li><a href="#" id="20068" onclick='GetYearMonth("2006","8")'>August</a></li><li><a href="#" id="20069" onclick='GetYearMonth("2006","9")'>September</a></li><li><a href="#" id="200610" onclick='GetYearMonth("2006","10")'>October</a></li><li><a href="#" id="200611" onclick='GetYearMonth("2006","11")'>November</a></li><li><a href="#" id="200612" onclick='GetYearMonth("2006","12")'>December</a></li></ul></div><h2 class="accordionButton year" ><a href="#" onclick="event.preventDefault()" style="text-decoration:none;" aria-expanded="false"  id="btn2005">2005</a></h2><div class="accordionContent month" id="2005"><ul class="accordionlist"><li><a href="#" id="20050" onclick='GetYearMonth("2005","0")'>All Months</a></li><li><a href="#" id="20051" onclick='GetYearMonth("2005","1")'>January</a></li><li><a href="#" id="20052" onclick='GetYearMonth("2005","2")'>February</a></li><li><a href="#" id="20053" onclick='GetYearMonth("2005","3")'>March</a></li><li><a href="#" id="20054" onclick='GetYearMonth("2005","4")'>April</a></li><li><a href="#" id="20055" onclick='GetYearMonth("2005","5")'>May</a></li><li><a href="#" id="20056" onclick='GetYearMonth("2005","6")'>June</a></li><li><a href="#" id="20057" onclick='GetYearMonth("2005","7")'>July</a></li><li><a href="#" id="20058" onclick='GetYearMonth("2005","8")'>August</a></li><li><a href="#" id="20059" onclick='GetYearMonth("2005","9")'>September</a></li><li><a href="#" id="200510" onclick='GetYearMonth("2005","10")'>October</a></li><li><a href="#" id="200511" onclick='GetYearMonth("2005","11")'>November</a></li><li><a href="#" id="200512" onclick='GetYearMonth("2005","12")'>December</a></li></ul></div><h2 class="accordionButton year" ><a href="#" onclick="event.preventDefault()" style="text-decoration:none;" aria-expanded="false"  id="btn2004">2004</a></h2><div class="accordionContent month" id="2004"><ul class="accordionlist"><li><a href="#" id="20040" onclick='GetYearMonth("2004","0")'>All Months</a></li><li><a href="#" id="20041" onclick='GetYearMonth("2004","1")'>January</a></li><li><a href="#" id="20042" onclick='GetYearMonth("2004","2")'>February</a></li><li><a href="#" id="20043" onclick='GetYearMonth("2004","3")'>March</a></li><li><a href="#" id="20044" onclick='GetYearMonth("2004","4")'>April</a></li><li><a href="#" id="20045" onclick='GetYearMonth("2004","5")'>May</a></li><li><a href="#" id="20046" onclick='GetYearMonth("2004","6")'>June</a></li><li><a href="#" id="20047" onclick='GetYearMonth("2004","7")'>July</a></li><li><a href="#" id="20048" onclick='GetYearMonth("2004","8")'>August</a></li><li><a href="#" id="20049" onclick='GetYearMonth("2004","9")'>September</a></li><li><a href="#" id="200410" onclick='GetYearMonth("2004","10")'>October</a></li><li><a href="#" id="200411" onclick='GetYearMonth("2004","11")'>November</a></li><li><a href="#" id="200412" onclick='GetYearMonth("2004","12")'>December</a></li></ul></div><h2 class="accordionButton year" ><a href="#" onclick="event.preventDefault()" style="text-decoration:none;" aria-expanded="false"  id="btn2003">2003</a></h2><div class="accordionContent month" id="2003"><ul class="accordionlist"><li><a href="#" id="20030" onclick='GetYearMonth("2003","0")'>All Months</a></li><li><a href="#" id="20031" onclick='GetYearMonth("2003","1")'>January</a></li><li><a href="#" id="20032" onclick='GetYearMonth("2003","2")'>February</a></li><li><a href="#" id="20033" onclick='GetYearMonth("2003","3")'>March</a></li><li><a href="#" id="20034" onclick='GetYearMonth("2003","4")'>April</a></li><li><a href="#" id="20035" onclick='GetYearMonth("2003","5")'>May</a></li><li><a href="#" id="20036" onclick='GetYearMonth("2003","6")'>June</a></li><li><a href="#" id="20037" onclick='GetYearMonth("2003","7")'>July</a></li><li><a href="#" id="20038" onclick='GetYearMonth("2003","8")'>August</a></li><li><a href="#" id="20039" onclick='GetYearMonth("2003","9")'>September</a></li><li><a href="#" id="200310" onclick='GetYearMonth("2003","10")'>October</a></li><li><a href="#" id="200311" onclick='GetYearMonth("2003","11")'>November</a></li><li><a href="#" id="200312" onclick='GetYearMonth("2003","12")'>December</a></li></ul></div><h2 class="accordionButton year" ><a href="#" onclick="event.preventDefault()" style="text-decoration:none;" aria-expanded="false"  id="btn2002">2002</a></h2><div class="accordionContent month" id="2002"><ul class="accordionlist"><li><a href="#" id="20020" onclick='GetYearMonth("2002","0")'>All Months</a></li><li><a href="#" id="20021" onclick='GetYearMonth("2002","1")'>January</a></li><li><a href="#" id="20022" onclick='GetYearMonth("2002","2")'>February</a></li><li><a href="#" id="20023" onclick='GetYearMonth("2002","3")'>March</a></li><li><a href="#" id="20024" onclick='GetYearMonth("2002","4")'>April</a></li><li><a href="#" id="20025" onclick='GetYearMonth("2002","5")'>May</a></li><li><a href="#" id="20026" onclick='GetYearMonth("2002","6")'>June</a></li><li><a href="#" id="20027" onclick='GetYearMonth("2002","7")'>July</a></li><li><a href="#" id="20028" onclick='GetYearMonth("2002","8")'>August</a></li><li><a href="#" id="20029" onclick='GetYearMonth("2002","9")'>September</a></li><li><a href="#" id="200210" onclick='GetYearMonth("2002","10")'>October</a></li><li><a href="#" id="200211" onclick='GetYearMonth("2002","11")'>November</a></li><li><a href="#" id="200212" onclick='GetYearMonth("2002","12")'>December</a></li></ul></div><h2 class="accordionButton year" ><a href="#" onclick="event.preventDefault()" style="text-decoration:none;" aria-expanded="false"  id="btn2001">2001</a></h2><div class="accordionContent month" id="2001"><ul class="accordionlist"><li><a href="#" id="20010" onclick='GetYearMonth("2001","0")'>All Months</a></li><li><a href="#" id="20011" onclick='GetYearMonth("2001","1")'>January</a></li><li><a href="#" id="20012" onclick='GetYearMonth("2001","2")'>February</a></li><li><a href="#" id="20013" onclick='GetYearMonth("2001","3")'>March</a></li><li><a href="#" id="20014" onclick='GetYearMonth("2001","4")'>April</a></li><li><a href="#" id="20015" onclick='GetYearMonth("2001","5")'>May</a></li><li><a href="#" id="20016" onclick='GetYearMonth("2001","6")'>June</a></li><li><a href="#" id="20017" onclick='GetYearMonth("2001","7")'>July</a></li><li><a href="#" id="20018" onclick='GetYearMonth("2001","8")'>August</a></li><li><a href="#" id="20019" onclick='GetYearMonth("2001","9")'>September</a></li><li><a href="#" id="200110" onclick='GetYearMonth("2001","10")'>October</a></li><li><a href="#" id="200111" onclick='GetYearMonth("2001","11")'>November</a></li><li><a href="#" id="200112" onclick='GetYearMonth("2001","12")'>December</a></li></ul></div><h2 class="accordionButton year" ><a href="#" onclick="event.preventDefault()" style="text-decoration:none;" aria-expanded="false"  id="btn2000">2000</a></h2><div class="accordionContent month" id="2000"><ul class="accordionlist"><li><a href="#" id="20000" onclick='GetYearMonth("2000","0")'>All Months</a></li><li><a href="#" id="20001" onclick='GetYearMonth("2000","1")'>January</a></li><li><a href="#" id="20002" onclick='GetYearMonth("2000","2")'>February</a></li><li><a href="#" id="20003" onclick='GetYearMonth("2000","3")'>March</a></li><li><a href="#" id="20004" onclick='GetYearMonth("2000","4")'>April</a></li><li><a href="#" id="20005" onclick='GetYearMonth("2000","5")'>May</a></li><li><a href="#" id="20006" onclick='GetYearMonth("2000","6")'>June</a></li><li><a href="#" id="20007" onclick='GetYearMonth("2000","7")'>July</a></li><li><a href="#" id="20008" onclick='GetYearMonth("2000","8")'>August</a></li><li><a href="#" id="20009" onclick='GetYearMonth("2000","9")'>September</a></li><li><a href="#" id="200010" onclick='GetYearMonth("2000","10")'>October</a></li><li><a href="#" id="200011" onclick='GetYearMonth("2000","11")'>November</a></li><li><a href="#" id="200012" onclick='GetYearMonth("2000","12")'>December</a></li></ul></div></div></div></span>
+<style type="text/css"> /*added by ni*/
+.year a
+{
+    text-transform:none;
+    margin:0px;
+    /*color:Black;*/
+    font-size:12px;
+    text-decoration:none;
+    padding: 3px 4px 5px 2px;
+    }
+#DateSettree_lbltree h2
+{
+    margin-top:0px;
+}
+.month ul li a {
+    padding: 3px 4px 7px 2px;
+}
+
+.accordionContent ul.accordionlist li {
+    
+    min-height: 24px;
+}
+</style>
+
+
+
+            </div>
+        </main>
+        </div>
+        <div class="clearfix">
+        </div>
+        <a href="#top" class="scrollToTop" id="backToTop">Top</a>
+<div id="backDiv" style=" text-align:center;" >
+<a href="javascript:history.back()" class="paraheader">Back to previous page</a><br/>
+<span id="lblGetLastUpdateDate" class="paraheader"></span>
+</div>
+<footer class="footer">
+
+<div class="footer">
+  <div class="container_12">    
+      <div class="grid_9" style="width: 833px !important; ">
+          
+          <h2><span class="blue">More</span> Links </h2>
+          
+		<ul class="footerlist" style="column-count:4">
+                  <li ><a href="/Scripts/HolidayMatrixDisplay.aspx">Bank Holidays</a></li>
+                  <li ><a href="https://shabdavali.rbi.org.in/">Banking Glossary</a></li>
+                  <li ><a href="/Scripts/CitiChart.aspx">Citizen's Charter</a></li>
+                  <li ><a href="/Scripts/Complaints.aspx">Complaints</a></li>
+                  <li ><a href="/Scripts/contactus.aspx">Contact Us</a></li>
+  		<li ><a href="https://www.rbi.org.in/scripts/bs_viewcontent.aspx?Id=3894">COVID-19 Measures</a></li>
+                  <li ><a target="_blank" href="https://ncfe.org.in/e-lms">E-LMS</a></li>
+                  <li ><a href="/Scripts/EventsDisplay.aspx">Events</a></li>
+                  <li ><a href="/Scripts/FAQDisplay.aspx">FAQs</a></li>
+                  <li ><a target="_blank" href="https://www.rbi.org.in/FinancialEducation/">Financial Education</a></li>
+		<li ><a href="/Scripts/BS_ViewForms.aspx">Forms</a></li>
+                  <li ><a href="/Scripts/IFSCMICRDetails.aspx">IFSC/MICR Codes</a></li>
+                  <li><a href="/Scripts/OtherLinks.aspx">Important Websites</a></li>
+                  <li><a target="_blank" href="https://opportunities.rbi.org.in/scripts/index.aspx">Opportunities<span>@</span>RBI</a></li>
+                  <li><a href="/Scripts/rbi_clarification.aspx">RBI Clarifications</a></li>
+ 		<li><a target="_blank" href="https://rbikehtahai.rbi.org.in/">RBI Kehta Hai</a></li>
+                  <li><a href="https://rbidocs.rbi.org.in/rdocs/content/pdfs/Utkarsh202910042026.pdf" target="_blank">RBI’s Vision and Values <img src="../Images/pdf.gif" alt="PDF document" style="padding-bottom: 4px; width:12px; border:0;vertical-align: middle;"> (652 kb)</a></li>
+                  <li><a href="/Scripts/Righttoinfoact.aspx">Right to Information Act</a></li>
+                  <li><a href="/Scripts/BS_ViewTenders.aspx">Tenders</a></li>
+                  
+              </ul>
+      </div>
+
+    <div class="grid_3" style="width:197px !important">
+      
+        <h2><span class="blue">Follow</span> RBI</h2>
+      <ul class="footerlist">
+        
+
+          <li style="float: left;background: url(/images/footer_list_arrow.gif) left 8px no-repeat;"><a href="/Scripts/rss.aspx"><img src="/images/rss-icon.png" alt="RSS Icon" class="rss">RSS</a></li>
+
+        
+          <li>
+              <a href="https://twitter.com/RBI" target="_blank" class="twitter">
+                  <img src="/images/Twitter_New.png" alt="Twitter Icon" class="videos" style="padding-left: 18%; width:14px;">Twitter
+              </a>
+          </li>
+
+        
+
+          <li style="float: left;"><a href="https://www.youtube.com/channel/UCIfCOl43tunZVNYafeC4RQA" class="videos" target="_blank"><img src="/images/youtube.png" alt="YouTube Icon" class="videos">YouTube</a></li>
+
+          <li>
+              <a href="https://instagram.com/reservebankofindia" class="videos" target="_blank">
+                  <img src="/images/Instagram.jpg"  alt="Instagram Icon" class="videos" style="padding-left: 5%; width:14px;">Instagram
+              </a>
+          </li>
+          <li style="float: left;"><a href="https://www.facebook.com/RBIsays" class="videos" target="_blank"><img src="/images/Facebook.jpg" style="width:14px;" alt="Facebook Icon" class="videos">Facebook</a></li>
+          <li>
+              <a href="https://www.linkedin.com/company/reservebankofindia" class="videos" target="_blank">
+                  <img src="/images/LinkedinIcon1.png" alt="LinkedIn Icon" class="" style="padding-left: 4%;width: 17px;background: bottom no-repeat;display: block;float: left;margin: 2px 3px 0 1px;">LinkedIn
+              </a>
+          </li>
+      </ul>
+	<a href="https://www.india.gov.in" class="videos" target="_blank" >
+                  <img src="/images/indiaGov.png" alt="National Portal of India logo" class="">
+              </a>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  <div class="copyright">
+    <div class="container_12">
+     <div class="grid_6 pull_left">&copy; Reserve Bank of India. All Rights Reserved. </div>
+        <div class="grid_5 pull_right"><a href="/Scripts/sitemap.aspx">Sitemap</a> <span aria-hidden="true">|</span> <a href="/Scripts/Disclaimer.aspx">Disclaimer</a></div>
+        <div class="clearfix"></div>
+
+        <div class="grid_6 pull_left">Website owned and managed by Reserve Bank of India. Contact us on helpdoc[at]rbi[dot]org[dot]in</div>
+        <div class="grid_5 pull_right">Website last updated date: Oct 09, 2026</div>
+        <div class="clearfix"></div>
+	<div class="grid_6 pull_left"><a href="https://www.rbi.org.in/scripts/wim.aspx">Web Information Manager</a></div>
+	<div class="grid_5 pull_right"><a href="https://rbidocs.rbi.org.in/rdocs/content/pdfs/Accessibility20012026.pdf" target="_blank">Accessibility Statement
+	<img alt="PDF - Accessibility Statement" style="padding: 1px; width:16px; border:0; vertical-align: middle;" src="../Images/pdf.gif" > (133 KB)
+	</a><span aria-hidden="true"> |</span><a href="/scripts/ScreenReader.aspx" title="Information related to screen reader">Screen Reader and Accessibility Help</a></div>
+	<div class="clearfix"></div>
+        <div class="grid_12 pull_left">Supports: Google Chrome 147+ | Firefox 150+ | Microsoft Edge Version 147+ | Safari 17+</div>
+        
+        <div class="clearfix"></div>
+    </div>
+  </div>
+  
+
+
+
+</div>
+
+</footer>
+
+<script src="/js/ReplaceURL.js" ></script>
+<script >
+
+
+    //this is for floating TOP link
+    
+    $(document).ready(function () {
+
+        var offset = 230;
+        var duration = 500;
+
+
+        jQuery(window).scroll(function () {
+            if (jQuery(this).scrollTop() > offset) {
+                jQuery('.scrollToTop').fadeIn(duration);
+                
+            } else {
+                jQuery('.scrollToTop').fadeOut(duration);
+                
+            }
+        });
+
+        
+	$('.page_title').attr('tabindex','-1');
+        $('.scrollToTop').click(function () {
+            $('html, body').animate({ scrollTop: 0 }, 800);
+		$('.page_title').focus(); 
+            return false;
+        });
+	
+
+
+	if(!window.location.href.includes("Home.aspx") && !window.location.href.includes("home.aspx"))
+{ 
+if( window.location.href.includes(".aspx")){
+var div= document.getElementById('backDiv');
+	div.removeAttribute("hidden");}
+else{
+var div1= document.getElementById('backDiv');
+	div1.setAttribute("hidden","true");}
+}
+else{
+
+
+	var div1= document.getElementById('backDiv');
+	div1.setAttribute("hidden","true");}
+    });
+
+
+  
+    $(window).scroll(function () {
+
+        if ($('div.banner2').length) {
+
+            if ($(window).scrollTop() >= 265) {
+                $('#menubar').css("position", "fixed");
+                $('#menubar').css("width", "240px");
+                $('#menubar').css("margin-top", "-281px");
+                $('.content_area').css("margin-left", "252px");
+
+                $('.sidebar_nav').css("position", "fixed");
+                $('.sidebar_nav').css("margin-top", "-200px");
+                $('.sidebar_nav').css("width", "236px");
+
+
+             
+
+            }
+
+            else {
+                $('#menubar').css("position", "");
+                $('#menubar').css("width", "");
+                $('#menubar').css("margin-top", "");
+                $('.content_area').css("margin-left", "");
+
+                $('.sidebar_nav').css("position", "");
+                $('.sidebar_nav').css("margin-top", "");
+                $('.sidebar_nav').css("width", "");
+
+
+
+         
+            }
+
+        }
+
+        else if ($(window).scrollTop() >= 185) {
+            $('#menubar').css("position", "fixed");
+            $('#menubar').css("width", "240px");
+            $('#menubar').css("margin-top", "-200px");
+            $('.content_area').css("margin-left", "252px");
+
+            $('.sidebar_nav').css("position", "fixed");
+            $('.sidebar_nav').css("margin-top", "-200px");
+            $('.sidebar_nav').css("width", "236px");
+
+
+          
+		var treeheight=0;
+		if($('#treeYear').height()>0){treeheight=$('#treeYear').height();}
+	    	if($(window).scrollTop() >= $('#example-min').height()-treeheight)
+		{			 
+			$('#menubar').css("position", "absolute");
+            		
+			$('#menubar').css("margin-top", "");
+			$('#menubar').css("top", $('#example-min').height()+100-treeheight +"px");
+		}
+		else{$('#menubar').css("position", "fixed"); $('#menubar').css("top", "");}
+		
+        }
+
+        else {
+            $('#menubar').css("position", "");
+            $('#menubar').css("width", "");
+            $('#menubar').css("margin-top", "");
+            $('.content_area').css("margin-left", "");
+
+            $('.sidebar_nav').css("position", "");
+            $('.sidebar_nav').css("margin-top", "");
+            $('.sidebar_nav').css("width", "");
+
+
+       
+        }
+     
+
+       
+    });
+	
+      
+    $(document).ready(function () {
+	
+	
+		  $('.window .close').click(function (e) {
+            //Cancel the link behavior
+            e.preventDefault();
+            $.cookie('feedback_Cookie', 'Yes', { expires: 365, path: '/' });
+            $('#maskWN').hide();
+            $('.window').hide();
+            var scroll = $(window).scrollTop();
+            $("html").scrollTop(scroll);
+        });
+		
+		 $('#maskWN').click(function () {
+            $(this).hide();
+            $.cookie('feedback_Cookie', 'Yes', { expires: 365, path: '/' });
+            $('.window').hide();
+
+        });
+
+        
+
+        //if close button is clicked
+        $('.window .close').click(function (e) {
+            //Cancel the link behavior
+            e.preventDefault();
+            $.cookie('feedback_Cookie', 'Yes', { expires: 365, path: '/' });
+            $('#mask').hide();
+            $('.window').hide();
+            var scroll = $(window).scrollTop();
+            $("html").scrollTop(scroll);
+        });
+
+        //if mask is clicked
+        $('#mask').click(function () {
+            $(this).hide();
+            $('.window').hide();
+        });
+        $('#feedbackbtn').click(function () {
+            var id = '#dialog';
+
+            //Get the screen height and width
+            var maskHeight = $(document).height();
+            var maskWidth = $(window).width();
+
+            //Set heigth and width to mask to fill up the whole screen
+            
+            $('#mask').css({ 'width': '100%', 'height': '100%', 'position': 'fixed' });
+
+            //transition effect
+            $('#mask').fadeIn(500);
+            $('#mask').fadeTo("slow", 0.9);
+
+            //Get the window height and width
+            var winH = $(window).height();
+            var winW = $(window).width();
+
+            //Set the popup window to center
+            $(id).css('top', winH / 2 - $(id).height() / 2);
+            $(id).css('left', winW / 2 - $(id).width() / 2);
+
+            //transition effect
+            $(id).fadeIn(2000);
+        });
+
+        $('.submit').click(function () {
+            var Name = $("[id*=txtFeedbackName]").val();
+            var Email = $("[id*=txtFeedbackEmail]").val();
+            var Comments = $("[id*=txtFeedbackComments]").val();
+            if (Name == "") {
+
+                alert("Please enter your name");
+                $("[id*=txtFeedbackName]").focus();
+                return false;
+            }
+            else if (Email == "") {
+                alert("Please enter your email");
+                $("[id*=txtFeedbackEmail]").focus();
+                return false;
+            }
+            else if (Email != "" && !ValidateEmail(Email)) {
+                alert("Please enter a valid email address");
+                $("[id*=txtFeedbackEmail]").focus();
+                return false;
+            }
+
+            else if (Comments == "") {
+
+                alert("Please enter some comments");
+                $("[id*=txtFeedbackComments]").focus();
+                return false;
+            }
+
+            else {
+                $('[id*=Button1]').attr('disabled', 'disabled');
+
+                var param = { Name: Name, EmailID: Email, Comments: Comments };
+                $.ajax({
+                    type: "POST",
+                    url: "../Home.aspx/SaveFeedback",
+                    data: JSON.stringify(param),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+
+                    success: function (response) {
+
+                        if (response.d == "0") {
+                            alert("Thank you for your feedback");
+                            $.cookie('feedback_Cookie', 'Yes', { expires: 365, path: '/' });
+                            $('#mask').hide();
+                            $('.window').hide();
+                            $('[id*=Button1]').removeAttr('disabled');
+                            $("[id*=txtFeedbackName]").val("");
+                            $("[id*=txtFeedbackEmail]").val("");
+                            $("[id*=txtFeedbackComments]").val("");
+                        }
+                        else {
+                            alert("Please try again");
+                            $('[id*=Button1]').removeAttr('disabled');
+
+
+                        }
+
+                    }
+                });
+            }
+
+        });
+
+        function ValidateEmail(email) {
+            var expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+            return expr.test(email);
+        };
+
+       
+
+        $('a.style1').each(function () {
+
+            var $this = $(this);
+            var aHref = $this.attr('class');
+            $this.attr('class', aHref.replace('style1', 'links'));
+        });
+
+		
+   });
+
+  function isExternal(url) {
+	if(url){url=url.toLowerCase();
+       if(url=='#' || url=='javascript:void(0);' || url.includes('javascript')||url=='' )
+	{ return false;} 
+	else{//return (url.indexOf("rbi.org.in")==-1)
+	
+	if(url.indexOf("www.rbi.org.in")==-1 || url.indexOf("https://rbi.org.in")==-1)
+		{	
+			if(url.indexOf("rbi.org.in")==-1)		
+    				return "external";
+			else if(url.indexOf("www.rbi.org.in")==-1 && url.indexOf(".rbi.org.in")>0 && url.indexOf("rbidocs.rbi.org.in")==-1)
+				{return "subdomain";}
+			else if(url.indexOf("financialeducation")>0 || url.indexOf("commonperson")>0 || url.indexOf("/rekyc/")>0 || url.indexOf("rbi90years")>0 ){
+				return "subsite";}
+			
+		}
+	
+	}}
+    }
+    document.addEventListener("click", function () {
+	linkMessage();
+        
+    });
+function linkMessage(){
+	if (event.target.tagName.toLowerCase() === "a") {
+            if (isExternal(event.target.href)=="external") {
+
+                if (confirm("You are being redirected to an external website that opens in a new tab. Please note that Reserve Bank of India will not be held responsible for external websites content in any manner.")) {
+
+                    return;
+                }
+                else {
+                   
+                    event.preventDefault();
+                    return;
+                }
+            }
+	    if (isExternal(event.target.href)=="subdomain") {
+	    	 if (confirm("You are being redirected to a subdomain that will open in a new browser tab. The subdomain may have a different header, footer, and navigation structure from the main website. Continue?")) {
+                    return;
+                }
+                else {
+                   
+                    event.preventDefault();
+                    return;
+                }
+	    }
+		if (isExternal(event.target.href)=="subsite") {
+	    	 if (confirm("You are being redirected to a subsite that will open in a new browser tab. The subsite may have a different header, footer, and navigation structure from the main website. Some design elements and links may vary from the primary site experience. Continue?")) {
+                    return;
+                }
+                else {
+                   
+                    event.preventDefault();
+                    return;
+                }
+	    }
+        }
+	else if (event.target.tagName.toLowerCase() === "img") {
+		$(event.target).preventDefault;		
+		if($(event.target).parent('a').length){
+			 if (isExternal($(event.target).parent('a').prop('href'))==="external") {
+                		if (confirm("You are being redirected to an external website that opens in a new tab. Please note that Reserve Bank of India will not be held responsible for external websites content in any manner.")) {
+                    		return;
+               		 }
+
+                	else {                   
+                    		event.preventDefault();
+                    		return;
+                	}}
+			if (isExternal($(event.target).parent('a').prop('href'))==="subdomain") {
+                		if (confirm("You are being redirected to a subdomain that will open in a new browser tab. The subdomain may have a different header, footer, and navigation structure from the main website. Continue?")) {
+                    		return;
+               		 	}
+
+                		else {                   
+                    		event.preventDefault();
+                    		return;
+                		}
+			}
+			if (isExternal(event.target.href)=="subsite") {
+	    	 	if (confirm("You are being redirected to a subsite that will open in a new browser tab. The subsite may have a different header, footer, and navigation structure from the main website. Some design elements and links may vary from the primary site experience. Continue?")) {
+                    	return;
+                	}
+                	else {
+                   
+                    		event.preventDefault();
+                    	return;
+                	}
+	    		}
+	}}
+	const link = event.target.closest('a[target="_blank"]');
+	if(link){ 
+		event.preventDefault();
+		const docRegx = /\.(pdf|docx?|xlsx?|zip?|doc|xls)$/i;
+		if(docRegx.test(link)){
+			if(/\.pdf$/i.test(link))
+			{	
+				if(confirm("This PDF will open in a new browser tab. Do you want to continue?")){
+				window.open(link.href,"_blank");}
+			}
+			else if(/\.docx$/i.test(link))
+			{	
+				if(confirm("Are you sure you want to download this document?")){
+				window.open(link.href,"_blank");}
+			}
+			else if(/\.doc$/i.test(link))
+			{	
+				if(confirm("Are you sure you want to download this document?")){
+				window.open(link.href,"_blank");}
+			}
+			else if(/\.xlsx$/i.test(link))
+			{	
+				if(confirm("Are you sure you want to download this document?")){
+				window.open(link.href,"_blank");}
+			}
+			else if(/\.xls$/i.test(link))
+			{	
+				if(confirm("Are you sure you want to download this document?")){
+				window.open(link.href,"_blank");}
+			}
+			else if(/\.zip$/i.test(link))
+			{	
+				if(confirm("Are you sure you want to download this file?")){
+				window.open(link.href,"_blank");}
+			}
+		}
+		else
+		if(confirm("This link will open in a new browser tab. Do you want to continue?")){
+			window.open(link.href,"_blank");
+		}
+	}
+		if (event.target.tagName.toLowerCase() === "button") {
+		if($(event.target).parent('a').length>0){
+			const link1 = event.target.closest('a[target="_blank"]');
+		if(link1){
+			event.preventDefault();
+			if(confirm("This link will open in a new browser tab. Do you want to continue?")){
+				window.open(link.href,"_blank");
+			}
+		}
+		}
+	}
+}
+
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-61369961-1', 'auto');
+  ga('send', 'pageview');
+
+document.querySelectorAll('table.tablebg').forEach(table => {
+    const anchors = table.querySelectorAll('a[href^="#"]:not([href="#"])');
+
+    const hasInPageAnchorsInThisTableOnly = Array.from(anchors).some(a => {
+        // Find the closest table ancestor of this anchor
+        const closestTable = a.closest('table');
+    
+        // Only count it if it belongs to the current table (not a nested one)
+        return closestTable === table;
+    });
+
+    if (!hasInPageAnchorsInThisTableOnly) {
+    //    table.setAttribute('role', 'presentation');
+    //} else {
+    //    table.removeAttribute('role'); 
+	if(table.closest('td')){
+	if(table.querySelector('th'))
+	{	
+		table.removeAttribute('role');
+	}
+	else{
+        table.setAttribute('role', 'presentation');
+		}
+	}
+	else{
+        table.setAttribute('role', 'presentation');
+		}
+    }
+});
+$('.brd-ptable1').attr('role','presentation');
+$('html').attr('lang', 'en');
+document.querySelectorAll('br').forEach(br => {br.setAttribute('aria-hidden','true');});
+$('#doublescroll').children('table').filter(':first').attr("role", "presentation");
+$('.page_title').nextAll('table').first().attr("role", "presentation");
+
+
+
+document.addEventListener('DOMContentLoaded', function(){
+$('.tableheader b').each(function () {
+		var curEle= $(this);
+           $(curEle).replaceWith("<h2 class='dop_header'>"+$(curEle).html()+"</h2>")
+        });
+ });
+
+//  tooltip 
+var TooltipManager = {
+    _tip: null, // Create the tooltip element once 
+init: function() {
+    if (!this._tip) {
+    
+        this._tip = $('<div id="js-custom-tooltip"></div>').css({
+            "position": "absolute", "background": '#ffffca', "color":"#000", "padding": "2px 5px", "border-radius": "0px", "font-size": "11px","font-family":"Sans-serif", "z-index": "10000", "pointer-events": "none","border":"1px solid #767676", "box-shadow":"2px 2px 3px rgba(0,0,0,0.2)","white-space":"nowrap"
+        }).appendTo('body');
+        
+    }
+}, 
+show: function(element, text) {
+    this.init(); 
+var $el = $(element); // Update text and position 
+    
+this._tip.text(text).show();
+var pos = $el.offset(); 
+this._tip.css({
+    top: pos.top + this._tip.outerHeight()  + "px", // Show above 
+    left: pos.left + ($el.outerWidth() / 2) - (this._tip.outerWidth() / 2) + "px"
+});
+    }, hide: function() { if (this._tip) this._tip.hide(); }
+}; // Apply to all elements that have a ToolTip (ToolTip renders as 'title') 
+$(document).ready(function() {
+   
+    $('body').on('focusin', 'input, button, a, select, textarea, img', function() {
+        var title = $(this).attr('title'); if (title) {
+    
+            
+      
+            TooltipManager.show(this, title);
+        }
+    }).on('focusout', 'input, button, a, select, textarea, img', function() { 
+       
+            TooltipManager.hide();
+       
+    }); // Dismiss on Escape key
+    $(document).keyup(function(e) { if (e.key === "Escape") TooltipManager.hide(); });
+});
+
+//breadcrumb current page announce
+$(document).ready(function(){
+
+const breadcrumbList = document.querySelector('.breadcrumbs');
+
+    if (breadcrumbList) {
+        const listItems = breadcrumbList.querySelectorAll('li');
+    
+        if (listItems.length > 0) {
+            
+            const lastItem = $('.breadcrumbs li').filter(function(){ return $.trim($(this).text())!=="";}).last().attr('aria-current', 'page').css('background','none'); //remove extra icons from empty breadcrumbs
+            $('.breadcrumbs li').filter(function(){ return $.trim($(this).text())==="" && $(this).children().length===0;}).attr('role','presentation');
+	    
+       		$('.breadcrumbs li').filter(function(){
+			if($(this).children().length!==0)
+			{
+				if($(this).children().text() ===""){}
+			}
+		});
+            const lastLink =lastItem.find('a');
+            if (lastLink) {
+                lastLink.attr('aria-current', 'page');               
+                
+            }
+		if($('.breadcrumbs li').last().find('a').length>0)
+		{			
+			const $a = $('.breadcrumbs li').last().find('a');
+			$('<span>',{class: $a.attr('class'), text: $a.text()}).replaceAll($a).attr('aria-current', 'page').css('background','none');;
+		}
+		
+		if($('.breadcrumbs li').last().find('span').length>0)
+		{
+			
+			if($('.breadcrumbs li').last().find('span')[0].innerText==='')
+			{
+				$('.breadcrumbs li').last().find('span').removeAttr('aria-current');				
+			}
+			else{
+				$('.breadcrumbs li').last().find('span').filter(function(){ return $(this).attr('role')!=='presentation';}).last().attr('aria-current', 'page').css('background','none');;					
+			}		
+		}
+		$('.breadcrumbs li').filter(function(){ return $.trim($(this).text())!=="";}).removeAttr('role','presentation'); 
+		$('.breadcrumbs li').filter(function(){ return $.trim($(this).text())==="" }).css('background','none');//remove extra icons from empty breadcrumbs
+        }
+    }
+});
+
+//document.addEventListener("DOMContentLoaded", () => {
+//    document.querySelectorAll('img').forEach(img => {
+//      try {
+//        const url = new URL(img.src);
+//        img.crossOrigin = "anonymous";
+//        img.src = window.location.origin + url.pathname + url.search + url.hash;
+//      } catch (e) {}
+//    });
+//  });
+</script>
+
+<script type="text/javascript">
+//<![CDATA[
+setLetterSpace(false);//]]>
+</script>
+</form>
+</body>
+</html>
+<script type="text/javascript" src="/js/plugins.js"></script>
+<script type="text/javascript" src="/js/script.js"></script>
+<script type="text/javascript" src="/js/Scroll.js"></script>
+<script type="text/javascript" language="javascript">
+    function GetYearMonth(year, month) {
+        document.getElementById("hdnYear").value = year;
+        document.getElementById("hdnMonth").value = month;
+        document.getElementById("btn").click();
+    }
+    //Implemented onlick for 'archives' link in tree structure
+    function hideshow(divArchive) {
+        if (!document.getElementById(divArchive))
+            return
+        if (document.getElementById(divArchive).style.display == "block")
+            document.getElementById(divArchive).style.display = "none"
+        else
+            document.getElementById(divArchive).style.display = "block"
+    }
+    function SetTreeStyles() {
+        var strYear = document.getElementById("hdnYear").value;
+        var strMonth = document.getElementById("hdnMonth").value
+        if (strYear != "") {
+            var toDay = new Date();
+            document.getElementById("btn" + strYear).setAttribute("class", "accordionButton year active_year");
+            document.getElementById(strYear).style.display = "block";
+            if (strMonth) document.getElementById(strYear + strMonth).setAttribute("class", "active");
+            if (toDay.getFullYear() - 9 > parseInt(strYear)) { document.getElementById("divArchiveSub").style.display = "block" }
+        }
+    }
+</script>
+<script type="text/javascript" language="javascript">
+
+    DoubleScrollWithTree(document.getElementById('doublescroll'));
+</script>
+<script id="f5_cspm">(function(){var f5_cspm={f5_p:'BMBHLKHKPFNHMDGIOLJLLMNNNGMMBMBLHLCLFFGJHMJBKMGMPIDKPDNODCKLBLLALIIBPHLAGILLEKLHNPEABMILAIDNIHLDKHDACOILILEOCKNHMBAEEDMOIJKPCFFC',setCharAt:function(str,index,chr){if(index>str.length-1)return str;return str.substr(0,index)+chr+str.substr(index+1);},get_byte:function(str,i){var s=(i/16)|0;i=(i&15);s=s*32;return((str.charCodeAt(i+16+s)-65)<<4)|(str.charCodeAt(i+s)-65);},set_byte:function(str,i,b){var s=(i/16)|0;i=(i&15);s=s*32;str=f5_cspm.setCharAt(str,(i+16+s),String.fromCharCode((b>>4)+65));str=f5_cspm.setCharAt(str,(i+s),String.fromCharCode((b&15)+65));return str;},set_latency:function(str,latency){latency=latency&0xffff;str=f5_cspm.set_byte(str,40,(latency>>8));str=f5_cspm.set_byte(str,41,(latency&0xff));str=f5_cspm.set_byte(str,35,2);return str;},wait_perf_data:function(){try{var wp=window.performance.timing;if(wp.loadEventEnd>0){var res=wp.loadEventEnd-wp.navigationStart;if(res<60001){var cookie_val=f5_cspm.set_latency(f5_cspm.f5_p,res);window.document.cookie='f5avr0863824298aaaaaaaaaaaaaaaa_cspm_='+encodeURIComponent(cookie_val)+';path=/;'+'';}
+return;}}
+catch(err){return;}
+setTimeout(f5_cspm.wait_perf_data,100);return;},go:function(){var chunk=window.document.cookie.split(/\s*;\s*/);for(var i=0;i<chunk.length;++i){var pair=chunk[i].split(/\s*=\s*/);if(pair[0]=='f5_cspm'&&pair[1]=='1234')
+{var d=new Date();d.setTime(d.getTime()-1000);window.document.cookie='f5_cspm=;expires='+d.toUTCString()+';path=/;'+';';setTimeout(f5_cspm.wait_perf_data,100);}}}}
+f5_cspm.go();}());</script>

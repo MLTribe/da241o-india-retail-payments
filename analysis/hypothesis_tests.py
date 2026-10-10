@@ -10,6 +10,10 @@ Verdicts: Supported (95% interval entirely on the predicted side), Contradicted 
 the opposite side), Not supported (interval includes zero), Partially supported (only some
 parts of a compound hypothesis hold), Pending data (inputs not yet collected).
 
+Samples: merchant-basket tests use the mature-UPI phase from MERCHANT_START and are re-run from
+ROBUSTNESS_START (analysis/output/hypotheses_robustness.csv). The expansion-phase hypotheses,
+structural-break tests and card splice live in long_series.py and are published here too.
+
 To add a hypothesis, write a function that returns `hypothesis(...)` and list it in REGISTER.
 """
 
@@ -25,7 +29,11 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from payment_mix_model import END_MONTH, OUTPUT, REPO, month_range, read_series  # noqa: E402
 
 DOCS_DATA = REPO / "docs" / "hypotheses-data.js"
-MERCHANT_START = "2022-01"
+# Primary sample: the mature-UPI phase, from the first consistently classified RBI card month.
+# The register is re-run from ROBUSTNESS_START (the Assignment 2 draft window, which also avoids
+# the COVID second-wave base month June 2021) and verdict changes are reported.
+MERCHANT_START = "2021-06"
+ROBUSTNESS_START = "2022-01"
 TRANSFER_START = "2016-04"
 BREAK_SEARCH_START = "2021-01"
 HAC_LAGS = 12
@@ -66,6 +74,11 @@ def ols(y: list[float], x: list[list[float]]) -> dict[str, object]:
 
 
 def hac_se(fit: dict[str, object], x: list[list[float]], lags: int = HAC_LAGS) -> list[float]:
+    cov = hac_cov(fit, x, lags)
+    return [math.sqrt(max(cov[i][i], 0.0)) for i in range(len(cov))]
+
+
+def hac_cov(fit: dict[str, object], x: list[list[float]], lags: int = HAC_LAGS) -> list[list[float]]:
     resid, inv, k = fit["resid"], fit["inv"], fit["k"]
     n = len(resid)
     meat = [[0.0] * k for _ in range(k)]
@@ -79,9 +92,8 @@ def hac_se(fit: dict[str, object], x: list[list[float]], lags: int = HAC_LAGS) -
                     if lag:
                         term += x[t - lag][i] * x[t][j]
                     meat[i][j] += c * term
-    cov = [[sum(inv[i][a] * meat[a][b] * inv[b][j] for a in range(k) for b in range(k))
-            for j in range(k)] for i in range(k)]
-    return [math.sqrt(max(cov[i][i], 0.0)) for i in range(k)]
+    half = [[sum(inv[i][a] * meat[a][b] for a in range(k)) for b in range(k)] for i in range(k)]
+    return [[sum(half[i][b] * inv[b][j] for b in range(k)) for j in range(k)] for i in range(k)]
 
 
 def drift(values: list[float | None]) -> dict[str, float]:
@@ -152,8 +164,10 @@ def load() -> dict[str, object]:
     s["debit_cards_outstanding_lakh"] = (
         col(infra, "debit_cards_outstanding") if infra else None
     )
+    s["credit_cards_outstanding_lakh"] = col(infra, "credit_cards_outstanding") if infra else None
     s["pos_terminals_lakh"] = col(infra, "pos_terminals") if infra else None
     s["upi_qr_codes_lakh"] = col(infra, "upi_qr_codes") if infra else None
+    s["bharat_qr_codes_lakh"] = col(infra, "bharat_qr_codes") if infra else None
     s["p2m_n"], s["p2m_v"] = col(split, "p2m_volume_mn"), col(split, "p2m_value_crore")
     s["p2p_n"] = col(split, "p2p_volume_mn")
     for rail in ("debit_total", "debit_pos", "debit_other", "credit_total", "credit_pos"):
@@ -178,6 +192,8 @@ def pct(log_points: float) -> str:
 
 
 def label_month(month: str) -> str:
+    if "Q" in month:
+        return f"{month[5:]} {month[:4]}"
     names = "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split()
     return f"{names[int(month[5:7]) - 1]} {month[:4]}"
 
@@ -186,8 +202,10 @@ def rounded(values, digits=2):
     return [None if v is None else round(v, digits) for v in values]
 
 
-def chart(kind, label, months, series, unit, marker=None):
+def chart(kind, label, months, series, unit, marker=None, markers=()):
+    """markers: (month, label) pairs drawn as dashed verticals, e.g. structural-break dates."""
     return {"kind": kind, "label": label, "months": months, "unit": unit, "marker": marker,
+            "markers": [{"month": m, "label": t} for m, t in markers if m in months],
             "series": [{"name": n, "values": rounded(v)} for n, v in series]}
 
 
@@ -207,10 +225,11 @@ def drift_line(d, unit="log"):
     return text, f"{consistent} of the {d['n']} year-on-year changes were {sign} zero"
 
 
-def yoy_example(series, unit="log"):
+def yoy_example(series, unit="log", months=None):
     """Explain which year-on-year comparisons the average covers, with first, latest and extreme values."""
-    months = month_range(MERCHANT_START, END_MONTH)
+    months = months or month_range(MERCHANT_START, END_MONTH)
     points = [(m, v) for m, v in zip(months, series) if v is not None]
+    step = "quarter" if "Q" in months[0] else "month"
     show = (lambda v: pct(v)) if unit == "growth" else (lambda v: f"{v:+.3f}")
 
     def vs(m):
@@ -220,9 +239,12 @@ def yoy_example(series, unit="log"):
     last_m, last_v = points[-1]
     low = min(points, key=lambda p: p[1])
     high = max(points, key=lambda p: p[1])
-    return (f"The result is the average of {len(points)} year-on-year changes, one per month from "
-            f"{label_month(m0)} to {label_month(last_m)} — not a single year. Each compares a month with "
-            f"the same month a year earlier: {vs(m0)} = {show(v0)}, {vs(m1)} = {show(v1)}, …, "
+    gaps = months.index(last_m) - months.index(m0) + 1 - len(points)
+    skipped = (f" ({gaps} {step}s in this span are left out because the comparison straddles a "
+               "structural break; see the breaks table)" if gaps else "")
+    return (f"The result is the average of {len(points)} year-on-year changes, one per {step} from "
+            f"{label_month(m0)} to {label_month(last_m)}{skipped} — not a single year. Each compares a {step} with "
+            f"the same {step} a year earlier: {vs(m0)} = {show(v0)}, {vs(m1)} = {show(v1)}, …, "
             f"{vs(last_m)} = {show(last_v)}. Range: {show(low[1])} ({label_month(low[0])}) to "
             f"{show(high[1])} ({label_month(high[0])}). Each bar or point in the chart is one of these changes."
             + (f" The average is taken in log points ({sum(v for _, v in points) / len(points):+.3f}) and "
@@ -237,8 +259,16 @@ def hypothesis(**fields):
     return fields
 
 
-DRIFT_TEST = ("Mean 12-month log change, Newey-West (12-lag) standard errors, "
-              "39 matched months Jan 2023–Mar 2026")
+def drift_window() -> tuple[int, str]:
+    """Number of year-on-year changes in the merchant window and the first month compared."""
+    first = month_range(MERCHANT_START, END_MONTH)[12]
+    return len(month_range(first, END_MONTH)), first
+
+
+def drift_test_text() -> str:
+    n, first = drift_window()
+    return (f"Mean 12-month log change, Newey-West (12-lag) standard errors, "
+            f"{n} matched months {label_month(first)}–{label_month(END_MONTH)}")
 
 # LaTeX building blocks for the formulas shown on docs/hypotheses.html (rendered with KaTeX).
 D12 = r"\Delta_{12}"
@@ -264,9 +294,13 @@ def drift_formulas(series_tex, direction, where="", tag=""):
     return rows
 
 
-MULTI_COVERAGE = ("Each figure is an average of 39 year-on-year changes, one per month from Jan 2023 "
-                  "(vs Jan 2022) to Mar 2026 (vs Mar 2025) — not a single year. The steps below show "
-                  "the first, latest and range of each.")
+def multi_coverage() -> str:
+    n, first = drift_window()
+    year_back = lambda m: f"{int(m[:4]) - 1}{m[4:]}"
+    return (f"Each figure is an average of {n} year-on-year changes, one per month from "
+            f"{label_month(first)} (vs {label_month(year_back(first))}) to {label_month(END_MONTH)} "
+            f"(vs {label_month(year_back(END_MONTH))}) — not a single year. The steps below show "
+            "the first, latest and range of each.")
 
 
 def check_text(lo, hi, direction, fmt="{:+.3f}"):
@@ -281,7 +315,7 @@ def check_text(lo, hi, direction, fmt="{:+.3f}"):
     return f"The interval {bounds} includes 0, so the data cannot rule out no change."
 
 
-def drift_step(question, d, direction, sym=r"\hat\mu", unit="log"):
+def drift_step(question, d, direction, sym=r"\hat\mu", unit="log", months=None):
     """One step of a verdict walk-through: the question, the numbers, the check and its verdict."""
     calc = (sym + f" = {d['est']:+.3f}" + r",\quad \widehat{\mathrm{SE}}_{\mathrm{NW}} = "
             + f"{d['se']:.3f}" + r",\quad \text{95\% interval} = " + f"{d['est']:+.3f}"
@@ -289,7 +323,8 @@ def drift_step(question, d, direction, sym=r"\hat\mu", unit="log"):
     if unit == "growth":
         calc += r"\;\Rightarrow\; e^{" + f"{d['est']:+.3f}" + r"} - 1 = " + pct(d["est"]).replace("%", r"\%") + r"\text{ a year}"
     return {"question": question, "calc": calc, "check": check_text(d["lo"], d["hi"], direction),
-            "verdict": verdict(d["lo"], d["hi"], direction), "example": yoy_example(d["values"], unit)}
+            "verdict": verdict(d["lo"], d["hi"], direction),
+            "example": yoy_example(d["values"], unit, months)}
 
 
 def derivation(steps, final):
@@ -303,17 +338,19 @@ def derivation(steps, final):
 
 
 def drift_hypothesis(hid, group, title, statement, framework, metric, direction, series,
-                     unit, chart_spec, data, formula="", where="", question=""):
+                     unit, chart_spec, data, formula="", where="", question="", test_text="",
+                     months=None):
+    """months: the calendar of `series` when it is not the merchant window (long-series tests)."""
     d = drift(series)
     estimate, consistency = drift_line(d, unit)
     final = verdict(d["lo"], d["hi"], direction)
     question = question or f"Is the average 12-month change {'below' if direction == '<0' else 'above'} zero?"
     return hypothesis(
         id=hid, group=group, title=title, statement=statement, framework=framework,
-        test=f"{metric}. {DRIFT_TEST}. Supported if the 95% interval is {'below' if direction == '<0' else 'above'} zero.",
+        test=f"{metric}. {test_text or drift_test_text()}. Supported if the 95% interval is {'below' if direction == '<0' else 'above'} zero.",
         estimate=estimate, consistency=consistency, p_value=p_two_sided(d["est"], d["se"]),
         ci=[d["lo"], d["hi"]], point=d["est"], verdict=final,
-        chart=chart_spec, data=data, coverage=yoy_example(series, unit),
+        chart=chart_spec, data=data, coverage=yoy_example(series, unit, months),
         formulas=drift_formulas(formula, direction, where) if formula else [],
         derivation=derivation([{k: v for k, v in drift_step(question, d, direction, unit=unit).items()
                                 if k != "example"}], final))
@@ -349,7 +386,7 @@ def h2(s):
         framework="Credit cards are imperfect substitutes for UPI (credit period, rewards), so an "
                   "interior mix survives.",
         test="Two parts: mean Δ12 ln(credit) > 0, and mean [Δ12 ln(P2M) − Δ12 ln(credit)] > 0. "
-             + DRIFT_TEST + ".",
+             + drift_test_text() + ".",
         estimate=f"Credit {drift_line(d_credit, 'growth')[0]}; P2M minus credit "
                  f"{drift_line(d_gap)[0]}",
         consistency=f"Credit growth positive in {d_credit['pos']} of {d_credit['n']} months; "
@@ -360,7 +397,7 @@ def h2(s):
                     {"name": "P2M grows faster than credit", "verdict": parts[1]}],
         chart=growth_chart("12-month volume change", s["months"], [("UPI P2M", gp), ("Credit card", gc)]),
         data=f"{RBI_CARDS}; {NPCI_P2M}",
-        coverage=MULTI_COVERAGE,
+        coverage=multi_coverage(),
         derivation=derivation([
             drift_step("Is credit-card purchase volume growing year on year?", d_credit, ">0",
                        r"\hat\mu_{C}", "growth"),
@@ -379,7 +416,7 @@ def h3(s):
         statement="The average real debit-card payment rises while the average real UPI P2M payment falls.",
         framework="If UPI wins small, frequent purchases first, the debit payments that remain are larger.",
         test="Two parts: mean Δ12 ln(real debit ticket) > 0 and mean Δ12 ln(real P2M ticket) < 0. "
-             + DRIFT_TEST + ". Real = March 2026 rupees (MoSPI CPI).",
+             + drift_test_text() + ". Real = March 2026 rupees (MoSPI CPI).",
         estimate=f"Debit ticket {drift_line(dd, 'growth')[0]}; P2M ticket {drift_line(dp, 'growth')[0]}",
         consistency=f"Debit ticket up in {dd['pos']} of {dd['n']} months; P2M ticket down in "
                     f"{dp['neg']} of {dp['n']}",
@@ -391,7 +428,7 @@ def h3(s):
                     [("Debit card", s["debit_total_ticket_real"]), ("UPI P2M", s["p2m_ticket_real"]),
                      ("Credit card", s["credit_total_ticket_real"])], "₹ per transaction"),
         data=f"{RBI_CARDS}; {NPCI_P2M}; MoSPI CPI",
-        coverage=MULTI_COVERAGE,
+        coverage=multi_coverage(),
         derivation=derivation([
             drift_step("Is the average real debit-card payment getting larger?", dd, ">0", r"\hat\mu_{D}", "growth"),
             drift_step("Is the average real UPI P2M payment getting smaller?", dp, "<0", r"\hat\mu_{P}", "growth")],
@@ -729,8 +766,7 @@ def h8(s):
         framework="A decline in payment intensity alongside growth in cards in force is consistent "
                   "with substitution in use, but does not identify the payment method chosen instead.",
         test="Mean 12-month log change in cards outstanding (> 0) and domestic debit-card "
-             "payments per card (< 0), each with Newey-West (12-lag) standard errors over "
-             "39 matched months, Jan 2023–Mar 2026. Both 95% intervals must be on the "
+             f"payments per card (< 0). {drift_test_text()}. Both 95% intervals must be on the "
              "predicted side of zero for full support.",
         estimate=(f"Cards {pct(card_test['est'])}/year [95% CI {pct(card_test['lo'])}, "
                   f"{pct(card_test['hi'])}]; payments/card {pct(use_test['est'])}/year "
@@ -739,7 +775,7 @@ def h8(s):
                      f"payments/card fell in {use_test['neg']} of {use_test['n']}."),
         p_value=None, ci=None, point=None,
         verdict=combine([card_verdict, use_verdict]), formulas=H8_FORMULAS,
-        coverage=MULTI_COVERAGE,
+        coverage=multi_coverage(),
         derivation=derivation([
             drift_step("Is the number of debit cards in force rising?", card_test, ">0", r"\hat\mu_{K}", "growth"),
             drift_step("Are payments per card falling?", use_test, "<0", r"\hat\mu_{u}", "growth")],
@@ -790,7 +826,7 @@ def h9(s):
                   "do not establish a network effect.",
         test="Two parts: mean [Δ12 ln(UPI QR codes) − Δ12 ln(PoS terminals)] > 0, and "
              "mean Δ12 ln((debit + credit PoS purchase volume) / PoS terminals) < 0. "
-             "Newey-West (12-lag) standard errors over 39 matched months, Jan 2023–Mar 2026. "
+             f"{drift_test_text()}. "
              "Both 95% intervals must be on the predicted side of zero for full support.",
         estimate=(f"UPI QR minus PoS terminal growth {drift_line(gap_test)[0]}; "
                   f"card PoS payments/terminal {drift_line(use_test, 'growth')[0]}"),
@@ -798,7 +834,7 @@ def h9(s):
                      f"card payments/terminal fell in {use_test['neg']} of {use_test['n']}."),
         p_value=None, ci=None, point=None,
         verdict=combine([gap_verdict, use_verdict]), formulas=H9_FORMULAS,
-        coverage=MULTI_COVERAGE,
+        coverage=multi_coverage(),
         derivation=derivation([
             drift_step("Are UPI QR codes growing faster than card PoS terminals?", gap_test, ">0", r"\hat\mu_{Q-T}"),
             drift_step("Are card payments per PoS terminal falling?", use_test, "<0", r"\hat\mu_{w}", "growth")],
@@ -817,12 +853,133 @@ def h9(s):
              "series cannot show individual merchant switching or establish causality.")
 
 
-REGISTER = [h1, h2, h3, h4, h5, h6, h6b, s1, s2, s3, u1, h7, h10, h8, h9]
+# ---------- Objective O4: issuers, acquirers and merchants ----------
+
+MANAGERIAL = "Issuers, acquirers, merchants (O4)"
+RBI_INFRA = "RBI Payment System Indicators: Part III payment infrastructure (lakh), own-month release pages"
+
+
+def a1(s):
+    gap = sub(diff(ln(s["upi_qr_codes_lakh"])), diff(ln(s["bharat_qr_codes_lakh"])))
+    return drift_hypothesis(
+        "A1", MANAGERIAL, "Acquirers deploy UPI QR faster than Bharat QR",
+        "The stock of UPI QR codes grows faster than the stock of Bharat QR (card-network QR) codes.",
+        "Speculative mechanism (the data show only the footprint): acquirer economics under zero MDR — both QR types are cheap to issue, but UPI QR reaches the "
+        "larger installed base of payers (cross-side network effect), so acquirers and merchants "
+        "standardise on it.",
+        "Mean of [Δ12 ln(UPI QR codes) − Δ12 ln(Bharat QR codes)]", ">0", gap, "log",
+        growth_chart("QR codes deployed, 12-month change", s["months"],
+                     [("UPI QR codes", diff(ln(s["upi_qr_codes_lakh"]))),
+                      ("Bharat QR codes", diff(ln(s["bharat_qr_codes_lakh"])))]),
+        RBI_INFRA, D12 + r"\ln Q^{\mathrm{UPI}}_t - " + D12 + r"\ln Q^{\mathrm{BQR}}_t",
+        r"Q^{\mathrm{UPI}}_t,\ Q^{\mathrm{BQR}}_t = \text{UPI QR and Bharat QR codes deployed (month end)}",
+        question="Is the UPI QR stock growing faster than the Bharat QR stock?")
+
+
+def a2(s):
+    g = diff(ln(s["pos_terminals_lakh"]))
+    result = drift_hypothesis(
+        "A2", MANAGERIAL, "The card terminal network keeps growing",
+        "The number of card PoS terminals rises year on year: acquirers do not shrink card acceptance "
+        "even as debit use collapses.",
+        "Speculative mechanism: credit cards are the only purchase rail in the basket that always carries "
+        "an MDR and they keep growing (H2), so a terminal still pays for itself where credit-card customers shop.",
+        "Mean of Δ12 ln(PoS terminals)", ">0", g, "growth",
+        growth_chart("PoS terminals, 12-month change", s["months"], [("PoS terminals", g)]),
+        RBI_INFRA, D12 + r"\ln T_t", r"T_t = \text{card PoS terminals deployed (month end)}",
+        question="Is the PoS terminal stock larger than a year earlier, on average?")
+    result["note"] = ("Terminals are counted, not active merchants; a growing stock can coexist "
+                      "with falling use per terminal (H9).")
+    return result
+
+
+def i1(s):
+    cc, dc = s["credit_cards_outstanding_lakh"], s["debit_cards_outstanding_lakh"]
+    gap = sub(diff(ln(cc)), diff(ln(dc)))
+    return drift_hypothesis(
+        "I1", MANAGERIAL, "Issuers shift their card base towards credit",
+        "Credit cards in force grow faster than debit cards in force.",
+        "Speculative mechanism (issuer strategy is not observed): debit purchase use is collapsing and RuPay debit carries zero MDR, while credit "
+        "earns interchange, interest and fees and, since Sep 2022, RuPay credit cards can be used on UPI.",
+        "Mean of [Δ12 ln(credit cards in force) − Δ12 ln(debit cards in force)]", ">0", gap, "log",
+        growth_chart("Cards in force, 12-month change", s["months"],
+                     [("Credit cards", diff(ln(cc))), ("Debit cards", diff(ln(dc)))]),
+        RBI_INFRA, D12 + r"\ln K^{C}_t - " + D12 + r"\ln K^{D}_t",
+        r"K^{C}_t,\ K^{D}_t = \text{credit and debit cards outstanding (month end)}",
+        question="Is the credit-card base growing faster than the debit-card base?")
+
+
+def i2(s):
+    share = [c / (c + d) for c, d in zip(s["credit_total_v"], s["debit_total_v"])]
+    result = drift_hypothesis(
+        "I2", MANAGERIAL, "Card spending migrates to credit",
+        "Credit cards' share of domestic card purchase value rises.",
+        "Interchange is charged on value, so issuers' card revenue follows value. Speculative: if card "
+        "spending that survives UPI is credit-funded, issuers' card business becomes a credit business.",
+        "Mean of Δ12 log-odds(credit share of card purchase value)", ">0", diff(logodds(share)), "log",
+        chart("lines", "Credit share of card purchase value", s["months"],
+              [("Credit share of card value", [100 * v for v in share])], "%"),
+        RBI_CARDS, D12 + r"\,\mathrm{logit}\, c_t",
+        r"c_t = \frac{V^{C}_t}{V^{C}_t + V^{D}_t},\quad \mathrm{logit}\, c = \ln\frac{c}{1-c}",
+        question="Is credit's share of card spending (in log-odds) higher than a year earlier?")
+    result["note"] = f"Credit share of card purchase value {100 * share[0]:.1f}% → {100 * share[-1]:.1f}%."
+    return result
+
+
+def m1(s):
+    share = [c / (p + d + c) for p, d, c in zip(s["p2m_v"], s["debit_total_v"], s["credit_total_v"])]
+    result = drift_hypothesis(
+        "M1", MANAGERIAL, "The fee-bearing share of merchant payments shrinks",
+        "Credit cards' share of merchant-basket value (UPI P2M + debit + credit) falls.",
+        "Under zero MDR on UPI and RuPay debit, credit cards are the only rail in the basket that always "
+        "carries a merchant fee; if UPI value outgrows credit, acquirers' fee base shrinks relative to "
+        "the payments they process.",
+        "Mean of Δ12 log-odds(credit share of merchant-basket value)", "<0", diff(logodds(share)), "log",
+        chart("lines", "Credit-card share of merchant-basket value", s["months"],
+              [("Credit share of merchant value", [100 * v for v in share])], "%"),
+        f"{RBI_CARDS}; {NPCI_P2M}", D12 + r"\,\mathrm{logit}\, m_t",
+        r"m_t = \frac{V^{C}_t}{V^{P}_t + V^{D}_t + V^{C}_t}",
+        question="Is credit's share of merchant payment value (in log-odds) lower than a year earlier?")
+    result["note"] = (f"Credit share of merchant-basket value {100 * share[0]:.1f}% → {100 * share[-1]:.1f}%. "
+                      "A lower bound on the fee-bearing share: Visa/Mastercard debit can carry MDR, but RBI "
+                      "does not split debit by network. Where RuPay credit-card spends on UPI are counted (UPI "
+                      "P2M, RBI card data or both) is not documented in either source.")
+    return result
+
+
+REGISTER = [h1, h2, h3, h4, h5, h6, h6b, s1, s2, s3, u1, h7, h10, h8, h9, a1, a2, i1, i2, m1]
+# The transfer-basket break test does not depend on the merchant window.
+WINDOW_FREE = {"H7"}
+
+
+def robustness(primary: list[dict[str, object]]) -> list[dict[str, object]]:
+    """Re-run the register from ROBUSTNESS_START and report each verdict side by side."""
+    global MERCHANT_START
+    saved, MERCHANT_START = MERCHANT_START, ROBUSTNESS_START
+    try:
+        series = load()
+        alt = {r["id"]: r for r in (build(series) for build in REGISTER)}
+    finally:
+        MERCHANT_START = saved
+    rows = []
+    for r in primary:
+        if r["id"] in WINDOW_FREE or r["id"] not in alt:
+            continue
+        rows.append({"id": r["id"], "title": r["title"], "primary": r["verdict"],
+                     "primaryEstimate": r["estimate"], "alternative": alt[r["id"]]["verdict"],
+                     "alternativeEstimate": alt[r["id"]]["estimate"],
+                     "changed": r["verdict"] != alt[r["id"]]["verdict"]})
+    return rows
 
 
 def main() -> None:
     series = load()
     results = [build(series) for build in REGISTER]
+    checks = robustness(results)
+    sys.modules.setdefault("hypothesis_tests", sys.modules[__name__])
+    import long_series  # noqa: E402  (uses this module's estimators)
+    long = long_series.run()
+    results += long["hypotheses"]
     OUTPUT.mkdir(exist_ok=True)
     with (OUTPUT / "hypotheses.csv").open("w", newline="", encoding="utf-8") as stream:
         writer = csv.writer(stream)
@@ -830,13 +987,27 @@ def main() -> None:
         for r in results:
             writer.writerow([r["id"], r["group"], r["title"], r["verdict"], r["estimate"],
                              r["consistency"], r["test"], r["data"]])
-    payload = {"dataThrough": END_MONTH, "merchantStart": MERCHANT_START, "hypotheses": results}
+    with (OUTPUT / "hypotheses_robustness.csv").open("w", newline="", encoding="utf-8") as stream:
+        writer = csv.writer(stream)
+        writer.writerow(["id", "title", f"verdict_from_{MERCHANT_START}", f"estimate_from_{MERCHANT_START}",
+                         f"verdict_from_{ROBUSTNESS_START}", f"estimate_from_{ROBUSTNESS_START}", "changed"])
+        for r in checks:
+            writer.writerow([r["id"], r["title"], r["primary"], r["primaryEstimate"], r["alternative"],
+                             r["alternativeEstimate"], r["changed"]])
+    n, first = drift_window()
+    payload = {"dataThrough": END_MONTH, "merchantStart": MERCHANT_START,
+               "driftWindow": {"n": n, "first": first, "last": END_MONTH},
+               "robustnessStart": ROBUSTNESS_START, "robustness": checks,
+               "breaks": long["breaks"], "breakTests": long["break_tests"], "splice": long["splice"],
+               "hypotheses": results}
     DOCS_DATA.write_text(
         "// Generated by analysis/hypothesis_tests.py. Do not edit.\n"
         f"window.HYPOTHESES_DATA = Object.freeze({json.dumps(payload, separators=(',', ':'), ensure_ascii=False)});\n",
         encoding="utf-8")
     for r in results:
         print(f"{r['id']:4s} {r['verdict']:20s} {r['title']}\n     {r['estimate']}")
+    changed = [r["id"] for r in checks if r["changed"]]
+    print(f"Robustness (start {ROBUSTNESS_START}): verdict changes in {', '.join(changed) or 'none'}")
 
 
 if __name__ == "__main__":

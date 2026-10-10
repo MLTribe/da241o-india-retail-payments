@@ -9,7 +9,12 @@ purchases changed alongside UPI's expansion in India. The model is a
 
 1. Total UPI and IMPS, April 2016–March 2026 (120 months).
 2. UPI person-to-merchant (P2M), domestic credit-card purchases, and domestic
-   debit-card purchases, January 2022–March 2026 (51 months).
+   debit-card purchases, June 2021–March 2026 (58 months): UPI's mature
+   phase, the longest period with consistently classified RBI card data.
+
+A secondary, spliced card series back to June 2014 tests the 2017–20
+expansion phase as a robustness check (see "Long series and structural
+breaks" below).
 
 This is the best primary method for the available data because the question is
 about observed levels and shares. The inputs are national monthly aggregates,
@@ -55,8 +60,9 @@ percentage growth from that zero base.
 RBI card volume arrives in **lakh** transactions, so the script divides it by
 10 before comparison with NPCI's millions. The model applies MoSPI's published
 0.5267 link factor to put the old CPI observations on the 2024 base, then
-multiplies nominal value and ticket by `March 2026 CPI / month CPI`. Real
-measures are available only from January 2022. Fiscal-year totals run April to
+multiplies nominal value and ticket by `March 2026 CPI / month CPI`. The CPI
+back-series starts in 2014, so real measures cover every month of both
+baskets. Fiscal-year totals run April to
 March and include only complete 12-month years. Year-on-year comparisons use
 the same calendar month to reduce ordinary seasonality.
 
@@ -78,21 +84,23 @@ The script reads `by_year/YYYY/*.csv` and writes:
 | `analysis/output/period_comparison.csv` | First-to-last and most recent fiscal-year comparisons |
 | `analysis/output/source_checks.json` | Coverage, extended-basket windows, optional-series counts, published-identity checks, and NPCI table mismatches |
 | `analysis/output/timeseries_stats.csv` | Trend growth, first-to-last 12-month growth, seasonal indices, and monthly HHI (long format) |
-| `analysis/output/infrastructure_panel.csv` | Monthly acceptance points, cards in force, and use per point or card from RBI PSI Part III, January 2022–March 2026 |
+| `analysis/output/infrastructure_panel.csv` | Monthly acceptance points, cards in force, and use per point or card from RBI PSI Part III, June 2021–March 2026 |
 | `analysis/output/figures/*.svg` | Static charts for the paper, drawn without a plotting package |
 | `docs/explore-data.js` | Data file for the interactive `docs/explore.html` page |
 
 The merchant window starts at the first month in which NPCI P2M, RBI cards and
-MoSPI CPI are all observed (currently January 2022). Adding earlier months to
-all three series extends it automatically.
+MoSPI CPI are all observed (currently June 2021, set by RBI's card
+reclassification; NPCI P2M starts April 2020 and CPI in 2014). The first full
+fiscal year in this window is still FY2022-23.
 
-The infrastructure panel uses the 51 own-month RBI PSI Part III release-page
-observations imported by `scripts/import_rbi_psi_pages.py`. Its monthly
+The infrastructure panel uses 58 own-month RBI PSI Part III release-page
+observations: January 2022 onward from `scripts/import_rbi_psi_pages.py`,
+June–December 2021 from `scripts/import_card_history.py`. Its monthly
 debit-card payment intensity is domestic debit-card purchases divided by
 month-end debit cards in force. Cards in force count instruments, not distinct
 people or active users, so the ratio cannot identify who kept a card or what
-payment method they used instead. June–December 2021 infrastructure counts
-and other RBI payment rails still require the monthly workbooks.
+payment method they used instead. Other RBI payment rails still require the
+monthly workbooks.
 
 The program stops if a required month is absent, a month appears twice, units
 are invalid, or the within-source component totals fail beyond published
@@ -128,6 +136,92 @@ numbers, the check, and the step's verdict, then the rule that combines the
 steps into the final verdict. Drift tests build this automatically (pass a
 plain-language `question=`); custom tests pass
 `derivation=derivation([drift_step(...), ...], final_verdict)`.
+
+**Sample periods.** Window-dependent tests use `MERCHANT_START` (June 2021).
+Its first base month falls in the COVID second wave, so the whole register is
+re-run from `ROBUSTNESS_START` (January 2022, the earlier draft window) and
+written to `analysis/output/hypotheses_robustness.csv`. Two marginal verdicts
+differ: H4 (volume vs value share gain) is Supported from June 2021 but not
+from January 2022, and S3 (real credit ticket falls) the reverse. Every other
+verdict is unchanged.
+
+**Issuers, acquirers and merchants (objective O4).** A1 (UPI QR vs Bharat QR),
+A2 (PoS terminal stock), I1 (credit vs debit cards in force), I2 (credit share
+of card value) and M1 (credit share of merchant-basket value, a lower bound on
+the fee-bearing share) test observable footprints of the managerial
+arguments. The mechanisms in their "why we expect it" text are labelled
+speculative: national totals do not show firm-level costs or strategies.
+
+## Long series and structural breaks (secondary)
+
+```shell
+python3 analysis/long_series.py   # CSV outputs only; hypothesis_tests.py also runs it
+```
+
+`long_series.py` splices card payments back to June 2014 and tests UPI's
+expansion phase. Bridging assumptions:
+
+1. From June 2021 card payments are RBI PSI PoS + Others.
+2. Before June 2021 they are the all-bank Total row of RBI's bank-wise
+   ATM/PoS/card pages. In the pre-March-2022 layouts the "PoS" column covers
+   every card payment, online included: it equals PSI PoS + Others in the
+   overlap (Jan 2022 credit 195.81 mn in both sources).
+3. The bank-wise series is scaled by `k`, the geometric-mean PSI ÷ bank-wise
+   ratio over June 2021–February 2022, separately for debit/credit and
+   volume/value. `k` is 1.000 for credit and 1.004 (volume) / 1.009 (value)
+   for debit.
+4. `k` is checked out of sample against PSI's "same month last year" values
+   for June 2020–May 2021: mean absolute error 0.03–1.0%, maximum 1.9%.
+5. RBI's June 2021 reclassification changes presentation, not the card total.
+
+Bank-wise values are published in ₹ million up to June 2019 and ₹ lakh from
+then on; pages without a unit label are scaled by their neighbours, and the
+average ticket is continuous across the switch. Before April 2020 NPCI does
+not split UPI into P2P and P2M, so expansion-phase comparisons use total UPI,
+an upper bound on merchant use.
+
+Expansion-phase hypotheses E1–E4 average year-on-year changes from April 2018
+to February 2020 (levels April 2017 onward, ending before COVID); starting in
+April 2018 keeps demonetisation out of every base month.
+
+| Break | Date | Handling |
+| --- | --- | --- |
+| Demonetisation | Nov 2016 | Kept out of every window and base month |
+| NPCI same-account exclusion | Aug 2018 | Level-shift test, ±12 months, quadratic trend, IMPS placebo; E2 also reported without straddling months |
+| Zero MDR on UPI and RuPay debit | Jan 2020 | Level + trend break, Apr 2017–Mar 2023, month and COVID dummies; debit ÷ credit nets common shocks |
+| COVID-19 | Mar–Dec 2020 (wave 2 Apr–Jun 2021) | One dummy per month in break models; expansion tests end Feb 2020; robustness start Jan 2022 |
+| NPCI P2P/P2M split begins | Apr 2020 | Sample boundary for P2M |
+| RBI card reclassification | Jun 2021 | Splice point; overlap check and level dummy |
+
+Only the June 2021 splice point and the COVID second wave touch the primary
+sample (through its first base month); the other breaks fall before it.
+Outputs: `analysis/output/long_series_panel.csv` (spliced monthly panel with
+both sources) and `analysis/output/structural_breaks.csv`. The break tests
+are tests of a change in path at a known date, not causal policy effects.
+
+## Landscape hypotheses (banks, UPI apps, states)
+
+```shell
+python3 analysis/landscape_tests.py
+```
+
+This uses the bank-wise, app-wise and state-wise CSVs described in the
+top-level README and writes `analysis/output/landscape_hypotheses.csv` and
+`docs/landscape-data.js` for `docs/landscape.html`. It reuses the drift test,
+verdict rules and derivation helpers from `hypothesis_tests.py`, and adds:
+
+- exact one-sided binomial sign tests across banks or states;
+- cross-section OLS with HC1 standard errors (one observation per bank or
+  state, annualised change from FY2022-23 to FY2025-26 or 2022 to 2025);
+- quarterly drift tests (4-quarter changes, 4 Newey-West lags) for PhonePe
+  Pulse;
+- a known-date level break at the Paytm Payments Bank order (Feb 2024).
+
+Shares are tested on the log-odds scale. The page also shows descriptive
+distributions (largest issuers, app shares and HHI, state shares and NPCI's
+unclassified share). Notes on each card record judgement calls: the
+Citibank-to-Axis transfer in B3, and the 2018-start robustness results for R1
+and R2.
 
 ## Reading the result
 

@@ -1,0 +1,8 @@
+month,credit_cards_outstanding,debit_cards_outstanding,atms,pos_terminals,bharat_qr_codes,upi_qr_codes,unit,source_file
+2021-06,628.15,9060.08,2.4,45.93,49.33,1018.06,lakh,source_archive/rbi/html/2021-06_id1.html
+2021-07,634.14,9060.36,2.4,46.08,51.23,1070.08,lakh,source_archive/rbi/html/2021-07_id2.html
+2021-08,639.34,9138.11,2.41,47.48,52.69,1092.04,lakh,source_archive/rbi/html/2021-08_id3.html
+2021-09,650.25,9203.03,2.41,49.77,52.85,1196.08,lakh,source_archive/rbi/html/2021-09_id4.html
+2021-10,663.61,9340.46,2.41,51.55,45.59,1283.81,lakh,source_archive/rbi/html/2021-10_id5.html
+2021-11,675.83,9340.07,2.42,52.92,45.41,1373.33,lakh,source_archive/rbi/html/2021-11_id6.html
+2021-12,689.49,9377.42,2.49,54.98,46.47,1440.1,lakh,source_archive/rbi/html/2021-12_id7.html

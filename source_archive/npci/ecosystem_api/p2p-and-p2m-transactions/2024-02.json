@@ -1,0 +1,147 @@
+{
+ "status": 200,
+ "data": {
+  "totalCount": 1,
+  "table_headers": {
+   "id": 42,
+   "main_header_title": "UPI P2P and P2M Transactions",
+   "headers": [
+    {
+     "order": 1,
+     "id": 297,
+     "header_name": "Month",
+     "isSortable": false,
+     "header_key": "month_value",
+     "isChildExists": false,
+     "isMergedCells": null,
+     "isNumberFormattingRequired": null,
+     "columnSpan": null,
+     "maxDecimalLimit": null,
+     "isExternalLink": null,
+     "link_key": null,
+     "sub_headers": []
+    },
+    {
+     "order": 2,
+     "id": 298,
+     "header_name": "Total",
+     "isSortable": false,
+     "header_key": null,
+     "isChildExists": true,
+     "isMergedCells": null,
+     "isNumberFormattingRequired": true,
+     "columnSpan": null,
+     "maxDecimalLimit": null,
+     "isExternalLink": null,
+     "link_key": null,
+     "sub_headers": [
+      {
+       "order": 1,
+       "id": 50,
+       "header_name": "Volume (In Mn.)",
+       "header_key": "total_volume_mn",
+       "isSortable": null,
+       "maxDecimalLimit": null
+      },
+      {
+       "order": 2,
+       "id": 51,
+       "header_name": "Value (Cr)",
+       "header_key": "total_value_cr",
+       "isSortable": null,
+       "maxDecimalLimit": null
+      }
+     ]
+    },
+    {
+     "order": 3,
+     "id": 299,
+     "header_name": "P2P",
+     "isSortable": false,
+     "header_key": null,
+     "isChildExists": true,
+     "isMergedCells": null,
+     "isNumberFormattingRequired": true,
+     "columnSpan": null,
+     "maxDecimalLimit": null,
+     "isExternalLink": null,
+     "link_key": null,
+     "sub_headers": [
+      {
+       "order": 1,
+       "id": 52,
+       "header_name": "Volume (In Mn.)",
+       "header_key": "p_2_p_volume_mn",
+       "isSortable": null,
+       "maxDecimalLimit": null
+      },
+      {
+       "order": 2,
+       "id": 53,
+       "header_name": "Value (Cr)",
+       "header_key": "p_2_p_value_cr",
+       "isSortable": null,
+       "maxDecimalLimit": null
+      }
+     ]
+    },
+    {
+     "order": 4,
+     "id": 300,
+     "header_name": "P2M",
+     "isSortable": false,
+     "header_key": null,
+     "isChildExists": true,
+     "isMergedCells": null,
+     "isNumberFormattingRequired": true,
+     "columnSpan": null,
+     "maxDecimalLimit": null,
+     "isExternalLink": null,
+     "link_key": null,
+     "sub_headers": [
+      {
+       "order": 1,
+       "id": 54,
+       "header_name": "Volume (In Mn.)",
+       "header_key": "p_2_m_volume_mn",
+       "isSortable": null,
+       "maxDecimalLimit": null
+      },
+      {
+       "order": 2,
+       "id": 55,
+       "header_name": "Value (Cr)",
+       "header_key": "p_2_m_value_cr",
+       "isSortable": null,
+       "maxDecimalLimit": null
+      }
+     ]
+    }
+   ]
+  },
+  "results": [
+   {
+    "id": 5,
+    "month_value": "Feb'24",
+    "total_volume_mn": "12102.68",
+    "total_value_cr": "1827869.33",
+    "p_2_p_volume_mn": "4742.69",
+    "p_2_p_value_cr": "1348523.03",
+    "p_2_m_volume_mn": "7359.98",
+    "p_2_m_value_cr": "479346.31",
+    "month": "Feb",
+    "year": "2024",
+    "product_name": "UPI",
+    "tab_name": "p2p-and-p2m-transactions",
+    "created_at": "2025-01-07T06:32:33.662Z",
+    "updated_at": "2025-04-04T06:45:59.817Z",
+    "published_at": null,
+    "created_by_id": null,
+    "updated_by_id": 1,
+    "locale": "en"
+   }
+  ],
+  "fileUrl": "/uploads/upi_p2p_p2m_feb_24_c2004d3874.xlsx",
+  "graphicalRepresentations": []
+ }
+}

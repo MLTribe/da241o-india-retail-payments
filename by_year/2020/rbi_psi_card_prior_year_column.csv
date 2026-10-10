@@ -1,0 +1,8 @@
+month,card_total_volume_lakh,card_total_value_crore,credit_total_volume_lakh,credit_total_value_crore,credit_pos_volume_lakh,credit_pos_value_crore,credit_other_volume_lakh,credit_other_value_crore,debit_total_volume_lakh,debit_total_value_crore,debit_pos_volume_lakh,debit_pos_value_crore,debit_other_volume_lakh,debit_other_value_crore,release_month,rbi_release_page_url
+2020-06,4250.89,90484.0,1248.55,42773.0,588.58,19293.0,659.97,23479.0,3002.34,47711.0,1475.38,25788.0,1526.95,21923.0,2021-06,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=1
+2020-07,4481.59,95883.0,1319.66,45558.0,601.63,20107.0,718.03,25451.0,3161.93,50325.0,1461.94,25821.0,1699.99,24504.0,2021-07,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=2
+2020-08,4814.53,105081.0,1425.11,50311.0,659.47,21001.0,765.64,29310.0,3389.42,54770.0,1647.47,29525.0,1741.95,25245.0,2021-08,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=3
+2020-09,4994.52,106500.0,1486.71,51134.0,713.37,21986.0,773.33,29148.0,3507.81,55366.0,1758.83,30422.0,1748.98,24944.0,2021-09,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=4
+2020-10,5650.7,133792.0,1718.03,64652.0,818.33,26956.0,899.7,37696.0,3932.66,69141.0,1983.98,37110.0,1948.68,32031.0,2021-10,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=5
+2020-11,5428.32,130239.0,1662.58,62350.0,874.82,30495.0,787.76,31855.0,3765.75,67889.0,2112.56,42289.0,1653.18,25600.0,2021-11,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=6
+2020-12,5502.88,128665.0,1737.79,63487.0,914.2,28961.0,823.59,34526.0,3765.09,65178.0,2165.5,39437.0,1599.59,25741.0,2021-12,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=7

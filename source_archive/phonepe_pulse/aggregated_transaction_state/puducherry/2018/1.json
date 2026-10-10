@@ -1,0 +1,1 @@
+{"success":true,"code":"SUCCESS","data":{"transactionData":[{"name":"P2P","paymentInstruments":[{"type":"TOTAL","count":40064}]},{"name":"Retail","paymentInstruments":[{"type":"TOTAL","count":65486}]},{"name":"Utility","paymentInstruments":[{"type":"TOTAL","count":662}]}]},"responseTimestamp":1785250546337}

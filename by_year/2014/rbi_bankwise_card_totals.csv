@@ -1,0 +1,8 @@
+month,layout,value_unit_published,atms,pos_terminals,bharat_qr_codes,credit_cards,credit_atm_n,credit_payments_n,credit_atm_v_crore,credit_payments_v_crore,debit_cards,debit_atm_n,debit_payments_n,debit_atm_v_crore,debit_payments_v_crore,source_file
+2014-06,14-column,Rs million,166894.0,1088708.0,,19476550.0,306826.0,48262074.0,166.56,14860.57,409034442.0,555809580.0,59562768.0,179285.08,9273.47,source_archive/rbi/bankwise_html/atmid_40.html
+2014-07,14-column,Rs million,168825.0,1065996.0,,19613711.0,319766.0,50915719.0,172.96,15266.8,413919085.0,583123745.0,64662917.0,185524.47,9908.12,source_archive/rbi/bankwise_html/atmid_44.html
+2014-08,14-column,Rs million,170473.0,1018264.0,,19778659.0,324137.0,50541670.0,173.12,15078.98,424146541.0,587304093.0,67658774.0,182538.32,10475.84,source_archive/rbi/bankwise_html/atmid_41.html
+2014-09,14-column,Rs million,172460.0,1097323.0,,19884624.0,337585.0,50174185.0,184.58,15184.35,432795287.0,592422384.0,64791285.0,185618.69,9715.68,source_archive/rbi/bankwise_html/atmid_43.html
+2014-10,14-column,Rs million,173697.0,1111576.0,,19954598.0,349484.0,54575789.0,193.32,17120.39,441611701.0,601243824.0,73637777.0,192300.96,11956.34,source_archive/rbi/bankwise_html/atmid_42.html
+2014-11,14-column,Rs million,174859.0,1124156.0,,20141291.0,396812.0,48262297.0,234.88,14947.7,466141520.0,565472961.0,70075548.0,183082.78,10347.76,source_archive/rbi/bankwise_html/atmid_45.html
+2014-12,14-column,Rs million,176410.0,1058642.0,,20362859.0,438032.0,56091791.0,250.58,17186.53,500080855.0,591056613.0,73618740.0,189769.33,11100.66,source_archive/rbi/bankwise_html/atmid_46.html

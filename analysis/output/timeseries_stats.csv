@@ -1,216 +1,217 @@
 basket,rail,statistic,period,value,unit,note
-context_retail,IMPS,annualised_growth_first12_to_last12_volume,2022-01..2022-12 -> 2025-04..2026-03,-3.699926,% per year,Compound growth between the first and last 12-month totals.
-context_retail,IMPS,trend_growth_volume,full window: 2022-01..2026-03,-4.187911,% per year,"log-linear OLS, R2=0.233"
-context_retail,IMPS,trend_growth_real_value,full window: 2022-01..2026-03,7.286389,% per year,"log-linear OLS, R2=0.727"
+context_retail,IMPS,annualised_growth_first12_to_last12_volume,2021-06..2022-05 -> 2025-04..2026-03,-0.367402,% per year,Compound growth between the first and last 12-month totals.
+context_retail,IMPS,trend_growth_volume,full window: 2021-06..2026-03,-0.403891,% per year,"log-linear OLS, R2=0.002"
+context_retail,IMPS,trend_growth_real_value,full window: 2021-06..2026-03,10.102019,% per year,"log-linear OLS, R2=0.754"
 context_retail,IMPS,trend_growth_volume,last 24 months: 2024-04..2026-03,-16.176937,% per year,"log-linear OLS, R2=0.644"
 context_retail,IMPS,trend_growth_real_value,last 24 months: 2024-04..2026-03,5.271415,% per year,"log-linear OLS, R2=0.253"
-context_retail,IMPS,seasonal_index_volume,month 01,98.758611,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,IMPS,seasonal_index_volume,month 02,95.562657,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,IMPS,seasonal_index_volume,month 03,106.337711,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,IMPS,seasonal_index_volume,month 04,103.81315,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,IMPS,seasonal_index_volume,month 05,106.214432,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,IMPS,seasonal_index_volume,month 06,100.759037,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,IMPS,seasonal_index_volume,month 07,102.331143,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,IMPS,seasonal_index_volume,month 08,100.843574,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,IMPS,seasonal_index_volume,month 09,94.176458,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,IMPS,seasonal_index_volume,month 10,99.638019,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,IMPS,seasonal_index_volume,month 11,92.872688,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,IMPS,seasonal_index_volume,month 12,98.692519,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,PPI (wallets + cards),annualised_growth_first12_to_last12_volume,2022-01..2022-12 -> 2025-04..2026-03,9.022231,% per year,Compound growth between the first and last 12-month totals.
-context_retail,PPI (wallets + cards),trend_growth_volume,full window: 2022-01..2026-03,7.234966,% per year,"log-linear OLS, R2=0.330"
-context_retail,PPI (wallets + cards),trend_growth_real_value,full window: 2022-01..2026-03,-7.295399,% per year,"log-linear OLS, R2=0.256"
+context_retail,IMPS,seasonal_index_volume,month 01,99.155975,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,IMPS,seasonal_index_volume,month 02,95.214258,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,IMPS,seasonal_index_volume,month 03,106.851641,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,IMPS,seasonal_index_volume,month 04,103.526636,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,IMPS,seasonal_index_volume,month 05,105.798499,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,IMPS,seasonal_index_volume,month 06,99.928743,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,IMPS,seasonal_index_volume,month 07,102.277278,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,IMPS,seasonal_index_volume,month 08,100.790491,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,IMPS,seasonal_index_volume,month 09,94.126885,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,IMPS,seasonal_index_volume,month 10,99.585572,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,IMPS,seasonal_index_volume,month 11,92.823802,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,IMPS,seasonal_index_volume,month 12,99.920221,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,PPI (wallets + cards),annualised_growth_first12_to_last12_volume,2021-06..2022-05 -> 2025-04..2026-03,9.305664,% per year,Compound growth between the first and last 12-month totals.
+context_retail,PPI (wallets + cards),trend_growth_volume,full window: 2021-06..2026-03,7.540206,% per year,"log-linear OLS, R2=0.404"
+context_retail,PPI (wallets + cards),trend_growth_real_value,full window: 2021-06..2026-03,-7.393283,% per year,"log-linear OLS, R2=0.315"
 context_retail,PPI (wallets + cards),trend_growth_volume,last 24 months: 2024-04..2026-03,39.51082,% per year,"log-linear OLS, R2=0.926"
 context_retail,PPI (wallets + cards),trend_growth_real_value,last 24 months: 2024-04..2026-03,31.490829,% per year,"log-linear OLS, R2=0.927"
-context_retail,PPI (wallets + cards),seasonal_index_volume,month 01,106.243869,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,PPI (wallets + cards),seasonal_index_volume,month 02,101.132288,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,PPI (wallets + cards),seasonal_index_volume,month 03,99.46633,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,PPI (wallets + cards),seasonal_index_volume,month 04,95.721216,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,PPI (wallets + cards),seasonal_index_volume,month 05,100.552073,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,PPI (wallets + cards),seasonal_index_volume,month 06,94.686417,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,PPI (wallets + cards),seasonal_index_volume,month 07,96.330674,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,PPI (wallets + cards),seasonal_index_volume,month 08,98.472135,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,PPI (wallets + cards),seasonal_index_volume,month 09,98.27063,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,PPI (wallets + cards),seasonal_index_volume,month 10,101.910418,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,PPI (wallets + cards),seasonal_index_volume,month 11,99.577663,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,PPI (wallets + cards),seasonal_index_volume,month 12,107.636288,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,UPI total,annualised_growth_first12_to_last12_volume,2022-01..2022-12 -> 2025-04..2026-03,43.893578,% per year,Compound growth between the first and last 12-month totals.
-context_retail,UPI total,trend_growth_volume,full window: 2022-01..2026-03,44.615319,% per year,"log-linear OLS, R2=0.975"
-context_retail,UPI total,trend_growth_real_value,full window: 2022-01..2026-03,27.473756,% per year,"log-linear OLS, R2=0.964"
+context_retail,PPI (wallets + cards),seasonal_index_volume,month 01,103.640064,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,PPI (wallets + cards),seasonal_index_volume,month 02,98.480541,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,PPI (wallets + cards),seasonal_index_volume,month 03,100.704053,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,PPI (wallets + cards),seasonal_index_volume,month 04,97.644145,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,PPI (wallets + cards),seasonal_index_volume,month 05,101.653498,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,PPI (wallets + cards),seasonal_index_volume,month 06,95.812274,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,PPI (wallets + cards),seasonal_index_volume,month 07,95.840377,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,PPI (wallets + cards),seasonal_index_volume,month 08,97.970939,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,PPI (wallets + cards),seasonal_index_volume,month 09,97.770459,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,PPI (wallets + cards),seasonal_index_volume,month 10,101.391721,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,PPI (wallets + cards),seasonal_index_volume,month 11,99.07084,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,PPI (wallets + cards),seasonal_index_volume,month 12,110.021089,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,UPI total,annualised_growth_first12_to_last12_volume,2021-06..2022-05 -> 2025-04..2026-03,49.047988,% per year,Compound growth between the first and last 12-month totals.
+context_retail,UPI total,trend_growth_volume,full window: 2021-06..2026-03,49.749829,% per year,"log-linear OLS, R2=0.968"
+context_retail,UPI total,trend_growth_real_value,full window: 2021-06..2026-03,31.446772,% per year,"log-linear OLS, R2=0.951"
 context_retail,UPI total,trend_growth_volume,last 24 months: 2024-04..2026-03,30.031349,% per year,"log-linear OLS, R2=0.959"
 context_retail,UPI total,trend_growth_real_value,last 24 months: 2024-04..2026-03,18.466171,% per year,"log-linear OLS, R2=0.890"
-context_retail,UPI total,seasonal_index_volume,month 01,100.620858,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,UPI total,seasonal_index_volume,month 02,93.524335,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,UPI total,seasonal_index_volume,month 03,102.812014,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,UPI total,seasonal_index_volume,month 04,99.411517,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,UPI total,seasonal_index_volume,month 05,101.773766,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,UPI total,seasonal_index_volume,month 06,97.810428,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,UPI total,seasonal_index_volume,month 07,100.21571,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,UPI total,seasonal_index_volume,month 08,101.414584,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,UPI total,seasonal_index_volume,month 09,98.782871,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,UPI total,seasonal_index_volume,month 10,103.926021,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,UPI total,seasonal_index_volume,month 11,97.871162,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,UPI total,seasonal_index_volume,month 12,101.836733,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,cards (credit + debit),annualised_growth_first12_to_last12_volume,2022-01..2022-12 -> 2025-04..2026-03,4.059422,% per year,Compound growth between the first and last 12-month totals.
-context_retail,cards (credit + debit),trend_growth_volume,full window: 2022-01..2026-03,4.543814,% per year,"log-linear OLS, R2=0.348"
-context_retail,cards (credit + debit),trend_growth_real_value,full window: 2022-01..2026-03,5.494037,% per year,"log-linear OLS, R2=0.565"
+context_retail,UPI total,seasonal_index_volume,month 01,99.899818,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,UPI total,seasonal_index_volume,month 02,92.89065,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,UPI total,seasonal_index_volume,month 03,102.941973,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,UPI total,seasonal_index_volume,month 04,99.98518,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,UPI total,seasonal_index_volume,month 05,102.23533,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,UPI total,seasonal_index_volume,month 06,97.73669,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,UPI total,seasonal_index_volume,month 07,100.253755,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,UPI total,seasonal_index_volume,month 08,101.453084,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,UPI total,seasonal_index_volume,month 09,98.820372,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,UPI total,seasonal_index_volume,month 10,103.965475,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,UPI total,seasonal_index_volume,month 11,97.908317,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,UPI total,seasonal_index_volume,month 12,101.909355,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,cards (credit + debit),annualised_growth_first12_to_last12_volume,2021-06..2022-05 -> 2025-04..2026-03,3.336062,% per year,Compound growth between the first and last 12-month totals.
+context_retail,cards (credit + debit),trend_growth_volume,full window: 2021-06..2026-03,3.103058,% per year,"log-linear OLS, R2=0.220"
+context_retail,cards (credit + debit),trend_growth_real_value,full window: 2021-06..2026-03,6.689845,% per year,"log-linear OLS, R2=0.627"
 context_retail,cards (credit + debit),trend_growth_volume,last 24 months: 2024-04..2026-03,14.028334,% per year,"log-linear OLS, R2=0.798"
 context_retail,cards (credit + debit),trend_growth_real_value,last 24 months: 2024-04..2026-03,5.758315,% per year,"log-linear OLS, R2=0.240"
-context_retail,cards (credit + debit),seasonal_index_volume,month 01,100.475523,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,cards (credit + debit),seasonal_index_volume,month 02,91.951089,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,cards (credit + debit),seasonal_index_volume,month 03,101.591776,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,cards (credit + debit),seasonal_index_volume,month 04,99.207237,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,cards (credit + debit),seasonal_index_volume,month 05,101.199737,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,cards (credit + debit),seasonal_index_volume,month 06,97.423505,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,cards (credit + debit),seasonal_index_volume,month 07,101.78736,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,cards (credit + debit),seasonal_index_volume,month 08,102.376101,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,cards (credit + debit),seasonal_index_volume,month 09,98.870819,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,cards (credit + debit),seasonal_index_volume,month 10,106.346242,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,cards (credit + debit),seasonal_index_volume,month 11,96.429648,"index, mean=100",Ratio to centred 2x12 moving average.
-context_retail,cards (credit + debit),seasonal_index_volume,month 12,102.340963,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant,UPI P2M,annualised_growth_first12_to_last12_volume,2022-01..2022-12 -> 2025-04..2026-03,56.986539,% per year,Compound growth between the first and last 12-month totals.
-merchant,UPI P2M,trend_growth_volume,full window: 2022-01..2026-03,58.540561,% per year,"log-linear OLS, R2=0.944"
-merchant,UPI P2M,trend_growth_real_value,full window: 2022-01..2026-03,40.684056,% per year,"log-linear OLS, R2=0.954"
+context_retail,cards (credit + debit),seasonal_index_volume,month 01,98.999893,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,cards (credit + debit),seasonal_index_volume,month 02,91.140918,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,cards (credit + debit),seasonal_index_volume,month 03,101.463389,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,cards (credit + debit),seasonal_index_volume,month 04,99.882585,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,cards (credit + debit),seasonal_index_volume,month 05,102.286665,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,cards (credit + debit),seasonal_index_volume,month 06,98.136575,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,cards (credit + debit),seasonal_index_volume,month 07,101.696353,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,cards (credit + debit),seasonal_index_volume,month 08,102.284568,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,cards (credit + debit),seasonal_index_volume,month 09,98.78242,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,cards (credit + debit),seasonal_index_volume,month 10,106.25116,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,cards (credit + debit),seasonal_index_volume,month 11,96.343431,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,cards (credit + debit),seasonal_index_volume,month 12,102.732043,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,UPI P2M,annualised_growth_first12_to_last12_volume,2021-06..2022-05 -> 2025-04..2026-03,65.893045,% per year,Compound growth between the first and last 12-month totals.
+merchant,UPI P2M,trend_growth_volume,full window: 2021-06..2026-03,65.584812,% per year,"log-linear OLS, R2=0.952"
+merchant,UPI P2M,trend_growth_real_value,full window: 2021-06..2026-03,45.985447,% per year,"log-linear OLS, R2=0.953"
 merchant,UPI P2M,trend_growth_volume,last 24 months: 2024-04..2026-03,30.666657,% per year,"log-linear OLS, R2=0.957"
 merchant,UPI P2M,trend_growth_real_value,last 24 months: 2024-04..2026-03,23.160483,% per year,"log-linear OLS, R2=0.898"
-merchant,UPI P2M,seasonal_index_volume,month 01,100.353921,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant,UPI P2M,seasonal_index_volume,month 02,92.808276,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant,UPI P2M,seasonal_index_volume,month 03,102.314734,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant,UPI P2M,seasonal_index_volume,month 04,99.975483,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant,UPI P2M,seasonal_index_volume,month 05,102.256294,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant,UPI P2M,seasonal_index_volume,month 06,98.27801,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant,UPI P2M,seasonal_index_volume,month 07,100.055607,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant,UPI P2M,seasonal_index_volume,month 08,101.826627,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant,UPI P2M,seasonal_index_volume,month 09,99.266885,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant,UPI P2M,seasonal_index_volume,month 10,104.115184,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant,UPI P2M,seasonal_index_volume,month 11,97.269292,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant,UPI P2M,seasonal_index_volume,month 12,101.479687,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant,credit card,annualised_growth_first12_to_last12_volume,2022-01..2022-12 -> 2025-04..2026-03,27.012668,% per year,Compound growth between the first and last 12-month totals.
-merchant,credit card,trend_growth_volume,full window: 2022-01..2026-03,27.915316,% per year,"log-linear OLS, R2=0.975"
-merchant,credit card,trend_growth_real_value,full window: 2022-01..2026-03,14.69474,% per year,"log-linear OLS, R2=0.846"
+merchant,UPI P2M,seasonal_index_volume,month 01,99.488682,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,UPI P2M,seasonal_index_volume,month 02,92.72741,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,UPI P2M,seasonal_index_volume,month 03,101.883641,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,UPI P2M,seasonal_index_volume,month 04,99.041284,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,UPI P2M,seasonal_index_volume,month 05,101.849816,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,UPI P2M,seasonal_index_volume,month 06,97.250738,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,UPI P2M,seasonal_index_volume,month 07,101.014989,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,UPI P2M,seasonal_index_volume,month 08,102.802991,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,UPI P2M,seasonal_index_volume,month 09,100.218704,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,UPI P2M,seasonal_index_volume,month 10,105.113492,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,UPI P2M,seasonal_index_volume,month 11,98.201958,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,UPI P2M,seasonal_index_volume,month 12,100.406296,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,credit card,annualised_growth_first12_to_last12_volume,2021-06..2022-05 -> 2025-04..2026-03,27.01363,% per year,Compound growth between the first and last 12-month totals.
+merchant,credit card,trend_growth_volume,full window: 2021-06..2026-03,27.458893,% per year,"log-linear OLS, R2=0.977"
+merchant,credit card,trend_growth_real_value,full window: 2021-06..2026-03,17.424363,% per year,"log-linear OLS, R2=0.859"
 merchant,credit card,trend_growth_volume,last 24 months: 2024-04..2026-03,26.252137,% per year,"log-linear OLS, R2=0.923"
 merchant,credit card,trend_growth_real_value,last 24 months: 2024-04..2026-03,10.163206,% per year,"log-linear OLS, R2=0.457"
-merchant,credit card,seasonal_index_volume,month 01,101.774202,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant,credit card,seasonal_index_volume,month 02,91.882289,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant,credit card,seasonal_index_volume,month 03,101.931879,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant,credit card,seasonal_index_volume,month 04,98.794813,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant,credit card,seasonal_index_volume,month 05,101.288478,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant,credit card,seasonal_index_volume,month 06,97.071522,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant,credit card,seasonal_index_volume,month 07,100.930056,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant,credit card,seasonal_index_volume,month 08,101.967365,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant,credit card,seasonal_index_volume,month 09,98.952161,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant,credit card,seasonal_index_volume,month 10,106.637415,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant,credit card,seasonal_index_volume,month 11,96.054023,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant,credit card,seasonal_index_volume,month 12,102.715798,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant,debit card,annualised_growth_first12_to_last12_volume,2022-01..2022-12 -> 2025-04..2026-03,-27.548469,% per year,Compound growth between the first and last 12-month totals.
-merchant,debit card,trend_growth_volume,full window: 2022-01..2026-03,-27.655973,% per year,"log-linear OLS, R2=0.975"
-merchant,debit card,trend_growth_real_value,full window: 2022-01..2026-03,-18.026464,% per year,"log-linear OLS, R2=0.935"
+merchant,credit card,seasonal_index_volume,month 01,99.820769,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,credit card,seasonal_index_volume,month 02,91.043661,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,credit card,seasonal_index_volume,month 03,102.150138,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,credit card,seasonal_index_volume,month 04,99.214696,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,credit card,seasonal_index_volume,month 05,102.390757,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,credit card,seasonal_index_volume,month 06,97.772142,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,credit card,seasonal_index_volume,month 07,100.936705,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,credit card,seasonal_index_volume,month 08,101.974083,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,credit card,seasonal_index_volume,month 09,98.95868,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,credit card,seasonal_index_volume,month 10,106.64444,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,credit card,seasonal_index_volume,month 11,96.060352,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,credit card,seasonal_index_volume,month 12,103.033577,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,debit card,annualised_growth_first12_to_last12_volume,2021-06..2022-05 -> 2025-04..2026-03,-25.864246,% per year,Compound growth between the first and last 12-month totals.
+merchant,debit card,trend_growth_volume,full window: 2021-06..2026-03,-26.754532,% per year,"log-linear OLS, R2=0.972"
+merchant,debit card,trend_growth_real_value,full window: 2021-06..2026-03,-17.4515,% per year,"log-linear OLS, R2=0.926"
 merchant,debit card,trend_growth_volume,last 24 months: 2024-04..2026-03,-21.023231,% per year,"log-linear OLS, R2=0.910"
 merchant,debit card,trend_growth_real_value,last 24 months: 2024-04..2026-03,-12.298875,% per year,"log-linear OLS, R2=0.616"
-merchant,debit card,seasonal_index_volume,month 01,98.418399,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant,debit card,seasonal_index_volume,month 02,91.758889,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant,debit card,seasonal_index_volume,month 03,100.971507,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant,debit card,seasonal_index_volume,month 04,100.070613,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant,debit card,seasonal_index_volume,month 05,101.109346,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant,debit card,seasonal_index_volume,month 06,97.887025,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant,debit card,seasonal_index_volume,month 07,102.878871,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant,debit card,seasonal_index_volume,month 08,103.482189,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant,debit card,seasonal_index_volume,month 09,98.738572,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant,debit card,seasonal_index_volume,month 10,106.01578,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant,debit card,seasonal_index_volume,month 11,96.980249,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant,debit card,seasonal_index_volume,month 12,101.688562,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,UPI P2M,annualised_growth_first12_to_last12_volume,2022-01..2022-12 -> 2025-04..2026-03,56.986539,% per year,Compound growth between the first and last 12-month totals.
-merchant_channel,UPI P2M,trend_growth_volume,full window: 2022-01..2026-03,58.540561,% per year,"log-linear OLS, R2=0.944"
-merchant_channel,UPI P2M,trend_growth_real_value,full window: 2022-01..2026-03,40.684056,% per year,"log-linear OLS, R2=0.954"
+merchant,debit card,seasonal_index_volume,month 01,97.547081,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,debit card,seasonal_index_volume,month 02,91.020682,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,debit card,seasonal_index_volume,month 03,100.70779,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,debit card,seasonal_index_volume,month 04,100.778018,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,debit card,seasonal_index_volume,month 05,102.195261,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,debit card,seasonal_index_volume,month 06,98.562727,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,debit card,seasonal_index_volume,month 07,102.649685,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,debit card,seasonal_index_volume,month 08,103.25166,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,debit card,seasonal_index_volume,month 09,98.518609,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,debit card,seasonal_index_volume,month 10,105.779606,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,debit card,seasonal_index_volume,month 11,96.764204,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant,debit card,seasonal_index_volume,month 12,102.224677,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,UPI P2M,annualised_growth_first12_to_last12_volume,2021-06..2022-05 -> 2025-04..2026-03,65.893045,% per year,Compound growth between the first and last 12-month totals.
+merchant_channel,UPI P2M,trend_growth_volume,full window: 2021-06..2026-03,65.584812,% per year,"log-linear OLS, R2=0.952"
+merchant_channel,UPI P2M,trend_growth_real_value,full window: 2021-06..2026-03,45.985447,% per year,"log-linear OLS, R2=0.953"
 merchant_channel,UPI P2M,trend_growth_volume,last 24 months: 2024-04..2026-03,30.666657,% per year,"log-linear OLS, R2=0.957"
 merchant_channel,UPI P2M,trend_growth_real_value,last 24 months: 2024-04..2026-03,23.160483,% per year,"log-linear OLS, R2=0.898"
-merchant_channel,UPI P2M,seasonal_index_volume,month 01,100.353921,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,UPI P2M,seasonal_index_volume,month 02,92.808276,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,UPI P2M,seasonal_index_volume,month 03,102.314734,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,UPI P2M,seasonal_index_volume,month 04,99.975483,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,UPI P2M,seasonal_index_volume,month 05,102.256294,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,UPI P2M,seasonal_index_volume,month 06,98.27801,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,UPI P2M,seasonal_index_volume,month 07,100.055607,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,UPI P2M,seasonal_index_volume,month 08,101.826627,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,UPI P2M,seasonal_index_volume,month 09,99.266885,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,UPI P2M,seasonal_index_volume,month 10,104.115184,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,UPI P2M,seasonal_index_volume,month 11,97.269292,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,UPI P2M,seasonal_index_volume,month 12,101.479687,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,credit card PoS,annualised_growth_first12_to_last12_volume,2022-01..2022-12 -> 2025-04..2026-03,24.658494,% per year,Compound growth between the first and last 12-month totals.
-merchant_channel,credit card PoS,trend_growth_volume,full window: 2022-01..2026-03,25.84863,% per year,"log-linear OLS, R2=0.965"
-merchant_channel,credit card PoS,trend_growth_real_value,full window: 2022-01..2026-03,14.591435,% per year,"log-linear OLS, R2=0.839"
+merchant_channel,UPI P2M,seasonal_index_volume,month 01,99.488682,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,UPI P2M,seasonal_index_volume,month 02,92.72741,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,UPI P2M,seasonal_index_volume,month 03,101.883641,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,UPI P2M,seasonal_index_volume,month 04,99.041284,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,UPI P2M,seasonal_index_volume,month 05,101.849816,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,UPI P2M,seasonal_index_volume,month 06,97.250738,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,UPI P2M,seasonal_index_volume,month 07,101.014989,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,UPI P2M,seasonal_index_volume,month 08,102.802991,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,UPI P2M,seasonal_index_volume,month 09,100.218704,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,UPI P2M,seasonal_index_volume,month 10,105.113492,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,UPI P2M,seasonal_index_volume,month 11,98.201958,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,UPI P2M,seasonal_index_volume,month 12,100.406296,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card PoS,annualised_growth_first12_to_last12_volume,2021-06..2022-05 -> 2025-04..2026-03,26.60641,% per year,Compound growth between the first and last 12-month totals.
+merchant_channel,credit card PoS,trend_growth_volume,full window: 2021-06..2026-03,26.606281,% per year,"log-linear OLS, R2=0.962"
+merchant_channel,credit card PoS,trend_growth_real_value,full window: 2021-06..2026-03,16.270407,% per year,"log-linear OLS, R2=0.860"
 merchant_channel,credit card PoS,trend_growth_volume,last 24 months: 2024-04..2026-03,22.197862,% per year,"log-linear OLS, R2=0.900"
 merchant_channel,credit card PoS,trend_growth_real_value,last 24 months: 2024-04..2026-03,9.618542,% per year,"log-linear OLS, R2=0.382"
-merchant_channel,credit card PoS,seasonal_index_volume,month 01,101.532788,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,credit card PoS,seasonal_index_volume,month 02,91.280624,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,credit card PoS,seasonal_index_volume,month 03,101.148582,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,credit card PoS,seasonal_index_volume,month 04,100.052522,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,credit card PoS,seasonal_index_volume,month 05,100.83828,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,credit card PoS,seasonal_index_volume,month 06,97.596148,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,credit card PoS,seasonal_index_volume,month 07,99.143946,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,credit card PoS,seasonal_index_volume,month 08,102.30431,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,credit card PoS,seasonal_index_volume,month 09,97.173873,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,credit card PoS,seasonal_index_volume,month 10,105.955261,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,credit card PoS,seasonal_index_volume,month 11,97.926968,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,credit card PoS,seasonal_index_volume,month 12,105.046699,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,credit card online/other,annualised_growth_first12_to_last12_volume,2022-01..2022-12 -> 2025-04..2026-03,29.574215,% per year,Compound growth between the first and last 12-month totals.
-merchant_channel,credit card online/other,trend_growth_volume,full window: 2022-01..2026-03,30.217366,% per year,"log-linear OLS, R2=0.967"
-merchant_channel,credit card online/other,trend_growth_real_value,full window: 2022-01..2026-03,14.755562,% per year,"log-linear OLS, R2=0.790"
+merchant_channel,credit card PoS,seasonal_index_volume,month 01,98.785962,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card PoS,seasonal_index_volume,month 02,90.573643,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card PoS,seasonal_index_volume,month 03,101.21782,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card PoS,seasonal_index_volume,month 04,100.133899,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card PoS,seasonal_index_volume,month 05,101.599841,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card PoS,seasonal_index_volume,month 06,98.423178,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card PoS,seasonal_index_volume,month 07,99.414294,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card PoS,seasonal_index_volume,month 08,102.583275,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card PoS,seasonal_index_volume,month 09,97.438849,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card PoS,seasonal_index_volume,month 10,106.244181,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card PoS,seasonal_index_volume,month 11,98.193997,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card PoS,seasonal_index_volume,month 12,105.391062,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card online/other,annualised_growth_first12_to_last12_volume,2021-06..2022-05 -> 2025-04..2026-03,27.428278,% per year,Compound growth between the first and last 12-month totals.
+merchant_channel,credit card online/other,trend_growth_volume,full window: 2021-06..2026-03,28.456034,% per year,"log-linear OLS, R2=0.966"
+merchant_channel,credit card online/other,trend_growth_real_value,full window: 2021-06..2026-03,18.147218,% per year,"log-linear OLS, R2=0.823"
 merchant_channel,credit card online/other,trend_growth_volume,last 24 months: 2024-04..2026-03,30.637142,% per year,"log-linear OLS, R2=0.927"
 merchant_channel,credit card online/other,trend_growth_real_value,last 24 months: 2024-04..2026-03,10.456361,% per year,"log-linear OLS, R2=0.381"
-merchant_channel,credit card online/other,seasonal_index_volume,month 01,102.04786,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,credit card online/other,seasonal_index_volume,month 02,92.556099,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,credit card online/other,seasonal_index_volume,month 03,102.82796,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,credit card online/other,seasonal_index_volume,month 04,97.422499,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,credit card online/other,seasonal_index_volume,month 05,101.841202,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,credit card online/other,seasonal_index_volume,month 06,96.567125,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,credit card online/other,seasonal_index_volume,month 07,102.953955,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,credit card online/other,seasonal_index_volume,month 08,101.63111,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,credit card online/other,seasonal_index_volume,month 09,100.878885,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,credit card online/other,seasonal_index_volume,month 10,107.265465,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,credit card online/other,seasonal_index_volume,month 11,93.937713,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,credit card online/other,seasonal_index_volume,month 12,100.070127,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,debit card PoS,annualised_growth_first12_to_last12_volume,2022-01..2022-12 -> 2025-04..2026-03,-24.370344,% per year,Compound growth between the first and last 12-month totals.
-merchant_channel,debit card PoS,trend_growth_volume,full window: 2022-01..2026-03,-24.564158,% per year,"log-linear OLS, R2=0.971"
-merchant_channel,debit card PoS,trend_growth_real_value,full window: 2022-01..2026-03,-17.743491,% per year,"log-linear OLS, R2=0.919"
+merchant_channel,credit card online/other,seasonal_index_volume,month 01,100.927095,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card online/other,seasonal_index_volume,month 02,91.568125,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card online/other,seasonal_index_volume,month 03,103.193404,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card online/other,seasonal_index_volume,month 04,98.224867,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card online/other,seasonal_index_volume,month 05,103.318371,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card online/other,seasonal_index_volume,month 06,97.120162,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card online/other,seasonal_index_volume,month 07,102.660923,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card online/other,seasonal_index_volume,month 08,101.341843,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card online/other,seasonal_index_volume,month 09,100.59176,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card online/other,seasonal_index_volume,month 10,106.960161,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card online/other,seasonal_index_volume,month 11,93.670343,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,credit card online/other,seasonal_index_volume,month 12,100.422946,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card PoS,annualised_growth_first12_to_last12_volume,2021-06..2022-05 -> 2025-04..2026-03,-21.587001,% per year,Compound growth between the first and last 12-month totals.
+merchant_channel,debit card PoS,trend_growth_volume,full window: 2021-06..2026-03,-22.58158,% per year,"log-linear OLS, R2=0.937"
+merchant_channel,debit card PoS,trend_growth_real_value,full window: 2021-06..2026-03,-16.495762,% per year,"log-linear OLS, R2=0.884"
 merchant_channel,debit card PoS,trend_growth_volume,last 24 months: 2024-04..2026-03,-20.316046,% per year,"log-linear OLS, R2=0.902"
 merchant_channel,debit card PoS,trend_growth_real_value,last 24 months: 2024-04..2026-03,-13.647249,% per year,"log-linear OLS, R2=0.599"
-merchant_channel,debit card PoS,seasonal_index_volume,month 01,98.399895,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,debit card PoS,seasonal_index_volume,month 02,91.472733,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,debit card PoS,seasonal_index_volume,month 03,100.205453,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,debit card PoS,seasonal_index_volume,month 04,100.509144,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,debit card PoS,seasonal_index_volume,month 05,101.281759,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,debit card PoS,seasonal_index_volume,month 06,98.17578,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,debit card PoS,seasonal_index_volume,month 07,101.9302,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,debit card PoS,seasonal_index_volume,month 08,103.68683,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,debit card PoS,seasonal_index_volume,month 09,97.409256,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,debit card PoS,seasonal_index_volume,month 10,106.389334,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,debit card PoS,seasonal_index_volume,month 11,97.531212,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,debit card PoS,seasonal_index_volume,month 12,103.008404,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,debit card online/other,annualised_growth_first12_to_last12_volume,2022-01..2022-12 -> 2025-04..2026-03,-34.540357,% per year,Compound growth between the first and last 12-month totals.
-merchant_channel,debit card online/other,trend_growth_volume,full window: 2022-01..2026-03,-34.450193,% per year,"log-linear OLS, R2=0.966"
-merchant_channel,debit card online/other,trend_growth_real_value,full window: 2022-01..2026-03,-18.55795,% per year,"log-linear OLS, R2=0.898"
+merchant_channel,debit card PoS,seasonal_index_volume,month 01,96.86134,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card PoS,seasonal_index_volume,month 02,90.703507,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card PoS,seasonal_index_volume,month 03,100.218028,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card PoS,seasonal_index_volume,month 04,101.277697,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card PoS,seasonal_index_volume,month 05,102.391676,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card PoS,seasonal_index_volume,month 06,98.712581,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card PoS,seasonal_index_volume,month 07,101.70901,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card PoS,seasonal_index_volume,month 08,103.461829,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card PoS,seasonal_index_volume,month 09,97.197878,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card PoS,seasonal_index_volume,month 10,106.158469,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card PoS,seasonal_index_volume,month 11,97.319568,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card PoS,seasonal_index_volume,month 12,103.988418,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card online/other,annualised_growth_first12_to_last12_volume,2021-06..2022-05 -> 2025-04..2026-03,-34.208499,% per year,Compound growth between the first and last 12-month totals.
+merchant_channel,debit card online/other,trend_growth_volume,full window: 2021-06..2026-03,-34.916844,% per year,"log-linear OLS, R2=0.976"
+merchant_channel,debit card online/other,trend_growth_real_value,full window: 2021-06..2026-03,-19.125823,% per year,"log-linear OLS, R2=0.921"
 merchant_channel,debit card online/other,trend_growth_volume,last 24 months: 2024-04..2026-03,-23.08026,% per year,"log-linear OLS, R2=0.905"
 merchant_channel,debit card online/other,trend_growth_real_value,last 24 months: 2024-04..2026-03,-9.595925,% per year,"log-linear OLS, R2=0.384"
-merchant_channel,debit card online/other,seasonal_index_volume,month 01,98.474608,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,debit card online/other,seasonal_index_volume,month 02,92.584279,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,debit card online/other,seasonal_index_volume,month 03,102.891247,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,debit card online/other,seasonal_index_volume,month 04,98.887608,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,debit card online/other,seasonal_index_volume,month 05,100.578217,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,debit card online/other,seasonal_index_volume,month 06,96.996125,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,debit card online/other,seasonal_index_volume,month 07,105.387682,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,debit card online/other,seasonal_index_volume,month 08,102.828504,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,debit card online/other,seasonal_index_volume,month 09,101.950002,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,debit card online/other,seasonal_index_volume,month 10,105.535123,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,debit card online/other,seasonal_index_volume,month 11,95.595729,"index, mean=100",Ratio to centred 2x12 moving average.
-merchant_channel,debit card online/other,seasonal_index_volume,month 12,98.290875,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card online/other,seasonal_index_volume,month 01,98.68073,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card online/other,seasonal_index_volume,month 02,91.802554,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card online/other,seasonal_index_volume,month 03,101.987433,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card online/other,seasonal_index_volume,month 04,99.575028,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card online/other,seasonal_index_volume,month 05,101.658288,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card online/other,seasonal_index_volume,month 06,98.001366,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card online/other,seasonal_index_volume,month 07,105.086365,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card online/other,seasonal_index_volume,month 08,102.534505,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card online/other,seasonal_index_volume,month 09,101.658515,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card online/other,seasonal_index_volume,month 10,105.233385,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card online/other,seasonal_index_volume,month 11,95.322408,"index, mean=100",Ratio to centred 2x12 moving average.
+merchant_channel,debit card online/other,seasonal_index_volume,month 12,98.459423,"index, mean=100",Ratio to centred 2x12 moving average.
 transfer,IMPS,annualised_growth_first12_to_last12_volume,2016-04..2017-03 -> 2025-04..2026-03,28.795953,% per year,Compound growth between the first and last 12-month totals.
 transfer,IMPS,trend_growth_volume,full window: 2016-04..2026-03,29.12796,% per year,"log-linear OLS, R2=0.791"
-transfer,IMPS,trend_growth_real_value,full window: 2016-04..2026-03,7.286389,% per year,"log-linear OLS, R2=0.727"
+transfer,IMPS,trend_growth_real_value,full window: 2016-04..2026-03,30.244097,% per year,"log-linear OLS, R2=0.863"
 transfer,IMPS,trend_growth_volume,last 24 months: 2024-04..2026-03,-16.176937,% per year,"log-linear OLS, R2=0.644"
 transfer,IMPS,trend_growth_real_value,last 24 months: 2024-04..2026-03,5.271415,% per year,"log-linear OLS, R2=0.253"
 transfer,IMPS,trend_growth_volume,before 2020-04: 2016-04..2020-03,75.497117,% per year,"log-linear OLS, R2=0.962"
+transfer,IMPS,trend_growth_real_value,before 2020-04: 2016-04..2020-03,74.893715,% per year,"log-linear OLS, R2=0.949"
 transfer,IMPS,trend_growth_volume,from 2020-04: 2020-04..2026-03,8.973323,% per year,"log-linear OLS, R2=0.295"
-transfer,IMPS,trend_growth_real_value,from 2020-04: 2020-04..2026-03,7.286389,% per year,"log-linear OLS, R2=0.727"
+transfer,IMPS,trend_growth_real_value,from 2020-04: 2020-04..2026-03,15.800696,% per year,"log-linear OLS, R2=0.763"
 transfer,IMPS,seasonal_index_volume,month 01,105.920693,"index, mean=100",Ratio to centred 2x12 moving average.
 transfer,IMPS,seasonal_index_volume,month 02,99.446999,"index, mean=100",Ratio to centred 2x12 moving average.
 transfer,IMPS,seasonal_index_volume,month 03,106.455273,"index, mean=100",Ratio to centred 2x12 moving average.
@@ -225,12 +226,13 @@ transfer,IMPS,seasonal_index_volume,month 11,97.484559,"index, mean=100",Ratio t
 transfer,IMPS,seasonal_index_volume,month 12,106.748464,"index, mean=100",Ratio to centred 2x12 moving average.
 transfer,UPI total,annualised_growth_first12_to_last12_volume,2016-04..2017-03 -> 2025-04..2026-03,187.757938,% per year,Compound growth between the first and last 12-month totals.
 transfer,UPI total,trend_growth_volume,full window: 2016-04..2026-03,151.129741,% per year,"log-linear OLS, R2=0.770"
-transfer,UPI total,trend_growth_real_value,full window: 2016-04..2026-03,27.473756,% per year,"log-linear OLS, R2=0.964"
+transfer,UPI total,trend_growth_real_value,full window: 2016-04..2026-03,132.536739,% per year,"log-linear OLS, R2=0.701"
 transfer,UPI total,trend_growth_volume,last 24 months: 2024-04..2026-03,30.031349,% per year,"log-linear OLS, R2=0.959"
 transfer,UPI total,trend_growth_real_value,last 24 months: 2024-04..2026-03,18.466171,% per year,"log-linear OLS, R2=0.890"
 transfer,UPI total,trend_growth_volume,before 2020-04: 2016-04..2020-03,1102.644723,% per year,"log-linear OLS, R2=0.842"
+transfer,UPI total,trend_growth_real_value,before 2020-04: 2016-04..2020-03,1054.771857,% per year,"log-linear OLS, R2=0.775"
 transfer,UPI total,trend_growth_volume,from 2020-04: 2020-04..2026-03,61.841826,% per year,"log-linear OLS, R2=0.957"
-transfer,UPI total,trend_growth_real_value,from 2020-04: 2020-04..2026-03,27.473756,% per year,"log-linear OLS, R2=0.964"
+transfer,UPI total,trend_growth_real_value,from 2020-04: 2020-04..2026-03,43.280016,% per year,"log-linear OLS, R2=0.912"
 transfer,UPI total,seasonal_index_volume,month 01,108.771637,"index, mean=100",Ratio to centred 2x12 moving average.
 transfer,UPI total,seasonal_index_volume,month 02,100.129217,"index, mean=100",Ratio to centred 2x12 moving average.
 transfer,UPI total,seasonal_index_volume,month 03,105.177938,"index, mean=100",Ratio to centred 2x12 moving average.
@@ -243,40 +245,54 @@ transfer,UPI total,seasonal_index_volume,month 09,96.013528,"index, mean=100",Ra
 transfer,UPI total,seasonal_index_volume,month 10,108.19212,"index, mean=100",Ratio to centred 2x12 moving average.
 transfer,UPI total,seasonal_index_volume,month 11,107.078796,"index, mean=100",Ratio to centred 2x12 moving average.
 transfer,UPI total,seasonal_index_volume,month 12,112.478176,"index, mean=100",Ratio to centred 2x12 moving average.
-upi_use,UPI P2M,annualised_growth_first12_to_last12_volume,2022-01..2022-12 -> 2025-04..2026-03,56.986539,% per year,Compound growth between the first and last 12-month totals.
-upi_use,UPI P2M,trend_growth_volume,full window: 2022-01..2026-03,58.540561,% per year,"log-linear OLS, R2=0.944"
-upi_use,UPI P2M,trend_growth_real_value,full window: 2022-01..2026-03,40.684056,% per year,"log-linear OLS, R2=0.954"
+upi_use,UPI P2M,annualised_growth_first12_to_last12_volume,2021-06..2022-05 -> 2025-04..2026-03,65.893045,% per year,Compound growth between the first and last 12-month totals.
+upi_use,UPI P2M,trend_growth_volume,full window: 2021-06..2026-03,65.584812,% per year,"log-linear OLS, R2=0.952"
+upi_use,UPI P2M,trend_growth_real_value,full window: 2021-06..2026-03,45.985447,% per year,"log-linear OLS, R2=0.953"
 upi_use,UPI P2M,trend_growth_volume,last 24 months: 2024-04..2026-03,30.666657,% per year,"log-linear OLS, R2=0.957"
 upi_use,UPI P2M,trend_growth_real_value,last 24 months: 2024-04..2026-03,23.160483,% per year,"log-linear OLS, R2=0.898"
-upi_use,UPI P2M,seasonal_index_volume,month 01,100.353921,"index, mean=100",Ratio to centred 2x12 moving average.
-upi_use,UPI P2M,seasonal_index_volume,month 02,92.808276,"index, mean=100",Ratio to centred 2x12 moving average.
-upi_use,UPI P2M,seasonal_index_volume,month 03,102.314734,"index, mean=100",Ratio to centred 2x12 moving average.
-upi_use,UPI P2M,seasonal_index_volume,month 04,99.975483,"index, mean=100",Ratio to centred 2x12 moving average.
-upi_use,UPI P2M,seasonal_index_volume,month 05,102.256294,"index, mean=100",Ratio to centred 2x12 moving average.
-upi_use,UPI P2M,seasonal_index_volume,month 06,98.27801,"index, mean=100",Ratio to centred 2x12 moving average.
-upi_use,UPI P2M,seasonal_index_volume,month 07,100.055607,"index, mean=100",Ratio to centred 2x12 moving average.
-upi_use,UPI P2M,seasonal_index_volume,month 08,101.826627,"index, mean=100",Ratio to centred 2x12 moving average.
-upi_use,UPI P2M,seasonal_index_volume,month 09,99.266885,"index, mean=100",Ratio to centred 2x12 moving average.
-upi_use,UPI P2M,seasonal_index_volume,month 10,104.115184,"index, mean=100",Ratio to centred 2x12 moving average.
-upi_use,UPI P2M,seasonal_index_volume,month 11,97.269292,"index, mean=100",Ratio to centred 2x12 moving average.
-upi_use,UPI P2M,seasonal_index_volume,month 12,101.479687,"index, mean=100",Ratio to centred 2x12 moving average.
-upi_use,UPI P2P,annualised_growth_first12_to_last12_volume,2022-01..2022-12 -> 2025-04..2026-03,29.164885,% per year,Compound growth between the first and last 12-month totals.
-upi_use,UPI P2P,trend_growth_volume,full window: 2022-01..2026-03,29.619029,% per year,"log-linear OLS, R2=0.984"
-upi_use,UPI P2P,trend_growth_real_value,full window: 2022-01..2026-03,23.421091,% per year,"log-linear OLS, R2=0.960"
+upi_use,UPI P2M,seasonal_index_volume,month 01,99.488682,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2M,seasonal_index_volume,month 02,92.72741,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2M,seasonal_index_volume,month 03,101.883641,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2M,seasonal_index_volume,month 04,99.041284,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2M,seasonal_index_volume,month 05,101.849816,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2M,seasonal_index_volume,month 06,97.250738,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2M,seasonal_index_volume,month 07,101.014989,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2M,seasonal_index_volume,month 08,102.802991,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2M,seasonal_index_volume,month 09,100.218704,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2M,seasonal_index_volume,month 10,105.113492,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2M,seasonal_index_volume,month 11,98.201958,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2M,seasonal_index_volume,month 12,100.406296,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2P,annualised_growth_first12_to_last12_volume,2021-06..2022-05 -> 2025-04..2026-03,32.410325,% per year,Compound growth between the first and last 12-month totals.
+upi_use,UPI P2P,trend_growth_volume,full window: 2021-06..2026-03,33.471436,% per year,"log-linear OLS, R2=0.956"
+upi_use,UPI P2P,trend_growth_real_value,full window: 2021-06..2026-03,27.158508,% per year,"log-linear OLS, R2=0.943"
 upi_use,UPI P2P,trend_growth_volume,last 24 months: 2024-04..2026-03,28.968147,% per year,"log-linear OLS, R2=0.953"
 upi_use,UPI P2P,trend_growth_real_value,last 24 months: 2024-04..2026-03,16.655606,% per year,"log-linear OLS, R2=0.860"
-upi_use,UPI P2P,seasonal_index_volume,month 01,100.99511,"index, mean=100",Ratio to centred 2x12 moving average.
-upi_use,UPI P2P,seasonal_index_volume,month 02,94.50104,"index, mean=100",Ratio to centred 2x12 moving average.
-upi_use,UPI P2P,seasonal_index_volume,month 03,103.402283,"index, mean=100",Ratio to centred 2x12 moving average.
-upi_use,UPI P2P,seasonal_index_volume,month 04,98.682521,"index, mean=100",Ratio to centred 2x12 moving average.
-upi_use,UPI P2P,seasonal_index_volume,month 05,100.836052,"index, mean=100",Ratio to centred 2x12 moving average.
-upi_use,UPI P2P,seasonal_index_volume,month 06,96.882107,"index, mean=100",Ratio to centred 2x12 moving average.
-upi_use,UPI P2P,seasonal_index_volume,month 07,100.175902,"index, mean=100",Ratio to centred 2x12 moving average.
-upi_use,UPI P2P,seasonal_index_volume,month 08,100.870386,"index, mean=100",Ratio to centred 2x12 moving average.
-upi_use,UPI P2P,seasonal_index_volume,month 09,98.452254,"index, mean=100",Ratio to centred 2x12 moving average.
-upi_use,UPI P2P,seasonal_index_volume,month 10,103.973401,"index, mean=100",Ratio to centred 2x12 moving average.
-upi_use,UPI P2P,seasonal_index_volume,month 11,98.871932,"index, mean=100",Ratio to centred 2x12 moving average.
-upi_use,UPI P2P,seasonal_index_volume,month 12,102.357012,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2P,seasonal_index_volume,month 01,100.281152,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2P,seasonal_index_volume,month 02,93.307856,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2P,seasonal_index_volume,month 03,103.884336,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2P,seasonal_index_volume,month 04,100.53893,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2P,seasonal_index_volume,month 05,102.207872,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2P,seasonal_index_volume,month 06,97.859931,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2P,seasonal_index_volume,month 07,99.469139,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2P,seasonal_index_volume,month 08,100.158724,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2P,seasonal_index_volume,month 09,97.757652,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2P,seasonal_index_volume,month 10,103.239846,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2P,seasonal_index_volume,month 11,98.174369,"index, mean=100",Ratio to centred 2x12 moving average.
+upi_use,UPI P2P,seasonal_index_volume,month 12,103.120192,"index, mean=100",Ratio to centred 2x12 moving average.
+context_retail,all rails,hhi_volume,2021-06,5177.481394,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2021-06,4232.117188,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2021-07,5251.369651,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2021-07,4193.503462,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2021-08,5336.00607,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2021-08,4205.607525,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2021-09,5466.052978,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2021-09,4181.838359,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2021-10,5445.129565,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2021-10,4221.364503,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2021-11,5551.941038,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2021-11,4328.819111,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_volume,2021-12,5556.56197,HHI 0-10000,Concentration within the analytical basket only.
+context_retail,all rails,hhi_value,2021-12,4358.886571,HHI 0-10000,Concentration within the analytical basket only.
 context_retail,all rails,hhi_volume,2022-01,5831.638264,HHI 0-10000,Concentration within the analytical basket only.
 context_retail,all rails,hhi_value,2022-01,4455.859738,HHI 0-10000,Concentration within the analytical basket only.
 context_retail,all rails,hhi_volume,2022-02,5905.724323,HHI 0-10000,Concentration within the analytical basket only.
@@ -379,6 +395,20 @@ context_retail,all rails,hhi_volume,2026-02,8499.672031,HHI 0-10000,Concentratio
 context_retail,all rails,hhi_value,2026-02,6035.766487,HHI 0-10000,Concentration within the analytical basket only.
 context_retail,all rails,hhi_volume,2026-03,8520.597889,HHI 0-10000,Concentration within the analytical basket only.
 context_retail,all rails,hhi_value,2026-03,5895.333371,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2021-06,5774.671101,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2021-06,3609.118683,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2021-07,5811.851944,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2021-07,3563.628944,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2021-08,5912.962962,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2021-08,3596.962522,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2021-09,6068.172783,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2021-09,3624.927746,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2021-10,5842.777114,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2021-10,3595.166735,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2021-11,5976.769793,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2021-11,3728.574038,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_volume,2021-12,6051.805007,HHI 0-10000,Concentration within the analytical basket only.
+merchant,all rails,hhi_value,2021-12,3766.361609,HHI 0-10000,Concentration within the analytical basket only.
 merchant,all rails,hhi_volume,2022-01,6380.954252,HHI 0-10000,Concentration within the analytical basket only.
 merchant,all rails,hhi_value,2022-01,3935.829783,HHI 0-10000,Concentration within the analytical basket only.
 merchant,all rails,hhi_volume,2022-02,6562.864545,HHI 0-10000,Concentration within the analytical basket only.
@@ -481,6 +511,20 @@ merchant,all rails,hhi_volume,2026-02,9158.119687,HHI 0-10000,Concentration with
 merchant,all rails,hhi_value,2026-02,6513.145935,HHI 0-10000,Concentration within the analytical basket only.
 merchant,all rails,hhi_volume,2026-03,9122.806235,HHI 0-10000,Concentration within the analytical basket only.
 merchant,all rails,hhi_value,2026-03,6324.073431,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2021-06,5579.70747,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2021-06,2917.481363,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2021-07,5625.339888,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2021-07,2836.090729,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2021-08,5740.534346,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2021-08,2901.510028,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2021-09,5912.046826,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2021-09,2939.484053,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2021-10,5665.797798,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2021-10,2889.426083,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2021-11,5819.329312,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2021-11,3098.793958,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_volume,2021-12,5903.696935,HHI 0-10000,Concentration within the analytical basket only.
+merchant_channel,all rails,hhi_value,2021-12,3151.998217,HHI 0-10000,Concentration within the analytical basket only.
 merchant_channel,all rails,hhi_volume,2022-01,6260.38632,HHI 0-10000,Concentration within the analytical basket only.
 merchant_channel,all rails,hhi_value,2022-01,3393.24025,HHI 0-10000,Concentration within the analytical basket only.
 merchant_channel,all rails,hhi_volume,2022-02,6459.15069,HHI 0-10000,Concentration within the analytical basket only.
@@ -823,6 +867,20 @@ transfer,all rails,hhi_volume,2026-02,9681.006439,HHI 0-10000,Concentration with
 transfer,all rails,hhi_value,2026-02,6883.429245,HHI 0-10000,Concentration within the analytical basket only.
 transfer,all rails,hhi_volume,2026-03,9687.163901,HHI 0-10000,Concentration within the analytical basket only.
 transfer,all rails,hhi_value,2026-03,6794.698737,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2021-06,5054.32809,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2021-06,7023.045588,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2021-07,5047.260719,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2021-07,6975.054237,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2021-08,5044.667589,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2021-08,6893.444633,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2021-09,5035.466355,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2021-09,6902.123855,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2021-10,5177.828614,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2021-10,6866.633649,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2021-11,5235.929291,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2021-11,6852.736323,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_volume,2021-12,5268.266308,HHI 0-10000,Concentration within the analytical basket only.
+upi_use,all rails,hhi_value,2021-12,6912.720794,HHI 0-10000,Concentration within the analytical basket only.
 upi_use,all rails,hhi_volume,2022-01,5189.16571,HHI 0-10000,Concentration within the analytical basket only.
 upi_use,all rails,hhi_value,2022-01,6824.256789,HHI 0-10000,Concentration within the analytical basket only.
 upi_use,all rails,hhi_volume,2022-02,5132.064587,HHI 0-10000,Concentration within the analytical basket only.

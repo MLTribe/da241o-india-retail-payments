@@ -1,0 +1,20 @@
+id,title,verdict_from_2021-06,estimate_from_2021-06,verdict_from_2022-01,estimate_from_2022-01,changed
+H1,Debit-card purchases contract in absolute terms,Supported,"-25.9% a year [95% CI -31.0%, -20.3%]",Supported,"-27.5% a year [95% CI -32.3%, -22.4%]",False
+H2,Credit cards grow but lose share,Supported,"Credit +27.1% a year [95% CI +22.5%, +31.9%]; P2M minus credit +0.270 log points a year [95% CI +0.064, +0.476]",Supported,"Credit +27.1% a year [95% CI +22.0%, +32.4%]; P2M minus credit +0.222 log points a year [95% CI +0.033, +0.411]",False
+H3,Ticket sorting: UPI takes the small payments,Supported,"Debit ticket +12.2% a year [95% CI +9.5%, +15.0%]; P2M ticket -12.2% a year [95% CI -17.9%, -6.1%]",Supported,"Debit ticket +13.2% a year [95% CI +10.7%, +15.7%]; P2M ticket -11.5% a year [95% CI -17.1%, -5.6%]",False
+H4,UPI's share gain is larger in volume than in value,Supported,"+0.164 log points a year [95% CI +0.001, +0.327]",Not supported,"+0.136 log points a year [95% CI -0.026, +0.297]",True
+H5,Debit decline is concentrated in-store,Contradicted,"+0.175 log points a year [95% CI +0.066, +0.284]",Contradicted,"+0.142 log points a year [95% CI +0.049, +0.236]",False
+H6,Debit co-moves negatively with UPI growth,Not supported,"b = -0.010 [95% CI -0.169, +0.149]",Not supported,"b = -0.127 [95% CI -0.381, +0.126]",False
+H6b,Credit co-moves negatively with UPI growth,Supported,"b = -0.239 [95% CI -0.324, -0.155]",Supported,"b = -0.237 [95% CI -0.344, -0.130]",False
+S1,Debit loses ground faster than credit,Supported,"-0.539 log points a year [95% CI -0.620, -0.459]",Supported,"-0.562 log points a year [95% CI -0.639, -0.484]",False
+S2,Debit value falls more slowly than debit volume,Supported,"+0.160 log points a year [95% CI +0.130, +0.189]",Supported,"+0.165 log points a year [95% CI +0.131, +0.198]",False
+S3,Credit cards move into everyday purchases,Not supported,"-7.5% a year [95% CI -15.5%, +1.4%]",Supported,"-9.7% a year [95% CI -16.9%, -1.9%]",True
+U1,UPI shifts from transfers to merchant payments,Supported,"+0.223 log points a year [95% CI +0.060, +0.386]",Supported,"+0.206 log points a year [95% CI +0.040, +0.372]",False
+H10,A log-scale seasonal model forecasts debit volume best,Supported,Linear level trend 46.4%; Log-linear + month dummies 7.5%; Seasonal naive 25.8%; Seasonal naive × last-year growth 10.9%,Supported,Linear level trend 50.0%; Log-linear + month dummies 12.2%; Seasonal naive 25.8%; Seasonal naive × last-year growth 10.9%,False
+H8,Debit-card payments fall while cards remain in force,Supported,"Cards +2.7%/year [95% CI +1.8%, +3.6%]; payments/card -27.8%/year [95% CI -32.7%, -22.6%].",Supported,"Cards +2.9%/year [95% CI +1.8%, +4.0%]; payments/card -29.6%/year [95% CI -33.9%, -24.9%].",False
+H9,UPI QR codes grow faster than PoS terminals,Supported,"UPI QR minus PoS terminal growth +0.222 log points a year [95% CI +0.120, +0.324]; card PoS payments/terminal -16.6% a year [95% CI -22.7%, -9.9%]",Supported,"UPI QR minus PoS terminal growth +0.220 log points a year [95% CI +0.099, +0.341]; card PoS payments/terminal -15.4% a year [95% CI -21.5%, -8.8%]",False
+A1,Acquirers deploy UPI QR faster than Bharat QR,Supported,"+0.355 log points a year [95% CI +0.190, +0.521]",Supported,"+0.306 log points a year [95% CI +0.130, +0.483]",False
+A2,The card terminal network keeps growing,Supported,"+22.6% a year [95% CI +14.9%, +30.8%]",Supported,"+19.4% a year [95% CI +14.5%, +24.5%]",False
+I1,Issuers shift their card base towards credit,Supported,"+0.106 log points a year [95% CI +0.061, +0.151]",Supported,"+0.093 log points a year [95% CI +0.046, +0.139]",False
+I2,Card spending migrates to credit,Supported,"+0.347 log points a year [95% CI +0.264, +0.429]",Supported,"+0.336 log points a year [95% CI +0.245, +0.426]",False
+M1,The fee-bearing share of merchant payments shrinks,Supported,"-0.136 log points a year [95% CI -0.171, -0.102]",Supported,"-0.140 log points a year [95% CI -0.179, -0.100]",False

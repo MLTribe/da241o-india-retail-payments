@@ -174,6 +174,7 @@
         <a href="play.html">Play the model</a>
         <a href="explore.html">Explore the series</a>
         <a href="hypotheses.html">Hypotheses</a>
+        <a href="landscape.html">Landscape</a>
         <a href="#progress">Progress</a>
       </nav>
     </header>
@@ -201,7 +202,7 @@
       </section>
 
       <div class="stats" aria-label="Project at a glance">
-        <div class="stat"><strong>51 months</strong><span>Core comparison · Jan 2022–Mar 2026</span></div>
+        <div class="stat"><strong>58 months</strong><span>Mature-UPI phase · Jun 2021–Mar 2026 (long series from 2014)</span></div>
         <div class="stat"><strong>2 views</strong><span>Transfer payments and merchant payments</span></div>
         <div class="stat"><strong>3 agencies</strong><span>NPCI · RBI · MoSPI</span></div>
         <div class="stat"><strong>Try it</strong><span>Interactive market-mix model</span></div>
@@ -213,7 +214,7 @@
           <div>
             <p class="section-kicker" style="color:#a9d8bd">The question we're asking</p>
             <h2 id="question-title">As UPI expands, how are other payment methods changing?</h2>
-            <p>We’ll compare changes in transaction volume and each method’s share of a clearly defined group. A payment method can grow in volume while losing share if the whole group grows faster, so we will keep those ideas separate.</p>
+            <p>We’ll compare changes in transaction volume and each method’s share of a clearly defined group. A payment method can grow in volume while losing share if the whole group grows faster, so we will keep those ideas separate. The main tests cover UPI’s mature phase (June 2021 onward), the longest period with consistently classified card data; a spliced series back to 2014 checks whether the pattern already held during UPI’s 2017–20 expansion.</p>
           </div>
         </div>
       </section>
@@ -233,8 +234,14 @@
           <article class="comparison">
             <span class="comparison-tag">Merchant view</span>
             <h3>Payments at shops and online</h3>
-            <p>A common 51-month window compares UPI person-to-merchant payments with domestic card purchases.</p>
+            <p>A common 58-month window (June 2021–March 2026) compares UPI person-to-merchant payments with domestic card purchases.</p>
             <div class="rail-list"><span class="rail primary">UPI P2M</span><span class="rail">Credit cards</span><span class="rail">Debit cards</span></div>
+          </article>
+          <article class="comparison">
+            <span class="comparison-tag">Managerial view</span>
+            <h3>Issuers, acquirers and merchants</h3>
+            <p>What the shift means for the firms behind each rail: card issuers’ move towards credit, acquirers’ terminals and QR codes under zero MDR, and merchants’ fee-bearing share of payments.</p>
+            <div class="rail-list"><span class="rail primary">Cards in force</span><span class="rail">PoS terminals</span><span class="rail">QR codes</span></div>
           </article>
         </div>
       </section>
@@ -254,11 +261,11 @@
         </article>
         <article class="data-card">
           <div class="data-card-top"><span class="source-mark">N</span><span class="status-pill">Collected</span></div>
-          <h3>UPI P2P and P2M</h3><p>Person-to-person and person-to-merchant monthly totals from January 2022 to March 2026.</p>
+          <h3>UPI P2P and P2M</h3><p>Person-to-person and person-to-merchant monthly totals from April 2020, when NPCI's split begins, to March 2026.</p>
         </article>
         <article class="data-card">
           <div class="data-card-top"><span class="source-mark">R</span><span class="status-pill">Collected</span></div>
-          <h3>Domestic card payments and cards in force</h3><p>Monthly credit and debit card payments, plus the number of cards outstanding. Together they show how payment use per card changes.</p>
+          <h3>Domestic card payments and cards in force</h3><p>Monthly credit and debit card payments, plus the number of cards outstanding. Together they show how payment use per card changes. RBI’s bank-wise card statistics extend card payments back to June 2014 for the long series.</p>
         </article>
         <article class="data-card">
           <div class="data-card-top"><span class="source-mark">M</span><span class="status-pill">Collected</span></div>
@@ -273,7 +280,7 @@
           <h3>Industrial production</h3><p>A broad activity indicator may be added later. It is not needed for the core comparison and has not been collected.</p>
         </article>
       </div>
-      <p class="data-footnote">The files are organized by calendar year. Some source workbooks and MoSPI release PDFs are referenced in the source register but are not yet stored as local copies.</p>
+      <p class="data-footnote">The files are organized by calendar year. RBI release pages, NPCI API responses and the MoSPI CPI release behind the long series are archived in the repository; some RBI workbooks referenced in the source register are not stored locally.</p>
     </div>
   </section>
 
@@ -281,21 +288,22 @@
     <section class="progress-section" id="progress" aria-labelledby="progress-title">
       <div class="section-head">
         <div><p class="section-kicker">Where the work stands</p><h2 id="progress-title">From question to evidence</h2></div>
-        <p class="section-intro">An exploratory model now shows the observed patterns. Source verification and final write-up continue.</p>
+        <p class="section-intro">A hypothesis register now tests the observed patterns, with a robustness window and structural-break checks. Final write-up continues.</p>
       </div>
       <div class="progress-layout">
         <div class="progress-summary">
           <span class="big">In progress</span>
-          <p>The monthly series and a first comparison model are ready to explore. Source-file archiving and final interpretation remain.</p>
-          <div class="stage-track" role="img" aria-label="Current stage: exploratory analysis"><span class="done"></span><span class="done"></span><span class="active"></span></div>
-          <div class="stage-labels"><span>Question</span><span>Core data</span><span>Exploration</span></div>
+          <p>The monthly series, an exploratory model and the tested hypothesis register are ready to review. Some RBI workbook files and the final interpretation remain.</p>
+          <div class="stage-track" role="img" aria-label="Current stage: hypothesis testing and write-up"><span class="done"></span><span class="done"></span><span class="active"></span></div>
+          <div class="stage-labels"><span>Question</span><span>Core data</span><span>Testing</span></div>
         </div>
         <div class="timeline" aria-label="Project milestones">
           <div class="step done"><h3>Assignment 1 submitted <span class="tag">Done</span></h3><p>The project has an initial research proposal to build on.</p></div>
           <div class="step done"><h3>Assignment 2 question and method drafted <span class="tag">Done</span></h3><p>Two payment comparisons are defined, with limits stated.</p></div>
           <div class="step done"><h3>Gather the monthly source data <span class="tag">Done</span></h3><p>The core series are assembled; some original release files still need archiving.</p></div>
-          <div class="step current"><h3>Explore levels and shares <span class="tag">Current</span></h3><p>The first model and an interactive scenario are available for review.</p></div>
-          <div class="step"><h3>Verify and write up findings</h3><p>Resolve source differences and explain what the patterns can establish.</p></div>
+          <div class="step done"><h3>Explore levels and shares <span class="tag">Done</span></h3><p>The first model and an interactive scenario are available for review.</p></div>
+          <div class="step done"><h3>Test the hypotheses <span class="tag">Done</span></h3><p>Mature phase from Jun 2021, re-run from Jan 2022, plus the 2017–20 expansion phase and known breaks. <a href="hypotheses.html">See the register</a>.</p></div>
+          <div class="step current"><h3>Verify and write up findings <span class="tag">Current</span></h3><p>Resolve source differences and explain what the patterns can establish.</p></div>
         </div>
       </div>
     </section>
@@ -310,6 +318,7 @@
         <article class="limit"><span class="limit-icon">2</span><div><strong>The payment types overlap in real life</strong><p>Some credit-card-funded UPI payments may also appear in card totals. Shares need careful interpretation.</p></div></article>
         <article class="limit"><span class="limit-icon">3</span><div><strong>National data hide local differences</strong><p>These figures do not identify a merchant, customer, city, or individual switch between payment methods.</p></div></article>
         <article class="limit"><span class="limit-icon">4</span><div><strong>Coincidence does not prove cause</strong><p>Several policy, technology, and economic changes happened at once. We will describe patterns, not claim causation.</p></div></article>
+        <article class="limit"><span class="limit-icon">5</span><div><strong>Known breaks are marked and tested</strong><p>NPCI’s Aug 2018 same-account exclusion, zero MDR from Jan 2020, COVID-19, the Apr 2020 start of the P2P/P2M split and RBI’s Jun 2021 card reclassification. <a href="hypotheses.html#breaks-title">See how each is handled</a>.</p></div></article>
       </div>
     </section>
   </div>
@@ -332,7 +341,7 @@
   <div class="wrap">
     <footer>
       <span>Utility Maximizers · DA241o · Managerial Economics</span>
-      <span class="foot-right">Progress snapshot · 1 October 2026<br>Student research project · Work in progress</span>
+      <span class="foot-right">Progress snapshot · 10 October 2026<br>Student research project · Work in progress</span>
     </footer>
   </div>
 </body>

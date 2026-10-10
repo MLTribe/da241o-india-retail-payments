@@ -1,0 +1,835 @@
+month,app,volume_mn,value_crore
+2023-01,AU Small Finance Bank Apps,0.58,181.45
+2023-01,Airtel Payments Bank Apps,9.77,834.63
+2023-01,Allahabad Bank Apps,0.03,9.17
+2023-01,Amazon Pay,57.75,5797.03
+2023-01,Axis Bank Apps,56.28,1467.64
+2023-01,BHIM,24.96,8164.65
+2023-01,Bajaj Finserv,5.01,812.4
+2023-01,Bajaj Markets,0.01,0.5
+2023-01,Bandhan Bank Apps,0.01,1.47
+2023-01,Bank of Baroda Apps,1.1,423.46
+2023-01,Bank of India Apps,0.24,70.34
+2023-01,Bank of Maharashtra Apps,0.08,20.39
+2023-01,CRED,35.18,19106.82
+2023-01,Canara Bank Apps,1.08,289.29
+2023-01,Central Bank of India Apps,0.31,68.68
+2023-01,Citi Bank Apps,0.12,71.81
+2023-01,City Union Bank Apps,0.05,15.51
+2023-01,Cointab,0.05,21.16
+2023-01,DBS Digibank Apps,0.41,174.02
+2023-01,Deutsche Bank Apps,1.31,150.29
+2023-01,Dhanlaxmi Bank Apps,0.01,2.76
+2023-01,Equitas Small Finance Bank Apps,0.02,13.02
+2023-01,Eroute,0.08,2.29
+2023-01,FamApp,12.8,175.64
+2023-01,Fave,0.11,7.87
+2023-01,Federal Bank Apps,4.72,604.61
+2023-01,Fino Payments bank Apps,0.11,7.51
+2023-01,GoIbibo,0.01,1.6
+2023-01,Google Pay,2782.42,443725.01
+2023-01,Groww,0.19,152.17
+2023-01,HDFC Bank Apps,12.3,3324.81
+2023-01,HSBC Bank Apps,0.13,75.58
+2023-01,ICICI Bank Apps,45.14,17088.16
+2023-01,IDBI Bank Apps,0.07,30.81
+2023-01,IDFC Bank Apps,11.47,2222.2
+2023-01,India Post Payments Bank Apps,5.43,707.37
+2023-01,Indian Bank Apps,0.26,73.38
+2023-01,Indian Overseas Bank Apps,0.01,2.31
+2023-01,IndusInd Bank Apps,0.84,962.09
+2023-01,Janata Sahakari Bank Apps,0.01,3.98
+2023-01,Jio Payments Bank Apps,1.59,108.84
+2023-01,Jupiter,2.49,323.88
+2023-01,Karnataka Bank Apps,0.4,85.81
+2023-01,Karur Vysya Bank Apps,0.04,15.27
+2023-01,Kotak Mahindra Bank Apps,12.14,2612.6
+2023-01,MakeMyTrip,0.08,35.59
+2023-01,Mobikwik,3.49,785.48
+2023-01,NSDL Payments Bank Apps,0.02,3.0
+2023-01,Others,0.02,5.57
+2023-01,Paytm,1190.89,139673.0
+2023-01,PhonePe,3802.67,651108.51
+2023-01,Punjab National Bank Apps,0.25,82.15
+2023-01,Punjab Sind Bank Apps,0.04,13.08
+2023-01,RBL Bank Apps,1.32,242.88
+2023-01,Samsung Pay,5.52,523.73
+2023-01,Slash,0.01,0.68
+2023-01,South Indian Bank Apps,0.19,56.75
+2023-01,Standard Chartered Bank Apps,0.15,85.16
+2023-01,State Bank of India Apps,4.06,1901.92
+2023-01,Tamilnad Mercantile Bank Apps,0.07,11.67
+2023-01,TataNeu,0.11,14.79
+2023-01,Transerv,0.01,0.71
+2023-01,UCO Bank Apps,0.32,101.06
+2023-01,Ultracash,0.04,2.25
+2023-01,Union Bank Apps,0.8,303.93
+2023-01,Utkarsh Small Finance Bank Apps,0.02,8.35
+2023-01,WhatsApp,11.47,963.12
+2023-01,Yes Bank Apps,33.96,12116.61
+2023-01,slice,0.22,45.82
+2023-02,AU Small Finance Bank Apps,0.55,165.07
+2023-02,Airtel Payments Bank Apps,8.71,730.45
+2023-02,Allahabad Bank Apps,0.03,8.47
+2023-02,Amazon Pay,47.8,4981.82
+2023-02,Axis Bank Apps,51.95,1413.95
+2023-02,BHIM,23.21,7158.37
+2023-02,Bajaj Finserv,5.45,886.18
+2023-02,Bandhan Bank Apps,0.01,1.71
+2023-02,Bank of Baroda Apps,1.14,409.33
+2023-02,Bank of India Apps,0.24,68.69
+2023-02,Bank of Maharashtra Apps,0.07,19.02
+2023-02,CRED,36.57,17902.2
+2023-02,Canara Bank Apps,1.09,284.23
+2023-02,Central Bank of India Apps,0.32,72.15
+2023-02,Citi Bank Apps,0.08,59.37
+2023-02,City Union Bank Apps,0.06,15.94
+2023-02,Cointab,0.04,16.4
+2023-02,DBS Digibank Apps,0.39,161.51
+2023-02,Deutsche Bank Apps,1.32,118.35
+2023-02,Dhanlaxmi Bank Apps,0.01,2.67
+2023-02,EROUTE,0.17,6.08
+2023-02,Equitas Small Finance Bank Apps,0.02,11.41
+2023-02,FamApp,1.6,21.73
+2023-02,Fave,0.11,7.08
+2023-02,Federal Bank Apps,4.76,590.97
+2023-02,Fino Payments bank Apps,0.1,6.5
+2023-02,Google Pay,2639.55,424442.48
+2023-02,Groww,0.21,158.9
+2023-02,HDFC Bank Apps,11.87,3116.17
+2023-02,HSBC Bank Apps,0.12,73.04
+2023-02,ICICI Bank Apps,40.52,14831.4
+2023-02,IDBI Bank Apps,0.07,29.25
+2023-02,IDFC Bank Apps,22.28,3044.21
+2023-02,India Post Payments Bank Apps,4.05,609.49
+2023-02,Indian Bank Apps,0.24,68.57
+2023-02,Indian Overseas Bank Apps,0.01,2.31
+2023-02,IndusInd Bank Apps,0.78,848.43
+2023-02,Jio Payments Bank Apps,1.5,104.03
+2023-02,Jupiter,2.39,314.07
+2023-02,Karnataka Bank Apps,0.39,88.38
+2023-02,Karur Vysya Bank Apps,0.04,14.78
+2023-02,Kotak Mahindra Bank Apps,12.09,2521.65
+2023-02,MakeMyTrip,0.05,22.7
+2023-02,Mobikwik,3.39,804.92
+2023-02,NSDL Payments Bank Apps,0.02,3.0
+2023-02,Others,0.03,9.01
+2023-02,Paytm,1137.53,136528.25
+2023-02,PhonePe,3519.12,620121.97
+2023-02,Punjab National Bank Apps,0.33,90.01
+2023-02,Punjab Sind Bank Apps,0.04,12.34
+2023-02,RBL Bank Apps,1.74,489.45
+2023-02,Samsung Pay,5.24,488.33
+2023-02,Slash,0.01,0.49
+2023-02,South Indian Bank Apps,0.2,54.81
+2023-02,Standard Chartered Bank Apps,0.14,82.79
+2023-02,State Bank of India Apps,3.72,1753.93
+2023-02,Tamilnad Mercantile Bank Apps,0.06,10.21
+2023-02,TataNeu,0.13,14.54
+2023-02,Transerv,0.02,3.13
+2023-02,UCO Bank Apps,0.31,97.44
+2023-02,Ultracash,0.03,1.67
+2023-02,Union Bank Apps,0.71,280.27
+2023-02,Utkarsh Small Finance Bank Apps,0.02,9.01
+2023-02,WhatsApp,11.63,970.67
+2023-02,Yes Bank Apps,26.55,7518.24
+2023-02,slice,0.47,117.78
+2023-03,AU Small Finance Bank Apps,0.62,186.48
+2023-03,Airtel Payments Bank Apps,10.66,761.51
+2023-03,Allahabad Bank Apps,0.03,8.33
+2023-03,Amazon Pay,50.56,5360.9
+2023-03,Axis Bank Apps,58.24,1976.67
+2023-03,BHIM,23.68,7498.24
+2023-03,Bajaj Finserv,6.7,965.35
+2023-03,Bajaj Finserv PPI,0.05,12.22
+2023-03,Bajaj Markets,0.01,0.35
+2023-03,Bandhan Bank Apps,0.01,1.5
+2023-03,Bank of America Apps,0.01,2.07
+2023-03,Bank of Baroda Apps,1.16,447.25
+2023-03,Bank of India Apps,0.23,71.14
+2023-03,Bank of Maharashtra Apps,0.06,21.29
+2023-03,CRED,42.84,21056.31
+2023-03,Canara Bank Apps,1.39,374.43
+2023-03,Central Bank of India Apps,0.36,83.56
+2023-03,Citi Bank Apps,0.12,67.55
+2023-03,City Union Bank Apps,0.06,18.93
+2023-03,Cointab,0.04,19.07
+2023-03,DBS Digibank Apps,0.41,177.88
+2023-03,Deutsche Bank Apps,1.73,187.11
+2023-03,Dhanlaxmi Bank Apps,0.01,3.21
+2023-03,Equitas Small Finance Bank Apps,0.02,13.57
+2023-03,Eroute,0.27,19.25
+2023-03,FamApp,9.49,124.59
+2023-03,Fave,0.08,6.4
+2023-03,Federal Bank Apps,5.25,648.51
+2023-03,Fino Payments bank Apps,0.13,8.18
+2023-03,Google Pay,3054.44,482896.69
+2023-03,Groww,0.18,137.64
+2023-03,HDFC Bank Apps,14.22,3644.88
+2023-03,HSBC Bank Apps,0.14,89.71
+2023-03,ICICI Bank Apps,41.59,17624.14
+2023-03,IDBI Bank Apps,0.07,32.38
+2023-03,IDFC Bank Apps,14.02,3306.18
+2023-03,India Post Payments Bank Apps,4.44,667.69
+2023-03,Indian Bank Apps,0.26,92.41
+2023-03,Indian Overseas Bank Apps,0.02,4.47
+2023-03,IndusInd Bank Apps,0.93,950.35
+2023-03,Janata Sahakari Bank Apps,0.01,3.74
+2023-03,Jio Payments Bank Apps,1.68,118.72
+2023-03,Jupiter,2.66,358.12
+2023-03,Karnataka Bank Apps,0.42,91.53
+2023-03,Karur Vysya Bank Apps,0.04,15.84
+2023-03,Kotak Mahindra Bank Apps,13.77,2854.65
+2023-03,LivQuick PPI,0.01,0.64
+2023-03,MakeMyTrip,0.05,23.5
+2023-03,Mobikwik,3.64,937.98
+2023-03,NSDL Payments Bank Apps,0.03,3.47
+2023-03,Others,0.02,5.18
+2023-03,Paytm,1288.38,154430.4
+2023-03,PhonePe,4076.32,707410.47
+2023-03,Punjab National Bank Apps,0.43,110.59
+2023-03,Punjab Sind Bank Apps,0.04,13.74
+2023-03,RBL Bank Apps,1.88,545.98
+2023-03,Samsung Pay,5.68,528.09
+2023-03,South Indian Bank Apps,0.22,66.08
+2023-03,Standard Chartered Bank Apps,0.15,94.14
+2023-03,State Bank of India Apps,4.36,2011.65
+2023-03,Tamilnad Mercantile Bank Apps,0.07,12.42
+2023-03,TataNeu,0.12,15.0
+2023-03,Transerv PPI,0.06,8.11
+2023-03,UCO Bank Apps,0.36,116.66
+2023-03,Ultracash,0.04,2.61
+2023-03,Union Bank Apps,0.75,310.24
+2023-03,Utkarsh Small Finance Bank Apps,0.02,6.35
+2023-03,WhatsApp,13.35,1144.76
+2023-03,Yes Bank Apps,31.47,10093.9
+2023-04,AU Small Finance Bank Apps,0.63,184.93
+2023-04,Airtel Payments Bank Apps,9.04,640.22
+2023-04,Akudo & Muvin (Livquik),0.11,4.25
+2023-04,Allahabad Bank Apps,0.03,8.96
+2023-04,Amazon Pay,53.44,5351.07
+2023-04,Axis Bank Apps,51.74,1869.89
+2023-04,BHIM,23.77,7368.61
+2023-04,BPAYWALLET,0.05,9.91
+2023-04,Bajaj Finserv,7.68,1053.08
+2023-04,Bandhan Bank Apps,0.01,1.44
+2023-04,Bank of Baroda Apps,1.06,392.74
+2023-04,Bank of India Apps,0.22,66.93
+2023-04,Bank of Maharashtra Apps,0.06,19.83
+2023-04,CRED,45.7,20729.56
+2023-04,Canara Bank Apps,1.4,383.46
+2023-04,Central Bank of India Apps,0.41,91.27
+2023-04,Citi Bank Apps,0.1,58.17
+2023-04,City Union Bank Apps,0.06,18.31
+2023-04,Cointab,0.02,10.61
+2023-04,DBS Digibank Apps,0.41,173.13
+2023-04,DHANI,0.08,9.21
+2023-04,Deutsche Bank Apps,1.65,143.66
+2023-04,Dhanlaxmi Bank Apps,0.01,2.8
+2023-04,Equitas Small Finance Bank Apps,0.02,13.86
+2023-04,FamApp,11.78,146.58
+2023-04,Fave,0.03,3.27
+2023-04,Federal Bank Apps,5.18,624.64
+2023-04,Fino Payments bank Apps,0.08,5.67
+2023-04,Google Pay,3109.24,474049.9
+2023-04,Groww,0.11,80.85
+2023-04,HDFC Bank Apps,14.48,3701.81
+2023-04,HSBC Bank Apps,0.14,90.13
+2023-04,ICICI Bank Apps,41.98,16704.57
+2023-04,IDBI Bank Apps,0.07,32.02
+2023-04,IDFC Bank Apps,12.66,2865.32
+2023-04,India Post Payments Bank Apps,5.24,746.48
+2023-04,Indian Bank Apps,0.27,86.37
+2023-04,Indian Overseas Bank Apps,0.03,7.76
+2023-04,IndusInd Bank Apps,0.8,877.27
+2023-04,Jio Payments Bank Apps,1.49,112.21
+2023-04,Jupiter,2.72,380.27
+2023-04,Karnataka Bank Apps,0.51,110.35
+2023-04,Karur Vysya Bank Apps,0.04,14.19
+2023-04,Kotak Mahindra Bank Apps,13.98,2845.65
+2023-04,MakeMyTrip,0.02,12.91
+2023-04,Mobikwik,3.48,923.59
+2023-04,NSDL Payments Bank Apps,0.02,3.42
+2023-04,OMNI,0.26,6.74
+2023-04,Others,0.03,8.54
+2023-04,PINELABS,0.02,1.31
+2023-04,Paytm,1299.25,155711.73
+2023-04,PhonePe,4216.99,710178.44
+2023-04,Punjab National Bank Apps,1.03,148.28
+2023-04,Punjab Sind Bank Apps,0.04,14.04
+2023-04,RBL Bank Apps,1.66,492.33
+2023-04,Samsung Pay,5.67,511.04
+2023-04,Slash,0.01,0.32
+2023-04,South Indian Bank Apps,0.22,63.81
+2023-04,Standard Chartered Bank Apps,0.16,94.22
+2023-04,State Bank of India Apps,4.09,1910.15
+2023-04,Tamilnad Mercantile Bank Apps,0.06,13.15
+2023-04,TataNeu,0.15,16.46
+2023-04,UCO Bank Apps,0.34,111.87
+2023-04,Ultracash,0.03,2.1
+2023-04,Union Bank Apps,0.74,301.17
+2023-04,Utkarsh Small Finance Bank Apps,0.02,6.43
+2023-04,WhatsApp,14.83,1319.01
+2023-04,Yes Bank Apps,35.33,12454.98
+2023-04,slice,0.66,170.62
+2023-05,AU Small Finance Bank Apps,0.65,193.87
+2023-05,Airtel Payments Bank Apps,9.17,627.17
+2023-05,Akudo & Muvin (Livquik),0.18,6.62
+2023-05,Allahabad Bank Apps,0.03,8.87
+2023-05,Amazon Pay,57.08,5772.68
+2023-05,Axis Bank Apps,47.38,1916.44
+2023-05,BHIM,22.96,7209.87
+2023-05,BPAYWALLET,0.06,9.65
+2023-05,Bajaj Finserv,9.12,1189.82
+2023-05,Bank of Baroda Apps,1.11,412.03
+2023-05,Bank of India Apps,0.22,69.87
+2023-05,CRED,61.04,23426.74
+2023-05,Canara Bank Apps,1.48,431.27
+2023-05,Central Bank of India Apps,0.43,95.58
+2023-05,Citi Bank Apps,0.09,55.38
+2023-05,City Union Bank Apps,0.06,20.02
+2023-05,Cointab,0.01,4.24
+2023-05,DBS Digibank Apps,0.42,174.75
+2023-05,DHANI,0.04,7.55
+2023-05,Deutsche Bank Apps,1.89,174.27
+2023-05,Dhanlaxmi Bank Apps,0.01,2.93
+2023-05,Equitas Small Finance Bank Apps,0.03,16.31
+2023-05,FamApp,13.78,166.5
+2023-05,Fave,0.02,1.68
+2023-05,Federal Bank Apps,5.12,643.62
+2023-05,Fino Payments bank Apps,0.09,6.6
+2023-05,Google Pay,3274.69,497748.17
+2023-05,Groww,0.47,287.97
+2023-05,HDFC Bank Apps,16.07,3982.69
+2023-05,HSBC Bank Apps,0.14,87.5
+2023-05,ICICI Bank Apps,43.92,17101.09
+2023-05,IDBI Bank Apps,0.08,34.64
+2023-05,IDFC Bank Apps,8.56,1696.01
+2023-05,India Post Payments Bank Apps,5.04,775.77
+2023-05,Indian Bank Apps,0.28,84.07
+2023-05,Indian Overseas Bank Apps,0.04,10.5
+2023-05,IndusInd Bank Apps,0.81,886.1
+2023-05,Jammu and Kashmir Bank Apps,0.01,2.0
+2023-05,Jio Payments Bank Apps,1.56,119.8
+2023-05,Jupiter,2.94,415.04
+2023-05,Karnataka Bank Apps,0.63,127.13
+2023-05,Karur Vysya Bank Apps,0.04,13.65
+2023-05,Kotak Mahindra Bank Apps,16.31,3139.05
+2023-05,MakeMyTrip,0.02,8.01
+2023-05,Mobikwik,3.59,997.92
+2023-05,NSDL Payments Bank Apps,0.02,3.28
+2023-05,OMNI,0.39,10.1
+2023-05,Others,0.03,10.98
+2023-05,PINELABS,0.06,3.25
+2023-05,Paytm,1342.28,164843.79
+2023-05,PhonePe,4499.2,757276.68
+2023-05,Punjab National Bank Apps,1.1,177.69
+2023-05,Punjab Sind Bank Apps,0.04,13.71
+2023-05,RBL Bank Apps,1.24,489.36
+2023-05,RBLBANK,0.01,0.06
+2023-05,Samsung Pay,5.83,535.16
+2023-05,South Indian Bank Apps,0.25,71.46
+2023-05,Standard Chartered Bank Apps,0.15,91.48
+2023-05,State Bank of India Apps,4.48,1969.95
+2023-05,Tamilnad Mercantile Bank Apps,0.07,14.83
+2023-05,TataNeu,0.15,19.28
+2023-05,UCO Bank Apps,0.36,118.26
+2023-05,Ultracash,0.01,1.13
+2023-05,Union Bank Apps,0.76,306.93
+2023-05,Utkarsh Small Finance Bank Apps,0.02,6.81
+2023-05,WhatsApp,15.98,1477.06
+2023-05,Yes Bank Apps,42.65,13006.24
+2023-05,Zomato,0.01,0.43
+2023-05,slice,0.83,194.68
+2023-06,AU Small Finance Bank Apps,0.64,196.1
+2023-06,Airtel Payments Bank Apps,8.84,632.2
+2023-06,Allahabad Bank Apps,0.03,8.3
+2023-06,Amazon Pay,52.89,5647.9
+2023-06,Axis Bank Apps,47.64,2231.7
+2023-06,BHIM,23.11,7289.0
+2023-06,Bajaj Finserv,9.76,1312.6
+2023-06,Bajaj Finserv PPI,0.07,14.3
+2023-06,Bandhan Bank Apps,0.01,3.1
+2023-06,Bank of Baroda Apps,1.19,427.7
+2023-06,Bank of India Apps,0.23,71.9
+2023-06,Bank of Maharashtra Apps,0.01,0.8
+2023-06,CRED,73.93,26431.8
+2023-06,Canara Bank Apps,1.58,462.7
+2023-06,Central Bank of India Apps,0.44,97.6
+2023-06,Citi Bank Apps,0.07,54.2
+2023-06,City Union Bank Apps,0.06,18.3
+2023-06,DBS Digibank Apps,0.41,166.9
+2023-06,Deutsche Bank Apps,1.81,125.6
+2023-06,Dhani,0.03,7.0
+2023-06,Dhanlaxmi Bank Apps,0.01,3.2
+2023-06,Equitas Small Finance Bank Apps,0.03,17.3
+2023-06,FamApp,14.99,184.7
+2023-06,Fave,0.07,4.6
+2023-06,Federal Bank Apps,4.86,630.0
+2023-06,Fino Payments bank Apps,0.13,9.2
+2023-06,GoNiyo PPI,0.02,0.5
+2023-06,Google Pay,3266.83,494088.0
+2023-06,Groww,1.45,1039.6
+2023-06,HDFC Bank Apps,17.56,4168.6
+2023-06,HSBC Bank Apps,0.15,89.2
+2023-06,ICICI Bank Apps,37.63,16243.7
+2023-06,IDBI Bank Apps,0.08,34.1
+2023-06,IDFC Bank Apps,6.31,1540.3
+2023-06,India Post Payments Bank Apps,4.83,742.5
+2023-06,Indian Bank Apps,0.28,81.2
+2023-06,Indian Overseas Bank Apps,0.05,13.0
+2023-06,IndusInd Bank Apps,0.79,897.6
+2023-06,Jammu and Kashmir Bank Apps,0.01,2.4
+2023-06,Jio Payments Bank Apps,1.35,113.2
+2023-06,Jupiter,2.96,424.8
+2023-06,Jupiter Edge (LivQuick PPI),0.21,11.3
+2023-06,Karnataka Bank Apps,0.61,125.9
+2023-06,Karur Vysya Bank Apps,0.04,14.0
+2023-06,Kiwi,0.05,4.1
+2023-06,Kotak Mahindra Bank Apps,17.38,3202.5
+2023-06,MakeMyTrip,0.03,18.2
+2023-06,Mobikwik,3.58,1060.4
+2023-06,NSDL Payments Bank Apps,0.02,4.1
+2023-06,OmniCard,0.48,13.9
+2023-06,Others,0.0,11.8
+2023-06,PINELABS,0.07,4.2
+2023-06,Paytm,1307.48,162494.8
+2023-06,PhonePe,4461.36,745552.2
+2023-06,Punjab National Bank Apps,0.77,169.7
+2023-06,Punjab Sind Bank Apps,0.03,12.6
+2023-06,RBL Bank Apps,1.29,497.9
+2023-06,Samsung Pay,5.61,522.8
+2023-06,South Indian Bank Apps,0.25,70.5
+2023-06,Standard Chartered Bank Apps,1.4,672.6
+2023-06,State Bank of India Apps,4.64,1959.7
+2023-06,Tamilnad Mercantile Bank Apps,0.08,18.9
+2023-06,TataNeu,0.12,17.6
+2023-06,UCO Bank Apps,0.33,107.6
+2023-06,Ultracash,0.04,3.1
+2023-06,Union Bank Apps,0.79,318.9
+2023-06,Utkarsh Small Finance Bank Apps,0.02,6.3
+2023-06,WhatsApp,16.0,1443.3
+2023-06,Yes Bank Apps,36.46,12997.5
+2023-06,Zomato,0.01,1.7
+2023-06,slice,0.88,272.8
+2023-07,AU Small Finance Bank Apps,0.68,209.86
+2023-07,Airtel Payments Bank Apps,9.65,666.04
+2023-07,Allahabad Bank Apps,0.03,8.73
+2023-07,Amazon Pay,57.6,6163.84
+2023-07,Axis Bank Apps,64.3,3217.03
+2023-07,BHIM,24.94,8244.91
+2023-07,Bajaj Finserv,12.11,1740.97
+2023-07,Bajaj Finserv PPI,0.11,25.8
+2023-07,Bandhan Bank Apps,0.01,0.98
+2023-07,Bank of Baroda Apps,1.34,477.16
+2023-07,Bank of India Apps,0.25,78.83
+2023-07,Bank of Maharashtra Apps,0.03,5.66
+2023-07,CRED,80.34,30999.71
+2023-07,Canara Bank Apps,1.73,514.02
+2023-07,Central Bank of India Apps,0.44,97.75
+2023-07,Citi Bank Apps,0.07,61.36
+2023-07,City Union Bank Apps,0.07,20.96
+2023-07,DBS Digibank Apps,0.44,179.72
+2023-07,Deutsche Bank Apps,1.83,175.52
+2023-07,Dhani,0.03,7.81
+2023-07,Dhanlaxmi Bank Apps,0.01,2.87
+2023-07,Equitas Small Finance Bank Apps,0.03,18.9
+2023-07,FamApp,16.79,206.43
+2023-07,Fave,0.12,7.56
+2023-07,Federal Bank Apps,5.19,665.11
+2023-07,Fino Payments bank Apps,0.17,13.36
+2023-07,Google Pay,3494.64,518095.1
+2023-07,Groww,2.81,2075.98
+2023-07,HDFC Bank Apps,17.77,4410.51
+2023-07,HSBC Bank Apps,0.16,96.52
+2023-07,ICICI Bank Apps,35.92,17770.37
+2023-07,IDBI Bank Apps,0.07,37.4
+2023-07,IDFC Bank Apps,4.17,1121.41
+2023-07,India Post Payments Bank Apps,5.43,587.75
+2023-07,Indian Bank Apps,0.31,92.64
+2023-07,Indian Overseas Bank Apps,0.07,18.01
+2023-07,IndusInd Bank Apps,0.84,723.32
+2023-07,Jammu and Kashmir Bank Apps,0.01,2.29
+2023-07,Jio Payments Bank Apps,1.34,114.12
+2023-07,Jupiter,3.27,466.39
+2023-07,Karnataka Bank Apps,0.61,124.34
+2023-07,Karur Vysya Bank Apps,0.04,16.34
+2023-07,Kiwi,1.53,52.51
+2023-07,Kotak Mahindra Bank Apps,18.56,3480.6
+2023-07,MakeMyTrip,0.04,19.92
+2023-07,Mobikwik,3.81,1144.26
+2023-07,NSDL Payments Bank Apps,0.03,4.56
+2023-07,Omnicard,0.62,19.49
+2023-07,Others,0.03,11.05
+2023-07,Paytm,1393.66,170767.35
+2023-07,PhonePe,4743.66,761247.87
+2023-07,Punjab National Bank Apps,0.79,181.5
+2023-07,Punjab Sind Bank Apps,0.03,12.72
+2023-07,RBL Bank Apps,1.28,529.58
+2023-07,Samsung Pay,5.81,544.13
+2023-07,Shriram,0.01,0.21
+2023-07,South Indian Bank Apps,0.25,73.83
+2023-07,Standard Chartered Bank Apps,4.14,2129.38
+2023-07,State Bank of India Apps,5.01,2095.15
+2023-07,Tamilnad Mercantile Bank Apps,0.1,23.5
+2023-07,TataNeu,0.1,16.7
+2023-07,UCO Bank Apps,0.36,116.31
+2023-07,Ultracash,0.07,5.01
+2023-07,Union Bank Apps,0.88,349.19
+2023-07,Utkarsh Small Finance Bank Apps,0.02,6.24
+2023-07,WhatsApp,17.84,1598.67
+2023-07,Yes Bank Apps,32.01,11502.79
+2023-07,Zomato,0.01,0.66
+2023-07,slice,0.94,301.0
+2023-08,AU Small Finance Bank Apps,0.71,218.16
+2023-08,Airtel Payments Bank Apps,10.2,699.27
+2023-08,Allahabad Bank Apps,0.03,7.81
+2023-08,Amazon Pay,54.02,5836.99
+2023-08,Axis Bank Apps,69.43,3037.11
+2023-08,BHIM,24.61,7793.58
+2023-08,BPAYWALLET,0.15,32.07
+2023-08,Bajaj Finserv,13.22,1995.11
+2023-08,Bandhan Bank Apps,0.01,0.87
+2023-08,Bank of Baroda Apps,1.27,466.84
+2023-08,Bank of India Apps,0.29,85.09
+2023-08,Bank of Maharashtra Apps,0.05,8.18
+2023-08,CRED,85.13,31926.2
+2023-08,Canara Bank Apps,1.64,492.29
+2023-08,Central Bank of India Apps,0.45,96.41
+2023-08,Citi Bank Apps,0.08,58.11
+2023-08,City Union Bank Apps,0.07,19.79
+2023-08,DBS Digibank Apps,0.46,174.06
+2023-08,DHANI,0.03,4.2
+2023-08,DIGIKHATA,0.01,3.81
+2023-08,Deutsche Bank Apps,2.08,359.86
+2023-08,Dhanlaxmi Bank Apps,0.01,3.02
+2023-08,Equitas Small Finance Bank Apps,0.03,19.23
+2023-08,FamApp,20.27,235.89
+2023-08,Fave,0.12,7.54
+2023-08,Federal Bank Apps,5.7,700.66
+2023-08,Fino Payments bank Apps,0.21,15.43
+2023-08,GoIbibo,0.01,2.99
+2023-08,Google Pay,3767.68,538113.42
+2023-08,Groww,4.74,2911.09
+2023-08,HDFC Bank Apps,18.94,4671.76
+2023-08,HSBC Bank Apps,0.17,98.19
+2023-08,ICICI Bank Apps,38.57,20999.12
+2023-08,IDBI Bank Apps,0.06,31.69
+2023-08,IDFC Bank Apps,4.36,1107.81
+2023-08,INDIE,0.05,12.6
+2023-08,India Post Payments Bank Apps,5.56,498.37
+2023-08,Indian Bank Apps,0.33,91.69
+2023-08,Indian Overseas Bank Apps,0.07,19.01
+2023-08,IndusInd Bank Apps,0.85,391.31
+2023-08,Jammu and Kashmir Bank Apps,0.01,2.8
+2023-08,Jio Payments Bank Apps,1.42,113.65
+2023-08,Jupiter,3.94,500.95
+2023-08,KIWI,0.69,69.86
+2023-08,Karnataka Bank Apps,0.65,127.83
+2023-08,Karur Vysya Bank Apps,0.05,16.11
+2023-08,Kotak Mahindra Bank Apps,21.17,3678.04
+2023-08,MakeMyTrip,0.04,20.49
+2023-08,Mobikwik,3.96,1203.54
+2023-08,NSDL Payments Bank Apps,0.03,5.39
+2023-08,OMNI,0.77,25.2
+2023-08,Others,0.03,8.46
+2023-08,Paytm,1484.82,176804.51
+2023-08,PhonePe,4987.33,775265.57
+2023-08,Punjab National Bank Apps,0.86,179.75
+2023-08,Punjab Sind Bank Apps,0.03,12.74
+2023-08,RBL Bank Apps,1.38,548.31
+2023-08,SURYODAY,0.01,0.03
+2023-08,Samsung Pay,6.0,538.48
+2023-08,Shriram One,0.04,2.33
+2023-08,South Indian Bank Apps,0.28,77.42
+2023-08,Standard Chartered Bank Apps,3.59,514.44
+2023-08,State Bank of India Apps,5.39,2104.81
+2023-08,Tamilnad Mercantile Bank Apps,0.1,25.45
+2023-08,TataNeu,0.1,16.09
+2023-08,UCO Bank Apps,0.38,132.77
+2023-08,Ultracash,0.09,6.17
+2023-08,Union Bank Apps,0.9,324.77
+2023-08,Utkarsh Small Finance Bank Apps,0.02,6.67
+2023-08,WhatsApp,19.7,1677.53
+2023-08,Yes Bank Apps,28.94,11254.77
+2023-08,ZOICICI,0.01,1.0
+2023-08,slice,0.96,306.89
+2023-09,AU Small Finance Bank Apps,0.66,214.25
+2023-09,Airtel Payments Bank Apps,10.46,747.21
+2023-09,Allahabad Bank Apps,0.03,7.15
+2023-09,Amazon Pay,48.78,5386.29
+2023-09,Axis Bank Apps,68.76,3584.91
+2023-09,BHIM,24.15,8005.18
+2023-09,BPAYWALLET,0.19,42.31
+2023-09,Bajaj Finserv,14.14,2069.98
+2023-09,Bank of Baroda Apps,1.22,476.43
+2023-09,Bank of India Apps,0.28,86.17
+2023-09,Bank of Maharashtra Apps,0.05,8.55
+2023-09,CRED,86.5,31558.2
+2023-09,Canara Bank Apps,1.89,569.48
+2023-09,Central Bank of India Apps,0.4,95.22
+2023-09,Citi Bank Apps,0.08,61.34
+2023-09,City Union Bank Apps,0.07,20.6
+2023-09,DBS Digibank Apps,0.45,179.42
+2023-09,DHANI,0.02,2.58
+2023-09,DIGIKHATA,0.03,10.8
+2023-09,Deutsche Bank Apps,1.93,315.29
+2023-09,Dhanlaxmi Bank Apps,0.01,3.46
+2023-09,Equitas Small Finance Bank Apps,0.03,19.39
+2023-09,FamApp,22.88,263.37
+2023-09,Fave,0.09,6.34
+2023-09,Federal Bank Apps,5.54,692.03
+2023-09,Fino Payments bank Apps,0.22,15.99
+2023-09,GOAXB,0.64,74.94
+2023-09,GoIbibo,0.01,2.34
+2023-09,Google Pay,3780.89,541624.06
+2023-09,Groww,6.5,3596.95
+2023-09,HDFC Bank Apps,18.87,4739.39
+2023-09,HSBC Bank Apps,0.16,101.2
+2023-09,ICICI Bank Apps,37.52,20052.91
+2023-09,IDBI Bank Apps,0.06,32.31
+2023-09,IDFC Bank Apps,4.42,1109.67
+2023-09,INDIE,0.07,16.09
+2023-09,India Post Payments Bank Apps,5.28,447.37
+2023-09,Indian Bank Apps,0.33,149.32
+2023-09,Indian Overseas Bank Apps,0.07,19.12
+2023-09,IndusInd Bank Apps,0.89,182.26
+2023-09,Jammu and Kashmir Bank Apps,0.01,2.56
+2023-09,Jio Payments Bank Apps,1.44,108.84
+2023-09,Jupiter,4.05,529.64
+2023-09,Karnataka Bank Apps,0.62,125.7
+2023-09,Karur Vysya Bank Apps,0.04,15.87
+2023-09,Kotak Mahindra Bank Apps,21.57,3737.26
+2023-09,MakeMyTrip,0.04,21.32
+2023-09,Mobikwik,3.92,1182.65
+2023-09,NAVIAXIS,0.27,17.75
+2023-09,NSDL Payments Bank Apps,0.03,5.78
+2023-09,OMNI,0.98,36.12
+2023-09,Others,0.06,10.25
+2023-09,Paytm,1451.99,176865.46
+2023-09,PhonePe,4972.81,774845.98
+2023-09,Punjab National Bank Apps,1.0,197.93
+2023-09,Punjab Sind Bank Apps,0.03,12.32
+2023-09,RBL Bank Apps,1.6,575.61
+2023-09,SHRIRAM,0.03,2.8
+2023-09,SLICE,0.03,3.8
+2023-09,Samsung Pay,5.81,528.2
+2023-09,South Indian Bank Apps,0.26,72.9
+2023-09,Standard Chartered Bank Apps,2.03,331.21
+2023-09,State Bank of India Apps,5.42,2130.89
+2023-09,Tamilnad Mercantile Bank Apps,0.1,26.99
+2023-09,TataNeu,0.09,14.82
+2023-09,UCO Bank Apps,0.37,127.06
+2023-09,Ultracash,0.08,4.77
+2023-09,Union Bank Apps,0.87,324.39
+2023-09,Utkarsh Small Finance Bank Apps,0.02,6.63
+2023-09,WhatsApp,20.55,1732.15
+2023-09,Yes Bank Apps,28.49,10847.96
+2023-09,slice,1.06,310.9
+2023-10,AU Small Finance Bank Apps,0.71,235.99
+2023-10,Airtel Payments Bank Apps,11.62,810.65
+2023-10,Allahabad Bank Apps,0.03,7.3
+2023-10,Amazon Pay,54.39,6297.17
+2023-10,Axis Bank Apps,74.42,4931.5
+2023-10,BHIM,25.74,8174.71
+2023-10,Bajaj Finserv,14.19,2373.17
+2023-10,Bajaj Finserv PPI,0.23,48.79
+2023-10,Bank of Baroda Apps,0.93,397.49
+2023-10,Bank of India Apps,0.27,93.46
+2023-10,Bank of Maharashtra Apps,0.06,10.85
+2023-10,CRED,94.52,34691.49
+2023-10,Canara Bank Apps,2.22,665.43
+2023-10,Central Bank of India Apps,0.52,114.94
+2023-10,Citi Bank Apps,0.08,66.07
+2023-10,City Union Bank Apps,0.07,21.55
+2023-10,DBS Digibank Apps,0.51,197.7
+2023-10,Deutsche Bank Apps,2.37,350.47
+2023-10,Dhani PPI,0.02,1.49
+2023-10,Digikhata PPI,0.04,15.33
+2023-10,Equitas Small Finance Bank Apps,0.03,21.65
+2023-10,FamApp,27.54,314.13
+2023-10,Fave,0.11,10.38
+2023-10,Federal Bank Apps,5.89,720.68
+2023-10,Fino Payments bank Apps,0.27,20.01
+2023-10,GoKiwi,0.76,79.21
+2023-10,Google Pay,4139.92,589299.18
+2023-10,Groww,5.89,3354.83
+2023-10,HDFC Bank Apps,21.35,5453.76
+2023-10,HSBC Bank Apps,0.18,106.07
+2023-10,ICICI Bank Apps,38.88,21317.78
+2023-10,IDBI Bank Apps,0.07,36.89
+2023-10,IDFC Bank Apps,5.26,1312.46
+2023-10,India Post Payments Bank Apps,5.54,464.95
+2023-10,Indian Bank Apps,0.36,110.93
+2023-10,Indian Overseas Bank Apps,0.09,23.85
+2023-10,IndusInd Bank Apps,1.07,217.98
+2023-10,Jammu and Kashmir Bank Apps,0.01,3.39
+2023-10,Jio Payments Bank Apps,1.35,112.84
+2023-10,Jupiter,4.45,571.06
+2023-10,Karnataka Bank Apps,0.69,138.58
+2023-10,Karur Vysya Bank Apps,0.04,16.95
+2023-10,Kotak Mahindra Bank Apps,23.83,4205.77
+2023-10,MakeMyTrip,0.04,21.47
+2023-10,Mobikwik,4.45,1381.03
+2023-10,NSDL Payments Bank Apps,0.04,5.79
+2023-10,Navi,0.53,33.92
+2023-10,Omnicard PPI,1.2,45.9
+2023-10,Others,0.06,14.29
+2023-10,Paytm,1544.41,192974.8
+2023-10,PhonePe,5337.96,838371.7
+2023-10,Punjab National Bank Apps,0.99,211.45
+2023-10,Punjab Sind Bank Apps,0.03,12.94
+2023-10,RBL Bank Apps,2.14,658.74
+2023-10,Samsung Pay,6.17,562.28
+2023-10,Shriram One,0.15,9.43
+2023-10,South Indian Bank Apps,0.22,69.36
+2023-10,Standard Chartered Bank Apps,7.02,1702.59
+2023-10,State Bank of India Apps,5.53,2186.05
+2023-10,Tamilnad Mercantile Bank Apps,0.1,29.14
+2023-10,TataNeu,0.09,14.51
+2023-10,UCO Bank Apps,0.28,85.33
+2023-10,Ultracash,0.09,5.6
+2023-10,Union Bank Apps,0.89,360.42
+2023-10,Utkarsh Small Finance Bank Apps,0.02,7.44
+2023-10,WhatsApp,22.72,1903.1
+2023-10,Yes Bank Apps,28.27,11259.1
+2023-10,slice,1.33,340.4
+2023-10,slice PPI,0.33,18.41
+2023-11,AU Small Finance Bank Apps,0.66,239.22
+2023-11,Airtel Payments Bank Apps,11.34,827.06
+2023-11,Allahabad Bank Apps,0.03,6.93
+2023-11,Amazon Pay,48.62,5737.75
+2023-11,Axis Bank Apps,66.02,3765.68
+2023-11,BHIM,23.49,7957.46
+2023-11,Bajaj Finserv,15.95,2406.06
+2023-11,Bajaj Pay Wallet,0.26,62.02
+2023-11,Bank of Baroda Apps,0.95,419.67
+2023-11,Bank of India Apps,0.24,88.76
+2023-11,Bank of Maharashtra Apps,0.04,8.79
+2023-11,CBDC Apps,0.22,8.95
+2023-11,CRED,93.31,34541.32
+2023-11,Canara Bank Apps,2.29,667.04
+2023-11,Central Bank of India Apps,0.51,117.44
+2023-11,Citi Bank Apps,0.07,60.24
+2023-11,City Union Bank Apps,0.07,22.07
+2023-11,DBS Digibank Apps,0.52,196.87
+2023-11,DIGIKHATA,0.05,20.12
+2023-11,Deutsche Bank Apps,3.26,268.85
+2023-11,Equitas Small Finance Bank Apps,0.03,19.96
+2023-11,FamApp,28.43,336.92
+2023-11,Fave,0.09,8.29
+2023-11,Federal Bank Apps,5.51,698.06
+2023-11,Fino Payments bank Apps,0.27,25.0
+2023-11,GoKiwi,0.76,93.99
+2023-11,Google Pay,4099.08,599748.64
+2023-11,Groww,4.59,2528.81
+2023-11,HDFC Bank Apps,20.68,5511.35
+2023-11,HSBC Bank Apps,0.18,110.56
+2023-11,ICICI Bank Apps,40.75,23679.82
+2023-11,IDBI Bank Apps,0.07,35.22
+2023-11,IDFC Bank Apps,4.96,1306.91
+2023-11,INDIE - Indus Ind,0.16,30.77
+2023-11,India Post Payments Bank Apps,5.27,532.66
+2023-11,Indian Bank Apps,0.36,93.94
+2023-11,Indian Overseas Bank Apps,0.09,24.83
+2023-11,IndusInd Bank Apps,0.9,193.07
+2023-11,Jio Payments Bank Apps,1.26,117.05
+2023-11,Jupiter,4.29,577.81
+2023-11,Karnataka Bank Apps,0.68,138.92
+2023-11,Karur Vysya Bank Apps,0.04,14.83
+2023-11,Kotak Mahindra Bank Apps,23.88,4341.61
+2023-11,MakeMyTrip,0.04,22.58
+2023-11,Mobikwik,4.58,1475.75
+2023-11,NSDL Payments Bank Apps,0.03,5.89
+2023-11,Navi,0.6,37.44
+2023-11,Omnicard,1.09,37.85
+2023-11,Others,0.11,26.81
+2023-11,Paytm,1479.47,191150.29
+2023-11,PhonePe,5281.68,854939.06
+2023-11,Punjab National Bank Apps,1.04,214.29
+2023-11,Punjab Sind Bank Apps,0.03,14.19
+2023-11,RBL Bank Apps,2.23,639.97
+2023-11,SLICE,0.69,27.42
+2023-11,Samsung Pay,5.84,557.36
+2023-11,Shriram One,0.09,10.06
+2023-11,South Indian Bank Apps,0.25,74.07
+2023-11,Standard Chartered Bank Apps,4.39,506.93
+2023-11,State Bank of India Apps,5.38,2163.09
+2023-11,Tamilnad Mercantile Bank Apps,0.1,29.13
+2023-11,TataNeu,0.08,11.36
+2023-11,Timepay,0.04,1.2
+2023-11,UCO Bank Apps,0.26,81.93
+2023-11,Ultracash,0.08,5.5
+2023-11,Union Bank Apps,0.95,376.07
+2023-11,WhatsApp,22.29,1917.47
+2023-11,Yes Bank Apps,26.06,11071.25
+2023-11,slice,1.58,359.47
+2023-12,AU Small Finance Bank Apps,0.68,252.89
+2023-12,Airtel Payments Bank Apps,12.54,883.36
+2023-12,Allahabad Bank Apps,0.03,7.01
+2023-12,Amazon Pay,54.16,5982.84
+2023-12,Axis Bank Apps,86.9,6100.01
+2023-12,BHIM,24.3,8431.47
+2023-12,Bajaj Finserv,18.08,2580.43
+2023-12,Bajaj Pay Wallet,0.32,72.38
+2023-12,Bank of Baroda Apps,1.05,464.08
+2023-12,Bank of India Apps,0.29,103.82
+2023-12,Bank of Maharashtra Apps,0.04,8.1
+2023-12,CBDC Apps,0.77,25.91
+2023-12,CRED,105.31,37293.27
+2023-12,Canara Bank Apps,2.55,719.5
+2023-12,Central Bank of India Apps,0.58,136.84
+2023-12,Citi Bank Apps,0.07,70.44
+2023-12,City Union Bank Apps,0.07,22.76
+2023-12,DBS Digibank Apps,0.79,246.94
+2023-12,DHANI,0.03,2.01
+2023-12,DIGIKHATA,0.07,25.8
+2023-12,Deutsche Bank Apps,3.71,223.36
+2023-12,Equitas Small Finance Bank Apps,0.03,21.86
+2023-12,FIFEDERAL,0.05,7.12
+2023-12,FamApp,34.23,392.53
+2023-12,Fave,0.06,4.28
+2023-12,Federal Bank Apps,5.95,745.41
+2023-12,Fino Payments bank Apps,0.27,26.7
+2023-12,GoKiwi,0.77,104.27
+2023-12,Google Pay,4375.29,629285.36
+2023-12,Groww,6.58,4039.81
+2023-12,HDFC Bank Apps,23.68,6095.54
+2023-12,HSBC Bank Apps,0.2,123.7
+2023-12,ICICI Bank Apps,40.09,20884.56
+2023-12,IDBI Bank Apps,0.07,38.61
+2023-12,IDFC Bank Apps,5.24,1306.5
+2023-12,INDIE - Indus Ind,0.2,35.32
+2023-12,India Post Payments Bank Apps,4.87,454.5
+2023-12,Indian Bank Apps,0.4,107.06
+2023-12,Indian Overseas Bank Apps,0.11,27.85
+2023-12,IndusInd Bank Apps,1.05,203.58
+2023-12,Jio Payments Bank Apps,1.35,125.06
+2023-12,Jupiter,4.86,656.67
+2023-12,Karnataka Bank Apps,0.72,144.89
+2023-12,Karur Vysya Bank Apps,0.04,13.69
+2023-12,Kotak Mahindra Bank Apps,26.36,4738.2
+2023-12,MakeMyTrip,0.04,22.2
+2023-12,Mobikwik,5.23,1618.83
+2023-12,NSDL Payments Bank Apps,0.04,6.36
+2023-12,Navi,0.69,43.86
+2023-12,Omnicard,1.16,36.26
+2023-12,Other,0.12,38.33
+2023-12,Paytm,1573.68,191560.24
+2023-12,PhonePe,5642.66,901006.65
+2023-12,Punjab National Bank Apps,1.26,276.47
+2023-12,RBL Bank Apps,2.14,753.23
+2023-12,SLICE,0.95,32.65
+2023-12,Samsung Pay,6.08,557.26
+2023-12,Shriram One,0.33,19.47
+2023-12,South Indian Bank Apps,0.3,86.96
+2023-12,Standard Chartered Bank Apps,3.63,406.63
+2023-12,State Bank of India Apps,6.16,2362.9
+2023-12,Tamilnad Mercantile Bank Apps,0.11,31.47
+2023-12,TataNeu,0.08,10.49
+2023-12,UCO Bank Apps,0.29,94.81
+2023-12,Ultracash,0.08,5.06
+2023-12,Union Bank Apps,1.02,405.74
+2023-12,WhatsApp,25.25,2113.01
+2023-12,Yes Bank Apps,28.37,12368.87
+2023-12,slice,1.96,403.07

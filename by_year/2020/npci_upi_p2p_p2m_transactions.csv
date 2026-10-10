@@ -1,0 +1,10 @@
+month,total_volume_mn,total_value_crore,p2p_volume_mn,p2p_value_crore,p2m_volume_mn,p2m_value_crore,source_month_label,source_file,source_url
+2020-04-01,999.57,151140.66,550.35,128029.94,449.23,23110.72,Apr'20,source_archive/npci/ecosystem_api/p2p-and-p2m-transactions/2020-04.json,https://www.npci.org.in/product/ecosystem-statistics/upi
+2020-05-01,1234.5,218391.6,738.43,189655.44,496.07,28736.16,May'20,source_archive/npci/ecosystem_api/p2p-and-p2m-transactions/2020-05.json,https://www.npci.org.in/product/ecosystem-statistics/upi
+2020-06-01,1336.93,261835.0,819.08,228052.84,517.85,33782.16,Jun'20,source_archive/npci/ecosystem_api/p2p-and-p2m-transactions/2020-06.json,https://www.npci.org.in/product/ecosystem-statistics/upi
+2020-07-01,1497.36,290537.86,919.21,251145.19,578.15,39392.67,Jul'20,source_archive/npci/ecosystem_api/p2p-and-p2m-transactions/2020-07.json,https://www.npci.org.in/product/ecosystem-statistics/upi
+2020-08-01,1618.83,298307.61,992.55,256433.43,626.28,41874.18,Aug'20,source_archive/npci/ecosystem_api/p2p-and-p2m-transactions/2020-08.json,https://www.npci.org.in/product/ecosystem-statistics/upi
+2020-09-01,1800.14,329027.66,1092.32,282401.74,707.82,46625.93,Sep'20,source_archive/npci/ecosystem_api/p2p-and-p2m-transactions/2020-09.json,https://www.npci.org.in/product/ecosystem-statistics/upi
+2020-10-01,2071.62,386106.74,1227.17,330684.11,844.45,55422.63,Oct'20,source_archive/npci/ecosystem_api/p2p-and-p2m-transactions/2020-10.json,https://www.npci.org.in/product/ecosystem-statistics/upi
+2020-11-01,2210.23,390999.15,1324.68,329953.41,885.55,61045.73,Nov'20,source_archive/npci/ecosystem_api/p2p-and-p2m-transactions/2020-11.json,https://www.npci.org.in/product/ecosystem-statistics/upi
+2020-12-01,2234.16,416176.21,1283.71,348006.06,950.45,68170.15,Dec'20,source_archive/npci/ecosystem_api/p2p-and-p2m-transactions/2020-12.json,https://www.npci.org.in/product/ecosystem-statistics/upi
