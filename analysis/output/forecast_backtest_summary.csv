@@ -1,0 +1,14 @@
+model,label,chosen,mape_fixed,mape_2024-03_FY2024-25,mape_2024-03_FY2025-26,mape_2025-03_FY2025-26,mape_rolling12,mape_fixed_p2m,mape_fixed_credit,mape_fixed_debit,mape_fixed_p2p,mape_fixed_imps,share_mae_pp
+naive_level,Naive: next year = last year,False,31.098977,26.053183,46.002667,21.24108,24.22384,35.333011,29.02453,48.76936,28.372714,13.995269,1.593947
+naive_growth,Naive: last year's growth repeats,False,15.298349,9.96298,27.968307,7.963759,10.363496,34.905178,9.068587,12.205969,1.339156,18.972853,0.739479
+loglinear,"Constant growth (log-linear trend, last 24 months)",False,16.273138,10.816927,29.711294,8.291194,10.182252,41.546613,8.04171,10.463199,1.880419,19.433751,0.744131
+logistic,"Logistic diffusion for UPI rails (ETS for cards, IMPS)",False,11.479838,10.225252,20.629789,3.584474,7.123032,4.654554,10.447234,3.829865,15.862482,22.605056,0.696422
+holt,Damped-trend ETS per rail (log volumes),False,13.586405,11.505287,26.588202,2.665725,7.109349,18.831181,10.447234,3.829865,12.218689,22.605056,0.704523
+share_linear,"Share model, undamped (linear) log-odds trend",False,12.897379,9.365454,24.402256,4.924425,8.171003,33.365271,2.34818,4.43411,11.732977,12.606354,0.668211
+share_damped,Share model: damped ETS totals × damped log-odds (logit),False,14.187233,10.308247,27.813022,4.440428,8.092735,33.340156,2.843486,5.091728,12.270548,17.390246,0.699916
+share_multistep,"Share model, ETS fitted on 1–12-month-ahead error",False,13.365801,9.066712,24.719044,6.311646,7.83332,33.437609,1.305723,5.310415,13.013554,13.761704,0.722063
+share_logistic,Share model: logistic-diffusion totals × damped log-odds (logit),False,14.41818,11.303243,27.528854,4.422443,9.130707,8.874163,14.600626,17.530408,16.62262,14.463081,0.694864
+ensemble,Average of share model and per-rail ETS,False,13.107716,10.747527,25.600488,2.975132,6.999257,25.7664,5.67394,1.898827,12.244884,19.954528,0.699832
+combo,Average of share model and logistic diffusion,True,11.523664,10.051028,21.976708,2.543254,6.726818,16.004324,5.67394,1.898827,14.086699,19.954528,0.655064
+combo3,"Average of share model, logistic diffusion and per-rail ETS",False,11.827556,10.537072,22.732028,2.213568,6.554108,16.93619,6.695797,1.208339,13.469154,20.8283,0.666773
+debit_decay,"Debit decay curve (exponential to a floor), debit only",False,5.093898,8.033712,0.529469,6.718512,,,,5.093898,,,

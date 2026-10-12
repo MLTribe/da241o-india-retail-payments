@@ -1,0 +1,18 @@
+lever,parameter,default,unit,status,basis
+"MDR on UPI P2M above ₹2,000",mdr,0.0,% of value,Policy,"Zero since Jan 2020 (PSS Act s.10A). 0.4% on select P2M payments above ₹2,000 announced from 15 Oct 2026 (Ministry of Finance, 2026; NPCI MDR FAQ). The base case is the pre-MDR baseline; the preset applies 0.4%."
+"MDR on UPI P2M above ₹2,000",mdr_value_share,50.0,"% of P2M value above ₹2,000",Assumed,"Sets the fee pool. NPCI publishes no ticket-size split. Consistency check: 10% of P2M payments averaging ₹3,000 would be about 50% of value at the ₹608 average ticket."
+"MDR on UPI P2M above ₹2,000",mdr_card_overlap,50.0,"% of card payments above ₹2,000",Assumed,"Steering happens where UPI and cards compete for the same payment. Card average tickets are ₹3,700–3,800, but RBI publishes no distribution."
+"MDR on UPI P2M above ₹2,000",beta_mdr,0.32,log-odds per pp MDR,Anchored,"ln(1 + level shift) / 0.5 pp from the Jan 2020 zero-MDR break in debit ÷ credit payments (structural_breaks.csv, +17.5%). A known-date break, not a causal estimate."
+"Credit on UPI (RuPay credit cards, credit lines)",cou,0.0,% of P2M transactions by FY2029-30,Scenario,NPCI does not publish credit-funded UPI volume monthly; 0 means no change from the trend already in the data.
+"Credit on UPI (RuPay credit cards, credit lines)",cannibal,30.0,% that would have been card swipes,Assumed,Not identified in national aggregates.
+Issuer push,cards_growth_base,8.0,% per year,Calibrated,"Credit cards in force, growth Mar 2025 – Mar 2026 (RBI PSI Part III)."
+Issuer push,eps_cards,0.5,elasticity of credit log-odds to cards in force,Assumed,"Our data do not identify it: 12-month changes in credit log-odds on card growth give -3.03 (HAC SE 0.59, n=46), the wrong sign because issuance and UPI growth move together. Default assumes new cards are used half as intensively as existing ones."
+Issuer push,eta_rewards,0.25,log-odds per pp reward rate,Assumed,No reward-rate data in our sources.
+Merchant acceptance,pos_growth_base,6.0,% per year,Calibrated,"PoS terminals, growth Mar 2025 – Mar 2026 (RBI PSI)."
+Merchant acceptance,qr_growth_base,15.7,% per year,Calibrated,"UPI QR codes, growth Mar 2025 – Mar 2026 (RBI PSI). The 24-month rate (48% a year) includes a one-off near-doubling in FY2024-25."
+Merchant acceptance,b_acc,0.3,log-odds per log point of PoS ÷ QR,Assumed,"Our data do not identify it: 12-month changes in credit log-odds on ln(PoS ÷ QR) give -0.29 (HAC SE 0.28, n=46), the wrong sign for a causal reading."
+Debit card push or clean-up,debit_shift,0.0,log-odds shift,Scenario,"Direct utility shift for debit. Removing inactive cards changes cards in force, not payments, so it is 0 unless it pushes users to UPI."
+NPCI app market-share cap,cap_level,30.0,% of UPI volume per app,Policy,"NPCI circular (Nov 2020); compliance deadline extended to 31 Dec 2026. App shares from npci_upi_apps.csv, Mar 2026."
+NPCI app market-share cap,cap_friction,0.0,% of capped-out volume lost,Assumed,"Default 0: the cap moves users between apps, not off UPI."
+Fees,credit MDR,1.8,% of value,Assumed,Blended credit-card MDR; typical published Indian range 1.5–2.5% of value.
+Fees,debit MDR,0.3,% of value,Assumed,"Blended debit MDR: RBI caps (0.4%/0.9%, Dec 2017) on Visa/Mastercard, zero on RuPay debit since Jan 2020."

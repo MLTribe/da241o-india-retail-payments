@@ -234,6 +234,94 @@ unclassified share). Notes on each card record judgement calls: the
 Citibank-to-Axis transfer in B3, and the 2018-start robustness results for R1
 and R2.
 
+## Forecast to FY2029–30 (term-paper extension)
+
+```shell
+python3 analysis/forecast_model.py      # after payment_mix_model.py; about 6 seconds
+```
+
+This is term-paper material, not part of the Assignment 2 data and methods
+note. It answers the forward version of the research question: if the trends
+of June 2021–March 2026 continue, which rails are heading for absolute
+contraction, relative share loss or co-expansion by FY2029–30, and how
+would real policy levers change that? Everything is a **conditional
+projection**, not a prediction of policy.
+
+**Rails and structure.** UPI P2M, credit card and debit card (merchant
+basket); UPI P2P and IMPS (transfer basket). Shares are modelled as a
+multinomial logit with UPI as the base: the latent series are log P2M,
+ln(credit/P2M), ln(debit/P2M), log P2P and ln(IMPS/P2P). Each is
+seasonally adjusted (centred 2×12 moving average) and forecast by damped-trend
+exponential smoothing, ETS(A,Ad,N). α, β and φ are chosen by grid search on
+one-step errors.
+
+**Candidates and backtest.** Every model is refitted on data up to the origin
+only. Fixed origins: Mar 2024 → FY2024–25 and FY2025–26, and Mar 2025 → FY2025–26 (15 rail-years).
+Rolling origins: each month from Mar 2024 to Mar 2025 → the next 12 months (65 rail-windows).
+MAPE in %, share MAE in percentage points:
+
+| Model | Fixed MAPE | Rolling 12m MAPE | Share MAE |
+| --- | ---: | ---: | ---: |
+| Naive level (no change) | 31.1 | 24.2 | 1.59 |
+| Naive growth (last year's growth) | 15.3 | 10.4 | 0.74 |
+| Log-linear trend | 16.3 | 10.2 | 0.74 |
+| Logistic diffusion (UPI) + damped ETS (others) | 11.5 | 7.1 | 0.70 |
+| Damped ETS on each rail | 13.6 | 7.1 | 0.70 |
+| Share model, damped latents | 14.2 | 8.1 | 0.70 |
+| Equal-weight ensemble | 13.1 | 7.0 | 0.66 |
+| **Chosen: geometric mean of share model and logistic** | **11.5** | **6.7** | **0.66** |
+
+The chosen combination ties the logistic model on fixed origins, beats every
+candidate on rolling 12-month MAPE, and keeps a coherent share system for the
+levers. Per-rail fixed MAPE: P2M 16.0, credit 5.7, debit 1.9, P2P 14.1,
+IMPS 20.0. A debit decay-to-floor curve (5.1) did worse on debit than the
+chosen model. Full results: `output/forecast_backtest.csv` and
+`forecast_backtest_summary.csv`.
+
+**Uncertainty.** 1,000 paths from a joint 6-month block bootstrap of
+one-step residuals of the five latents, so correlation between rails is kept.
+Residuals are scaled by κ = 1.22, the RMS of standardised 12-month-ahead
+backtest errors. Empirical 80% coverage rises from 77% to 83% at 12 months
+(n = 65) and from 64% to 70% in the second year (n = 50). Bands further out are
+therefore likely too narrow. The two-year test from Mar 2024 covered
+credit and debit but missed P2M, P2P and IMPS.
+
+**Base case, FY2029–30** (median, 80% band; FY2025–26 actual in brackets):
+UPI P2M 223 bn [113–451] (152 bn), share 94.4% of the merchant basket; credit
+cards 11.9 bn [5.3–21.9] (6.0 bn), share 5.1%; debit cards 0.89 bn [0.13–4.28]
+(1.28 bn), share 0.4%; UPI P2P 124 bn [66–206] (89 bn); IMPS 2.2 bn [1.2–4.2]
+(4.9 bn), share 1.8% of transfers. Patterns: credit co-expands (87% of paths
+above FY2025–26), debit contracts absolutely (61%), IMPS contracts absolutely
+(95%). The base is a **pre-MDR baseline**: it contains no merchant charge on UPI.
+
+**Levers.** Each lever shifts a utility (log-odds) term in the share model or
+moves volume after it, phased in over the forecast years. The register is in
+`output/forecast_assumptions.csv` and on the page, labelled Policy,
+Calibrated, Anchored, Assumed or Scenario:
+
+| Lever | Mechanism | Default and basis |
+| --- | --- | --- |
+| MDR on UPI P2M above ₹2,000 | Card log-odds +β·MDR·(card share above ₹2,000); UPI fee pool = MDR × P2M value above ₹2,000 | 0 (pre-MDR). Preset 0.4% (announced from 15 Oct 2026). β ≈ 0.32 anchored on the Jan 2020 zero-MDR break; both ₹2,000 shares assumed at 50% |
+| Credit on UPI (RuPay credit, credit lines) | Moves a cannibalised fraction of the adoption share from credit cards to P2M | 0; 30% cannibalisation assumed |
+| Issuer push | Card-growth gap vs the latest year × elasticity 0.5; rewards × 0.25 | Card growth 8.0%/yr calibrated (Mar 2025–Mar 2026); elasticities assumed |
+| Acceptance | PoS vs UPI-QR growth gap × 0.3 on both card latents | PoS 6.0%, QR 15.7%/yr calibrated |
+| Debit issuance or clean-up | Direct shift on the debit latent | 0 |
+| NPCI 30% app cap | Caps Mar 2026 app shares at 30%, redistributes the excess proportionally; optional friction loses that share of moved volume | Off; friction 0% assumed |
+
+At the 0.4% preset, FY2029–30 credit-card volume is 6.2% above base, UPI P2M
+0.6% below, and the new UPI fee pool is about ₹27,000 crore against a ₹77,000
+crore card pool (card MDR 1.8% credit and 0.3% debit, assumed). The app cap
+moves 20% of UPI volume and cuts app HHI from 3,384 to 2,127. Without friction it
+changes concentration, not rail volumes.
+
+**Limitations.** The elasticities are not identified from this data. A
+regression of card log-odds on acceptance and card-growth gaps gave the wrong
+sign (cards −3.0, SE 0.6), so the defaults are anchored or assumed, and the
+page lets the reader change them. Trend models cannot foresee new products
+(UPI credit lines, UPI Lite growth) or a reversal of the MDR policy. Cash, PPI and
+UPI Lite sit outside the baskets. The fee pools are gross MDR at assumed rates,
+not issuer profit.
+
 ## Reading the result
 
 The main comparison is **growth versus displacement**. For FY2022-23 to
@@ -252,7 +340,8 @@ its aggregate is not classified by the same merchant purpose. A lower P2M
 average ticket is consistent with a different mix of transactions but does not
 prove that card payments were replaced. The data cannot identify a causal
 network effect, substitution elasticity, or the effect of any announced 2026
-merchant-side charge.
+merchant-side charge. The forecast section above simulates that charge under
+stated assumptions; it does not estimate it.
 
 ## Additional time series
 
