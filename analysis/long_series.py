@@ -520,8 +520,13 @@ def page_series(s) -> dict[str, object]:
     months = s["months"]
     pct_yoy = lambda key: [None if g is None else round(100 * (math.exp(g) - 1), 1) for g in diff(ln(s[key]))]
     r = lambda vals, nd=2: [None if v is None else round(v, nd) for v in vals]
+    rails = (("upi_n", "UPI"), ("imps_n", "IMPS"), ("debit_n", "Debit cards"), ("credit_n", "Credit cards"))
+    totals = [sum(s[k][i] for k, _ in rails) if all(s[k][i] for k, _ in rails) else None
+              for i in range(len(months))]
     return {
         "months": months,
+        "railShares": [{"name": n, "values": r([None if t is None else 100 * s[k][i] / t
+                                                 for i, t in enumerate(totals)], 1)} for k, n in rails],
         "levels": [{"name": "UPI", "values": r(s["upi_n"])}, {"name": "IMPS", "values": r(s["imps_n"])},
                    {"name": "Debit cards", "values": r(s["debit_n"])},
                    {"name": "Credit cards", "values": r(s["credit_n"])}],

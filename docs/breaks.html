@@ -151,6 +151,8 @@
       <section class="panel" aria-labelledby="shares-title">
         <p class="panel-kicker">Shares</p>
         <h2 id="shares-title">Who gained ground, and when</h2>
+        <p class="hint">First, each rail's share of all four together (UPI + IMPS + debit cards + credit cards, by number of transactions). Then the pairwise shares used in the hypotheses.</p>
+        <div id="rail-shares-chart"></div>
         <div id="shares-chart"></div>
       </section>
 
@@ -295,8 +297,12 @@
         unit: s.name === "UPI" ? "% (axis cut at +300%; UPI grew faster than that before 2019)" : "%",
         series: [s], clip: [-100, 300], H: 300, W: 560, from: "2015-06" })).join("");
 
+      document.getElementById("rail-shares-chart").innerHTML = drawChart({
+        title: "Share of UPI + IMPS + debit-card + credit-card transactions", unit: "% of the four-rail total (volume)",
+        series: DATA.series.railShares, H: 300, from: "2016-04" });
+
       document.getElementById("shares-chart").innerHTML = drawChart({
-        title: "Shares of transaction volume", unit: "% of the stated total",
+        title: "Pairwise shares of transaction volume", unit: "% of the stated total",
         series: DATA.series.shares, H: 280, from: "2016-04" });
 
       const fy = DATA.fy;
