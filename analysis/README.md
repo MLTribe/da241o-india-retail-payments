@@ -199,6 +199,17 @@ Outputs: `analysis/output/long_series_panel.csv` (spliced monthly panel with
 both sources) and `analysis/output/structural_breaks.csv`. The break tests
 are tests of a change in path at a known date, not causal policy effects.
 
+It also compares growth before and after COVID. It takes mean year-on-year
+log growth in Apr 2018 – Feb 2020 and in Jul 2022 – Mar 2026, and tests the
+difference with Newey-West SEs. A trend-break model then tests a level and a
+trend shift at Mar 2020. Results are in `analysis/output/covid_pre_post.csv`;
+financial-year totals and growth are in `analysis/output/fy_growth.csv`.
+Both feed `docs/breaks.html` through `docs/breaks-data.js`. That page shades
+demonetisation and both COVID waves, and marks the same-account exclusion,
+zero MDR, the P2P/P2M split and the splice date on every chart. For UPI and
+IMPS the model's level shift comes from fitting a straight trend to an
+adoption S-curve, so read their growth-rate change instead.
+
 ## Landscape hypotheses (banks, UPI apps, states)
 
 ```shell

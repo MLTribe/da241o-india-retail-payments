@@ -23,13 +23,14 @@ Bridging assumptions for the card splice:
 from __future__ import annotations
 
 import csv
+import json
 import math
 import re
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from payment_mix_model import END_MONTH, INPUT, OUTPUT, month_range, shift_month  # noqa: E402
+from payment_mix_model import END_MONTH, INPUT, OUTPUT, REPO, month_range, shift_month  # noqa: E402
 from hypothesis_tests import (  # noqa: E402
     D12, HAC_LAGS, Z95, chart, combine, derivation, diff, drift, drift_formulas, drift_hypothesis,
     drift_line, drift_step, growth_chart, hac_cov, hypothesis, label_month, ln, logodds, ols, pct,
@@ -415,6 +416,160 @@ def break_rows(s, tests) -> list[dict[str, object]]:
     return rows
 
 
+# ---------- Pre- vs post-COVID ----------
+
+# Year-on-year changes averaged before COVID (levels Apr 2017 - Feb 2020) and after it, once the
+# comparison base has left the second wave (levels from Jul 2022, bases from Jul 2021).
+PRE_COVID = EXPANSION
+POST_COVID = ("2022-07", END_MONTH)
+COVID_TAU = COVID[0]
+TREND_WINDOW = ("2017-04", END_MONTH)
+PREPOST_SERIES = [
+    # key, label, UPI (same-account straddles dropped), card series (splice dummy in the trend model)
+    ("upi_n", "UPI volume", True, False),
+    ("imps_n", "IMPS volume", False, False),
+    ("debit_n", "Debit-card payments (spliced)", False, True),
+    ("credit_n", "Credit-card payments (spliced)", False, True),
+    ("credit_v", "Credit-card value (spliced, nominal)", False, True),
+    ("upi_odds_cards", "UPI share of UPI + card payments (log-odds)", True, True),
+    ("credit_odds_cards", "Credit share of card payments (log-odds)", False, True),
+]
+
+
+def add_shares(s) -> None:
+    """Odds of each share; their log change is the change in log-odds."""
+    s["credit_share_cards"] = [c / (c + d) if c and d else None for c, d in zip(s["credit_n"], s["debit_n"])]
+    s["upi_odds_cards"] = [v / (1 - v) if v else None for v in s["upi_share_cards"]]
+    s["credit_odds_cards"] = [v / (1 - v) if v else None for v in s["credit_share_cards"]]
+
+
+def window_growth(s, key, upi, window):
+    return expansion_growth(s, key, upi=upi, window=window)
+
+
+def prepost(s) -> list[dict[str, object]]:
+    """Mean year-on-year log change before vs after COVID, and the difference with Newey-West SE."""
+    out = []
+    for key, label, upi, cards in PREPOST_SERIES:
+        pre = [v for v in window_growth(s, key, upi, PRE_COVID) if v is not None]
+        post = [v for v in window_growth(s, key, upi, POST_COVID) if v is not None]
+        y = pre + post
+        x = [[1.0, 0.0] for _ in pre] + [[1.0, 1.0] for _ in post]
+        fit = ols(y, x)
+        cov = hac_cov(fit, x, HAC_LAGS)
+        diff_se = math.sqrt(max(cov[1][1], 0.0))
+        d = fit["beta"][1]
+        trend = break_fit(s["months"], s[key] if not key.endswith("odds_cards") else
+                          [(math.log(v),) if v else None for v in s[key]],
+                          COVID_TAU, TREND_WINDOW, splice_dummy=cards, seasonal=True, slope=True)
+        out.append({
+            "series": label, "key": key, "share": key.endswith("odds_cards"),
+            "preMonths": len(pre), "postMonths": len(post),
+            "pre": sum(pre) / len(pre), "post": sum(post) / len(post),
+            "diff": d, "diffSe": diff_se, "diffLo": d - Z95 * diff_se, "diffHi": d + Z95 * diff_se,
+            "diffP": p_two_sided(d, diff_se),
+            "trendPre": trend["trend"], "trendChange": trend["slope"], "trendChangeSe": trend["slopeSe"],
+            "levelShift": trend["level"], "levelShiftSe": trend["levelSe"],
+            "chowWald": trend["wald"], "chowP": trend["p"], "trendN": trend["n"],
+            "covidMean": trend.get("covidMean"), "covidTroughMonth": trend.get("covidTroughMonth"),
+            "covidTrough": trend.get("covidTrough")})
+    return out
+
+
+def fy_label(start_year: int) -> str:
+    return f"FY{start_year}-{str(start_year + 1)[2:]}"
+
+
+def fy_growth(s) -> dict[str, object]:
+    """Financial-year totals (Apr-Mar) and their growth, for the year-by-year view of each break."""
+    months = s["months"]
+    years = list(range(int(UPI_START[:4]), int(END_MONTH[:4])))
+    rows = []
+    for key, label in (("upi_n", "UPI"), ("imps_n", "IMPS"), ("debit_n", "Debit cards"),
+                       ("credit_n", "Credit cards")):
+        totals = {}
+        for y in years:
+            span = month_range(f"{y}-04", f"{y + 1}-03")
+            vals = [s[key][months.index(m)] for m in span if m in months]
+            if len(vals) == 12 and all(v is not None for v in vals):
+                totals[y] = sum(vals)
+        growth = {fy_label(y): round(100 * (totals[y] / totals[y - 1] - 1), 1)
+                  for y in years if y in totals and y - 1 in totals}
+        rows.append({"series": label, "totals": {fy_label(y): round(v, 1) for y, v in totals.items()},
+                     "growth": growth})
+    labels = [fy_label(y) for y in years]
+    return {"years": labels, "rows": rows,
+            "phase": {fy_label(y): ("Demonetisation base" if y == 2017 else
+                                    "Pre-COVID" if y in (2018, 2019) else
+                                    "COVID (lockdown)" if y == 2020 else
+                                    "COVID (second wave)" if y == 2021 else "Post-COVID")
+                      for y in years}}
+
+
+def bands_and_lines() -> dict[str, object]:
+    return {
+        "bands": [{"id": "DM", "from": DEMONETISATION[0], "to": DEMONETISATION[1], "label": "Demonetisation"},
+                  {"id": "CV", "from": COVID[0], "to": COVID[1], "label": "COVID lockdown & reopening"},
+                  {"id": "CV2", "from": COVID_WAVE2[0], "to": COVID_WAVE2[1], "label": "COVID second wave"}],
+        "lines": [{"id": b["id"], "month": b["month"], "label": b["name"]}
+                  for b in BREAKS if b["id"] in ("SA", "MDR", "SP", "RC")],
+    }
+
+
+def page_series(s) -> dict[str, object]:
+    months = s["months"]
+    pct_yoy = lambda key: [None if g is None else round(100 * (math.exp(g) - 1), 1) for g in diff(ln(s[key]))]
+    r = lambda vals, nd=2: [None if v is None else round(v, nd) for v in vals]
+    return {
+        "months": months,
+        "levels": [{"name": "UPI", "values": r(s["upi_n"])}, {"name": "IMPS", "values": r(s["imps_n"])},
+                   {"name": "Debit cards", "values": r(s["debit_n"])},
+                   {"name": "Credit cards", "values": r(s["credit_n"])}],
+        "yoy": [{"name": n, "values": pct_yoy(k)} for k, n in
+                (("upi_n", "UPI"), ("imps_n", "IMPS"), ("debit_n", "Debit cards"), ("credit_n", "Credit cards"))],
+        "shares": [{"name": "UPI share of UPI + card payments",
+                    "values": r([None if v is None else 100 * v for v in s["upi_share_cards"]], 1)},
+                   {"name": "UPI share of UPI + IMPS",
+                    "values": r([None if v is None else 100 * v for v in s["upi_share_transfer"]], 1)},
+                   {"name": "Credit share of card payments",
+                    "values": r([None if v is None else 100 * v for v in s["credit_share_cards"]], 1)}],
+    }
+
+
+def prepost_text(rows) -> list[str]:
+    by = {r["key"]: r for r in rows}
+    g = lambda v: f"{100 * (math.exp(v) - 1):+.0f}%"
+    upi, imps, deb, cred = by["upi_n"], by["imps_n"], by["debit_n"], by["credit_n"]
+    share = by["upi_odds_cards"]
+    return [
+        f"Before COVID (year-on-year changes, {label_month(PRE_COVID[0])} – {label_month(PRE_COVID[1])}) UPI grew "
+        f"{g(upi['pre'])} a year, debit-card payments {g(deb['pre'])} and credit-card payments {g(cred['pre'])}: "
+        f"cards were still co-expanding with UPI.",
+        f"After COVID ({label_month(POST_COVID[0])} – {label_month(POST_COVID[1])}) UPI grew {g(upi['post'])} a year, "
+        f"credit cards {g(cred['post'])}, and debit cards {g(deb['post'])}. Debit went from growth to contraction "
+        f"(difference {deb['diff']:+.2f} log points a year, 95% CI {deb['diffLo']:+.2f} to {deb['diffHi']:+.2f}).",
+        f"UPI's own growth slowed ({g(upi['pre'])} → {g(upi['post'])}), which is expected as adoption matures from a "
+        f"small base. Its share of UPI + card payments kept rising, by {share['pre']:+.2f} log-odds a year before "
+        f"COVID and {share['post']:+.2f} after: slower in log-odds because UPI already held most of the combined "
+        f"volume, not a reversal.",
+        f"IMPS went from {g(imps['pre'])} a year to {g(imps['post'])}: "
+        + ("it stopped growing as UPI absorbed bank transfers." if imps["diffHi"] < 0 and abs(imps["post"]) < 0.05
+           else "its growth changed." if imps["diffHi"] < 0 or imps["diffLo"] > 0 else "no clear change.")
+        + f" Credit cards grew {g(cred['pre'])} before and {g(cred['post'])} after "
+        + ("(no significant change): " if cred["diffLo"] < 0 < cred["diffHi"] else ": ")
+        + "credit's growth rate recovered, consistent with credit's role (credit period, rewards, online spending) "
+          "surviving UPI; debit's did not.",
+        f"Growth rates are not the whole story. The trend-break model puts credit-card payments "
+        f"{abs(100 * (math.exp(cred['levelShift']) - 1)):.0f}% {'below' if cred['levelShift'] < 0 else 'above'} "
+        f"their pre-COVID path after 2020 "
+        f"(SE {cred['levelShiftSe']:.2f} log points): the lockdown cost credit about a year of growth that was never "
+        f"made up. For debit the level shift is small ({100 * (math.exp(deb['levelShift']) - 1):+.0f}%) but the trend "
+        f"fell by {deb['trendChange']:+.2f} log points a year, a lasting change of path rather than a one-off loss.",
+        "These are changes in path around a date, not causal effects: COVID coincides with zero MDR (Jan 2020), "
+        "the P2M scale-up and UPI's maturing adoption curve.",
+    ]
+
+
 def write_outputs(s, tests) -> None:
     OUTPUT.mkdir(exist_ok=True)
     keys = ["upi_n", "imps_n", "p2m_n", "debit_n", "debit_v", "credit_n", "credit_v",
@@ -434,10 +589,42 @@ def write_outputs(s, tests) -> None:
             writer.writerow({k: (round(v, 4) if isinstance(v, float) else v) for k, v in t.items()})
 
 
+def write_breaks_page(s, tests) -> list[dict[str, object]]:
+    rows = prepost(s)
+    fy = fy_growth(s)
+    with (OUTPUT / "covid_pre_post.csv").open("w", newline="", encoding="utf-8") as stream:
+        fields = ["series", "preMonths", "postMonths", "pre", "post", "diff", "diffSe", "diffLo", "diffHi", "diffP",
+                  "trendPre", "trendChange", "trendChangeSe", "levelShift", "levelShiftSe", "chowWald", "chowP",
+                  "trendN", "covidMean", "covidTroughMonth", "covidTrough"]
+        writer = csv.DictWriter(stream, fieldnames=fields, extrasaction="ignore")
+        writer.writeheader()
+        for r in rows:
+            writer.writerow({k: (round(v, 4) if isinstance(v, float) else v) for k, v in r.items()})
+    with (OUTPUT / "fy_growth.csv").open("w", newline="", encoding="utf-8") as stream:
+        writer = csv.writer(stream)
+        writer.writerow(["series", "measure"] + fy["years"])
+        for r in fy["rows"]:
+            writer.writerow([r["series"], "volume_mn"] + [r["totals"].get(y, "") for y in fy["years"]])
+            writer.writerow([r["series"], "growth_pct"] + [r["growth"].get(y, "") for y in fy["years"]])
+    payload = {
+        "dataThrough": END_MONTH, "series": page_series(s), **bands_and_lines(),
+        "windows": {"pre": [PRE_COVID[0], PRE_COVID[1]], "post": [POST_COVID[0], POST_COVID[1]],
+                    "trend": [TREND_WINDOW[0], TREND_WINDOW[1]], "covid": COVID_TAU},
+        "prepost": [{k: (round(v, 4) if isinstance(v, float) else v) for k, v in r.items()} for r in rows],
+        "prepostText": prepost_text(rows), "fy": fy, "breaks": break_rows(s, tests),
+        "breakTests": [{k: (round(v, 4) if isinstance(v, float) else v) for k, v in t.items()} for t in tests],
+    }
+    (REPO / "docs" / "breaks-data.js").write_text(
+        "window.BREAKS_DATA = Object.freeze(" + json.dumps(payload, ensure_ascii=False) + ");\n", encoding="utf-8")
+    return rows
+
+
 def run() -> dict[str, object]:
     s = load()
+    add_shares(s)
     tests = break_tests(s)
     write_outputs(s, tests)
+    write_breaks_page(s, tests)
     hyps = [build(s) for build in LONG_REGISTER]
     debit = next(t for t in tests if t["series"].startswith("Debit-card"))
     early = drift(expansion_growth(s, "debit_n", window=("2017-04", EXPANSION[1])))
