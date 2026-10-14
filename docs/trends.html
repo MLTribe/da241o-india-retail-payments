@@ -1,0 +1,542 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f4ef">
+  <meta name="description" content="Weekly and monthly time series for UPI, IMPS, NEFT, credit cards and debit cards from RBI daily payments data.">
+  <title>Weekly and Monthly Trends · Utility Maximizers</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f5f4ef;
+      --surface: #fffefa;
+      --ink: #152b33;
+      --muted: #53656a;
+      --line: #dce2dc;
+      --green: #126b54;
+      --green-soft: #e3f1e9;
+      --navy: #16323b;
+      --shadow: 0 14px 38px rgba(21, 43, 51, .07);
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; }
+    button, input { font: inherit; }
+    button:focus-visible, a:focus-visible, input:focus-visible, rect:focus-visible { outline: 3px solid #bb8d31; outline-offset: 3px; }
+    .wrap { width: min(1120px, calc(100% - 40px)); margin-inline: auto; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 22px 0; border-bottom: 1px solid var(--line); }
+    .brand { display: flex; gap: 11px; align-items: center; text-decoration: none; font-weight: 750; letter-spacing: -.02em; }
+    .brand-mark { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 11px; background: var(--green); color: white; font-size: 17px; }
+    .brand small { display: block; color: var(--muted); font-size: 11px; font-weight: 600; letter-spacing: .11em; text-transform: uppercase; }
+    nav { display: flex; gap: 23px; align-items: center; }
+    nav a { color: #42575c; font-size: 13px; font-weight: 650; text-decoration: none; }
+    nav a:hover, nav a[aria-current="page"] { color: var(--green); }
+    .intro { display: grid; grid-template-columns: 1.2fr .8fr; gap: 32px; padding: 54px 0 34px; align-items: end; }
+    .eyebrow { display: inline-flex; gap: 8px; align-items: center; color: var(--green); font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .14em; }
+    .eyebrow::before { content: ""; width: 20px; height: 2px; background: var(--green); }
+    h1 { margin: 17px 0 15px; font-family: Georgia, "Times New Roman", serif; font-size: clamp(34px, 4.6vw, 56px); line-height: 1.06; letter-spacing: -.045em; font-weight: 500; }
+    h1 em { color: var(--green); font-weight: 500; }
+    .lede { margin: 0; max-width: 660px; color: var(--muted); font-size: 16px; line-height: 1.65; }
+    .intro-aside { padding: 22px 24px; background: var(--navy); color: #f6f5ed; border-radius: 18px; box-shadow: var(--shadow); }
+    .intro-aside strong { display: block; font-family: Georgia, "Times New Roman", serif; font-size: 23px; font-weight: 500; line-height: 1.2; }
+    .intro-aside p { margin: 10px 0 0; color: #c7d5d3; font-size: 13px; }
+    .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; box-shadow: var(--shadow); padding: 25px; margin-bottom: 18px; }
+    .panel-kicker { margin: 0 0 4px; color: var(--green); font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    h2 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: 27px; font-weight: 500; letter-spacing: -.025em; line-height: 1.15; }
+    h3 { margin: 0 0 8px; font-size: 15px; }
+    .row { display: flex; flex-wrap: wrap; gap: 7px; align-items: center; margin-top: 14px; }
+    .row-label { min-width: 84px; color: var(--muted); font-size: 12px; font-weight: 750; }
+    .choice { border: 1px solid #bfd4c7; border-radius: 8px; background: #f7faf7; padding: 7px 11px; color: var(--green); font-size: 12px; font-weight: 750; cursor: pointer; }
+    .choice[aria-pressed="true"] { background: var(--green); border-color: var(--green); color: white; }
+    .toggle { display: inline-flex; gap: 6px; align-items: center; color: var(--muted); font-size: 12px; font-weight: 650; margin-left: 10px; }
+    .toggle input:disabled + span { opacity: .45; }
+    .chart-frame { position: relative; overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: #fbfcf9; margin-top: 16px; }
+    #chart { display: block; width: 100%; min-width: 560px; height: auto; }
+    .grid { stroke: #dce5df; stroke-width: 1; }
+    .zero { stroke: #96aaa0; stroke-width: 1.5; }
+    .axis-label { fill: var(--muted); font-size: 11px; }
+    .axis-title { fill: var(--ink); font-size: 12px; font-weight: 750; }
+    .series { fill: none; stroke-width: 2.4; stroke-linejoin: round; stroke-linecap: round; }
+    .series.dashed { stroke-dasharray: 5 4; stroke-width: 1.8; }
+    .join { stroke: #bb8d31; stroke-width: 1.5; stroke-dasharray: 4 3; }
+    .join-label { fill: #8a6516; font-size: 11px; font-weight: 700; }
+    .swatch.dashed { background: none !important; border-top: 3px dashed; height: 0; width: 14px; }
+    .choice:disabled { opacity: .4; cursor: not-allowed; }
+    .hit { fill: transparent; cursor: crosshair; }
+    .cursor { stroke: var(--navy); stroke-width: 1; stroke-dasharray: 3 3; pointer-events: none; }
+    .tooltip { position: fixed; z-index: 20; transform: translate(-50%, calc(-100% - 12px)); width: max-content; max-width: min(320px, calc(100vw - 20px)); padding: 10px 13px; border-radius: 10px; background: var(--navy); color: white; box-shadow: 0 10px 28px rgba(21, 43, 51, .24); pointer-events: none; font-size: 12px; line-height: 1.45; }
+    .tooltip[hidden] { display: none; }
+    .tooltip strong, .tooltip span { display: block; }
+    .tooltip span { color: #d7e4df; font-variant-numeric: tabular-nums; }
+    .legend { display: flex; gap: 8px 16px; flex-wrap: wrap; margin-top: 13px; }
+    .legend label { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; cursor: pointer; }
+    .legend input { accent-color: var(--green); }
+    .swatch { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+    .summary { margin: 12px 0 0; font-size: 12px; font-weight: 650; font-variant-numeric: tabular-nums; }
+    .note { margin: 7px 0 0; color: var(--muted); font-size: 12px; }
+    .insights { margin: 14px 0 0; padding-left: 20px; font-size: 14px; }
+    .insights li { margin: 7px 0; }
+    .two { display: grid; grid-template-columns: 1.3fr .7fr; gap: 18px; }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; font-variant-numeric: tabular-nums; margin-top: 10px; }
+    th, td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--line); }
+    th { color: var(--muted); font-weight: 700; }
+    td.num, th.num { text-align: right; }
+    .up { color: #0b7a3e; font-weight: 700; }
+    .down { color: #b42318; font-weight: 700; }
+    .caveat { margin-top: 14px; padding: 12px 14px; border-left: 4px solid #bb8d31; background: #fbf2df; border-radius: 8px; font-size: 13px; }
+    .bottom-note { max-width: 880px; padding-bottom: 44px; color: var(--muted); font-size: 12px; }
+    .bottom-note a { color: var(--green); font-weight: 700; }
+    footer { border-top: 1px solid var(--line); padding: 20px 0 28px; display: flex; justify-content: space-between; gap: 20px; color: var(--muted); font-size: 11px; }
+    @media (max-width: 820px) { .intro, .two { grid-template-columns: 1fr; } }
+    @media (max-width: 570px) {
+      .wrap { width: min(100% - 28px, 1120px); }
+      .topbar { display: block; }
+      nav { margin-top: 14px; flex-wrap: wrap; gap: 7px 14px; }
+      .panel { padding: 18px; }
+      footer { display: block; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="topbar">
+      <a class="brand" href="index.html" aria-label="Utility Maximizers home">
+        <span class="brand-mark">U</span>
+        <span>Utility Maximizers<small>DA241o · Managerial Economics</small></span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="index.html">Project home</a>
+        <a href="play.html">Play the model</a>
+        <a href="explore.html">Explore the series</a>
+        <a href="trends.html" aria-current="page">Weekly &amp; monthly trends</a>
+        <a href="hypotheses.html">Hypotheses</a>
+        <a href="landscape.html">Landscape</a>
+        <a href="breaks.html">Structural breaks</a>
+        <a href="index.html#data">Data sources</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="intro" aria-labelledby="page-title">
+        <div>
+          <span class="eyebrow">Weekly and monthly time series</span>
+          <h1 id="page-title">UPI, IMPS, NEFT and cards: <em>how have they moved, week by week?</em></h1>
+          <p class="lede">One simple chart for five payment systems, built from RBI's daily data. Switch between weekly and monthly totals, then add dimensions: share of payments, share of value, average payment size and growth versus a year ago.</p>
+        </div>
+        <div class="intro-aside">
+          <strong id="aside-range">Daily data</strong>
+          <p>Shares are of these five systems together, not of all payments in India. UPI includes transfers between people, NEFT includes business payments, and cards are purchases.</p>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="chart-title">
+        <p class="panel-kicker">Time series</p>
+        <h2 id="chart-title">Payments over time</h2>
+        <div class="row" role="group" aria-label="Frequency">
+          <span class="row-label">Frequency</span>
+          <button type="button" class="choice" data-freq="weekly">Weekly</button>
+          <button type="button" class="choice" data-freq="monthly">Monthly</button>
+          <button type="button" class="choice" data-freq="long">Monthly, long run (old + daily data)</button>
+          <label class="toggle"><input type="checkbox" id="smooth"><span>Smooth (4-week average)</span></label>
+        </div>
+        <div class="row" role="group" aria-label="Measure" id="measures">
+          <span class="row-label">Measure</span>
+        </div>
+        <div class="row" role="group" aria-label="Period" id="ranges">
+          <span class="row-label">Period</span>
+          <button type="button" class="choice" data-range="all">All</button>
+          <button type="button" class="choice" data-range="36">Last 3 years</button>
+          <button type="button" class="choice" data-range="12">Last 12 months</button>
+          <label class="toggle"><input type="checkbox" id="log-scale" checked><span>Log scale</span></label>
+        </div>
+        <div class="chart-frame">
+          <svg id="chart" viewBox="0 0 760 330" role="group" aria-labelledby="svg-title svg-desc">
+            <title id="svg-title">Payments over time</title>
+            <desc id="svg-desc"></desc>
+            <g id="drawing"></g>
+          </svg>
+        </div>
+        <div class="tooltip" id="tooltip" role="tooltip" hidden></div>
+        <div class="legend" id="legend" aria-label="Show or hide systems"></div>
+        <p class="summary" id="summary" role="status" aria-live="polite"></p>
+        <p class="note" id="measure-note"></p>
+      </section>
+
+      <section class="panel" aria-labelledby="insight-title">
+        <p class="panel-kicker">Trends</p>
+        <h2 id="insight-title">What the series show</h2>
+        <p class="note" id="insight-period"></p>
+        <ul class="insights" id="insights"></ul>
+        <div class="caveat"><strong>Card lines are card-network payments only.</strong> RBI's daily file counts card payments processed by card networks. RBI's monthly Payment System Indicators also count other card payments. In March 2026 the daily file shows about 56% fewer credit-card payments and 9% fewer debit-card payments than the monthly figures. The credit-card gap has widened since 2023, which fits (but does not prove) RuPay credit cards being used through UPI. Use the daily card lines for the timing of changes (weeks, festivals, weekdays); for total card spending, use the monthly figures on <a href="explore.html">Explore the series</a>.</div>
+      </section>
+
+      <section class="panel" aria-labelledby="match-title">
+        <p class="panel-kicker">Old data vs daily data</p>
+        <h2 id="match-title">Do the daily figures match the official monthly figures?</h2>
+        <p class="note">For each month covered by both sources, the daily figures are added up to a monthly total and compared with the official monthly series already used in the project (NPCI for UPI and IMPS; RBI Payment System Indicators for NEFT and cards). Correlations near 1 mean the two move together.</p>
+        <table id="match-table">
+          <thead><tr><th>System</th><th>Months compared</th><th class="num">Average gap</th><th class="num">Gap, last 3 months</th><th class="num">Correlation: level</th><th class="num">Correlation: growth vs a year ago</th><th class="num">Correlation: month-to-month change</th><th>What we do</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <p class="note" id="match-note"></p>
+      </section>
+
+      <div class="two">
+        <section class="panel" aria-labelledby="table-title">
+          <p class="panel-kicker">First year vs latest year</p>
+          <h3 id="table-title">How each system changed</h3>
+          <p class="note" id="table-period"></p>
+          <table id="change-table">
+            <thead><tr><th>System</th><th class="num">Payments, latest year (mn)</th><th class="num">Growth % a year</th><th class="num">Share of payments</th><th class="num">Share of value</th><th class="num">Average payment (₹)</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </section>
+        <section class="panel" aria-labelledby="weekday-title">
+          <p class="panel-kicker">Day of week</p>
+          <h3 id="weekday-title">When in the week people pay</h3>
+          <p class="note" id="weekday-period"></p>
+          <table id="weekday-table"><thead></thead><tbody></tbody></table>
+          <p class="note">Card payments appear to be recorded by settlement date, so some weekend spending shows up on Monday.</p>
+        </section>
+      </div>
+
+      <p class="bottom-note">Data: RBI, Payment and Settlement Systems – Daily Data Publication (archived in <code>source_archive/rbi/</code>). Volumes are converted from lakh to million; values are nominal ₹ crore. Only complete weeks (Monday–Sunday) and complete months are shown. The long-run view joins the project's official monthly series (NPCI product statistics; RBI Payment System Indicators pages in <code>source_archive/rbi/html/</code>; the spliced card series from <code>analysis/long_series.py</code>). Generated by <code>analysis/daily_trends.py</code>; daily, weekly, monthly, long-run and comparison tables are in <code>analysis/output/</code>.</p>
+    </main>
+    <footer><span>Utility Maximizers · DA241o · Managerial Economics</span><span id="footer-through"></span></footer>
+  </div>
+
+  <script src="trends-data.js"></script>
+  <script>
+    "use strict";
+    const DATA = window.TRENDS_DATA;
+    const SVG_NS = "http://www.w3.org/2000/svg";
+    const COLOURS = { "UPI": "#008738", "IMPS": "#7a3fa0", "NEFT": "#1f5f9e", "Credit card": "#d62828", "Debit card": "#b57700" };
+    const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const MEASURES = {
+      volume:   { label: "Payments (mn)", axis: "number of payments (million)", fmt: v => `${fmtNum(v)} mn`, log: true,
+                  note: "Total number of payments in each period. Turn on log scale to compare systems of very different size." },
+      value:    { label: "Value (₹ crore)", axis: "value of payments (₹ crore, nominal)", fmt: v => `₹${fmtNum(v)} cr`, log: true,
+                  note: "Total rupee value in each period, not adjusted for inflation." },
+      volShare: { label: "Share of payments (%)", axis: "share of the five systems' payments (%)", fmt: v => `${v.toFixed(2)}%`, share: true,
+                  note: "Each system's payments ÷ all five systems' payments. Shares add up to 100% in every period." },
+      valShare: { label: "Share of value (%)", axis: "share of the five systems' value (%)", fmt: v => `${v.toFixed(2)}%`, share: true,
+                  note: "Each system's rupee value ÷ all five systems' value. NEFT carries large business payments, so it dominates value." },
+      ticket:   { label: "Average payment (₹)", axis: "average rupees per payment", fmt: v => `₹${fmtNum(v)}`, log: true,
+                  note: "Value ÷ number of payments. A falling average means more small payments, not that the same payments got cheaper." },
+      yoy:      { label: "Growth vs a year ago (%)", axis: "change in payments vs a year earlier (%)", fmt: v => `${v >= 0 ? "+" : ""}${v.toFixed(1)}%`,
+                  note: "Change in the number of payments compared with the same week (52 weeks earlier) or month a year before. Removes seasonal effects." }
+    };
+    const state = { freq: "weekly", measure: "volume", range: "all", smooth: false, log: true, hidden: new Set() };
+    const el = id => document.getElementById(id);
+    const tooltip = el("tooltip");
+
+    function fmtNum(v) {
+      const abs = Math.abs(v);
+      const digits = abs >= 1000 ? 0 : abs >= 100 ? 1 : 2;
+      return v.toLocaleString("en-IN", { minimumFractionDigits: digits, maximumFractionDigits: digits });
+    }
+    function periodLabel(p) {
+      if (p.length === 7) return `${MONTHS[Number(p.slice(5, 7)) - 1]} ${p.slice(0, 4)}`;
+      return `Week of ${Number(p.slice(8, 10))} ${MONTHS[Number(p.slice(5, 7)) - 1]} ${p.slice(0, 4)}`;
+    }
+    function tickLabel(p) {
+      const m = MONTHS[Number(p.slice(5, 7)) - 1];
+      return p.length === 7 ? `${m} ${p.slice(2, 4)}` : `${Number(p.slice(8, 10))} ${m} ${p.slice(2, 4)}`;
+    }
+    function svg(tag, attrs) {
+      const node = document.createElementNS(SVG_NS, tag);
+      for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, v);
+      return node;
+    }
+    function cell(text, cls) {
+      const td = document.createElement("td");
+      td.textContent = text; if (cls) td.className = cls; return td;
+    }
+    function niceTicks(low, high, count) {
+      const raw = (high - low) / count;
+      const mag = 10 ** Math.floor(Math.log10(raw || 1));
+      const step = [1, 2, 2.5, 5, 10].map(x => x * mag).find(x => x >= raw) || raw;
+      const start = Math.floor(low / step) * step, end = Math.ceil(high / step) * step;
+      const ticks = [];
+      for (let t = start; t <= end + step / 2; t += step) ticks.push(Number(t.toPrecision(12)));
+      return ticks;
+    }
+    function movingAverage(values, n) {
+      return values.map((_, i) => {
+        if (i < n - 1) return null;
+        const win = values.slice(i - n + 1, i + 1);
+        return win.some(v => v === null) ? null : win.reduce((a, b) => a + b, 0) / n;
+      });
+    }
+
+    const NETWORK = " (card networks)";
+    const baseName = name => name.replace(NETWORK, "");
+
+    function view() {
+      const block = DATA[state.freq];
+      const n = block.periods.length;
+      const keep = state.range === "all" ? n : Math.min(n, state.freq === "weekly" ? Math.round(Number(state.range) * 52 / 12) : Number(state.range));
+      const lo = n - keep;
+      const smooth = state.smooth && state.freq === "weekly";
+      const series = Object.keys(block.systems).map(name => {
+        let values = block.systems[name][state.measure];
+        if (smooth) values = movingAverage(values, 4);
+        const appendFrom = (block.appendFrom || {})[name];
+        return { name, colour: COLOURS[baseName(name)], dashed: name.endsWith(NETWORK), appendFrom, values: values.slice(lo) };
+      });
+      return { periods: block.periods.slice(lo), series, appendFrom: block.appendFrom };
+    }
+
+    function render() {
+      hideTooltip();
+      const measure = MEASURES[state.measure];
+      const { periods, series, appendFrom } = view();
+      const shown = series.filter(s => !state.hidden.has(s.name));
+      buildLegend(series);
+      el("log-scale").disabled = !measure.log;
+      el("smooth").disabled = state.freq !== "weekly";
+      const useLog = measure.log && state.log;
+      const drawing = el("drawing");
+      const all = shown.flatMap(s => s.values).filter(v => v !== null && (!useLog || v > 0));
+      if (periods.length < 2 || !all.length) {
+        drawing.replaceChildren();
+        const t = svg("text", { x: 380, y: 165, "text-anchor": "middle", class: "axis-label" });
+        t.textContent = "No data for this choice.";
+        drawing.appendChild(t);
+        el("summary").textContent = "";
+        return;
+      }
+      const left = 76, right = 742, top = 38, bottom = 290;
+      let low, high, ticks;
+      if (useLog) {
+        low = Math.floor(Math.log10(Math.min(...all))); high = Math.ceil(Math.log10(Math.max(...all)));
+        if (high === low) high += 1;
+        ticks = []; for (let p = low; p <= high; p++) ticks.push(p);
+      } else {
+        const min = Math.min(...all), max = Math.max(...all);
+        low = measure.share ? 0 : Math.min(0, min);
+        high = measure.share ? Math.min(100, Math.max(max * 1.05, 1)) : max * 1.05;
+        ticks = niceTicks(low, high, 5); low = ticks[0]; high = ticks[ticks.length - 1];
+      }
+      const tv = v => useLog ? Math.log10(v) : v;
+      const x = i => left + (right - left) * i / (periods.length - 1);
+      const y = v => bottom - (tv(v) - low) * (bottom - top) / (high - low);
+      const frag = document.createDocumentFragment();
+      const title = svg("text", { x: left, y: 22, class: "axis-title" });
+      title.textContent = `Y axis: ${measure.axis}${useLog ? " — log scale" : ""}`;
+      frag.appendChild(title);
+      for (const t of ticks) {
+        const yy = useLog ? bottom - (t - low) * (bottom - top) / (high - low) : y(t);
+        frag.appendChild(svg("line", { x1: left, x2: right, y1: yy, y2: yy, class: t === 0 && !useLog ? "zero" : "grid" }));
+        const label = svg("text", { x: left - 8, y: yy + 4, "text-anchor": "end", class: "axis-label" });
+        label.textContent = useLog ? fmtNum(10 ** t) : (measure.share || state.measure === "yoy" ? `${t}%` : fmtNum(t));
+        frag.appendChild(label);
+      }
+      const step = Math.max(1, Math.round(periods.length / 7));
+      periods.forEach((p, i) => {
+        const last = i === periods.length - 1;
+        if ((i % step && !last) || (!last && periods.length - 1 - i < step * .6)) return;
+        const label = svg("text", { x: x(i), y: 312, "text-anchor": i === 0 ? "start" : last ? "end" : "middle", class: "axis-label" });
+        label.textContent = tickLabel(p);
+        frag.appendChild(label);
+      });
+      for (const s of shown) {
+        let d = "", pen = false;
+        s.values.forEach((v, i) => {
+          if (v === null || (useLog && v <= 0)) { pen = false; return; }
+          d += `${pen ? "L" : "M"}${x(i).toFixed(1)},${y(v).toFixed(1)} `; pen = true;
+        });
+        if (d) frag.appendChild(svg("path", { d: d.trim(), class: s.dashed ? "series dashed" : "series", stroke: s.colour }));
+      }
+      const join = appendFrom && Object.values(appendFrom).sort()[0];
+      const ji = join ? periods.indexOf(join) : -1;
+      if (ji > 0) {
+        const jx = x(ji) - (right - left) / (periods.length - 1) / 2;
+        frag.appendChild(svg("line", { x1: jx, x2: jx, y1: top, y2: bottom, class: "join" }));
+        const label = svg("text", { x: jx - 5, y: top + 12, "text-anchor": "end", class: "join-label" });
+        label.textContent = `daily data from ${periodLabel(join)} →`;
+        frag.appendChild(label);
+      }
+      const cursor = svg("line", { x1: 0, x2: 0, y1: top, y2: bottom, class: "cursor", visibility: "hidden" });
+      frag.appendChild(cursor);
+      const width = (right - left) / (periods.length - 1);
+      periods.forEach((p, i) => {
+        const rows = shown.map(s => `${s.name}: ${s.values[i] === null ? "n/a" : measure.fmt(s.values[i])}${s.appendFrom && p >= s.appendFrom && s.values[i] !== null ? " (daily data)" : ""}`);
+        const hit = svg("rect", { x: x(i) - width / 2, y: top, width, height: bottom - top, class: "hit", tabindex: i % step === 0 ? 0 : -1,
+          "aria-label": `${periodLabel(p)}. ${rows.join("; ")}` });
+        const show = event => {
+          cursor.setAttribute("x1", x(i)); cursor.setAttribute("x2", x(i)); cursor.setAttribute("visibility", "visible");
+          const box = event && event.clientX !== undefined ? { left: event.clientX, top: event.clientY } : hit.getBoundingClientRect();
+          showTooltip(periodLabel(p), rows, box.left + (box.width || 0) / 2, box.top + (event && event.clientY !== undefined ? 0 : 20));
+        };
+        hit.addEventListener("mousemove", show);
+        hit.addEventListener("focus", () => show(null));
+        hit.addEventListener("mouseleave", () => { cursor.setAttribute("visibility", "hidden"); hideTooltip(); });
+        hit.addEventListener("blur", () => { cursor.setAttribute("visibility", "hidden"); hideTooltip(); });
+        frag.appendChild(hit);
+      });
+      drawing.replaceChildren(frag);
+
+      const firstLast = shown.map(s => {
+        const ia = s.values.findIndex(v => v !== null && (!useLog || v > 0));
+        const ib = s.values.length - 1 - [...s.values].reverse().findIndex(v => v !== null);
+        if (ia < 0) return `${s.name}: n/a`;
+        const dates = state.freq === "long" ? ` (${tickLabel(periods[ia])} → ${tickLabel(periods[ib])})` : "";
+        return `${s.name} ${measure.fmt(s.values[ia])} → ${measure.fmt(s.values[ib])}${dates}`;
+      });
+      el("summary").textContent = `${periodLabel(periods[0])} → ${periodLabel(periods[periods.length - 1])}: ${firstLast.join(" · ")}`;
+      el("svg-title").textContent = `${measure.label}, ${state.freq === "long" ? "monthly, long run" : state.freq}`;
+      el("svg-desc").textContent = `Y axis: ${measure.axis}. ${el("summary").textContent}`;
+      const smoothNote = state.smooth && state.freq === "weekly" ? " Smoothed: each point is the average of the latest 4 weeks." : "";
+      const longNote = state.freq === "long"
+        ? " Long run: official monthly data (UPI and IMPS from NPCI, from Apr 2016; NEFT from RBI, from Jun 2020; cards from RBI, from Jun 2014, with bank-wise figures scaled to the RBI total before Jun 2021). For UPI, IMPS and NEFT the daily data are added after the official series ends, because the two sources agree there. Dashed lines are the card-network card payments from the daily data; they are shown beside the official card lines, not joined, because their level is different. Shares are not shown here because NEFT starts only in 2020."
+        : "";
+      el("measure-note").textContent = measure.note + smoothNote + longNote;
+    }
+
+    let legendKey = "";
+    function buildLegend(series) {
+      const key = series.map(s => s.name).join("|");
+      if (key === legendKey) return;
+      legendKey = key;
+      const legend = el("legend");
+      legend.replaceChildren();
+      for (const s of series) {
+        const label = document.createElement("label");
+        const input = document.createElement("input");
+        input.type = "checkbox"; input.checked = !state.hidden.has(s.name);
+        input.addEventListener("change", () => { input.checked ? state.hidden.delete(s.name) : state.hidden.add(s.name); render(); });
+        const sw = document.createElement("i");
+        sw.className = s.dashed ? "swatch dashed" : "swatch";
+        sw.style.background = s.colour; sw.style.borderColor = s.colour;
+        label.append(input, sw, document.createTextNode(s.name));
+        legend.appendChild(label);
+      }
+    }
+
+    function setFreq(freq) {
+      state.freq = freq;
+      pressed("main", "freq", freq);
+      for (const b of document.querySelectorAll("[data-measure]")) b.disabled = freq === "long" && MEASURES[b.dataset.measure].share;
+      if (freq === "long" && MEASURES[state.measure].share) { state.measure = "volume"; pressed("main", "measure", state.measure); }
+    }
+
+    function showTooltip(heading, rows, px, py) {
+      tooltip.replaceChildren();
+      const strong = document.createElement("strong");
+      strong.textContent = heading; tooltip.appendChild(strong);
+      for (const r of rows) { const s = document.createElement("span"); s.textContent = r; tooltip.appendChild(s); }
+      tooltip.hidden = false;
+      tooltip.style.left = `${Math.min(Math.max(px, 160), window.innerWidth - 160)}px`;
+      tooltip.style.top = `${Math.max(py, tooltip.offsetHeight + 16)}px`;
+    }
+    function hideTooltip() { tooltip.hidden = true; }
+
+    function pressed(container, attr, value) {
+      for (const b of document.querySelectorAll(`${container} [data-${attr}]`)) b.setAttribute("aria-pressed", String(b.dataset[attr] === value));
+    }
+    function buildControls() {
+      const box = el("measures");
+      for (const [key, m] of Object.entries(MEASURES)) {
+        const b = document.createElement("button");
+        b.type = "button"; b.className = "choice"; b.dataset.measure = key; b.textContent = m.label;
+        box.appendChild(b);
+      }
+      document.querySelectorAll("[data-freq]").forEach(b => b.addEventListener("click", () => { setFreq(b.dataset.freq); render(); }));
+      document.querySelectorAll("[data-measure]").forEach(b => b.addEventListener("click", () => { state.measure = b.dataset.measure; pressed("main", "measure", state.measure); render(); }));
+      document.querySelectorAll("[data-range]").forEach(b => b.addEventListener("click", () => { state.range = b.dataset.range; pressed("main", "range", state.range); render(); }));
+      el("smooth").addEventListener("change", e => { state.smooth = e.target.checked; render(); });
+      el("log-scale").addEventListener("change", e => { state.log = e.target.checked; render(); });
+      pressed("main", "freq", state.freq); pressed("main", "measure", state.measure); pressed("main", "range", state.range);
+    }
+
+    function buildComparison() {
+      const body = el("match-table").querySelector("tbody");
+      body.replaceChildren();
+      const r2 = v => v === null ? "n/a" : v.toFixed(2);
+      for (const r of DATA.comparison) {
+        const tr = document.createElement("tr");
+        tr.append(cell(r.system), cell(`${periodLabel(r.from)} – ${periodLabel(r.to)} (${r.months})`),
+          cell(signed(r.gapMean), "num"), cell(signed(r.gapLast3), "num"),
+          cell(r2(r.rLevel), "num"), cell(r2(r.rYoy), `num${r.rYoy !== null && r.rYoy < .5 ? " down" : ""}`), cell(r2(r.rMom), "num"),
+          cell(r.verdict));
+        body.appendChild(tr);
+      }
+      const c = Object.fromEntries(DATA.comparison.map(r => [r.system, r]));
+      el("match-note").textContent = `Gap = daily-based total ÷ official total − 1 (negative means the daily data count fewer payments). Cards are compared from ${periodLabel(c["Credit card"].from)}, when RBI's monthly card figures start. ` +
+        `Credit cards: the gap widened from ${signed(c["Credit card"].gapMax)} to ${signed(c["Credit card"].gapMin)}, so month-to-month changes still match (${r2(c["Credit card"].rMom)}) but yearly growth does not (${r2(c["Credit card"].rYoy)}). ` +
+        `Debit cards: a steadier gap of about ${Math.abs(c["Debit card"].gapLast3).toFixed(0)}%, and growth matches well (${r2(c["Debit card"].rYoy)}).`;
+    }
+
+    const pct = v => `${v.toFixed(1)}%`;
+    const rupees = v => `₹${Math.round(v).toLocaleString("en-IN")}`;
+    const signed = v => `${v >= 0 ? "+" : "−"}${Math.abs(v).toFixed(1)}%`;
+    const moved = v => `${v >= 0 ? "grew" : "fell"} ${Math.abs(v).toFixed(1)}%`;
+
+    function buildInsights() {
+      const s = Object.fromEntries(DATA.summary.map(r => [r.system, r]));
+      if (!s.UPI) return;
+      const first = s.UPI.firstLabel.split(" – ").map(periodLabel).join(" – ");
+      const last = s.UPI.lastLabel.split(" – ").map(periodLabel).join(" – ");
+      el("insight-period").textContent = `Comparing the first 12 months (${first}) with the latest 12 months (${last}).`;
+      el("table-period").textContent = `Growth is the average yearly change from ${first} to ${last}. Shares and averages are for the latest 12 months; the first-year figure is in brackets.`;
+      const topValue = DATA.summary.reduce((a, b) => (b.valShareLast > a.valShareLast ? b : a));
+      const items = [
+        `<strong>UPI now carries ${pct(s.UPI.volShareLast)} of payments</strong> across the five systems, up from ${pct(s.UPI.volShareFirst)}, and ${pct(s.UPI.valShareLast)} of their value (from ${pct(s.UPI.valShareFirst)}). The number of UPI payments ${moved(s.UPI.volGrowthPa)} a year.`,
+        `<strong>UPI payments got smaller:</strong> the average fell from ${rupees(s.UPI.ticketFirst)} to ${rupees(s.UPI.ticketLast)}, consistent with UPI being used for more everyday small payments.`,
+        `<strong>Debit cards are ${s["Debit card"].volGrowthPa < 0 ? "shrinking" : "growing"}:</strong> card-network debit payments ${moved(s["Debit card"].volGrowthPa)} a year, while the average debit payment rose from ${rupees(s["Debit card"].ticketFirst)} to ${rupees(s["Debit card"].ticketLast)}, consistent with small purchases leaving debit cards first.`,
+        `<strong>Credit cards ${s["Credit card"].volGrowthPa >= 0 ? "kept growing but lost share" : "shrank"}:</strong> ${signed(s["Credit card"].volGrowthPa)} a year in payments and ${signed(s["Credit card"].valGrowthPa)} in value; their share of payments moved from ${pct(s["Credit card"].volShareFirst)} to ${pct(s["Credit card"].volShareLast)}.`,
+        `<strong>IMPS is ${Math.abs(s.IMPS.volGrowthPa) < 3 ? "flat in number" : s.IMPS.volGrowthPa > 0 ? "growing" : "shrinking"} (${signed(s.IMPS.volGrowthPa)} a year) but its payments got bigger:</strong> the average rose from ${rupees(s.IMPS.ticketFirst)} to ${rupees(s.IMPS.ticketLast)}. This fits small transfers moving to UPI while IMPS carries larger ones.`,
+        `<strong>${topValue.system} still moves the most money:</strong> ${pct(topValue.valShareLast)} of the five systems' value (from ${pct(topValue.valShareFirst)}), with an average payment of ${rupees(topValue.ticketLast)}. The number of NEFT payments ${moved(s.NEFT.volGrowthPa)} a year.`
+      ];
+      const ul = el("insights");
+      ul.replaceChildren();
+      for (const html of items) { const li = document.createElement("li"); li.innerHTML = html; ul.appendChild(li); }
+
+      const body = el("change-table").querySelector("tbody");
+      body.replaceChildren();
+      for (const r of DATA.summary) {
+        const tr = document.createElement("tr");
+        tr.append(cell(r.system), cell(fmtNum(r.volLast), "num"));
+        const g = cell(signed(r.volGrowthPa), `num ${r.volGrowthPa >= 0 ? "up" : "down"}`);
+        tr.append(g, cell(`${pct(r.volShareLast)} (${pct(r.volShareFirst)})`, "num"), cell(`${pct(r.valShareLast)} (${pct(r.valShareFirst)})`, "num"),
+          cell(`${rupees(r.ticketLast)} (${rupees(r.ticketFirst)})`, "num"));
+        body.appendChild(tr);
+      }
+
+      const wk = DATA.weekday;
+      el("weekday-period").textContent = `Average payments by day, ${periodLabel(wk.from).replace("Week of ", "")} – ${periodLabel(wk.to).replace("Week of ", "")}. Monday–Friday average = 100.`;
+      const head = el("weekday-table").querySelector("thead");
+      const hr = document.createElement("tr");
+      hr.appendChild(document.createElement("th")).textContent = "System";
+      for (const d of ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]) { const th = document.createElement("th"); th.className = "num"; th.textContent = d; hr.appendChild(th); }
+      head.replaceChildren(hr);
+      const wbody = el("weekday-table").querySelector("tbody");
+      wbody.replaceChildren();
+      for (const name of DATA.systems) {
+        const tr = document.createElement("tr");
+        tr.appendChild(cell(name));
+        for (const v of wk.index[name]) tr.appendChild(cell(String(v), `num${v <= 85 ? " down" : v >= 115 ? " up" : ""}`));
+        wbody.appendChild(tr);
+      }
+    }
+
+    if (!DATA) {
+      el("drawing").appendChild(svg("text", { x: 380, y: 165, "text-anchor": "middle", class: "axis-label" })).textContent = "trends-data.js did not load.";
+    } else {
+      const fmtDay = d => `${Number(d.slice(8, 10))} ${MONTHS[Number(d.slice(5, 7)) - 1]} ${d.slice(0, 4)}`;
+      el("aside-range").textContent = `Daily data, ${fmtDay(DATA.firstDay)} – ${fmtDay(DATA.lastDay)}`;
+      el("footer-through").textContent = `Daily data through ${fmtDay(DATA.lastDay)}`;
+      buildControls();
+      buildInsights();
+      buildComparison();
+      const params = new URLSearchParams(window.location.search);
+      if (MEASURES[params.get("measure")]) { state.measure = params.get("measure"); pressed("main", "measure", state.measure); }
+      if (["monthly", "long"].includes(params.get("freq"))) setFreq(params.get("freq"));
+      window.addEventListener("scroll", hideTooltip, { passive: true });
+      render();
+    }
+  </script>
+</body>
+</html>

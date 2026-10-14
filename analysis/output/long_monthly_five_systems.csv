@@ -1,0 +1,755 @@
+month,series,volume_mn,value_cr,source
+2016-04,UPI,0.0,0.0,official
+2016-05,UPI,0.0,0.0,official
+2016-06,UPI,0.0,0.0,official
+2016-07,UPI,0.09,0.4,official
+2016-08,UPI,0.09,3.1,official
+2016-09,UPI,0.09,32.6,official
+2016-10,UPI,0.1,48.6,official
+2016-11,UPI,0.29,100.5,official
+2016-12,UPI,1.99,707.9,official
+2017-01,UPI,4.46,1696.2,official
+2017-02,UPI,4.38,1937.7,official
+2017-03,UPI,6.37,2425.1,official
+2017-04,UPI,7.2,2271.2,official
+2017-05,UPI,9.36,2797.1,official
+2017-06,UPI,10.35,3098.4,official
+2017-07,UPI,11.63,3411.3,official
+2017-08,UPI,16.8,4156.6,official
+2017-09,UPI,30.98,5325.8,official
+2017-10,UPI,76.96,7057.8,official
+2017-11,UPI,105.02,9669.3,official
+2017-12,UPI,145.64,13174.2,official
+2018-01,UPI,151.83,15571.2,official
+2018-02,UPI,171.4,19126.2,official
+2018-03,UPI,178.05,24172.6,official
+2018-04,UPI,190.08,27021.8,official
+2018-05,UPI,189.48,33288.5,official
+2018-06,UPI,246.37,40834.0,official
+2018-07,UPI,273.75,51843.1,official
+2018-08,UPI,312.02,54212.3,official
+2018-09,UPI,405.87,59835.4,official
+2018-10,UPI,482.36,74978.3,official
+2018-11,UPI,524.94,82232.2,official
+2018-12,UPI,620.17,102594.8,official
+2019-01,UPI,672.75,109932.4,official
+2019-02,UPI,674.19,106737.1,official
+2019-03,UPI,799.54,133460.7,official
+2019-04,UPI,781.79,142034.4,official
+2019-05,UPI,733.54,152449.3,official
+2019-06,UPI,754.54,146566.4,official
+2019-07,UPI,822.29,146386.6,official
+2019-08,UPI,918.35,154504.9,official
+2019-09,UPI,955.02,161456.6,official
+2019-10,UPI,1148.36,191359.9,official
+2019-11,UPI,1218.77,189229.1,official
+2019-12,UPI,1308.4,202520.8,official
+2020-01,UPI,1305.02,216243.0,official
+2020-02,UPI,1325.69,222517.0,official
+2020-03,UPI,1246.84,206462.3,official
+2020-04,UPI,999.57,151140.7,official
+2020-05,UPI,1234.5,218391.6,official
+2020-06,UPI,1336.93,261835.0,official
+2020-07,UPI,1497.36,290537.9,official
+2020-08,UPI,1618.83,298307.6,official
+2020-09,UPI,1800.14,329027.7,official
+2020-10,UPI,2071.62,386106.7,official
+2020-11,UPI,2210.23,390999.2,official
+2020-12,UPI,2234.16,416176.2,official
+2021-01,UPI,2302.73,431181.9,official
+2021-02,UPI,2292.9,425062.8,official
+2021-03,UPI,2731.68,504886.4,official
+2021-04,UPI,2641.06,493663.7,official
+2021-05,UPI,2539.57,490638.7,official
+2021-06,UPI,2807.51,547373.2,official
+2021-07,UPI,3247.82,606281.1,official
+2021-08,UPI,3555.55,639116.9,official
+2021-09,UPI,3654.3,654351.8,official
+2021-10,UPI,4218.65,771445.0,official
+2021-11,UPI,4186.48,768436.1,official
+2021-12,UPI,4566.3,826848.2,official
+2022-01,UPI,4617.15,831993.1,official
+2022-02,UPI,4527.49,826843.0,official
+2022-03,UPI,5405.65,960581.7,official
+2022-04,UPI,5583.05,983302.3,official
+2022-05,UPI,5955.2,1041520.1,official
+2022-06,UPI,5862.75,1014384.3,official
+2022-07,UPI,6288.4,1062991.8,official
+2022-08,UPI,6579.63,1072792.7,official
+2022-09,UPI,6780.8,1116438.1,official
+2022-10,UPI,7305.42,1211582.5,official
+2022-11,UPI,7309.45,1190593.4,official
+2022-12,UPI,7829.49,1282055.0,official
+2023-01,UPI,8036.89,1298726.6,official
+2023-02,UPI,7534.76,1235846.6,official
+2023-03,UPI,8685.3,1410443.0,official
+2023-04,UPI,8863.26,1415504.7,official
+2023-05,UPI,9415.19,1489145.4,official
+2023-06,UPI,9335.06,1475464.3,official
+2023-07,UPI,9964.61,1533536.4,official
+2023-08,UPI,10586.02,1576536.6,official
+2023-09,UPI,10555.69,1579133.2,official
+2023-10,UPI,11408.79,1715768.3,official
+2023-11,UPI,11235.29,1739740.6,official
+2023-12,UPI,12020.23,1822949.4,official
+2024-01,UPI,12203.02,1841084.0,official
+2024-02,UPI,12102.67,1827869.4,official
+2024-03,UPI,13440.0,1978353.2,official
+2024-04,UPI,13303.99,1964464.5,official
+2024-05,UPI,14035.84,2044937.1,official
+2024-06,UPI,13885.14,2007081.2,official
+2024-07,UPI,14435.55,2064292.4,official
+2024-08,UPI,14963.05,2060735.6,official
+2024-09,UPI,15041.75,2063994.7,official
+2024-10,UPI,16584.97,2349821.5,official
+2024-11,UPI,15482.02,2155187.4,official
+2024-12,UPI,16730.01,2324699.9,official
+2025-01,UPI,16996.0,2348037.1,official
+2025-02,UPI,16106.19,2196481.7,official
+2025-03,UPI,18301.51,2477221.6,official
+2025-04,UPI,17893.42,2394925.9,official
+2025-05,UPI,18677.46,2514297.0,official
+2025-06,UPI,18395.01,2403930.7,official
+2025-07,UPI,19467.95,2508498.1,official
+2025-08,UPI,20008.31,2485472.9,official
+2025-09,UPI,19633.43,2489736.5,official
+2025-10,UPI,20700.92,2727790.7,official
+2025-11,UPI,20466.98,2631632.6,official
+2025-12,UPI,21634.67,2796712.7,official
+2026-01,UPI,21703.44,2833481.2,official
+2026-02,UPI,20394.18,2684229.3,official
+2026-03,UPI,22641.11,2952542.0,official
+2026-04,UPI,22346.797,2902988.0,daily
+2026-05,UPI,23201.928,2990424.2,daily
+2026-06,UPI,22716.066,2892138.7,daily
+2026-07,UPI,23658.353,2987880.5,daily
+2026-08,UPI,24508.958,2982355.9,daily
+2026-09,UPI,24068.38,2937396.7,daily
+2016-04,IMPS,26.78,21044.3,official
+2016-05,IMPS,27.66,21617.8,official
+2016-06,IMPS,29.68,23716.5,official
+2016-07,IMPS,32.18,25853.8,official
+2016-08,IMPS,33.89,26848.9,official
+2016-09,IMPS,35.93,28911.8,official
+2016-10,IMPS,42.11,34371.2,official
+2016-11,IMPS,36.17,32480.5,official
+2016-12,IMPS,52.86,43200.7,official
+2017-01,IMPS,62.43,49125.6,official
+2017-02,IMPS,59.75,48221.3,official
+2017-03,IMPS,67.41,56468.3,official
+2017-04,IMPS,65.08,56205.8,official
+2017-05,IMPS,66.72,58559.1,official
+2017-06,IMPS,65.84,59654.5,official
+2017-07,IMPS,69.07,60476.2,official
+2017-08,IMPS,75.66,65149.5,official
+2017-09,IMPS,82.85,71759.6,official
+2017-10,IMPS,88.12,75041.6,official
+2017-11,IMPS,89.49,78257.7,official
+2017-12,IMPS,98.01,87106.2,official
+2018-01,IMPS,99.59,88213.6,official
+2018-02,IMPS,99.25,88270.3,official
+2018-03,IMPS,110.16,103804.0,official
+2018-04,IMPS,109.55,102240.3,official
+2018-05,IMPS,116.62,108575.0,official
+2018-06,IMPS,120.49,113011.6,official
+2018-07,IMPS,127.38,117166.6,official
+2018-08,IMPS,133.58,123733.5,official
+2018-09,IMPS,135.74,125639.8,official
+2018-10,IMPS,154.62,140306.5,official
+2018-11,IMPS,149.94,134756.7,official
+2018-12,IMPS,176.93,146898.6,official
+2019-01,IMPS,171.51,152296.8,official
+2019-02,IMPS,166.37,149342.6,official
+2019-03,IMPS,190.18,176288.9,official
+2019-04,IMPS,185.04,169197.1,official
+2019-05,IMPS,183.33,180456.4,official
+2019-06,IMPS,171.33,173019.3,official
+2019-07,IMPS,189.28,182021.0,official
+2019-08,IMPS,200.31,189112.9,official
+2019-09,IMPS,204.16,183747.0,official
+2019-10,IMPS,236.93,212660.4,official
+2019-11,IMPS,228.08,202903.6,official
+2019-12,IMPS,256.47,210934.2,official
+2020-01,IMPS,259.53,216810.7,official
+2020-02,IMPS,247.8,214565.7,official
+2020-03,IMPS,216.82,201961.7,official
+2020-04,IMPS,122.47,121140.8,official
+2020-05,IMPS,166.68,169401.7,official
+2020-06,IMPS,198.91,206950.8,official
+2020-07,IMPS,222.1,225775.2,official
+2020-08,IMPS,246.12,235136.9,official
+2020-09,IMPS,279.61,248661.7,official
+2020-10,IMPS,318.97,274644.7,official
+2020-11,IMPS,339.11,276458.9,official
+2020-12,IMPS,355.69,292324.2,official
+2021-01,IMPS,346.55,288537.2,official
+2021-02,IMPS,318.79,275229.1,official
+2021-03,IMPS,363.14,327234.4,official
+2021-04,IMPS,322.96,299527.0,official
+2021-05,IMPS,279.81,266241.4,official
+2021-06,IMPS,303.76,284033.2,official
+2021-07,IMPS,349.76,309054.1,official
+2021-08,IMPS,379.71,320203.0,official
+2021-09,IMPS,384.88,324094.2,official
+2021-10,IMPS,430.67,370712.4,official
+2021-11,IMPS,412.05,364679.7,official
+2021-12,IMPS,442.98,396411.4,official
+2022-01,IMPS,440.17,387006.7,official
+2022-02,IMPS,420.93,384404.0,official
+2022-03,IMPS,492.0,462278.8,official
+2022-04,IMPS,471.62,444669.9,official
+2022-05,IMPS,484.81,452328.1,official
+2022-06,IMPS,455.7,443776.0,official
+2022-07,IMPS,460.83,444541.0,official
+2022-08,IMPS,466.91,445989.0,official
+2022-09,IMPS,462.69,455056.8,official
+2022-10,IMPS,482.46,466081.8,official
+2022-11,IMPS,463.48,454678.6,official
+2022-12,IMPS,485.84,486552.1,official
+2023-01,IMPS,474.51,477592.0,official
+2023-02,IMPS,447.82,468647.1,official
+2023-03,IMPS,497.06,546235.6,official
+2023-04,IMPS,495.8,521050.3,official
+2023-05,IMPS,499.98,525810.1,official
+2023-06,IMPS,468.1,500481.2,official
+2023-07,IMPS,489.71,512311.9,official
+2023-08,IMPS,489.16,514279.5,official
+2023-09,IMPS,472.9,507497.2,official
+2023-10,IMPS,492.88,538238.5,official
+2023-11,IMPS,472.38,535001.7,official
+2023-12,IMPS,498.79,570126.1,official
+2024-01,IMPS,508.79,566309.7,official
+2024-02,IMPS,534.63,568091.8,official
+2024-03,IMPS,580.64,634705.7,official
+2024-04,IMPS,550.36,592278.8,official
+2024-05,IMPS,557.7,606166.8,official
+2024-06,IMPS,516.75,577794.2,official
+2024-07,IMPS,490.28,593176.6,official
+2024-08,IMPS,453.33,577887.9,official
+2024-09,IMPS,429.93,565232.7,official
+2024-10,IMPS,466.82,629381.5,official
+2024-11,IMPS,407.92,558327.6,official
+2024-12,IMPS,441.16,601549.2,official
+2025-01,IMPS,444.22,606420.2,official
+2025-02,IMPS,404.83,563081.6,official
+2025-03,IMPS,461.64,667812.8,official
+2025-04,IMPS,449.25,621666.4,official
+2025-05,IMPS,463.66,640867.4,official
+2025-06,IMPS,448.1,606356.3,official
+2025-07,IMPS,482.19,631411.2,official
+2025-08,IMPS,477.26,597548.8,official
+2025-09,IMPS,394.38,596847.0,official
+2025-10,IMPS,403.59,641963.6,official
+2025-11,IMPS,368.93,615176.8,official
+2025-12,IMPS,379.94,662451.9,official
+2026-01,IMPS,374.03,672989.4,official
+2026-02,IMPS,336.09,642473.9,official
+2026-03,IMPS,365.68,740176.2,official
+2026-04,IMPS,362.487,700909.2,daily
+2026-05,IMPS,358.097,695701.3,daily
+2026-06,IMPS,353.918,676543.0,daily
+2026-07,IMPS,364.339,711704.4,daily
+2026-08,IMPS,359.942,703724.0,daily
+2026-09,IMPS,354.08,705912.1,daily
+2020-06,NEFT,227.401,1906586.0,official
+2020-07,NEFT,240.103,1963113.0,official
+2020-08,NEFT,234.609,1930552.0,official
+2020-09,NEFT,246.827,2165515.0,official
+2020-10,NEFT,276.165,2235389.0,official
+2020-11,NEFT,273.41,2218252.0,official
+2020-12,NEFT,307.615,2558304.0,official
+2021-01,NEFT,287.493,2165869.0,official
+2021-02,NEFT,282.107,2152844.0,official
+2021-03,NEFT,348.139,3046329.0,official
+2021-04,NEFT,286.271,2046235.0,official
+2021-05,NEFT,256.539,1819459.0,official
+2021-06,NEFT,292.327,2097771.0,official
+2021-07,NEFT,317.0,2204303.0,official
+2021-08,NEFT,321.873,2209818.0,official
+2021-09,NEFT,335.954,2419688.0,official
+2021-10,NEFT,357.446,2476397.0,official
+2021-11,NEFT,339.4,2314490.0,official
+2021-12,NEFT,376.338,2724980.0,official
+2022-01,NEFT,362.903,2442686.0,official
+2022-02,NEFT,363.258,2477059.0,official
+2022-03,NEFT,431.42,3492578.0,official
+2022-04,NEFT,373.759,2498587.0,official
+2022-05,NEFT,381.334,2546928.0,official
+2022-06,NEFT,402.233,2716013.0,official
+2022-07,NEFT,401.839,2627354.0,official
+2022-08,NEFT,416.676,2631639.0,official
+2022-09,NEFT,433.245,2922913.0,official
+2022-10,NEFT,457.048,2726827.0,official
+2022-11,NEFT,438.83,2730878.0,official
+2022-12,NEFT,485.481,2981681.0,official
+2023-01,NEFT,479.831,2810180.0,official
+2023-02,NEFT,467.561,2775972.0,official
+2023-03,NEFT,546.906,3750569.0,official
+2023-04,NEFT,482.537,2761038.0,official
+2023-05,NEFT,489.666,3026331.0,official
+2023-06,NEFT,509.712,3039491.0,official
+2023-07,NEFT,547.679,3049364.0,official
+2023-08,NEFT,565.192,3134602.0,official
+2023-09,NEFT,559.805,3126190.0,official
+2023-10,NEFT,631.453,3262015.0,official
+2023-11,NEFT,639.401,3208491.0,official
+2023-12,NEFT,667.393,3368836.0,official
+2024-01,NEFT,688.278,3367322.0,official
+2024-02,NEFT,688.923,3471495.0,official
+2024-03,NEFT,793.91,4320840.0,official
+2024-04,NEFT,704.003,3130549.0,official
+2024-05,NEFT,746.775,3457995.0,official
+2024-06,NEFT,730.734,3331461.0,official
+2024-07,NEFT,800.614,3662264.0,official
+2024-08,NEFT,798.323,3590588.0,official
+2024-09,NEFT,790.883,3597885.0,official
+2024-10,NEFT,918.338,4152428.0,official
+2024-11,NEFT,776.951,3380884.0,official
+2024-12,NEFT,830.702,3814966.0,official
+2025-01,NEFT,856.793,3848033.0,official
+2025-02,NEFT,764.793,3540103.0,official
+2025-03,NEFT,900.897,4854308.0,official
+2025-04,NEFT,768.752,3897348.0,official
+2025-05,NEFT,821.547,3793103.0,official
+2025-06,NEFT,792.052,3764742.0,official
+2025-07,NEFT,850.014,3993960.0,official
+2025-08,NEFT,828.86,3785260.0,official
+2025-09,NEFT,840.321,4265310.0,official
+2025-10,NEFT,879.097,4273608.0,official
+2025-11,NEFT,817.504,3834099.0,official
+2025-12,NEFT,877.758,4376909.0,official
+2026-01,NEFT,872.42,4329421.0,official
+2026-02,NEFT,812.247,4251141.0,official
+2026-03,NEFT,939.043,5661604.0,official
+2026-04,NEFT,833.047,4424471.1,daily
+2026-05,NEFT,849.629,4232611.4,daily
+2026-06,NEFT,858.23,4453677.0,daily
+2026-07,NEFT,897.005,4661075.5,daily
+2026-08,NEFT,882.502,4408551.6,daily
+2026-09,NEFT,862.093,4675236.9,daily
+2014-06,Credit card,48.262,14860.6,official
+2014-07,Credit card,50.916,15266.8,official
+2014-08,Credit card,50.542,15079.0,official
+2014-09,Credit card,50.174,15184.4,official
+2014-10,Credit card,54.576,17120.4,official
+2014-11,Credit card,48.262,14947.7,official
+2014-12,Credit card,56.092,17186.6,official
+2015-01,Credit card,56.172,17352.9,official
+2015-02,Credit card,49.549,15454.6,official
+2015-03,Credit card,56.907,17898.8,official
+2015-04,Credit card,57.304,17921.6,official
+2015-05,Credit card,60.133,18865.7,official
+2015-06,Credit card,62.198,17222.8,official
+2015-07,Credit card,64.787,19611.2,official
+2015-08,Credit card,65.525,19912.8,official
+2015-09,Credit card,62.404,19016.9,official
+2015-10,Credit card,68.921,21638.0,official
+2015-11,Credit card,66.042,20768.9,official
+2015-12,Credit card,69.367,21194.2,official
+2016-01,Credit card,69.677,21173.5,official
+2016-02,Credit card,67.075,20638.4,official
+2016-03,Credit card,72.221,22694.3,official
+2016-04,Credit card,72.828,22724.7,official
+2016-05,Credit card,78.476,24960.0,official
+2016-06,Credit card,76.307,23955.6,official
+2016-07,Credit card,79.441,24341.5,official
+2016-08,Credit card,83.954,25748.6,official
+2016-09,Credit card,77.929,24197.8,official
+2016-10,Credit card,88.865,29942.5,official
+2016-11,Credit card,97.912,26559.5,official
+2016-12,Credit card,116.083,31149.2,official
+2017-01,Credit card,112.803,32708.3,official
+2017-02,Credit card,94.927,28704.3,official
+2017-03,Credit card,107.61,33390.6,official
+2017-04,Credit card,106.578,33143.0,official
+2017-05,Credit card,115.331,36140.8,official
+2017-06,Credit card,109.472,35483.3,official
+2017-07,Credit card,110.763,33929.8,official
+2017-08,Credit card,115.327,36298.9,official
+2017-09,Credit card,112.632,37465.6,official
+2017-10,Credit card,123.364,41939.1,official
+2017-11,Credit card,115.9,39296.3,official
+2017-12,Credit card,123.769,41863.8,official
+2018-01,Credit card,129.98,41437.2,official
+2018-02,Credit card,114.753,37659.8,official
+2018-03,Credit card,127.293,44308.2,official
+2018-04,Credit card,132.319,44837.1,official
+2018-05,Credit card,138.291,47284.9,official
+2018-06,Credit card,135.977,46280.0,official
+2018-07,Credit card,145.007,47762.6,official
+2018-08,Credit card,144.202,47986.0,official
+2018-09,Credit card,138.231,46106.9,official
+2018-10,Credit card,161.065,56183.6,official
+2018-11,Credit card,145.846,51621.4,official
+2018-12,Credit card,158.342,54240.0,official
+2019-01,Credit card,159.566,54951.8,official
+2019-02,Credit card,141.336,48496.3,official
+2019-03,Credit card,162.412,57663.9,official
+2019-04,Credit card,166.921,57714.1,official
+2019-05,Credit card,173.153,61282.6,official
+2019-06,Credit card,163.234,56928.5,official
+2019-07,Credit card,178.416,59616.5,official
+2019-08,Credit card,179.574,59600.7,official
+2019-09,Credit card,179.471,59453.2,official
+2019-10,Credit card,202.81,71156.3,official
+2019-11,Credit card,182.494,60130.4,official
+2019-12,Credit card,204.968,66186.5,official
+2020-01,Credit card,202.929,67002.4,official
+2020-02,Credit card,189.501,62523.2,official
+2020-03,Credit card,164.67,50696.6,official
+2020-04,Credit card,77.125,20858.2,official
+2020-05,Credit card,103.13,32270.9,official
+2020-06,Credit card,125.171,42818.2,official
+2020-07,Credit card,132.321,45567.7,official
+2020-08,Credit card,142.899,50319.2,official
+2020-09,Credit card,149.06,51139.8,official
+2020-10,Credit card,171.803,64651.6,official
+2020-11,Credit card,166.257,62349.8,official
+2020-12,Credit card,174.208,63600.7,official
+2021-01,Credit card,174.419,64737.2,official
+2021-02,Credit card,161.377,60104.6,official
+2021-03,Credit card,188.727,72318.9,official
+2021-04,Credit card,157.532,59049.2,official
+2021-05,Credit card,134.473,52013.9,official
+2021-06,Credit card,154.701,62746.0,official
+2021-07,Credit card,182.049,74885.0,official
+2021-08,Credit card,190.471,77733.0,official
+2021-09,Credit card,184.721,80228.0,official
+2021-10,Credit card,215.581,100943.0,official
+2021-11,Credit card,201.116,89217.0,official
+2021-12,Credit card,211.259,93907.0,official
+2022-01,Credit card,195.805,87769.0,official
+2022-02,Credit card,188.424,86041.0,official
+2022-03,Credit card,223.751,107101.0,official
+2022-04,Credit card,222.93,105459.0,official
+2022-05,Credit card,237.795,113696.0,official
+2022-06,Credit card,227.946,108752.0,official
+2022-07,Credit card,234.834,115856.0,official
+2022-08,Credit card,244.783,112358.0,official
+2022-09,Credit card,246.017,122554.0,official
+2022-10,Credit card,256.133,129334.0,official
+2022-11,Credit card,235.141,114821.0,official
+2022-12,Credit card,255.647,126524.0,official
+2023-01,Credit card,259.352,127682.0,official
+2023-02,Credit card,232.32,118684.0,official
+2023-03,Credit card,263.429,137311.0,official
+2023-04,Credit card,259.255,132769.0,official
+2023-05,Credit card,273.474,140660.0,official
+2023-06,Credit card,262.905,137234.0,official
+2023-07,Credit card,277.081,144737.0,official
+2023-08,Credit card,290.578,148602.0,official
+2023-09,Credit card,273.943,142320.0,official
+2023-10,Credit card,320.048,178569.0,official
+2023-11,Credit card,297.09,160644.0,official
+2023-12,Credit card,321.5,165119.0,official
+2024-01,Credit card,328.952,166444.0,official
+2024-02,Credit card,311.244,149206.0,official
+2024-03,Credit card,343.938,164459.0,official
+2024-04,Credit card,344.151,156498.0,official
+2024-05,Credit card,360.136,164955.0,official
+2024-06,Credit card,357.949,158822.0,official
+2024-07,Credit card,383.78,172670.0,official
+2024-08,Credit card,390.068,168202.0,official
+2024-09,Credit card,392.162,176202.0,official
+2024-10,Credit card,433.214,201789.0,official
+2024-11,Credit card,393.604,169298.0,official
+2024-12,Credit card,433.122,188086.0,official
+2025-01,Credit card,430.572,184126.0,official
+2025-02,Credit card,396.959,167208.0,official
+2025-03,Credit card,458.65,201494.0,official
+2025-04,Credit card,450.27,184237.0,official
+2025-05,Credit card,467.693,189832.0,official
+2025-06,Credit card,458.71,183088.0,official
+2025-07,Credit card,486.181,193849.0,official
+2025-08,Credit card,493.443,191159.0,official
+2025-09,Credit card,495.241,216707.0,official
+2025-10,Credit card,518.29,214230.0,official
+2025-11,Credit card,502.984,188799.0,official
+2025-12,Credit card,539.834,204687.0,official
+2026-01,Credit card,539.711,199085.0,official
+2026-02,Credit card,493.795,177292.0,official
+2026-03,Credit card,577.476,219495.0,official
+2014-06,Debit card,59.77,9360.9,official
+2014-07,Debit card,64.887,10001.5,official
+2014-08,Debit card,67.894,10574.6,official
+2014-09,Debit card,65.016,9807.3,official
+2014-10,Debit card,73.894,12069.0,official
+2014-11,Debit card,70.319,10445.3,official
+2014-12,Debit card,73.874,11205.3,official
+2015-01,Debit card,74.723,11401.7,official
+2015-02,Debit card,68.138,8240.9,official
+2015-03,Debit card,76.37,10930.4,official
+2015-04,Debit card,80.403,11607.5,official
+2015-05,Debit card,89.278,12441.5,official
+2015-06,Debit card,86.933,11637.4,official
+2015-07,Debit card,95.299,14139.2,official
+2015-08,Debit card,97.077,13684.2,official
+2015-09,Debit card,90.271,11771.1,official
+2015-10,Debit card,100.777,14169.9,official
+2015-11,Debit card,100.291,15039.6,official
+2015-12,Debit card,108.494,14720.6,official
+2016-01,Debit card,110.258,14748.5,official
+2016-02,Debit card,105.431,13083.2,official
+2016-03,Debit card,113.26,13590.1,official
+2016-04,Debit card,118.695,14942.9,official
+2016-05,Debit card,134.431,15661.0,official
+2016-06,Debit card,118.614,15646.6,official
+2016-07,Debit card,129.518,17253.0,official
+2016-08,Debit card,130.982,18543.6,official
+2016-09,Debit card,125.625,16082.3,official
+2016-10,Debit card,141.075,22148.1,official
+2016-11,Debit card,237.288,32477.5,official
+2016-12,Debit card,416.905,58578.2,official
+2017-01,Debit card,329.765,49466.1,official
+2017-02,Debit card,252.624,36181.2,official
+2017-03,Debit card,272.114,36035.6,official
+2017-04,Debit card,273.786,38415.9,official
+2017-05,Debit card,270.783,38133.9,official
+2017-06,Debit card,260.733,38449.4,official
+2017-07,Debit card,262.164,35462.2,official
+2017-08,Debit card,268.553,36001.5,official
+2017-09,Debit card,267.287,37280.2,official
+2017-10,Debit card,280.976,41528.2,official
+2017-11,Debit card,271.905,36863.5,official
+2017-12,Debit card,293.404,41144.5,official
+2018-01,Debit card,302.421,41490.1,official
+2018-02,Debit card,282.987,37385.7,official
+2018-03,Debit card,320.007,42251.2,official
+2018-04,Debit card,334.925,45885.6,official
+2018-05,Debit card,353.34,47249.1,official
+2018-06,Debit card,360.068,48375.2,official
+2018-07,Debit card,368.629,48761.5,official
+2018-08,Debit card,358.413,49433.5,official
+2018-09,Debit card,363.698,46232.5,official
+2018-10,Debit card,393.972,54696.9,official
+2018-11,Debit card,377.034,54419.3,official
+2018-12,Debit card,388.031,53521.2,official
+2019-01,Debit card,374.828,51044.8,official
+2019-02,Debit card,347.685,45937.9,official
+2019-03,Debit card,408.981,53510.8,official
+2019-04,Debit card,414.515,55872.6,official
+2019-05,Debit card,413.964,58593.9,official
+2019-06,Debit card,413.567,57994.8,official
+2019-07,Debit card,427.119,59096.9,official
+2019-08,Debit card,430.81,58625.0,official
+2019-09,Debit card,416.375,56243.5,official
+2019-10,Debit card,456.576,70787.3,official
+2019-11,Debit card,425.057,58132.5,official
+2019-12,Debit card,452.726,62582.2,official
+2020-01,Debit card,460.039,62739.4,official
+2020-02,Debit card,431.171,58385.7,official
+2020-03,Debit card,364.465,48095.2,official
+2020-04,Debit card,208.995,23214.9,official
+2020-05,Debit card,269.497,37976.2,official
+2020-06,Debit card,303.137,47700.9,official
+2020-07,Debit card,319.489,50309.6,official
+2020-08,Debit card,342.054,54788.7,official
+2020-09,Debit card,354.104,55364.0,official
+2020-10,Debit card,396.697,69237.4,official
+2020-11,Debit card,380.293,67991.5,official
+2020-12,Debit card,383.575,65706.2,official
+2021-01,Debit card,375.8,63611.4,official
+2021-02,Debit card,347.033,59337.3,official
+2021-03,Debit card,378.745,67449.2,official
+2021-04,Debit card,323.646,56264.1,official
+2021-05,Debit card,257.671,43223.8,official
+2021-06,Debit card,301.656,51594.0,official
+2021-07,Debit card,340.537,61087.0,official
+2021-08,Debit card,358.829,64867.0,official
+2021-09,Debit card,349.029,62589.0,official
+2021-10,Debit card,385.295,76471.0,official
+2021-11,Debit card,340.705,67109.0,official
+2021-12,Debit card,349.921,66491.0,official
+2022-01,Debit card,319.3,60025.0,official
+2022-02,Debit card,295.619,57065.0,official
+2022-03,Debit card,327.789,64113.0,official
+2022-04,Debit card,331.187,65062.0,official
+2022-05,Debit card,332.023,65959.0,official
+2022-06,Debit card,309.933,61002.0,official
+2022-07,Debit card,313.347,64515.0,official
+2022-08,Debit card,303.347,62159.0,official
+2022-09,Debit card,290.307,61427.0,official
+2022-10,Debit card,297.252,67283.0,official
+2022-11,Debit card,261.794,55917.0,official
+2022-12,Debit card,266.708,58625.0,official
+2023-01,Debit card,251.009,55778.0,official
+2023-02,Debit card,226.531,49693.0,official
+2023-03,Debit card,238.25,53724.0,official
+2023-04,Debit card,229.538,54627.0,official
+2023-05,Debit card,223.977,52776.0,official
+2023-06,Debit card,210.224,51049.0,official
+2023-07,Debit card,210.131,53313.0,official
+2023-08,Debit card,207.618,52690.0,official
+2023-09,Debit card,183.934,46880.0,official
+2023-10,Debit card,190.504,52101.0,official
+2023-11,Debit card,177.166,49394.0,official
+2023-12,Debit card,176.817,47939.0,official
+2024-01,Debit card,164.629,45486.0,official
+2024-02,Debit card,152.244,41452.0,official
+2024-03,Debit card,159.475,44749.0,official
+2024-04,Debit card,151.861,43911.0,official
+2024-05,Debit card,150.382,43565.0,official
+2024-06,Debit card,142.394,41259.0,official
+2024-07,Debit card,145.656,44765.0,official
+2024-08,Debit card,142.245,43542.0,official
+2024-09,Debit card,135.364,40102.0,official
+2024-10,Debit card,144.187,46920.0,official
+2024-11,Debit card,123.498,39089.0,official
+2024-12,Debit card,128.284,40671.0,official
+2025-01,Debit card,121.669,38963.0,official
+2025-02,Debit card,108.25,34314.0,official
+2025-03,Debit card,120.302,39055.0,official
+2025-04,Debit card,117.093,38113.0,official
+2025-05,Debit card,115.047,36978.0,official
+2025-06,Debit card,108.572,35463.0,official
+2025-07,Debit card,112.061,38138.0,official
+2025-08,Debit card,112.08,37406.0,official
+2025-09,Debit card,104.74,36776.0,official
+2025-10,Debit card,109.625,42143.0,official
+2025-11,Debit card,101.211,34143.0,official
+2025-12,Debit card,104.924,37274.0,official
+2026-01,Debit card,101.829,37957.0,official
+2026-02,Debit card,91.712,33135.0,official
+2026-03,Debit card,101.317,37948.0,official
+2020-11,Credit card (card networks),141.488,43629.8,daily
+2020-12,Credit card (card networks),142.143,46191.7,daily
+2021-01,Credit card (card networks),127.088,45029.1,daily
+2021-02,Credit card (card networks),120.197,42620.1,daily
+2021-03,Credit card (card networks),138.882,52895.4,daily
+2021-04,Credit card (card networks),114.333,41521.3,daily
+2021-05,Credit card (card networks),98.062,39303.3,daily
+2021-06,Credit card (card networks),115.277,47799.5,daily
+2021-07,Credit card (card networks),134.945,55942.9,daily
+2021-08,Credit card (card networks),146.517,60690.8,daily
+2021-09,Credit card (card networks),141.14,62936.7,daily
+2021-10,Credit card (card networks),161.389,76274.0,daily
+2021-11,Credit card (card networks),158.626,72581.7,daily
+2021-12,Credit card (card networks),164.185,75793.2,daily
+2022-01,Credit card (card networks),150.839,71573.8,daily
+2022-02,Credit card (card networks),147.016,69113.2,daily
+2022-03,Credit card (card networks),174.891,84622.2,daily
+2022-04,Credit card (card networks),173.427,81363.6,daily
+2022-05,Credit card (card networks),188.182,89604.4,daily
+2022-06,Credit card (card networks),180.718,84434.6,daily
+2022-07,Credit card (card networks),184.968,87681.7,daily
+2022-08,Credit card (card networks),197.851,87647.4,daily
+2022-09,Credit card (card networks),207.268,98738.0,daily
+2022-10,Credit card (card networks),218.137,103030.1,daily
+2022-11,Credit card (card networks),201.839,94076.9,daily
+2022-12,Credit card (card networks),217.374,102928.0,daily
+2023-01,Credit card (card networks),227.583,108019.9,daily
+2023-02,Credit card (card networks),201.515,97996.8,daily
+2023-03,Credit card (card networks),226.538,114330.1,daily
+2023-04,Credit card (card networks),219.927,107598.9,daily
+2023-05,Credit card (card networks),233.715,116108.2,daily
+2023-06,Credit card (card networks),220.401,111146.1,daily
+2023-07,Credit card (card networks),229.664,116705.0,daily
+2023-08,Credit card (card networks),236.228,119172.6,daily
+2023-09,Credit card (card networks),216.025,110688.5,daily
+2023-10,Credit card (card networks),252.505,146275.5,daily
+2023-11,Credit card (card networks),224.692,128919.6,daily
+2023-12,Credit card (card networks),235.257,130391.8,daily
+2024-01,Credit card (card networks),238.142,136853.5,daily
+2024-02,Credit card (card networks),220.532,123432.0,daily
+2024-03,Credit card (card networks),234.127,135162.6,daily
+2024-04,Credit card (card networks),236.469,133326.5,daily
+2024-05,Credit card (card networks),238.817,139386.3,daily
+2024-06,Credit card (card networks),227.921,129275.3,daily
+2024-07,Credit card (card networks),246.209,144214.5,daily
+2024-08,Credit card (card networks),241.489,137594.7,daily
+2024-09,Credit card (card networks),243.329,145921.0,daily
+2024-10,Credit card (card networks),259.678,163781.7,daily
+2024-11,Credit card (card networks),227.022,134001.5,daily
+2024-12,Credit card (card networks),248.934,147936.0,daily
+2025-01,Credit card (card networks),240.86,146036.4,daily
+2025-02,Credit card (card networks),215.501,130337.4,daily
+2025-03,Credit card (card networks),237.438,150073.8,daily
+2025-04,Credit card (card networks),240.869,146043.2,daily
+2025-05,Credit card (card networks),240.926,146106.6,daily
+2025-06,Credit card (card networks),235.032,141140.7,daily
+2025-07,Credit card (card networks),242.285,148099.9,daily
+2025-08,Credit card (card networks),238.136,139858.2,daily
+2025-09,Credit card (card networks),247.861,165699.2,daily
+2025-10,Credit card (card networks),249.949,158721.2,daily
+2025-11,Credit card (card networks),228.456,133111.3,daily
+2025-12,Credit card (card networks),251.278,151518.8,daily
+2026-01,Credit card (card networks),242.945,143812.9,daily
+2026-02,Credit card (card networks),219.256,128203.4,daily
+2026-03,Credit card (card networks),254.308,154228.6,daily
+2026-04,Credit card (card networks),242.445,142054.6,daily
+2026-05,Credit card (card networks),247.728,141128.2,daily
+2026-06,Credit card (card networks),243.533,142294.5,daily
+2026-07,Credit card (card networks),251.126,146142.0,daily
+2026-08,Credit card (card networks),258.44,137749.2,daily
+2026-09,Credit card (card networks),240.115,131178.2,daily
+2020-11,Debit card (card networks),348.968,54615.1,daily
+2020-12,Debit card (card networks),336.276,54260.6,daily
+2021-01,Debit card (card networks),304.539,51261.2,daily
+2021-02,Debit card (card networks),284.511,48532.7,daily
+2021-03,Debit card (card networks),314.38,56858.1,daily
+2021-04,Debit card (card networks),263.195,45970.3,daily
+2021-05,Debit card (card networks),210.401,35323.8,daily
+2021-06,Debit card (card networks),240.394,41607.9,daily
+2021-07,Debit card (card networks),280.044,49802.7,daily
+2021-08,Debit card (card networks),300.298,54203.9,daily
+2021-09,Debit card (card networks),289.432,51701.0,daily
+2021-10,Debit card (card networks),317.851,61415.7,daily
+2021-11,Debit card (card networks),300.798,57236.5,daily
+2021-12,Debit card (card networks),299.981,55056.0,daily
+2022-01,Debit card (card networks),276.545,50260.4,daily
+2022-02,Debit card (card networks),258.65,48128.9,daily
+2022-03,Debit card (card networks),285.252,53644.2,daily
+2022-04,Debit card (card networks),283.688,53856.7,daily
+2022-05,Debit card (card networks),290.393,55779.1,daily
+2022-06,Debit card (card networks),269.023,50904.5,daily
+2022-07,Debit card (card networks),267.586,52196.3,daily
+2022-08,Debit card (card networks),267.626,52458.7,daily
+2022-09,Debit card (card networks),258.466,52142.1,daily
+2022-10,Debit card (card networks),266.498,57797.6,daily
+2022-11,Debit card (card networks),233.553,47663.6,daily
+2022-12,Debit card (card networks),235.771,49593.6,daily
+2023-01,Debit card (card networks),229.039,48999.4,daily
+2023-02,Debit card (card networks),201.771,42998.9,daily
+2023-03,Debit card (card networks),215.95,46745.8,daily
+2023-04,Debit card (card networks),207.315,47351.2,daily
+2023-05,Debit card (card networks),205.696,46561.5,daily
+2023-06,Debit card (card networks),189.018,43963.4,daily
+2023-07,Debit card (card networks),188.801,45402.7,daily
+2023-08,Debit card (card networks),187.168,45471.2,daily
+2023-09,Debit card (card networks),163.744,39930.7,daily
+2023-10,Debit card (card networks),174.634,45992.1,daily
+2023-11,Debit card (card networks),159.781,42876.3,daily
+2023-12,Debit card (card networks),156.185,40716.0,daily
+2024-01,Debit card (card networks),149.93,40363.6,daily
+2024-02,Debit card (card networks),137.59,37054.5,daily
+2024-03,Debit card (card networks),141.317,39065.4,daily
+2024-04,Debit card (card networks),141.827,40379.8,daily
+2024-05,Debit card (card networks),137.156,39100.1,daily
+2024-06,Debit card (card networks),127.98,36334.7,daily
+2024-07,Debit card (card networks),134.792,40102.2,daily
+2024-08,Debit card (card networks),128.761,38578.6,daily
+2024-09,Debit card (card networks),123.339,36181.8,daily
+2024-10,Debit card (card networks),130.607,41887.6,daily
+2024-11,Debit card (card networks),111.409,34412.7,daily
+2024-12,Debit card (card networks),116.429,36352.1,daily
+2025-01,Debit card (card networks),110.351,34852.8,daily
+2025-02,Debit card (card networks),98.225,30677.3,daily
+2025-03,Debit card (card networks),106.536,33728.2,daily
+2025-04,Debit card (card networks),108.123,34659.9,daily
+2025-05,Debit card (card networks),103.217,32662.5,daily
+2025-06,Debit card (card networks),98.42,31767.1,daily
+2025-07,Debit card (card networks),101.101,33849.7,daily
+2025-08,Debit card (card networks),100.118,32583.2,daily
+2025-09,Debit card (card networks),95.83,32666.4,daily
+2025-10,Debit card (card networks),99.24,37197.8,daily
+2025-11,Debit card (card networks),90.205,29692.5,daily
+2025-12,Debit card (card networks),95.742,33199.4,daily
+2026-01,Debit card (card networks),91.192,33072.3,daily
+2026-02,Debit card (card networks),82.876,29167.0,daily
+2026-03,Debit card (card networks),92.046,33309.1,daily
+2026-04,Debit card (card networks),88.826,32590.3,daily
+2026-05,Debit card (card networks),89.826,30877.5,daily
+2026-06,Debit card (card networks),89.266,31429.0,daily
+2026-07,Debit card (card networks),92.674,33200.9,daily
+2026-08,Debit card (card networks),95.108,32389.3,daily
+2026-09,Debit card (card networks),89.146,30004.4,daily
