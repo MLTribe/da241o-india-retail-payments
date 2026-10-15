@@ -60,6 +60,7 @@ NETWORK = " (card networks)"
 NEFT_HTML = REPO / "source_archive" / "rbi" / "neft_html"
 THREE = ["UPI", "IMPS", "NEFT"]
 THREE_START = "2016-04"
+CARD_BREAK = "2019-11"
 REGRESSION_SAMPLES = [("Full sample", "2016-07"), ("Without the launch years", "2019-04")]
 
 START = date(2020, 11, 1)
@@ -492,6 +493,74 @@ def upi_bank_regression(official: dict) -> list[dict]:
     return out
 
 
+def card_sources() -> dict[str, dict[str, tuple[float, float]]]:
+    """Card payments by source, unspliced: RBI bank-wise totals as published, and RBI PSI totals."""
+    bank = {"Credit card": {}, "Debit card": {}}
+    for path in sorted(YEAR_ROOT.glob("*/rbi_bankwise_card_totals.csv")):
+        for r in csv.DictReader(path.open(newline="")):
+            for s, n, v in (("Credit card", "credit_payments_n", "credit_payments_v_crore"),
+                            ("Debit card", "debit_payments_n", "debit_payments_v_crore")):
+                if r.get(n) and r.get(v):
+                    bank[s][r["month"]] = (float(r[n]) / 1e6, float(r[v]))
+    psi = {"Credit card": {}, "Debit card": {}}
+    for stem in ("rbi_psi_card_prior_year_column", "rbi_psi_card_ppi_own_month"):
+        for path in sorted(YEAR_ROOT.glob(f"*/{stem}.csv")):
+            for r in csv.DictReader(path.open(newline="")):
+                for s, n, v in (("Credit card", "credit_total_volume_lakh", "credit_total_value_crore"),
+                                ("Debit card", "debit_total_volume_lakh", "debit_total_value_crore")):
+                    if r.get(n) and r.get(v):
+                        psi[s][r["month"]] = (float(r[n]) / 10, float(r[v]))
+    return {"bank": bank, "psi": psi}
+
+
+def break_blocks(long: dict, monthly) -> dict:
+    """Two unspliced windows either side of RBI's November 2019 card-data break."""
+    cards = card_sources()
+    daily_m = {p[0]: p[2] for p in monthly}
+    lp = long["periods"]
+
+    def from_long(name):
+        i = {m: k for k, m in enumerate(lp)}
+        return {m: (long["systems"][name]["volume"][i[m]], long["systems"][name]["value"][i[m]])
+                for m in lp if long["systems"][name]["volume"][i[m]] is not None}
+
+    rails = {s: from_long(s) for s in THREE}
+    network = {s: {m: (t[s]["vol_mn"], t[s]["val_cr"]) for m, t in daily_m.items()} for s in ("Credit card", "Debit card")}
+    windows = {
+        "before": (LONG_START, shift_month(CARD_BREAK, -1), [
+            *[(s, s, rails[s], "NPCI" if s != "NEFT" else "RBI", False, True) for s in THREE],
+            *[(f"{s} (RBI bank-wise)", s, cards["bank"][s], "RBI bank-wise ATM/PoS/card pages, as published", False, True)
+              for s in ("Credit card", "Debit card")]]),
+        "after": (CARD_BREAK, lp[-1], [
+            *[(s, s, rails[s], "NPCI / RBI, daily data from Apr 2026", False, True) for s in THREE],
+            *[(f"{s} (RBI PSI)", s, cards["psi"][s], "RBI Payment System Indicators, new definitions", False, True)
+              for s in ("Credit card", "Debit card")],
+            *[(f"{s} (RBI bank-wise)", s, cards["bank"][s], "RBI bank-wise pages, old publication (to Feb 2022)", True, False)
+              for s in ("Credit card", "Debit card")],
+            *[(f"{s}{NETWORK}", s, network[s], "RBI daily data, card networks only", True, False)
+              for s in ("Credit card", "Debit card")]]),
+    }
+    out = {"breakMonth": CARD_BREAK}
+    for key, (start, end, series) in windows.items():
+        months = month_span(start, end)
+        block = {"periods": months, "series": []}
+        for name, base, data, source, dashed, shown in series:
+            vol = [round(data[m][0], 3) if m in data else None for m in months]
+            val = [round(data[m][1], 1) if m in data else None for m in months]
+            yoy = [round(100 * (vol[i] / vol[i - 12] - 1), 2) if i >= 12 and vol[i] is not None and vol[i - 12] else None
+                   for i in range(len(vol))]
+            present = [m for m, v in zip(months, vol) if v is not None]
+            block["series"].append({
+                "name": name, "base": base, "source": source, "dashed": dashed, "shown": shown,
+                "from": present[0] if present else None, "to": present[-1] if present else None,
+                "volume": vol, "value": val,
+                "ticket": [round(10 * b / a, 1) if a and b is not None else None for a, b in zip(vol, val)],
+                "yoy": yoy,
+            })
+        out[key] = block
+    return out
+
+
 def upi_bank_points(official: dict) -> list[list]:
     banks = upi_banks()
     return [[m, banks[m], round(official["UPI"][m][0], 3)]
@@ -644,6 +713,7 @@ def run() -> None:
         "fiscal": fiscal,
         "regression": regression,
         "upiBanks": upi_bank_points(official),
+        "cardBreak": break_blocks(long, months),
         "neftCheck": neft_check,
         "comparison": comparison,
         "summary": twelve_month_summary(months),

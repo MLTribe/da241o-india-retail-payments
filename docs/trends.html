@@ -173,6 +173,30 @@
         <div class="caveat"><strong>Card lines are card-network payments only.</strong> RBI's daily file counts card payments processed by card networks. RBI's monthly Payment System Indicators also count other card payments. In March 2026 the daily file shows about 56% fewer credit-card payments and 9% fewer debit-card payments than the monthly figures. The credit-card gap has widened since 2023, which fits (but does not prove) RuPay credit cards being used through UPI. Use the daily card lines for the timing of changes (weeks, festivals, weekdays); for total card spending, use the monthly figures on <a href="explore.html">Explore the series</a>.</div>
       </section>
 
+      <section class="panel" aria-labelledby="break-title" id="card-break">
+        <p class="panel-kicker">RBI card data change, November 2019</p>
+        <h2 id="break-title">All series before and after the card data change, in two separate graphs</h2>
+        <div class="caveat" style="margin-top:10px"><strong>What RBI says:</strong> “The data from November 2019 onwards for card payments (Debit/Credit cards) and Prepaid Payment Instruments (PPIs) may not be comparable with earlier months/ periods, as more granular data is being published along with revision in data definitions.” <span class="note">(Footnote on every RBI Payment System Indicators release we archived, Jun 2021 – Mar 2026.)</span></div>
+        <p class="note" id="break-note"></p>
+        <div class="row" role="group" aria-label="Measure for both graphs" id="break-measures">
+          <span class="row-label">Measure</span>
+          <label class="toggle"><input type="checkbox" id="break-log" checked><span>Log scale</span></label>
+        </div>
+        <div class="two" style="margin-top:6px; grid-template-columns: 1fr 1fr">
+          <div>
+            <h3 id="before-title">Before: Jun 2014 – Oct 2019</h3>
+            <div class="chart-frame" style="margin-top:6px"><svg id="before-chart" viewBox="0 0 520 330" role="img" aria-labelledby="before-title"></svg></div>
+            <div class="legend" id="before-legend"></div>
+          </div>
+          <div>
+            <h3 id="after-title">After: Nov 2019 onwards</h3>
+            <div class="chart-frame" style="margin-top:6px"><svg id="after-chart" viewBox="0 0 520 330" role="img" aria-labelledby="after-title"></svg></div>
+            <div class="legend" id="after-legend"></div>
+          </div>
+        </div>
+        <p class="note">Nothing is spliced or rescaled here: each line is one source as published. Dashed lines are other card sources, off by default; tick them to compare. Each graph has its own y-axis.</p>
+      </section>
+
       <section class="panel" aria-labelledby="three-title" id="three">
         <p class="panel-kicker">UPI, IMPS and NEFT, April 2016 – September 2026</p>
         <h2 id="three-title">Analyses A–D: growth in volume and value, composition, average transaction value</h2>
@@ -632,6 +656,99 @@
       }
     }
 
+    const breakState = { measure: "volume", log: true, hidden: { before: new Set(), after: new Set() } };
+    const BREAK_MEASURES = ["volume", "value", "ticket", "yoy"];
+
+    function drawBreakChart(key) {
+      const block = DATA.cardBreak[key], node = el(`${key}-chart`), measure = MEASURES[breakState.measure];
+      const useLog = measure.log && breakState.log;
+      const shown = block.series.filter(s => !breakState.hidden[key].has(s.name));
+      const L = 62, R = 508, T = 22, B = 290, n = block.periods.length;
+      node.replaceChildren();
+      const all = shown.flatMap(s => s[breakState.measure]).filter(v => v !== null && (!useLog || v > 0));
+      if (!all.length) return;
+      let lo, hi, ticks;
+      if (useLog) {
+        lo = Math.floor(Math.log10(Math.min(...all))); hi = Math.ceil(Math.log10(Math.max(...all)));
+        if (hi === lo) hi += 1; ticks = []; for (let p = lo; p <= hi; p++) ticks.push(p);
+      } else {
+        ticks = niceTicks(Math.min(0, ...all), Math.max(...all) * 1.05, 5); lo = ticks[0]; hi = ticks[ticks.length - 1];
+      }
+      const x = i => L + (R - L) * i / (n - 1);
+      const y = v => B - ((useLog ? Math.log10(v) : v) - lo) * (B - T) / (hi - lo);
+      const frag = document.createDocumentFragment();
+      const title = svg("text", { x: L, y: 14, class: "axis-label" }); title.textContent = `${measure.axis}${useLog ? " — log scale" : ""}`; frag.appendChild(title);
+      for (const t of ticks) {
+        const yy = B - (t - lo) * (B - T) / (hi - lo);
+        frag.appendChild(svg("line", { x1: L, x2: R, y1: yy, y2: yy, class: t === 0 && !useLog ? "zero" : "grid" }));
+        const lb = svg("text", { x: L - 6, y: yy + 4, "text-anchor": "end", class: "axis-label" });
+        lb.textContent = useLog ? fmtNum(10 ** t) : breakState.measure === "yoy" ? `${t}%` : fmtNum(t); frag.appendChild(lb);
+      }
+      block.periods.forEach((p, i) => {
+        if (!p.endsWith("-01") && i !== 0) return;
+        if (i !== 0 && x(i) - x(0) < 60) return;
+        const lb = svg("text", { x: x(i), y: B + 16, "text-anchor": i === 0 ? "start" : "middle", class: "axis-label" });
+        lb.textContent = i === 0 ? tickLabel(p) : p.slice(0, 4); frag.appendChild(lb);
+      });
+      for (const s of shown) {
+        let d = "", pen = false;
+        s[breakState.measure].forEach((v, i) => {
+          if (v === null || (useLog && v <= 0)) { pen = false; return; }
+          d += `${pen ? "L" : "M"}${x(i).toFixed(1)},${y(v).toFixed(1)} `; pen = true;
+        });
+        if (d) frag.appendChild(svg("path", { d: d.trim(), class: s.dashed ? "series dashed" : "series", stroke: COLOURS[s.base] }));
+      }
+      const cursor = svg("line", { x1: 0, x2: 0, y1: T, y2: B, class: "cursor", visibility: "hidden" });
+      frag.appendChild(cursor);
+      const w = (R - L) / (n - 1);
+      block.periods.forEach((p, i) => {
+        const rows = shown.filter(s => s[breakState.measure][i] !== null).map(s => `${s.name}: ${measure.fmt(s[breakState.measure][i])}`);
+        const hit = svg("rect", { x: x(i) - w / 2, y: T, width: w, height: B - T, class: "hit" });
+        hit.addEventListener("mousemove", e => {
+          cursor.setAttribute("x1", x(i)); cursor.setAttribute("x2", x(i)); cursor.setAttribute("visibility", "visible");
+          showTooltip(periodLabel(p), rows.length ? rows : ["no data"], e.clientX, e.clientY);
+        });
+        hit.addEventListener("mouseleave", () => { cursor.setAttribute("visibility", "hidden"); hideTooltip(); });
+        frag.appendChild(hit);
+      });
+      node.appendChild(frag);
+    }
+
+    function buildCardBreak() {
+      const cb = DATA.cardBreak;
+      const box = el("break-measures"), toggle = el("break-log").closest("label");
+      for (const key of BREAK_MEASURES) {
+        const b = document.createElement("button");
+        b.type = "button"; b.className = "choice"; b.dataset.bmeasure = key; b.textContent = MEASURES[key].label.replace(/ \([A-E]\)$/, "");
+        b.setAttribute("aria-pressed", String(key === breakState.measure));
+        b.addEventListener("click", () => {
+          breakState.measure = key;
+          box.querySelectorAll("[data-bmeasure]").forEach(x => x.setAttribute("aria-pressed", String(x.dataset.bmeasure === key)));
+          el("break-log").disabled = !MEASURES[key].log; drawBreakChart("before"); drawBreakChart("after");
+        });
+        box.insertBefore(b, toggle);
+      }
+      el("break-log").addEventListener("change", e => { breakState.log = e.target.checked; drawBreakChart("before"); drawBreakChart("after"); });
+      for (const key of ["before", "after"]) {
+        const block = cb[key];
+        for (const s of block.series) if (!s.shown) breakState.hidden[key].add(s.name);
+        el(`${key}-title`).textContent = `${key === "before" ? "Before" : "After"}: ${periodLabel(block.periods[0])} – ${periodLabel(block.periods[block.periods.length - 1])}`;
+        const legend = el(`${key}-legend`); legend.replaceChildren();
+        for (const s of block.series) {
+          const label = document.createElement("label");
+          label.title = `${s.source}; ${periodLabel(s.from)} – ${periodLabel(s.to)}`;
+          const input = document.createElement("input"); input.type = "checkbox"; input.checked = s.shown;
+          input.addEventListener("change", () => { input.checked ? breakState.hidden[key].delete(s.name) : breakState.hidden[key].add(s.name); drawBreakChart(key); });
+          const sw = document.createElement("i"); sw.className = s.dashed ? "swatch dashed" : "swatch"; sw.style.background = COLOURS[s.base]; sw.style.borderColor = COLOURS[s.base];
+          label.append(input, sw, document.createTextNode(`${s.name}, ${tickLabel(s.from)}–${tickLabel(s.to)}`));
+          legend.appendChild(label);
+        }
+        drawBreakChart(key);
+      }
+      const after = Object.fromEntries(cb.after.series.map(s => [s.name, s]));
+      el("break-note").innerHTML = `<strong>What this means for our data.</strong> The note is about RBI's Payment System Indicators card figures. In our archive those start in ${periodLabel(after["Credit card (RBI PSI)"].from)}, already on the new definitions, so the after graph uses them from then. Before the change the only monthly card source is RBI's bank-wise ATM/PoS/card pages, which continue to ${periodLabel(after["Credit card (RBI bank-wise)"].to)}; where the two overlap they agree closely, and the bank-wise series shows no visible step in November 2019. UPI, IMPS and NEFT are not affected by the note and appear in both graphs. Our other long-run views splice cards at June 2021; this view keeps the two periods apart instead.`;
+    }
+
     function buildComparison() {
       const body = el("match-table").querySelector("tbody");
       body.replaceChildren();
@@ -714,6 +831,7 @@
       buildComparison();
       buildThree();
       buildRegression();
+      buildCardBreak();
       const params = new URLSearchParams(window.location.search);
       if (MEASURES[params.get("measure")]) { state.measure = params.get("measure"); pressed("main", "measure", state.measure); }
       if (["monthly", "long", "three"].includes(params.get("freq"))) setFreq(params.get("freq"));
