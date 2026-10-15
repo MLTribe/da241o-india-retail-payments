@@ -18,11 +18,18 @@ Long-run monthly view: the daily-based months are compared with the project's of
 series (NPCI product statistics for UPI and IMPS; RBI PSI release pages for NEFT; the spliced RBI
 card series from long_series.py for cards) and appended after the official data end only where
 the two sources agree in level. Card-network card payments are shown beside the official card
-series, never joined to it.
+series, never joined to it. NEFT before June 2020 comes from RBI's bank-wise NEFT pages
+(source_archive/rbi/neft_html/), checked against the PSI pages where both exist.
+
+UPI, IMPS and NEFT from April 2016 (Analyses A-D): volume, value, shares of the three systems
+combined (not of all payments in India) and average payment, by month and fiscal year.
+Analysis E: OLS ln(UPI volume_t) = b0 + b1 ln(banks live on UPI_t) + b2 Trend_t + e_t, with
+Newey-West standard errors, on the full sample and without the 2016-19 launch years.
 
 Run after long_series.py: python3 analysis/daily_trends.py
 Writes analysis/output/daily_five_systems.csv, weekly_five_systems.csv, monthly_five_systems.csv,
-long_monthly_five_systems.csv, daily_vs_official_monthly.csv and docs/trends-data.js.
+long_monthly_five_systems.csv, daily_vs_official_monthly.csv, three_systems_fiscal_years.csv,
+upi_banks_regression.csv and docs/trends-data.js.
 """
 
 from __future__ import annotations
@@ -50,6 +57,10 @@ LONG_START = "2014-06"
 CARD_PSI_START = "2021-06"
 JOIN_MAX_GAP_PCT = 1.0
 NETWORK = " (card networks)"
+NEFT_HTML = REPO / "source_archive" / "rbi" / "neft_html"
+THREE = ["UPI", "IMPS", "NEFT"]
+THREE_START = "2016-04"
+REGRESSION_SAMPLES = [("Full sample", "2016-07"), ("Without the launch years", "2019-04")]
 
 START = date(2020, 11, 1)
 SYSTEMS = ["UPI", "IMPS", "NEFT", "Credit card", "Debit card"]
@@ -310,7 +321,40 @@ def neft_psi() -> dict[str, tuple[float, float]]:
     return out
 
 
-def official_monthly() -> dict[str, dict[str, tuple[float, float]]]:
+def neft_bankwise() -> dict[str, tuple[float, float]]:
+    """NEFT all-bank monthly totals from RBI's bank-wise ECS/NEFT/RTGS/Mobile pages (NEFTView.aspx).
+
+    Totals are labelled "No. of transactions in mn and Amount in bn" up to July 2019 and
+    "in lakh and Amount in crore" from August 2019; both are converted to million and Rs crore.
+    """
+    months = "January|February|March|April|May|June|July|August|September|October|November|December"
+    names = months.split("|")
+    out: dict[str, tuple[float, float]] = {}
+    for path in sorted(NEFT_HTML.glob("id*.html")):
+        html = path.read_text(encoding="utf-8", errors="replace")
+        text = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", html).replace("&nbsp;", " "))
+        m = re.search(rf"(?:Mobile Banking|RTGS Inward and Outward|Transaction Details)[^.]{{0,40}}?({months}),?\s+(\d{{4}})", text)
+        if not m:
+            raise SystemExit(f"{path.name}: month not found")
+        month = f"{m.group(2)}-{names.index(m.group(1)) + 1:02d}"
+        parser = TableRows()
+        parser.feed(html)
+        row = next((r for r in ([normalise(c) for c in r] for r in parser.rows)
+                    if any(re.search(r"total\s*\(no\.? of trans", c, re.I) for c in r)), None)
+        if row is None:
+            raise SystemExit(f"{path.name}: NEFT total not found")
+        label = next(c for c in row if re.search(r"total", c, re.I))
+        vol, val = (float(c.replace(",", "")) for c in [c for c in row if c and c != label][:2])
+        if re.search(r"in mn", label) and re.search(r"in (Rs\. )?bn", label):
+            out[month] = (vol, val * 100)
+        elif re.search(r"in lakh", label) and re.search(r"crore", label):
+            out[month] = (vol / 10, val)
+        else:
+            raise SystemExit(f"{path.name}: unknown units in {label!r}")
+    return out
+
+
+def official_monthly() -> tuple[dict[str, dict[str, tuple[float, float]]], dict]:
     official: dict[str, dict[str, tuple[float, float]]] = {}
     for system, stem in (("UPI", "npci_upi_product_statistics"), ("IMPS", "npci_imps_product_statistics")):
         official[system] = {}
@@ -318,13 +362,140 @@ def official_monthly() -> dict[str, dict[str, tuple[float, float]]]:
             for r in csv.DictReader(path.open(newline="")):
                 if r.get("volume_mn") and r.get("value_crore"):
                     official[system][r["month"]] = (float(r["volume_mn"]), float(r["value_crore"]))
-    official["NEFT"] = neft_psi()
+    psi, bankwise = neft_psi(), neft_bankwise()
+    overlap = sorted(set(psi) & set(bankwise))
+    gaps = [(100 * (bankwise[m][0] / psi[m][0] - 1), 100 * (bankwise[m][1] / psi[m][1] - 1)) for m in overlap]
+    neft_check = {"from": overlap[0], "to": overlap[-1], "months": len(overlap),
+                  "maxVolGapPct": round(max(abs(g[0]) for g in gaps), 3),
+                  "maxValGapPct": round(max(abs(g[1]) for g in gaps), 3),
+                  "bankwiseFrom": min(bankwise)}
+    official["NEFT"] = {**{m: v for m, v in bankwise.items() if m not in psi}, **psi}
     official["Credit card"], official["Debit card"] = {}, {}
     for r in csv.DictReader((OUTPUT / "long_series_panel.csv").open(newline="")):
         for system, n, v in (("Credit card", "credit_n", "credit_v"), ("Debit card", "debit_n", "debit_v")):
             if r[n] and r[v]:
                 official[system][r["month"]] = (float(r[n]), float(r[v]))
-    return official
+    return official, neft_check
+
+
+def upi_banks() -> dict[str, int]:
+    out = {}
+    for path in sorted(YEAR_ROOT.glob("*/npci_upi_product_statistics.csv")):
+        for r in csv.DictReader(path.open(newline="")):
+            if r.get("banks_live"):
+                out[r["month"]] = int(float(r["banks_live"]))
+    return out
+
+
+def three_block(long: dict) -> dict:
+    """UPI, IMPS and NEFT from April 2016, with shares of the three systems combined."""
+    lo = long["periods"].index(THREE_START)
+    periods = long["periods"][lo:]
+    raw = {s: {k: long["systems"][s][k][lo:] for k in ("volume", "value", "ticket", "yoy")} for s in THREE}
+    out = {"periods": periods, "systems": {}, "appendFrom": {s: long["appendFrom"][s] for s in THREE if s in long["appendFrom"]}}
+    for key, share in (("volume", "volShare"), ("value", "valShare")):
+        totals = [None if any(raw[s][key][i] is None for s in THREE) else sum(raw[s][key][i] for s in THREE)
+                  for i in range(len(periods))]
+        for s in THREE:
+            raw[s][share] = [round(100 * v / t, 3) if t else None for v, t in zip(raw[s][key], totals)]
+    out["systems"] = raw
+    return out
+
+
+def three_fiscal_years(three: dict) -> list[dict]:
+    """Analyses A-D by Indian fiscal year (April-March); only complete years are kept."""
+    rows = []
+    for i, p in enumerate(three["periods"]):
+        if p[5:] != "04" or i + 12 > len(three["periods"]):
+            continue
+        idx = range(i, i + 12)
+        vol = {s: sum(three["systems"][s]["volume"][k] or 0 for k in idx) for s in THREE}
+        val = {s: sum(three["systems"][s]["value"][k] or 0 for k in idx) for s in THREE}
+        if any(three["systems"][s]["volume"][k] is None for s in THREE for k in idx):
+            continue
+        year = int(p[:4])
+        rows.append({
+            "fy": f"{year}-{str(year + 1)[2:]}",
+            "systems": {s: {
+                "volume": round(vol[s], 1), "value": round(val[s]),
+                "volShare": round(100 * vol[s] / sum(vol.values()), 2),
+                "valShare": round(100 * val[s] / sum(val.values()), 2),
+                "ticket": round(10 * val[s] / vol[s]) if vol[s] else None,
+            } for s in THREE},
+        })
+    return rows
+
+
+def solve(a: list[list[float]]) -> list[list[float]]:
+    n = len(a)
+    m = [row[:] + [float(i == j) for j in range(n)] for i, row in enumerate(a)]
+    for c in range(n):
+        p = max(range(c, n), key=lambda r: abs(m[r][c]))
+        m[c], m[p] = m[p], m[c]
+        piv = m[c][c]
+        m[c] = [v / piv for v in m[c]]
+        for r in range(n):
+            if r != c:
+                f = m[r][c]
+                m[r] = [v - f * w for v, w in zip(m[r], m[c])]
+    return [row[n:] for row in m]
+
+
+def ols(y: list[float], x: list[list[float]]) -> dict:
+    """OLS with classical and Newey-West (Bartlett kernel) standard errors."""
+    n, k = len(y), len(x[0])
+    xtx_inv = solve([[sum(r[i] * r[j] for r in x) for j in range(k)] for i in range(k)])
+    xty = [sum(r[i] * v for r, v in zip(x, y)) for i in range(k)]
+    beta = [sum(xtx_inv[i][j] * xty[j] for j in range(k)) for i in range(k)]
+    e = [v - sum(b * c for b, c in zip(beta, r)) for v, r in zip(y, x)]
+    sse = sum(v * v for v in e)
+    ybar = sum(y) / n
+    r2 = 1 - sse / sum((v - ybar) ** 2 for v in y)
+    s2 = sse / (n - k)
+    se = [math.sqrt(s2 * xtx_inv[i][i]) for i in range(k)]
+    lags = int(4 * (n / 100) ** (2 / 9))
+    meat = [[sum(x[t][i] * x[t][j] * e[t] ** 2 for t in range(n)) for j in range(k)] for i in range(k)]
+    for l in range(1, lags + 1):
+        w = 1 - l / (lags + 1)
+        for i in range(k):
+            for j in range(k):
+                g = sum(e[t] * e[t - l] * (x[t][i] * x[t - l][j] + x[t - l][i] * x[t][j]) for t in range(l, n))
+                meat[i][j] += w * g
+    hac = [[sum(xtx_inv[i][a] * meat[a][b] * xtx_inv[b][j] for a in range(k) for b in range(k))
+            for j in range(k)] for i in range(k)]
+    se_nw = [math.sqrt(hac[i][i] * n / (n - k)) for i in range(k)]
+    dw = sum((e[t] - e[t - 1]) ** 2 for t in range(1, n)) / sse
+    return {"beta": beta, "se": se, "seNw": se_nw, "r2": r2, "n": n, "lags": lags, "dw": dw}
+
+
+def upi_bank_regression(official: dict) -> list[dict]:
+    """Analysis E: ln(UPI volume_t) = b0 + b1 ln(banks live on UPI_t) + b2 Trend_t + e_t."""
+    banks = upi_banks()
+    months = sorted(m for m in official["UPI"] if m in banks and official["UPI"][m][0] > 0)
+    out = []
+    for label, start in REGRESSION_SAMPLES:
+        sample = [m for m in months if m >= start]
+        y = [math.log(official["UPI"][m][0]) for m in sample]
+        x = [[1.0, math.log(banks[m]), float(t)] for t, m in enumerate(sample, 1)]
+        fit = ols(y, x)
+        terms = []
+        for name, b, s, snw in zip(("Intercept (β0)", "ln(banks live on UPI) (β1)", "Trend, per month (β2)"),
+                                   fit["beta"], fit["se"], fit["seNw"]):
+            t = b / snw
+            terms.append({"term": name, "coef": round(b, 4), "se": round(s, 4), "seNw": round(snw, 4),
+                          "t": round(t, 2), "p": round(math.erfc(abs(t) / math.sqrt(2)), 4)})
+        fitted = [math.exp(sum(b * c for b, c in zip(fit["beta"], r))) for r in x]
+        out.append({"sample": label, "from": sample[0], "to": sample[-1], "n": fit["n"],
+                    "banksFrom": banks[sample[0]], "banksTo": banks[sample[-1]],
+                    "r2": round(fit["r2"], 4), "dw": round(fit["dw"], 2), "lags": fit["lags"], "terms": terms,
+                    "fitted": {m: round(v, 3) for m, v in zip(sample, fitted)}})
+    return out
+
+
+def upi_bank_points(official: dict) -> list[list]:
+    banks = upi_banks()
+    return [[m, banks[m], round(official["UPI"][m][0], 3)]
+            for m in sorted(official["UPI"]) if m in banks and official["UPI"][m][0] > 0]
 
 
 def pearson(a: list[float], b: list[float]) -> float | None:
@@ -442,9 +613,20 @@ def run() -> None:
                   [[p[1].isoformat(), s, round(p[2][s]["vol_mn"], 3), round(p[2][s]["val_cr"], 1)]
                    for p in periods for s in SYSTEMS])
 
-    official = official_monthly()
+    official, neft_check = official_monthly()
     comparison, detail = compare_sources(months, official)
     long, long_rows = long_block(months, official, comparison)
+    three = three_block(long)
+    fiscal = three_fiscal_years(three)
+    regression = upi_bank_regression(official)
+    write_csv(OUTPUT / "three_systems_fiscal_years.csv",
+              ["fiscal_year", "system", "volume_mn", "value_cr", "volume_share_of_three_pct",
+               "value_share_of_three_pct", "average_value_rs"],
+              [[r["fy"], s, *r["systems"][s].values()] for r in fiscal for s in THREE])
+    write_csv(OUTPUT / "upi_banks_regression.csv",
+              ["sample", "from", "to", "n", "term", "coef", "se_ols", "se_newey_west", "t_nw", "p_nw", "r2", "durbin_watson"],
+              [[r["sample"], r["from"], r["to"], r["n"], t["term"], t["coef"], t["se"], t["seNw"], t["t"], t["p"], r["r2"], r["dw"]]
+               for r in regression for t in r["terms"]])
     write_csv(OUTPUT / "daily_vs_official_monthly.csv",
               ["month", "system", "daily_based_volume_mn", "official_volume_mn", "gap_pct"], detail)
     write_csv(OUTPUT / "long_monthly_five_systems.csv",
@@ -458,6 +640,11 @@ def run() -> None:
         "weekly": series(weeks, 52),
         "monthly": series(months, 12),
         "long": long,
+        "three": three,
+        "fiscal": fiscal,
+        "regression": regression,
+        "upiBanks": upi_bank_points(official),
+        "neftCheck": neft_check,
         "comparison": comparison,
         "summary": twelve_month_summary(months),
         "weekday": weekday_profile(daily, weeks),
@@ -472,6 +659,13 @@ def run() -> None:
               f"[{r['gapMin']:+.2f}, {r['gapMax']:+.2f}] last3 {r['gapLast3']:+.2f}%  r(level) {r['rLevel']}  "
               f"r(yoy) {r['rYoy']}  r(mom) {r['rMom']}  join={r['join']}")
     print(f"  appended from: {long['appendFrom']}")
+    print(f"  NEFT bank-wise vs PSI: {neft_check}")
+    for r in fiscal:
+        print("  FY", r["fy"], {s: (r["systems"][s]["volShare"], r["systems"][s]["valShare"], r["systems"][s]["ticket"]) for s in THREE})
+    for r in regression:
+        print(f"  E {r['sample']} {r['from']}..{r['to']} n={r['n']} R2={r['r2']} DW={r['dw']} lags={r['lags']}")
+        for t in r["terms"]:
+            print(f"     {t['term']:28s} {t['coef']:+.4f}  se {t['se']:.4f}  NW se {t['seNw']:.4f}  t {t['t']:+.2f}  p {t['p']}")
 
 
 if __name__ == "__main__":

@@ -82,6 +82,7 @@
     th, td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--line); }
     th { color: var(--muted); font-weight: 700; }
     td.num, th.num { text-align: right; }
+    th[colspan] { text-align: center; border-left: 1px solid var(--line); }
     .up { color: #0b7a3e; font-weight: 700; }
     .down { color: #b42318; font-weight: 700; }
     .caveat { margin-top: 14px; padding: 12px 14px; border-left: 4px solid #bb8d31; background: #fbf2df; border-radius: 8px; font-size: 13px; }
@@ -138,6 +139,7 @@
           <button type="button" class="choice" data-freq="weekly">Weekly</button>
           <button type="button" class="choice" data-freq="monthly">Monthly</button>
           <button type="button" class="choice" data-freq="long">Monthly, long run (old + daily data)</button>
+          <button type="button" class="choice" data-freq="three">UPI, IMPS, NEFT only (2016–2026)</button>
           <label class="toggle"><input type="checkbox" id="smooth"><span>Smooth (4-week average)</span></label>
         </div>
         <div class="row" role="group" aria-label="Measure" id="measures">
@@ -171,6 +173,48 @@
         <div class="caveat"><strong>Card lines are card-network payments only.</strong> RBI's daily file counts card payments processed by card networks. RBI's monthly Payment System Indicators also count other card payments. In March 2026 the daily file shows about 56% fewer credit-card payments and 9% fewer debit-card payments than the monthly figures. The credit-card gap has widened since 2023, which fits (but does not prove) RuPay credit cards being used through UPI. Use the daily card lines for the timing of changes (weeks, festivals, weekdays); for total card spending, use the monthly figures on <a href="explore.html">Explore the series</a>.</div>
       </section>
 
+      <section class="panel" aria-labelledby="three-title" id="three">
+        <p class="panel-kicker">UPI, IMPS and NEFT, April 2016 – September 2026</p>
+        <h2 id="three-title">Analyses A–D: growth in volume and value, composition, average transaction value</h2>
+        <p class="note" id="three-source"></p>
+        <div class="row" role="group" aria-label="Show on chart">
+          <span class="row-label">Show on chart</span>
+          <button type="button" class="choice" data-show="volume">A — Growth in transaction volume</button>
+          <button type="button" class="choice" data-show="value">B — Growth in transaction value</button>
+          <button type="button" class="choice" data-show="volShare">C — Composition: volume share</button>
+          <button type="button" class="choice" data-show="valShare">C — Composition: value share</button>
+          <button type="button" class="choice" data-show="ticket">D — Average transaction value</button>
+        </div>
+        <ul class="insights" id="three-insights"></ul>
+        <h3 style="margin-top:18px">Analysis A — Growth in transaction volume · Analysis B — Growth in transaction value (by fiscal year, April–March)</h3>
+        <table id="fy-ab"><thead></thead><tbody></tbody></table>
+        <h3 style="margin-top:18px">Analysis C — Composition of the three systems · Analysis D — Average transaction value</h3>
+        <table id="fy-cd"><thead></thead><tbody></tbody></table>
+        <p class="note">Share (i) = system i ÷ (UPI + IMPS + NEFT). This is a share of these three systems only, not of all payments in India (cards, cheques, RTGS and others are left out). Average payment (i) = value (i) ÷ number of payments (i), with value converted from ₹ crore to rupees and volume from million to single payments. An average shows how big a typical payment is; it does not show what the payment was for.</p>
+      </section>
+
+      <section class="panel" aria-labelledby="reg-title">
+        <p class="panel-kicker">Analysis E — One supplementary regression</p>
+        <h2 id="reg-title">Analysis E: do more banks on UPI go with more UPI payments?</h2>
+        <p class="note"><strong>Model (OLS, monthly):</strong> ln(UPI volume<sub>t</sub>) = β<sub>0</sub> + β<sub>1</sub> · ln(banks live on UPI<sub>t</sub>) + β<sub>2</sub> · Trend<sub>t</sub> + ε<sub>t</sub>. Trend<sub>t</sub> = 1, 2, 3 … for each month in the sample. Data: NPCI UPI product statistics (volume and banks live). Because both sides are in logs, β<sub>1</sub> is an elasticity.</p>
+        <table id="reg-table"><thead><tr><th>Sample</th><th>Term</th><th class="num">Estimate</th><th class="num">Std. error (Newey–West)</th><th class="num">t</th><th class="num">p</th><th class="num">R²</th><th class="num">Months</th></tr></thead><tbody></tbody></table>
+        <div class="two" style="margin-top:14px; grid-template-columns: 1fr 1fr">
+          <div>
+            <h3>Analysis E — UPI volume against banks live on UPI (both on log scales)</h3>
+            <div class="chart-frame" style="margin-top:6px"><svg id="reg-scatter" viewBox="0 0 520 340" role="img" aria-label="Scatter of monthly UPI volume against the number of banks live on UPI, log scales"></svg></div>
+            <p class="note">Each dot is one month. On log scales, the slope of the cloud is roughly the elasticity before the trend is taken out.</p>
+          </div>
+          <div>
+            <h3>Analysis E — Actual vs fitted UPI volume</h3>
+            <div class="chart-frame" style="margin-top:6px"><svg id="reg-fit" viewBox="0 0 520 340" role="img" aria-label="Actual monthly UPI volume and fitted values from both regression samples, log scale"></svg></div>
+            <p class="note">Fitted = e<sup>β0 + β1·ln(banks) + β2·Trend</sup> from each sample. Gaps between the lines are the residuals ε<sub>t</sub>.</p>
+          </div>
+        </div>
+        <div class="legend" id="reg-legend"></div>
+        <ul class="insights" id="reg-insights"></ul>
+        <div class="caveat"><strong>This is an association, not proof that adding banks causes more UPI payments.</strong> Bank participation, demand, merchant QR acceptance, smartphone use and policy (demonetisation, COVID, zero MDR) all grew together, so β<sub>1</sub> picks up part of them too. Both series rise steadily, so the residuals are strongly autocorrelated (Durbin–Watson well below 2): we report Newey–West standard errors, and the estimates should be read as descriptive.</div>
+      </section>
+
       <section class="panel" aria-labelledby="match-title">
         <p class="panel-kicker">Old data vs daily data</p>
         <h2 id="match-title">Do the daily figures match the official monthly figures?</h2>
@@ -201,7 +245,7 @@
         </section>
       </div>
 
-      <p class="bottom-note">Data: RBI, Payment and Settlement Systems – Daily Data Publication (archived in <code>source_archive/rbi/</code>). Volumes are converted from lakh to million; values are nominal ₹ crore. Only complete weeks (Monday–Sunday) and complete months are shown. The long-run view joins the project's official monthly series (NPCI product statistics; RBI Payment System Indicators pages in <code>source_archive/rbi/html/</code>; the spliced card series from <code>analysis/long_series.py</code>). Generated by <code>analysis/daily_trends.py</code>; daily, weekly, monthly, long-run and comparison tables are in <code>analysis/output/</code>.</p>
+      <p class="bottom-note">Data: RBI, Payment and Settlement Systems – Daily Data Publication (archived in <code>source_archive/rbi/</code>). Volumes are converted from lakh to million; values are nominal ₹ crore. Only complete weeks (Monday–Sunday) and complete months are shown. The long-run view joins the project's official monthly series (NPCI product statistics; RBI Payment System Indicators pages in <code>source_archive/rbi/html/</code>; RBI bank-wise NEFT pages for Apr 2016 – Aug 2021 in <code>source_archive/rbi/neft_html/</code>; the spliced card series from <code>analysis/long_series.py</code>). Generated by <code>analysis/daily_trends.py</code>; daily, weekly, monthly, long-run and comparison tables are in <code>analysis/output/</code>.</p>
     </main>
     <footer><span>Utility Maximizers · DA241o · Managerial Economics</span><span id="footer-through"></span></footer>
   </div>
@@ -214,15 +258,15 @@
     const COLOURS = { "UPI": "#008738", "IMPS": "#7a3fa0", "NEFT": "#1f5f9e", "Credit card": "#d62828", "Debit card": "#b57700" };
     const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     const MEASURES = {
-      volume:   { label: "Payments (mn)", axis: "number of payments (million)", fmt: v => `${fmtNum(v)} mn`, log: true,
+      volume:   { label: "Payments (mn) (A)", axis: "number of payments (million)", fmt: v => `${fmtNum(v)} mn`, log: true,
                   note: "Total number of payments in each period. Turn on log scale to compare systems of very different size." },
-      value:    { label: "Value (₹ crore)", axis: "value of payments (₹ crore, nominal)", fmt: v => `₹${fmtNum(v)} cr`, log: true,
+      value:    { label: "Value (₹ crore) (B)", axis: "value of payments (₹ crore, nominal)", fmt: v => `₹${fmtNum(v)} cr`, log: true,
                   note: "Total rupee value in each period, not adjusted for inflation." },
-      volShare: { label: "Share of payments (%)", axis: "share of the five systems' payments (%)", fmt: v => `${v.toFixed(2)}%`, share: true,
-                  note: "Each system's payments ÷ all five systems' payments. Shares add up to 100% in every period." },
-      valShare: { label: "Share of value (%)", axis: "share of the five systems' value (%)", fmt: v => `${v.toFixed(2)}%`, share: true,
-                  note: "Each system's rupee value ÷ all five systems' value. NEFT carries large business payments, so it dominates value." },
-      ticket:   { label: "Average payment (₹)", axis: "average rupees per payment", fmt: v => `₹${fmtNum(v)}`, log: true,
+      volShare: { label: "Share of payments (%) (C)", axis: "share of {group} payments (%)", fmt: v => `${v.toFixed(2)}%`, share: true,
+                  note: "Each system's payments ÷ {group} payments. Shares add up to 100% in every period; they are not shares of all payments in India." },
+      valShare: { label: "Share of value (%) (C)", axis: "share of {group} value (%)", fmt: v => `${v.toFixed(2)}%`, share: true,
+                  note: "Each system's rupee value ÷ {group} value. NEFT carries large business payments, so it dominates value." },
+      ticket:   { label: "Average payment (₹) (D)", axis: "average rupees per payment", fmt: v => `₹${fmtNum(v)}`, log: true,
                   note: "Value ÷ number of payments. A falling average means more small payments, not that the same payments got cheaper." },
       yoy:      { label: "Growth vs a year ago (%)", axis: "change in payments vs a year earlier (%)", fmt: v => `${v >= 0 ? "+" : ""}${v.toFixed(1)}%`,
                   note: "Change in the number of payments compared with the same week (52 weeks earlier) or month a year before. Removes seasonal effects." }
@@ -270,6 +314,8 @@
       });
     }
 
+    const groupLabel = () => state.freq === "three" ? "the three systems' (UPI + IMPS + NEFT)" : "the five systems'";
+    const fillGroup = text => text.replace(/\{group\}/g, groupLabel());
     const NETWORK = " (card networks)";
     const baseName = name => name.replace(NETWORK, "");
 
@@ -324,7 +370,7 @@
       const y = v => bottom - (tv(v) - low) * (bottom - top) / (high - low);
       const frag = document.createDocumentFragment();
       const title = svg("text", { x: left, y: 22, class: "axis-title" });
-      title.textContent = `Y axis: ${measure.axis}${useLog ? " — log scale" : ""}`;
+      title.textContent = `Y axis: ${fillGroup(measure.axis)}${useLog ? " — log scale" : ""}`;
       frag.appendChild(title);
       for (const t of ticks) {
         const yy = useLog ? bottom - (t - low) * (bottom - top) / (high - low) : y(t);
@@ -382,17 +428,19 @@
         const ia = s.values.findIndex(v => v !== null && (!useLog || v > 0));
         const ib = s.values.length - 1 - [...s.values].reverse().findIndex(v => v !== null);
         if (ia < 0) return `${s.name}: n/a`;
-        const dates = state.freq === "long" ? ` (${tickLabel(periods[ia])} → ${tickLabel(periods[ib])})` : "";
+        const dates = state.freq === "long" || state.freq === "three" ? ` (${tickLabel(periods[ia])} → ${tickLabel(periods[ib])})` : "";
         return `${s.name} ${measure.fmt(s.values[ia])} → ${measure.fmt(s.values[ib])}${dates}`;
       });
       el("summary").textContent = `${periodLabel(periods[0])} → ${periodLabel(periods[periods.length - 1])}: ${firstLast.join(" · ")}`;
-      el("svg-title").textContent = `${measure.label}, ${state.freq === "long" ? "monthly, long run" : state.freq}`;
-      el("svg-desc").textContent = `Y axis: ${measure.axis}. ${el("summary").textContent}`;
+      el("svg-title").textContent = `${measure.label}, ${{ long: "monthly, long run", three: "UPI, IMPS and NEFT, monthly" }[state.freq] || state.freq}`;
+      el("svg-desc").textContent = `Y axis: ${fillGroup(measure.axis)}. ${el("summary").textContent}`;
       const smoothNote = state.smooth && state.freq === "weekly" ? " Smoothed: each point is the average of the latest 4 weeks." : "";
       const longNote = state.freq === "long"
-        ? " Long run: official monthly data (UPI and IMPS from NPCI, from Apr 2016; NEFT from RBI, from Jun 2020; cards from RBI, from Jun 2014, with bank-wise figures scaled to the RBI total before Jun 2021). For UPI, IMPS and NEFT the daily data are added after the official series ends, because the two sources agree there. Dashed lines are the card-network card payments from the daily data; they are shown beside the official card lines, not joined, because their level is different. Shares are not shown here because NEFT starts only in 2020."
-        : "";
-      el("measure-note").textContent = measure.note + smoothNote + longNote;
+        ? " Long run: official monthly data (UPI and IMPS from NPCI, from Apr 2016; NEFT from RBI, from Apr 2016; cards from RBI, from Jun 2014, with bank-wise figures scaled to the RBI total before Jun 2021). For UPI, IMPS and NEFT the daily data are added after the official series ends, because the two sources agree there. Dashed lines are the card-network card payments from the daily data; they are shown beside the official card lines, not joined, because their level is different. Shares are not shown here because cards are on a different basis; use \"UPI, IMPS, NEFT only\" for shares of those three."
+        : state.freq === "three"
+          ? ` UPI and IMPS: NPCI monthly data; NEFT: RBI monthly data (bank-wise NEFT totals before Jun 2020, Payment System Indicators after). Daily data are added from ${periodLabel(DATA.three.appendFrom.UPI)}. UPI volume is close to zero until late 2016, so on a log scale its line starts in Jul 2016.`
+          : "";
+      el("measure-note").textContent = fillGroup(measure.note) + smoothNote + longNote;
     }
 
     let legendKey = "";
@@ -444,11 +492,144 @@
         box.appendChild(b);
       }
       document.querySelectorAll("[data-freq]").forEach(b => b.addEventListener("click", () => { setFreq(b.dataset.freq); render(); }));
+      document.querySelectorAll("[data-show]").forEach(b => b.addEventListener("click", () => {
+        setFreq("three"); state.measure = b.dataset.show; pressed("main", "measure", state.measure);
+        state.range = "all"; pressed("main", "range", "all");
+        if (b.dataset.show === "volume" || b.dataset.show === "value") { state.log = true; el("log-scale").checked = true; }
+        render(); el("chart-title").scrollIntoView({ behavior: "smooth", block: "start" });
+      }));
       document.querySelectorAll("[data-measure]").forEach(b => b.addEventListener("click", () => { state.measure = b.dataset.measure; pressed("main", "measure", state.measure); render(); }));
       document.querySelectorAll("[data-range]").forEach(b => b.addEventListener("click", () => { state.range = b.dataset.range; pressed("main", "range", state.range); render(); }));
       el("smooth").addEventListener("change", e => { state.smooth = e.target.checked; render(); });
       el("log-scale").addEventListener("change", e => { state.log = e.target.checked; render(); });
       pressed("main", "freq", state.freq); pressed("main", "measure", state.measure); pressed("main", "range", state.range);
+    }
+
+    function buildThree() {
+      const fy = DATA.fiscal, nc = DATA.neftCheck;
+      const lakhCrore = v => `${(v / 1e5).toLocaleString("en-IN", { maximumFractionDigits: v >= 1e6 ? 0 : 1 })}`;
+      el("three-source").textContent = `UPI and IMPS: NPCI monthly product statistics. NEFT: RBI bank-wise NEFT totals for ${periodLabel(nc.bankwiseFrom)} – May 2020 and RBI Payment System Indicators from Jun 2020; in the ${nc.months} months both cover (${periodLabel(nc.from)} – ${periodLabel(nc.to)}) they differ by at most ${nc.maxVolGapPct}% in payments and ${nc.maxValGapPct}% in value. Volumes in million, values in ₹ crore (nominal); the tables use complete fiscal years, ${fy[0].fy} to ${fy[fy.length - 1].fy}.`;
+      const head = (table, groups) => {
+        const r1 = document.createElement("tr"), r2 = document.createElement("tr");
+        const th0 = document.createElement("th"); th0.textContent = "Fiscal year"; th0.rowSpan = 2; r1.appendChild(th0);
+        for (const g of groups) {
+          const th = document.createElement("th"); th.textContent = g; th.colSpan = 3; th.className = "num"; r1.appendChild(th);
+          for (const s of ["UPI", "IMPS", "NEFT"]) { const t = document.createElement("th"); t.textContent = s; t.className = "num"; r2.appendChild(t); }
+        }
+        table.querySelector("thead").replaceChildren(r1, r2);
+      };
+      const fill = (table, cols) => {
+        const body = table.querySelector("tbody"); body.replaceChildren();
+        for (const r of fy) {
+          const tr = document.createElement("tr"); tr.appendChild(cell(r.fy));
+          for (const [key, fmt] of cols) for (const s of ["UPI", "IMPS", "NEFT"]) tr.appendChild(cell(fmt(r.systems[s][key]), "num"));
+          body.appendChild(tr);
+        }
+      };
+      head(el("fy-ab"), ["A — Volume (million)", "B — Value (₹ lakh crore)"]);
+      fill(el("fy-ab"), [["volume", v => fmtNum(v)], ["value", lakhCrore]]);
+      head(el("fy-cd"), ["C — Volume share (%)", "C — Value share (%)", "D — Average value (₹)"]);
+      fill(el("fy-cd"), [["volShare", v => v.toFixed(1)], ["valShare", v => v.toFixed(1)], ["ticket", v => v === null ? "n/a" : rupees(v)]]);
+
+      const a = fy[0], b = fy[fy.length - 1], k = fy.length - 1;
+      const cagr = (s, key) => 100 * ((b.systems[s][key] / a.systems[s][key]) ** (1 / k) - 1);
+      const g = fy.find(r => r.systems.UPI.volShare > 50);
+      const peak = s => fy.slice(1).reduce((p, r) => (r.systems[s].ticket > p.systems[s].ticket ? r : p));
+      const upiPeak = peak("UPI"), neftPeak = peak("NEFT");
+      const items = [
+        `<strong>Analysis A — Growth in transaction volume:</strong> from FY ${a.fy} to FY ${b.fy}, UPI payments went from ${fmtNum(a.systems.UPI.volume)} mn to ${fmtNum(b.systems.UPI.volume)} mn a year; IMPS ${moved(cagr("IMPS", "volume"))} a year (${fmtNum(a.systems.IMPS.volume)} → ${fmtNum(b.systems.IMPS.volume)} mn) and NEFT ${moved(cagr("NEFT", "volume"))} a year (${fmtNum(a.systems.NEFT.volume)} → ${fmtNum(b.systems.NEFT.volume)} mn). UPI passed half of the three systems' payments in FY ${g.fy}.`,
+        `<strong>Analysis B — Growth in transaction value:</strong> NEFT value ${moved(cagr("NEFT", "value"))} a year and IMPS ${moved(cagr("IMPS", "value"))} a year; UPI value reached ₹${lakhCrore(b.systems.UPI.value)} lakh crore in FY ${b.fy}, against ₹${lakhCrore(b.systems.NEFT.value)} lakh crore for NEFT. UPI processes far more payments, but NEFT still moves more money.`,
+        `<strong>Analysis C — Composition of the three systems (share of UPI + IMPS + NEFT only):</strong> UPI's share of payments rose from ${pct(a.systems.UPI.volShare)} to ${pct(b.systems.UPI.volShare)}, and its share of value from ${pct(a.systems.UPI.valShare)} to ${pct(b.systems.UPI.valShare)}. NEFT's share of value fell from ${pct(a.systems.NEFT.valShare)} to ${pct(b.systems.NEFT.valShare)}; IMPS's share of payments fell from ${pct(a.systems.IMPS.volShare)} to ${pct(b.systems.IMPS.volShare)}.`,
+        `<strong>Analysis D — Average transaction value, FY ${b.fy}:</strong> UPI ${rupees(b.systems.UPI.ticket)}, IMPS ${rupees(b.systems.IMPS.ticket)}, NEFT ${rupees(b.systems.NEFT.ticket)}. The average UPI payment peaked at ${rupees(upiPeak.systems.UPI.ticket)} in FY ${upiPeak.fy} and has fallen since; the average NEFT payment peaked at ${rupees(neftPeak.systems.NEFT.ticket)} in FY ${neftPeak.fy}; the average IMPS payment rose from ${rupees(a.systems.IMPS.ticket)} to ${rupees(b.systems.IMPS.ticket)}. This is consistent with small transfers moving to UPI while IMPS carries larger ones, but averages alone do not tell us the purpose of payments. (FY ${a.fy} UPI figures cover only a few launch months.)`
+      ];
+      const ul = el("three-insights"); ul.replaceChildren();
+      for (const html of items) { const li = document.createElement("li"); li.innerHTML = html; ul.appendChild(li); }
+    }
+
+    function buildRegression() {
+      const body = el("reg-table").querySelector("tbody"); body.replaceChildren();
+      for (const r of DATA.regression) {
+        r.terms.forEach((t, i) => {
+          const tr = document.createElement("tr");
+          if (i === 0) { const c = cell(`${r.sample}: ${periodLabel(r.from)} – ${periodLabel(r.to)}`); c.rowSpan = r.terms.length; tr.appendChild(c); }
+          tr.append(cell(t.term), cell(t.coef.toFixed(4), "num"), cell(t.seNw.toFixed(4), "num"), cell(t.t.toFixed(2), "num"),
+            cell(t.p < .001 ? "< 0.001" : t.p.toFixed(3), "num"));
+          if (i === 0) { for (const v of [r.r2.toFixed(3), String(r.n)]) { const c = cell(v, "num"); c.rowSpan = r.terms.length; tr.appendChild(c); } }
+          body.appendChild(tr);
+        });
+      }
+      const [full, late] = DATA.regression;
+      const b1 = r => r.terms[1].coef;
+      drawRegressionCharts(full, late);
+      const items = [
+        `<strong>${late.sample} (${periodLabel(late.from)} – ${periodLabel(late.to)}, ${late.banksFrom} → ${late.banksTo} banks): β₁ = ${b1(late).toFixed(2)}.</strong> Holding the linear time trend constant, a 1% higher number of banks live on UPI is associated with about ${b1(late).toFixed(1)}% higher UPI payment volume. This is the estimate we would quote.`,
+        `<strong>${full.sample} (${periodLabel(full.from)} – ${periodLabel(full.to)}, ${full.banksFrom} → ${full.banksTo} banks): β₁ = ${b1(full).toFixed(2)}, with a negative trend (β₂ = ${full.terms[2].coef.toFixed(3)}).</strong> In 2016–18 UPI volume grew from almost zero while banks were joining fast, so the bank count absorbs the launch-phase boom and the trend term turns negative to compensate. Read this as launch-phase dynamics, not as a stable elasticity.`,
+        `<strong>Fit and residuals:</strong> R² is ${full.r2.toFixed(3)} and ${late.r2.toFixed(3)}, but Durbin–Watson is ${full.dw} and ${late.dw}, so residuals are strongly autocorrelated. Standard errors are Newey–West (${full.lags} and ${late.lags} lags) and are larger than plain OLS ones; a high R² here mostly reflects two series that both trend upward.`
+      ];
+      const ul = el("reg-insights"); ul.replaceChildren();
+      for (const html of items) { const li = document.createElement("li"); li.innerHTML = html; ul.appendChild(li); }
+    }
+
+    function drawRegressionCharts(full, late) {
+      const pts = DATA.upiBanks;
+      const LAUNCH = "#9aa7a3", LATE = COLOURS.UPI, FULL_FIT = "#bb8d31", LATE_FIT = "#16323b";
+      const L = 62, R = 505, T = 18, B = 296;
+      const logTicks = (lo, hi) => { const t = []; for (let p = Math.floor(lo); p <= Math.ceil(hi); p++) t.push(p); return t; };
+      const axes = (node, xs, ys, xTitle, yTitle, xFmt, yFmt) => {
+        const frag = document.createDocumentFragment();
+        for (const t of ys.ticks) {
+          const yy = ys.at(t);
+          frag.appendChild(svg("line", { x1: L, x2: R, y1: yy, y2: yy, class: "grid" }));
+          const lb = svg("text", { x: L - 6, y: yy + 4, "text-anchor": "end", class: "axis-label" }); lb.textContent = yFmt(t); frag.appendChild(lb);
+        }
+        for (const t of xs.ticks) {
+          const xx = xs.at(t);
+          const lb = svg("text", { x: xx, y: B + 16, "text-anchor": "middle", class: "axis-label" }); lb.textContent = xFmt(t); frag.appendChild(lb);
+        }
+        const xt = svg("text", { x: (L + R) / 2, y: B + 36, "text-anchor": "middle", class: "axis-title" }); xt.textContent = xTitle; frag.appendChild(xt);
+        const yt = svg("text", { x: 14, y: (T + B) / 2, "text-anchor": "middle", class: "axis-title", transform: `rotate(-90 14 ${(T + B) / 2})` }); yt.textContent = yTitle; frag.appendChild(yt);
+        node.appendChild(frag);
+      };
+      const scale = (lo, hi, a, b, ticks) => ({ ticks, at: v => a + (v - lo) * (b - a) / (hi - lo) });
+      const volFmt = p => fmtNum(10 ** p);
+
+      const sc = el("reg-scatter"); sc.replaceChildren();
+      const lx = pts.map(p => Math.log10(p[1])), ly = pts.map(p => Math.log10(p[2]));
+      const xlo = Math.log10(20), xhi = Math.log10(800), ylo = Math.floor(Math.min(...ly)), yhi = Math.ceil(Math.max(...ly));
+      const xs = scale(xlo, xhi, L, R, [20, 50, 100, 200, 500].map(Math.log10)), ys = scale(ylo, yhi, B, T, logTicks(ylo, yhi));
+      axes(sc, xs, ys, "banks live on UPI (log scale)", "UPI payments, mn (log)", t => String(Math.round(10 ** t)), volFmt);
+      pts.forEach((p, i) => {
+        const c = svg("circle", { cx: xs.at(lx[i]), cy: ys.at(ly[i]), r: 3.2, fill: p[0] >= late.from ? LATE : LAUNCH, "fill-opacity": .85 });
+        const tt = svg("title", {}); tt.textContent = `${periodLabel(p[0])}: ${p[1]} banks, ${fmtNum(p[2])} mn payments`; c.appendChild(tt);
+        sc.appendChild(c);
+      });
+
+      const fit = el("reg-fit"); fit.replaceChildren();
+      const months = pts.map(p => p[0]);
+      const xf = scale(0, months.length - 1, L, R, months.map((m, i) => i).filter(i => months[i].endsWith("-01") && Number(months[i].slice(0, 4)) % 2 === 1));
+      const fy = scale(ylo, yhi, B, T, logTicks(ylo, yhi));
+      axes(fit, xf, fy, "month", "UPI payments, mn (log)", i => months[i].slice(0, 4), volFmt);
+      const line = (values, colour, dash, width) => {
+        let d = "", pen = false;
+        values.forEach((v, i) => { if (v == null || v <= 0) { pen = false; return; } d += `${pen ? "L" : "M"}${xf.at(i).toFixed(1)},${fy.at(Math.log10(v)).toFixed(1)} `; pen = true; });
+        const attrs = { d: d.trim(), fill: "none", stroke: colour, "stroke-width": width, "stroke-linejoin": "round" };
+        if (dash) attrs["stroke-dasharray"] = dash;
+        fit.appendChild(svg("path", attrs));
+      };
+      line(pts.map(p => p[2]), LATE, null, 2.6);
+      line(months.map(m => full.fitted[m]), FULL_FIT, "5 4", 1.8);
+      line(months.map(m => late.fitted[m]), LATE_FIT, "2 3", 2);
+      const jx = xf.at(months.indexOf(late.from));
+      fit.appendChild(svg("line", { x1: jx, x2: jx, y1: T, y2: B, class: "join" }));
+      const jl = svg("text", { x: jx + 5, y: B - 8, class: "join-label" }); jl.textContent = `second sample from ${periodLabel(late.from)}`; fit.appendChild(jl);
+
+      const legend = el("reg-legend"); legend.replaceChildren();
+      for (const [label, colour, dashed] of [[`Months before ${periodLabel(late.from)} (launch years)`, LAUNCH], [`Months from ${periodLabel(late.from)}`, LATE],
+          ["Actual UPI volume", LATE], [`Fitted, ${full.sample.toLowerCase()} (β₁ = ${full.terms[1].coef.toFixed(2)})`, FULL_FIT, true], [`Fitted, ${late.sample.toLowerCase()} (β₁ = ${late.terms[1].coef.toFixed(2)})`, LATE_FIT, true]]) {
+        const lab = document.createElement("label"); lab.style.cursor = "default";
+        const sw = document.createElement("i"); sw.className = dashed ? "swatch dashed" : "swatch"; sw.style.background = colour; sw.style.borderColor = colour;
+        lab.append(sw, document.createTextNode(label)); legend.appendChild(lab);
+      }
     }
 
     function buildComparison() {
@@ -531,9 +712,11 @@
       buildControls();
       buildInsights();
       buildComparison();
+      buildThree();
+      buildRegression();
       const params = new URLSearchParams(window.location.search);
       if (MEASURES[params.get("measure")]) { state.measure = params.get("measure"); pressed("main", "measure", state.measure); }
-      if (["monthly", "long"].includes(params.get("freq"))) setFreq(params.get("freq"));
+      if (["monthly", "long", "three"].includes(params.get("freq"))) setFreq(params.get("freq"));
       window.addEventListener("scroll", hideTooltip, { passive: true });
       render();
     }

@@ -1,0 +1,7 @@
+sample,from,to,n,term,coef,se_ols,se_newey_west,t_nw,p_nw,r2,durbin_watson
+Full sample,2016-07,2026-03,117,Intercept (β0),-20.5625,0.9494,2.3464,-8.76,0.0,0.9635,0.21
+Full sample,2016-07,2026-03,117,ln(banks live on UPI) (β1),6.1665,0.251,0.6007,10.27,0.0,0.9635,0.21
+Full sample,2016-07,2026-03,117,"Trend, per month (β2)",-0.0906,0.007,0.0156,-5.8,0.0,0.9635,0.21
+Without the launch years,2019-04,2026-03,84,Intercept (β0),-0.7458,0.7499,0.8708,-0.86,0.3917,0.986,0.32
+Without the launch years,2019-04,2026-03,84,ln(banks live on UPI) (β1),1.5586,0.1548,0.1868,8.34,0.0,0.986,0.32
+Without the launch years,2019-04,2026-03,84,"Trend, per month (β2)",0.0066,0.0036,0.0049,1.34,0.1787,0.986,0.32
