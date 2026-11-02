@@ -1,0 +1,3 @@
+method,a2RelTrend,a2RelP,a2RealTicketTrend,a2RealTicketP,a2Pass,relDrift,relDriftP,ownNominalDrift,upiNominalDrift,realTicketDrift,realTicketDriftP,shareFromUpiFall,v2Pass,v2Partial,relP2mDrift,relP2mDriftP
+IMPS,0.085821,0.002163,0.016392,0.158683,False,0.119044,0.013757,0.072144,-0.040137,0.024687,0.225412,0.337158,False,True,,
+Debit cards,0.189012,0.0,0.112947,0.0,True,0.180451,0.0,0.127901,-0.040137,0.080445,0.000192,0.222424,True,True,0.175289,0.001484

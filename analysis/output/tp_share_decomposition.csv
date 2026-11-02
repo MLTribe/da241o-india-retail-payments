@@ -1,0 +1,8 @@
+method,group,from,to,ownGrowthPct,groupGrowthPct,shareFromPct,shareToPct,shareChangePp,logShareChange,logOwn,logGroup,driver
+IMPS,UPI + IMPS,Nov 2017 – Oct 2018,Apr 2025 – Mar 2026,254.476221,5706.397965,32.839497,2.004827,-30.834671,-2.796074,1.265471,4.061546,group grew faster
+Debit cards,P2M + debit + credit,Jul 2020 – Jun 2021,Apr 2025 – Mar 2026,-69.23134,812.628229,23.789857,0.802059,-22.987798,-3.389832,-1.178674,2.211158,own decline
+Credit cards,P2M + debit + credit,Jul 2020 – Jun 2021,Apr 2025 – Mar 2026,215.740557,812.628229,10.908038,3.773837,-7.134201,-1.061408,1.149751,2.211158,group grew faster
+Debit cards,UPI total + debit + credit,Nov 2017 – Oct 2018,Apr 2025 – Mar 2026,-68.024846,2841.482055,47.312301,0.514305,-46.797996,-4.52171,-1.140211,3.381499,own decline
+Credit cards,UPI total + debit + credit,Nov 2017 – Oct 2018,Apr 2025 – Mar 2026,274.88649,2841.482055,18.987313,2.419898,-16.567415,-2.060046,1.321453,3.381499,group grew faster
+Debit cards,Debit + credit,Nov 2017 – Oct 2018,Apr 2025 – Mar 2026,-68.024846,30.180325,71.361352,17.527919,-53.833433,-1.403961,-1.140211,0.26375,own decline
+Credit cards,Debit + credit,Nov 2017 – Oct 2018,Apr 2025 – Mar 2026,274.88649,30.180325,28.638648,82.472081,53.833433,1.057703,1.321453,0.26375,gained share

@@ -234,6 +234,22 @@ unclassified share). Notes on each card record judgement calls: the
 Citibank-to-Axis transfer in B3, and the 2018-start robustness results for R1
 and R2.
 
+## Final analysis
+
+```shell
+python3 analysis/final_analysis.py      # about 5 seconds
+```
+
+Runs the Assignment 2 design with the review additions on Nov 2017–Mar 2026
+(72 months for UPI P2M): drawdown and share-change classification with
+robustness variants, share decomposition, drift and trend regressions with
+COVID and definition-change dummies, ADF/KPSS/Ljung-Box diagnostics, a
+level-and-slope break search with LR confidence sets, H1–H3 with both the
+Assignment 2 rule and the sharper test, pre/post-COVID periods, magnitudes,
+sensitivity and the PSI bridge checks. It writes `analysis/output/tp_*.csv`
+(every number on the page is in `tp_numbers.csv`), `tp_findings.md` and
+`docs/final-data.js` for `docs/final.html`.
+
 ## Forecast to FY2029–30 (term-paper extension)
 
 ```shell

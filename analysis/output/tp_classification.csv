@@ -1,0 +1,15 @@
+method,variant,measure,group,window,reference,peak12mEnding,drawdownPct,shareRefPct,shareEndPct,shareChangePp,label5,label10,label20,crossed5,crossed10,crossed20
+IMPS,Primary,volume,UPI + IMPS,Nov 2017 – Mar 2026,Nov 2017 – Oct 2018,2024-07,-19.823333,34.942572,2.023264,-32.919308,Absolute contraction,Absolute contraction,Relative share loss,2025-02,2025-04,
+IMPS,Real value,real value,UPI + IMPS,Nov 2017 – Mar 2026,Nov 2017 – Oct 2018,2026-03,0.0,77.085384,19.632402,-57.452982,Relative share loss,Relative share loss,Relative share loss,,,
+IMPS,PSI-period window,volume,UPI + IMPS,Jun 2021 – Mar 2026,Jun 2021 – May 2022,2024-07,-19.823333,8.88328,2.023264,-6.860016,Absolute contraction,Absolute contraction,Relative share loss,2025-02,2025-04,
+IMPS,RBI daily data,volume,UPI + IMPS,Nov 2020 – Sep 2026,Nov 2020 – Oct 2021,2024-07,-28.938795,11.076849,1.614814,-9.462035,Absolute contraction,Absolute contraction,Absolute contraction,2025-02,2025-04,2026-04
+Debit cards,Primary,volume,P2M + debit + credit,Nov 2017 – Mar 2026,Jul 2020 – Jun 2021,2020-02,-75.145875,24.417815,0.807043,-23.610772,Absolute contraction,Absolute contraction,Absolute contraction,2020-05,2020-07,2021-12
+Debit cards,Real value,real value,P2M + debit + credit,Nov 2017 – Mar 2026,Jul 2020 – Jun 2021,2020-02,-53.676732,32.159787,3.75697,-28.402817,Absolute contraction,Absolute contraction,Absolute contraction,2020-04,2022-11,2023-06
+Debit cards,PSI-period window,volume,P2M + debit + credit,Jun 2021 – Mar 2026,Jun 2021 – May 2022,2022-06,-68.312919,14.560947,0.807043,-13.753903,Absolute contraction,Absolute contraction,Absolute contraction,2022-10,2023-01,2023-05
+Debit cards,Secondary group,volume,UPI total + debit + credit,Nov 2017 – Mar 2026,Nov 2017 – Oct 2018,2020-02,-75.145875,48.345517,0.518048,-47.827468,Absolute contraction,Absolute contraction,Absolute contraction,2020-05,2020-07,2021-12
+Debit cards,Within cards,volume,Debit + credit,Nov 2017 – Mar 2026,Nov 2017 – Oct 2018,2020-02,-75.145875,71.311247,17.596979,-53.714269,Absolute contraction,Absolute contraction,Absolute contraction,2020-05,2020-07,2021-12
+Credit cards,Primary,volume,P2M + debit + credit,Nov 2017 – Mar 2026,Jul 2020 – Jun 2021,2026-03,0.0,11.077185,3.772192,-7.304992,Relative share loss,Relative share loss,Relative share loss,,,
+Credit cards,Real value,real value,P2M + debit + credit,Nov 2017 – Mar 2026,Jul 2020 – Jun 2021,2026-03,0.0,32.065582,19.884929,-12.180653,Relative share loss,Relative share loss,Relative share loss,,,
+Credit cards,PSI-period window,volume,P2M + debit + credit,Jun 2021 – Mar 2026,Jun 2021 – May 2022,2026-03,0.0,8.572369,3.772192,-4.800176,Relative share loss,Relative share loss,Relative share loss,,,
+Credit cards,Secondary group,volume,UPI total + debit + credit,Nov 2017 – Mar 2026,Nov 2017 – Oct 2018,2026-03,0.0,19.491212,2.419678,-17.071535,Relative share loss,Relative share loss,Relative share loss,,,
+Credit cards,Within cards,volume,Debit + credit,Nov 2017 – Mar 2026,Nov 2017 – Oct 2018,2026-03,0.0,28.688753,82.403021,53.714269,Continued growth,Continued growth,Continued growth,,,

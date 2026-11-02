@@ -1,0 +1,19 @@
+series,group,period,growthPct,lo,hi,est,se,n,shareFrom,shareTo,class
+UPI total volume,UPI + IMPS,Pre-COVID,126.734488,109.411414,145.490573,0.818609,0.040551,7,58.05178,83.758064,Co-expansion
+UPI total volume,UPI + IMPS,COVID,82.645188,63.626713,103.874196,0.602375,0.056102,16,87.458607,89.805416,Co-expansion
+UPI total volume,UPI + IMPS,Post-COVID,48.74971,35.027088,63.866942,0.397095,0.049383,45,90.366775,98.365044,Co-expansion
+UPI total volume,UPI + IMPS,Post minus pre (log pts/yr),,-0.546755,-0.296274,-0.421515,0.063899,,,,
+IMPS volume,UPI + IMPS,Pre-COVID,57.62815,48.781695,67.000608,0.455069,0.029469,16,41.94822,16.241936,Relative share loss
+IMPS volume,UPI + IMPS,COVID,31.996323,5.972877,64.410271,0.277604,0.112038,16,12.541393,10.194584,Relative share loss
+IMPS volume,UPI + IMPS,Post-COVID,-1.213717,-10.396833,8.910544,-0.012211,0.049781,45,9.633225,1.634956,Relative share loss
+IMPS volume,UPI + IMPS,Post minus pre (log pts/yr),,-0.580663,-0.353897,-0.46728,0.057849,,,,
+UPI P2M volume,P2M + debit + credit,COVID,145.777064,140.913946,150.738348,0.899255,0.010197,3,57.642541,73.023597,Co-expansion
+UPI P2M volume,P2M + debit + credit,Post-COVID,65.828509,38.049913,99.196753,0.505784,0.093542,45,74.698318,95.518045,Co-expansion
+Debit cards volume,P2M + debit + credit,Pre-COVID,21.307214,16.755322,26.036569,0.193156,0.019514,16,,,Co-expansion
+Debit cards volume,P2M + debit + credit,COVID,-15.178189,-27.665165,-0.535618,-0.164617,0.08125,16,30.494347,17.9094,Absolute contraction
+Debit cards volume,P2M + debit + credit,Post-COVID,-26.3939,-31.128231,-21.334126,-0.306442,0.03392,45,16.519575,0.693942,Absolute contraction
+Debit cards volume,P2M + debit + credit,Post minus pre (log pts/yr),,-0.576296,-0.422901,-0.499598,0.039132,,,,
+Credit cards volume,P2M + debit + credit,Pre-COVID,26.074399,24.486267,27.682792,0.231702,0.006468,16,,,Co-expansion
+Credit cards volume,P2M + debit + credit,COVID,-9.860458,-29.116697,14.626953,-0.103811,0.122617,16,11.863112,9.067003,Relative share loss
+Credit cards volume,P2M + debit + credit,Post-COVID,26.720561,21.981351,31.643897,0.236814,0.019447,45,8.782107,3.788013,Relative share loss
+Credit cards volume,P2M + debit + credit,Post minus pre (log pts/yr),,-0.035057,0.045281,0.005112,0.020495,,,,

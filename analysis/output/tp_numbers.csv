@@ -1,0 +1,45 @@
+name,value,unit
+IMPS drawdown from peak 12-month average,-19.823333,%
+IMPS share change vs reference (UPI + IMPS),-32.919308,pp
+IMPS classification (10%),Absolute contraction,
+IMPS robustness agreement,3 of 5,
+Debit cards drawdown from peak 12-month average,-75.145875,%
+Debit cards share change vs reference (P2M + debit + credit),-23.610772,pp
+Debit cards classification (10%),Absolute contraction,
+Debit cards robustness agreement,5 of 5,
+Credit cards drawdown from peak 12-month average,0.0,%
+Credit cards share change vs reference (P2M + debit + credit),-7.304992,pp
+Credit cards classification (10%),Relative share loss,
+Credit cards robustness agreement,5 of 5,
+"H1 verdict, Assignment 2 rule",Rejected,
+"H1 verdict, v2 test",Partially supported,
+"H2 verdict, Assignment 2 rule",Not rejected,
+"H2 verdict, v2 test",Partially supported,
+"H3 verdict, Assignment 2 rule",Not rejected,
+"H3 verdict, v2 test",Supported,
+Debit cards: peak 12-month average volume,429.241627,million a month
+Debit cards: latest 12-month average volume,106.68425,million a month
+Debit cards: transactions forgone versus peak,322.557377,million a month
+Debit cards: real value forgone versus peak,43562.839656,₹ crore a month (Mar 2026 prices)
+IMPS: peak 12-month average volume,513.771667,million a month
+IMPS: latest 12-month average volume,411.925,million a month
+IMPS: transactions forgone versus peak,101.846667,million a month
+IMPS: real value forgone versus peak,0.0,₹ crore a month (Mar 2026 prices)
+"UPI total: average real ticket, latest 12 months",1317.648922,₹ (Mar 2026 prices)
+"IMPS: average real ticket, latest 12 months",15956.168851,₹ (Mar 2026 prices)
+"UPI P2M: average real ticket, latest 12 months",603.855682,₹ (Mar 2026 prices)
+"Debit cards: average real ticket, latest 12 months",3529.432005,₹ (Mar 2026 prices)
+"Credit cards: average real ticket, latest 12 months",3979.096341,₹ (Mar 2026 prices)
+"Card share of merchant payment value (fee-bearing), reference",63.723162,% of P2M + card value
+"Card share of merchant payment value (fee-bearing), latest",23.594174,% of P2M + card value
+"UPI P2M share of P2M + card volume, latest 12 months",95.420764,%
+"Debit cards: payments per card per month, Jun 2021 – May 2022",0.363603,payments per card per month
+"Debit cards: payments per card per month, latest 12 months",0.104425,payments per card per month
+"Credit cards: payments per card per month, Jun 2021 – May 2022",2.912903,payments per card per month
+"Credit cards: payments per card per month, latest 12 months",4.400127,payments per card per month
+"Card payments per PoS terminal per month, first PSI year",100.418992,payments
+"Card payments per PoS terminal per month, latest 12 months",51.939924,payments
+Debit-card ATM withdrawals: peak 12-month average,839.005746,million a month
+Debit-card ATM withdrawals: latest 12-month average,444.951119,million a month
+"Months, Nov 2017 window",101,months
+"Months, P2M window",72,months

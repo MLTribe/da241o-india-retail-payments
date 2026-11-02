@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f4ef">
+  <meta name="description" content="Data explorer: monthly payment series, weekly and monthly trends from RBI daily data, and the bank, app and state landscape of India's retail payments.">
+  <title>Data explorer · Utility Maximizers</title>
+  <link rel="stylesheet" href="hub.css">
+</head>
+<body>
+  <div class="wrap">
+    <header class="topbar">
+      <a class="brand" href="index.html" aria-label="Utility Maximizers home">
+        <span class="brand-mark">U</span>
+        <span>Utility Maximizers<small>DA241o · Managerial Economics</small></span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="index.html">Project home</a>
+        <a href="final.html">Final analysis</a>
+        <a href="data.html" aria-current="page">Data explorer</a>
+        <a href="evidence.html">Hypotheses &amp; breaks</a>
+        <a href="play.html">Play the model</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hub-intro">
+        <span class="eyebrow">Data explorer</span>
+        <h1>Every series, <em>in one place</em></h1>
+        <p class="lede">Monthly payment series by basket, weekly and monthly trends from RBI's daily data, and the bank, UPI-app and state landscape. Pick a view.</p>
+      </section>
+      <div class="subtabs" role="tablist" aria-label="Data views" data-hub
+           data-views='{"series": ["explore.html", "Monthly series"], "trends": ["trends.html", "Weekly &amp; monthly trends"], "landscape": ["landscape.html", "Landscape"]}'></div>
+      <iframe class="view" id="view" title="Data view" loading="eager"></iframe>
+    </main>
+    <footer><span>Utility Maximizers · DA241o · Managerial Economics</span><span>Data through March 2026</span></footer>
+  </div>
+  <script src="hub.js"></script>
+</body>
+</html>

@@ -6,6 +6,7 @@
   <meta name="theme-color" content="#f5f4ef">
   <meta name="description" content="Weekly and monthly time series for UPI, IMPS, NEFT, credit cards and debit cards from RBI daily payments data.">
   <title>Weekly and Monthly Trends · Utility Maximizers</title>
+  <script src="embed.js"></script>
   <style>
     :root {
       color-scheme: light;
@@ -108,13 +109,10 @@
       </a>
       <nav aria-label="Main navigation">
         <a href="index.html">Project home</a>
+        <a href="final.html">Final analysis</a>
+        <a href="data.html">Data explorer</a>
+        <a href="evidence.html">Hypotheses &amp; breaks</a>
         <a href="play.html">Play the model</a>
-        <a href="explore.html">Explore the series</a>
-        <a href="trends.html" aria-current="page">Weekly &amp; monthly trends</a>
-        <a href="hypotheses.html">Hypotheses</a>
-        <a href="landscape.html">Landscape</a>
-        <a href="breaks.html">Structural breaks</a>
-        <a href="index.html#data">Data sources</a>
       </nav>
     </header>
 
@@ -170,7 +168,7 @@
         <h2 id="insight-title">What the series show</h2>
         <p class="note" id="insight-period"></p>
         <ul class="insights" id="insights"></ul>
-        <div class="caveat"><strong>Card lines are card-network payments only.</strong> RBI's daily file counts card payments processed by card networks. RBI's monthly Payment System Indicators also count other card payments. In March 2026 the daily file shows about 56% fewer credit-card payments and 9% fewer debit-card payments than the monthly figures. The credit-card gap has widened since 2023, which fits (but does not prove) RuPay credit cards being used through UPI. Use the daily card lines for the timing of changes (weeks, festivals, weekdays); for total card spending, use the monthly figures on <a href="explore.html">Explore the series</a>.</div>
+        <div class="caveat"><strong>Card lines are card-network payments only.</strong> RBI's daily file counts card payments processed by card networks. RBI's monthly Payment System Indicators also count other card payments. In March 2026 the daily file shows about 56% fewer credit-card payments and 9% fewer debit-card payments than the monthly figures. The credit-card gap has widened since 2023, which fits (but does not prove) RuPay credit cards being used through UPI. Use the daily card lines for the timing of changes (weeks, festivals, weekdays); for total card spending, use the monthly figures on <a href="data.html#series">Explore the series</a>.</div>
       </section>
 
       <section class="panel" aria-labelledby="break-title" id="card-break">

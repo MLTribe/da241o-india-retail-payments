@@ -1,0 +1,498 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f4ef">
+  <meta name="description" content="Final analysis: did IMPS, debit cards and credit cards contract, lose share or keep growing as UPI expanded, Nov 2017 – Mar 2026? Classification, H1–H3, breaks, magnitudes and robustness.">
+  <title>Final analysis · Utility Maximizers</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f5f4ef;
+      --surface: #fffefa;
+      --ink: #152b33;
+      --muted: #53656a;
+      --line: #dce2dc;
+      --green: #126b54;
+      --navy: #16323b;
+      --shadow: 0 14px 38px rgba(21, 43, 51, .07);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; }
+    a:focus-visible, button:focus-visible { outline: 3px solid #bb8d31; outline-offset: 3px; }
+    .wrap { width: min(1120px, calc(100% - 40px)); margin-inline: auto; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 22px 0; border-bottom: 1px solid var(--line); }
+    .brand { display: flex; gap: 11px; align-items: center; text-decoration: none; font-weight: 750; letter-spacing: -.02em; }
+    .brand-mark { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 11px; background: var(--green); color: white; font-size: 17px; }
+    .brand small { display: block; color: var(--muted); font-size: 11px; font-weight: 600; letter-spacing: .11em; text-transform: uppercase; }
+    nav { display: flex; gap: 23px; align-items: center; }
+    nav a { color: #42575c; font-size: 13px; font-weight: 650; text-decoration: none; }
+    nav a:hover, nav a[aria-current="page"] { color: var(--green); }
+    .intro { display: grid; grid-template-columns: 1.2fr .8fr; gap: 32px; padding: 54px 0 26px; align-items: end; }
+    .eyebrow { display: inline-flex; gap: 8px; align-items: center; color: var(--green); font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .14em; }
+    .eyebrow::before { content: ""; width: 20px; height: 2px; background: var(--green); }
+    h1 { margin: 17px 0 15px; font-family: Georgia, "Times New Roman", serif; font-size: clamp(34px, 4.6vw, 54px); line-height: 1.06; letter-spacing: -.045em; font-weight: 500; }
+    h1 em { color: var(--green); font-weight: 500; }
+    .lede { margin: 0; max-width: 660px; color: var(--muted); font-size: 16px; line-height: 1.65; }
+    .intro-aside { padding: 22px 24px; background: var(--navy); color: #f6f5ed; border-radius: 18px; box-shadow: var(--shadow); }
+    .intro-aside strong { display: block; font-family: Georgia, "Times New Roman", serif; font-size: 23px; font-weight: 500; line-height: 1.2; }
+    .intro-aside p { margin: 10px 0 0; color: #c7d5d3; font-size: 13px; }
+    .toc { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 18px; padding: 0; list-style: none; }
+    .toc a { display: inline-block; padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); font-size: 12px; font-weight: 700; color: #42575c; text-decoration: none; }
+    .toc a:hover { color: var(--green); border-color: var(--green); }
+    .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; box-shadow: var(--shadow); padding: 25px; margin-bottom: 18px; scroll-margin-top: 16px; }
+    .panel-kicker { margin: 0 0 4px; color: var(--green); font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    h2 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: 27px; font-weight: 500; letter-spacing: -.025em; line-height: 1.15; }
+    h3 { margin: 22px 0 4px; font-size: 15px; }
+    .hint { color: var(--muted); font-size: 13px; margin: 8px 0 0; }
+    .headline { margin: 14px 0 0; font-size: 16px; line-height: 1.6; }
+    .verdicts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 18px; }
+    .verdict { border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; background: #fbfcf9; }
+    .verdict h3 { margin: 0 0 6px; font-size: 14px; }
+    .verdict p { margin: 6px 0 0; font-size: 12.5px; color: var(--muted); }
+    .verdict .row { display: flex; justify-content: space-between; gap: 8px; align-items: center; margin-top: 6px; font-size: 12px; }
+    .chart-wrap { margin-top: 16px; border: 1px solid var(--line); border-radius: 12px; background: #fbfcf9; padding: 10px 10px 4px; }
+    .chart-title { margin: 2px 4px 2px; font-size: 13px; font-weight: 750; }
+    .chart-unit { margin: 0 4px; color: var(--muted); font-size: 11px; }
+    .small-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    svg.chart { display: block; width: 100%; height: auto; }
+    .grid { stroke: #dce5df; stroke-width: 1; }
+    .ref { stroke: #9c3b1d; stroke-width: 1; stroke-dasharray: 2 3; }
+    .ref-text { fill: #9c3b1d; font-size: 9.5px; font-weight: 700; }
+    .axis-label { fill: var(--muted); font-size: 10px; }
+    .series { fill: none; stroke-width: 2.2; stroke-linejoin: round; stroke-linecap: round; }
+    .bline { stroke: var(--navy); stroke-width: 1.1; stroke-dasharray: 4 3; }
+    .btag { fill: var(--navy); }
+    .btag-text { fill: white; font-size: 9px; font-weight: 800; }
+    .hit { fill: transparent; }
+    .hit:hover { fill: rgba(22, 50, 59, .06); }
+    .legend { display: flex; gap: 6px 14px; flex-wrap: wrap; margin: 4px 4px 6px; font-size: 11px; }
+    .legend span { display: inline-flex; gap: 5px; align-items: center; }
+    .swatch { width: 18px; height: 0; border-top: 3px solid; display: inline-block; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; font-variant-numeric: tabular-nums; margin-top: 16px; }
+    th, td { text-align: left; padding: 8px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    th { color: var(--muted); font-weight: 700; font-size: 12px; }
+    td.num, th.num { text-align: right; white-space: nowrap; }
+    td.id { font-weight: 800; }
+    td .sub { display: block; color: var(--muted); font-size: 12px; }
+    .table-scroll { overflow-x: auto; }
+    .neg { color: #9c3b1d; font-weight: 700; }
+    .pos { color: #0f6247; font-weight: 700; }
+    .pill { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 11px; font-weight: 800; white-space: nowrap; }
+    .c-contraction { background: #fbe3da; color: #8f2f13; }
+    .c-share { background: #fbf0d6; color: #7a5712; }
+    .c-growth { background: #e3f1e9; color: #0f6247; }
+    .v-supported, .v-not-rejected { background: #e3f1e9; color: #0f6247; }
+    .v-partially-supported, .v-indeterminate { background: #fbf0d6; color: #7a5712; }
+    .v-not-supported, .v-rejected { background: #fbe3da; color: #8f2f13; }
+    .v-neutral { background: #eceeec; color: #4d5b5e; }
+    .heat td.cell { text-align: center; font-size: 11px; font-weight: 800; }
+    .heat td.c-contraction, .heat td.c-share, .heat td.c-growth { border: 2px solid var(--surface); }
+    .findings { margin: 14px 0 0; padding-left: 20px; font-size: 14px; }
+    .findings li { margin-bottom: 8px; }
+    .note { color: var(--muted); font-size: 12px; margin: 10px 0 0; }
+    code { font-size: 12px; background: #eef2ee; padding: 1px 5px; border-radius: 5px; }
+    .callout { margin-top: 14px; padding: 12px 14px; border-left: 4px solid #bb8d31; background: #fbf6e9; border-radius: 0 10px 10px 0; font-size: 13px; }
+    .bottom-note { max-width: 880px; padding: 10px 0 44px; color: var(--muted); font-size: 12px; }
+    .bottom-note a { color: var(--green); font-weight: 700; }
+    footer { border-top: 1px solid var(--line); padding: 20px 0 28px; display: flex; justify-content: space-between; gap: 20px; color: var(--muted); font-size: 11px; }
+    @media (max-width: 820px) {
+      .intro, .small-grid, .verdicts { grid-template-columns: 1fr; }
+      .hide-narrow { display: none; }
+    }
+    @media (max-width: 570px) {
+      .wrap { width: min(100% - 28px, 1120px); }
+      .topbar { display: block; }
+      nav { margin-top: 14px; flex-wrap: wrap; gap: 7px 14px; }
+      .panel { padding: 18px; }
+      footer { display: block; }
+    }
+    @media print {
+      nav, .toc { display: none; }
+      .panel { box-shadow: none; break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="topbar">
+      <a class="brand" href="index.html" aria-label="Utility Maximizers home">
+        <span class="brand-mark">U</span>
+        <span>Utility Maximizers<small>DA241o · Managerial Economics</small></span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="index.html">Project home</a>
+        <a href="final.html" aria-current="page">Final analysis</a>
+        <a href="data.html">Data explorer</a>
+        <a href="evidence.html">Hypotheses &amp; breaks</a>
+        <a href="play.html">Play the model</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="intro" aria-labelledby="page-title">
+        <div>
+          <span class="eyebrow">Final analysis</span>
+          <h1 id="page-title">Contraction or share loss? <em>What the data say</em></h1>
+          <p class="lede">The Assignment 2 design, run on the data: did IMPS, debit cards and credit cards shrink in absolute terms, only lose share, or keep growing as UPI expanded? Each Assignment 2 rejection rule is kept as the pre-stated test, and a sharper test that can fail is shown beside it.</p>
+        </div>
+        <div class="intro-aside">
+          <strong id="aside-headline"></strong>
+          <p id="aside-text"></p>
+        </div>
+      </section>
+
+      <ul class="toc" aria-label="Sections">
+        <li><a href="#answer">Answer</a></li>
+        <li><a href="#corrections">Corrections to A2</a></li>
+        <li><a href="#descriptives">Descriptives</a></li>
+        <li><a href="#covid">Pre / post COVID</a></li>
+        <li><a href="#classification">Classification</a></li>
+        <li><a href="#decomposition">Share decomposition</a></li>
+        <li><a href="#hypotheses">H1–H3</a></li>
+        <li><a href="#magnitudes">Magnitudes</a></li>
+        <li><a href="#robustness">Robustness</a></li>
+        <li><a href="#diagnostics">Diagnostics</a></li>
+      </ul>
+
+      <section class="panel" id="answer" aria-labelledby="answer-title">
+        <p class="panel-kicker">The answer</p>
+        <h2 id="answer-title">The research question in one paragraph</h2>
+        <p class="headline" id="headline"></p>
+        <div class="verdicts" id="verdicts"></div>
+        <p class="note">Left label: the Assignment 2 rejection rule ("Not rejected" / "Rejected"). Right label: the v2 test added after the review, which can come out supported, partially supported, not supported or indeterminate.</p>
+      </section>
+
+      <section class="panel" id="corrections" aria-labelledby="corrections-title">
+        <p class="panel-kicker">Use of feedback</p>
+        <h2 id="corrections-title">What changed from Assignment 2, stated openly</h2>
+        <p class="hint">Claims in the submitted data-and-methods plan checked against the repository.</p>
+        <div class="table-scroll"><table>
+          <thead><tr><th>Item</th><th>Assignment 2 said</th><th>The repository shows</th></tr></thead>
+          <tbody id="corrections-body"></tbody>
+        </table></div>
+      </section>
+
+      <section class="panel" id="descriptives" aria-labelledby="desc-title">
+        <p class="panel-kicker">Descriptives</p>
+        <h2 id="desc-title">Levels, shares and tickets</h2>
+        <p class="hint">Log scales show equal percentage changes as equal distances. Shaded: the two COVID waves. Dashed lines: SA same-account exclusion (Aug 2018), C19 RBI card definition change (Nov 2019), MDR zero MDR (Jan 2020), PSI card splice (Jun 2021), RCU RuPay credit on UPI (Sep 2022). Hover a month for values.</p>
+        <div id="fig-index"></div>
+        <div class="small-grid">
+          <div id="fig-index-p2m"></div>
+          <div id="fig-shares"></div>
+        </div>
+        <div id="fig-tickets"></div>
+      </section>
+
+      <section class="panel" id="covid" aria-labelledby="covid-title">
+        <p class="panel-kicker">Pre vs post COVID (requested by Prof. Gandhi)</p>
+        <h2 id="covid-title">Growth and share by period</h2>
+        <p class="hint">Mean change on the same month a year earlier, with Newey-West (12) 95% intervals. Pre-COVID Nov 2017 – Feb 2020 (bases from Nov 2017; UPI comparisons across the Aug 2018 exclusion dropped), COVID Mar 2020 – Jun 2021 (bases a year earlier), post-COVID Jul 2021 – Mar 2026 (bases from Jul 2021). Shares are within the comparison group, first and last three months of the period.</p>
+        <div class="table-scroll"><table id="covid-table"></table></div>
+      </section>
+
+      <section class="panel" id="classification" aria-labelledby="class-title">
+        <p class="panel-kicker">The classification rule</p>
+        <h2 id="class-title">Absolute contraction, relative share loss or continued growth</h2>
+        <p class="hint">Drawdown D = latest 12-month average volume ÷ the method's own highest 12-month average − 1. Share change = latest 12-month average share − reference-window average, within the primary group. Absolute contraction if D ≤ −10%; otherwise relative share loss if the share fell; otherwise continued growth. A label is robust if at least four of five variants agree, including the PSI-period window.</p>
+        <div class="table-scroll"><table>
+          <thead><tr><th>Method</th><th>Primary group</th><th class="num">Drawdown D</th><th class="num">Peak (12 months to)</th><th class="num">Share: reference → latest</th><th>Label (10%)</th><th>Robustness</th></tr></thead>
+          <tbody id="class-body"></tbody>
+        </table></div>
+        <h3>Threshold × measure × window</h3>
+        <p class="hint">The same rule at 5%, 10% and 20%, on volume, on CPI-deflated value and on the PSI period (Jun 2021 onward) only.</p>
+        <div class="table-scroll"><table class="heat" id="heat"></table></div>
+        <div id="fig-drawdown"></div>
+        <div class="callout" id="imps-callout"></div>
+      </section>
+
+      <section class="panel" id="decomposition" aria-labelledby="dec-title">
+        <p class="panel-kicker">Why shares fell</p>
+        <h2 id="dec-title">Own growth against comparison-group growth</h2>
+        <p class="hint">Log share change = log own growth − log group growth, between the reference window and the latest 12 months. A share can fall because the method shrank or because the group (mostly UPI, much of it payments that were never digital) grew faster.</p>
+        <div class="table-scroll"><table>
+          <thead><tr><th>Method</th><th>Group</th><th class="num">Own growth</th><th class="num">Group growth</th><th class="num">Share from → to</th><th>Main driver</th></tr></thead>
+          <tbody id="dec-body"></tbody>
+        </table></div>
+      </section>
+
+      <section class="panel" id="hypotheses" aria-labelledby="hyp-title">
+        <p class="panel-kicker">Hypotheses</p>
+        <h2 id="hyp-title">H1–H3: the Assignment 2 rule and the sharper test</h2>
+
+        <h3>H1 · Small payments move to UPI, so IMPS and debit tickets rise</h3>
+        <p class="hint">A2 rule: the OLS trend (month, Diwali and COVID dummies, Newey-West 12) in log relative ticket and in log real ticket must both be positive at 5% (one-sided). v2: the same on the mean 12-month log change, with the relative ticket split into own ticket and UPI's own falling ticket.</p>
+        <div class="table-scroll"><table id="h1-table"></table></div>
+
+        <h3>H2 · The shifts coincide with COVID, not with zero MDR</h3>
+        <p class="hint">Least-squares search for a level-and-trend break (15% trimming) with month, Diwali and COVID-month dummies for both waves, so the lockdown collapse itself cannot be the break. 95% confidence sets invert the likelihood-ratio statistic (Hansen 2000). BIC chooses 0, 1 or 2 breaks. Indeterminate when the set covers both Jan 2020 and Mar 2020.</p>
+        <div class="table-scroll"><table id="h2-table"></table></div>
+        <p class="note" id="h2-ratio"></p>
+
+        <h3>H3 · Remaining card volume is increasingly credit; P2M's gains slow</h3>
+        <div class="table-scroll"><table id="h3-table"></table></div>
+        <p class="note" id="h3-note"></p>
+      </section>
+
+      <section class="panel" id="magnitudes" aria-labelledby="mag-title">
+        <p class="panel-kicker">Managerial magnitudes</p>
+        <h2 id="mag-title">What the shifts mean in transactions and rupees</h2>
+        <div class="table-scroll"><table>
+          <thead><tr><th>Measure</th><th class="num">Value</th><th>Unit</th><th class="hide-narrow">Note</th></tr></thead>
+          <tbody id="mag-body"></tbody>
+        </table></div>
+      </section>
+
+      <section class="panel" id="robustness" aria-labelledby="rob-title">
+        <p class="panel-kicker">Robustness</p>
+        <h2 id="rob-title">Sensitivity checks and the card bridge</h2>
+        <h3>Sensitivity</h3>
+        <div class="table-scroll"><table id="sens-table"></table></div>
+        <h3>Card bridge: bank-wise statistics against RBI PSI</h3>
+        <div class="table-scroll"><table id="bridge-table"></table></div>
+        <p class="note">Before Jun 2021 the card series are RBI bank-wise totals multiplied by k; from Jun 2021 they are RBI PSI. The out-of-sample check compares k × bank-wise with PSI "same month last year" figures for Jun 2020 – May 2021.</p>
+      </section>
+
+      <section class="panel" id="diagnostics" aria-labelledby="diag-title">
+        <p class="panel-kicker">Diagnostics</p>
+        <h2 id="diag-title">Unit roots, trend tests and residual autocorrelation</h2>
+        <p class="hint">ADF with constant, trend, month dummies and 2 lags (5% critical value −3.45); KPSS for trend stationarity with 12 Bartlett lags (5% critical value 0.146). Most log levels look persistent, which is why the primary trend tests use mean 12-month log changes rather than OLS trend t-statistics.</p>
+        <div class="table-scroll"><table id="diag-table"></table></div>
+        <h3>Trend estimates</h3>
+        <div class="table-scroll"><table id="trend-table"></table></div>
+      </section>
+
+      <p class="bottom-note">Data: NPCI UPI and IMPS product statistics, NPCI UPI P2P/P2M ecosystem statistics (from Apr 2020), RBI Payment System Indicators (cards and infrastructure, from Jun 2021) spliced with RBI bank-wise ATM/PoS/card statistics, RBI daily payment data, MoSPI all-India CPI (base 2024 = 100, linked). Generated by <code>analysis/final_analysis.py</code>, which writes every number on this page to <code>analysis/output/tp_*.csv</code> (start with <code>tp_numbers.csv</code> and <code>tp_findings.md</code>). Associations only: monthly all-India totals cannot show who switched or why.</p>
+    </main>
+    <footer><span>Utility Maximizers · DA241o · Managerial Economics</span><span id="footer-through"></span></footer>
+  </div>
+
+  <script src="final-data.js"></script>
+  <script>
+    (function () {
+      const D = window.FINAL_DATA;
+      const S = D.series;
+      const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      const COLOURS = { "UPI total": "#008738", "UPI P2M": "#2f9e8f", "IMPS": "#7a3fa0", "Debit cards": "#b57700", "Credit cards": "#d62828",
+        "IMPS share of UPI + IMPS": "#7a3fa0", "Debit share of P2M + cards": "#b57700", "Credit share of P2M + cards": "#d62828",
+        "Credit share of debit + credit": "#16323b" };
+      const DASH = { "UPI P2M": "6 3", "Credit share of debit + credit": "6 3", "IMPS": "1 0" };
+      const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+      const label = m => m ? `${MONTHS[+m.slice(5, 7) - 1]} ${m.slice(0, 4)}` : "–";
+      const fmt = (v, d) => v === null || v === undefined ? "–" : v.toLocaleString("en-IN", { maximumFractionDigits: d ?? (Math.abs(v) >= 100 ? 0 : Math.abs(v) >= 1 ? 1 : 2) });
+      const sign = (v, d = 1) => v === null || v === undefined ? "–" : `${v >= 0 ? "+" : ""}${v.toFixed(d)}`;
+      const pctYear = lp => sign(100 * (Math.exp(lp) - 1), 1) + "%";
+      const pval = p => p < 0.001 ? "< 0.001" : p.toFixed(3);
+      const slug = v => "v-" + String(v).toLowerCase().replace(/\s+/g, "-");
+      const vpill = v => `<span class="pill ${slug(v)}">${esc(v)}</span>`;
+      const cls = l => l.startsWith("Absolute") ? "c-contraction" : l.startsWith("Relative") ? "c-share" : "c-growth";
+      const cpill = l => `<span class="pill ${cls(l)}">${esc(l)}</span>`;
+
+      function niceStep(raw) {
+        const mag = 10 ** Math.floor(Math.log10(raw));
+        return [1, 2, 2.5, 5, 10].map(f => f * mag).find(s => s >= raw);
+      }
+
+      function drawChart({ title, unit, months, series, log = false, H = 280, W = 1000, refs = [], markers = true }) {
+        const L = 58, R = 14, T = 26, B = 24;
+        const n = months.length;
+        const all = series.flatMap(s => s.values).filter(v => v !== null && (!log || v > 0));
+        const tf = log ? v => Math.log10(v) : v => v;
+        let lo = Math.min(...all.map(tf), ...refs.map(r => tf(r.value))), hi = Math.max(...all.map(tf), ...refs.map(r => tf(r.value)));
+        let ticks = [];
+        if (log) {
+          lo = Math.floor(lo * 2) / 2; hi = Math.ceil(hi * 2) / 2;
+          for (let e = Math.floor(lo); e <= Math.ceil(hi); e++) [1, 3].forEach(f => { const t = e + Math.log10(f); if (t >= lo && t <= hi) ticks.push(t); });
+        } else {
+          const pad = (hi - lo) * 0.05 || 1; lo -= pad; hi += pad;
+          const step = niceStep((hi - lo) / 5);
+          lo = Math.floor(lo / step) * step; hi = Math.ceil(hi / step) * step;
+          for (let t = lo; t <= hi + 1e-9; t += step) ticks.push(t);
+        }
+        const x = i => L + (W - L - R) * i / Math.max(n - 1, 1);
+        const y = v => T + (H - T - B) * (hi - Math.min(Math.max(tf(v), lo), hi)) / (hi - lo);
+        const yT = t => T + (H - T - B) * (hi - t) / (hi - lo);
+        const band = (W - L - R) / Math.max(n - 1, 1);
+        let svg = "";
+        if (markers) S.bands.forEach(b => {
+          const i0 = months.indexOf(b.from), i1 = months.indexOf(b.to);
+          if (i1 < 0 && i0 < 0) return;
+          const a = x(Math.max(i0, 0)) - band / 2, z = x(i1 < 0 ? n - 1 : i1) + band / 2;
+          svg += `<rect x="${a}" y="${T}" width="${z - a}" height="${H - T - B}" fill="rgba(214, 40, 40, .10)"/>`;
+        });
+        ticks.forEach(t => {
+          svg += `<line class="grid" x1="${L}" x2="${W - R}" y1="${yT(t)}" y2="${yT(t)}"/><text class="axis-label" x="${L - 6}" y="${yT(t) + 3}" text-anchor="end">${fmt(log ? 10 ** t : t)}</text>`;
+        });
+        months.forEach((m, i) => { if (m.endsWith("-01")) svg += `<text class="axis-label" x="${x(i)}" y="${H - 7}" text-anchor="middle">${m.slice(0, 4)}</text>`; });
+        refs.forEach(r => { svg += `<line class="ref" x1="${L}" x2="${W - R}" y1="${y(r.value)}" y2="${y(r.value)}"/><text class="ref-text" x="${W - R - 4}" y="${y(r.value) - 4}" text-anchor="end">${esc(r.label)}</text>`; });
+        if (markers) {
+          let lastRight = -Infinity, row = 0;
+          S.lines.forEach(l => {
+            const i = months.indexOf(l.month);
+            if (i < 0) return;
+            const w = 8 + 6 * l.id.length;
+            row = x(i) - w / 2 < lastRight + 2 ? row + 1 : 0;
+            lastRight = x(i) + w / 2;
+            const ty = T + 2 + 15 * row;
+            svg += `<line class="bline" x1="${x(i)}" x2="${x(i)}" y1="${T}" y2="${H - B}"/><rect class="btag" x="${x(i) - w / 2}" y="${ty}" width="${w}" height="13" rx="3"/><text class="btag-text" x="${x(i)}" y="${ty + 9.5}" text-anchor="middle">${esc(l.id)}</text>`;
+          });
+        }
+        series.forEach(s => {
+          let d = "", pen = false;
+          s.values.forEach((v, i) => {
+            if (v === null || (log && v <= 0)) { pen = false; return; }
+            d += `${pen ? "L" : "M"}${x(i).toFixed(1)},${y(v).toFixed(1)}`; pen = true;
+          });
+          svg += `<path class="series" d="${d}" stroke="${COLOURS[s.name] || "#16323b"}" stroke-dasharray="${DASH[s.name] || ""}"/>`;
+        });
+        months.forEach((m, i) => {
+          const parts = series.map(s => s.values[i] === null ? null : `${s.name}: ${fmt(s.values[i])}`).filter(Boolean);
+          if (parts.length) svg += `<rect class="hit" x="${x(i) - band / 2}" y="${T}" width="${band}" height="${H - T - B}"><title>${esc([label(m), ...parts].join("\n"))}</title></rect>`;
+        });
+        const legend = `<div class="legend">${series.map(s => `<span><i class="swatch" style="border-color:${COLOURS[s.name] || "#16323b"};border-top-style:${DASH[s.name] && DASH[s.name] !== "1 0" ? "dashed" : "solid"}"></i>${esc(s.name)}</span>`).join("")}</div>`;
+        return `<div class="chart-wrap"><p class="chart-title">${esc(title)}</p><p class="chart-unit">${esc(unit)}</p>
+          <svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(title)}">${svg}</svg>${legend}</div>`;
+      }
+
+      const set = (id, html) => { document.getElementById(id).innerHTML = html; };
+      const byMethod = Object.fromEntries(D.summary.map(s => [s.method, s]));
+      const debit = byMethod["Debit cards"], imps = byMethod["IMPS"], credit = byMethod["Credit cards"];
+
+      document.getElementById("aside-headline").textContent = `Debit cards: ${Math.abs(debit.drawdownPct).toFixed(0)}% below their peak`;
+      document.getElementById("aside-text").textContent =
+        `Window ${label(D.window.start)} – ${label(D.window.end)} (${D.window.months} months; ${D.window.p2mMonths} for UPI P2M). RBI daily data extend UPI and IMPS to ${label(D.window.dailyEnd)}.`;
+      document.getElementById("footer-through").textContent = `Data through ${label(D.window.end)}`;
+      set("headline", esc(D.headline.split(" Verdicts")[0]));
+
+      const HYP = {
+        H1: "Small payments migrate to UPI: IMPS and debit lose volume faster than value; their ticket relative to UPI rises.",
+        H2: "The shifts coincide with the onset of COVID-19, not with zero MDR (Jan 2020).",
+        H3: "Remaining card volume is increasingly credit; P2M's share gains shrink.",
+      };
+      set("verdicts", Object.entries(D.verdicts).map(([k, v]) =>
+        `<div class="verdict"><h3>${k}</h3><p>${esc(HYP[k])}</p>
+          <div class="row"><span>Assignment 2 rule</span>${vpill(v.a2)}</div>
+          <div class="row"><span>v2 test</span>${vpill(v.v2)}</div></div>`).join(""));
+
+      set("corrections-body", D.corrections.map(c => `<tr><td class="id">${esc(c.item)}</td><td>${esc(c.a2)}</td><td>${esc(c.repo)}</td></tr>`).join(""));
+
+      const months = S.months;
+      set("fig-index", drawChart({ title: "Fig 1. Transactions per month, indexed to Nov 2017 = 100", unit: "index, log scale",
+        months, series: S.index, log: true, H: 320 }));
+      set("fig-index-p2m", drawChart({ title: "Fig 1b. UPI P2M against cards, Apr 2020 = 100", unit: "index, log scale (Apr 2020 is a lockdown month)",
+        months: S.p2mMonths, series: S.indexP2m, log: true, H: 300, W: 560 }));
+      set("fig-shares", drawChart({ title: "Fig 2. Shares within comparison groups", unit: "% of the stated group's transactions",
+        months, series: S.shares, H: 300, W: 560 }));
+      set("fig-tickets", drawChart({ title: "Fig 3. Average ticket in Mar 2026 prices", unit: "₹ per transaction, log scale",
+        months, series: S.tickets, log: true, H: 300 }));
+
+      const PER = ["Pre-COVID", "COVID", "Post-COVID"];
+      set("covid-table", `<thead><tr><th>Series</th>${PER.map(p => `<th class="num">${p}: growth a year [95% CI]</th>`).join("")}<th class="num">Post − pre (log pts/yr)</th></tr></thead><tbody>` +
+        D.covid.map(r => `<tr><td class="id">${esc(r.series)}<span class="sub">share within ${esc(r.group)}</span></td>` +
+          PER.map(p => {
+            const c = r.periods[p];
+            if (!c) return `<td class="num">–</td>`;
+            const share = c.shareFrom !== null && c.shareFrom !== undefined ? `<span class="sub">share ${fmt(c.shareFrom, 1)}% → ${fmt(c.shareTo, 1)}%</span>` : "";
+            return `<td class="num"><span class="${c.growthPct < 0 ? "neg" : ""}">${sign(c.growthPct, 0)}%</span> <span class="sub">[${sign(c.lo, 0)}, ${sign(c.hi, 0)}] · ${c.n} months</span>${share}<span class="sub">${cpill(c.class === "Co-expansion" ? "Continued growth" : c.class).replace("Continued growth", "Co-expansion")}</span></td>`;
+          }).join("") +
+          `<td class="num">${r.diff === undefined ? "–" : `<span class="${r.diffHi < 0 ? "neg" : r.diffLo > 0 ? "pos" : ""}">${sign(r.diff, 2)}</span><span class="sub">[${sign(r.diffLo, 2)}, ${sign(r.diffHi, 2)}]</span>`}</td></tr>`).join("") + "</tbody>");
+
+      set("class-body", D.summary.map(s => `<tr><td class="id">${esc(s.method)}</td><td>${esc(s.group)}</td>
+        <td class="num ${s.drawdownPct <= -10 ? "neg" : ""}">${sign(s.drawdownPct, 1)}%</td><td class="num">${label(s.peak)}</td>
+        <td class="num">${fmt(s.shareRefPct, 1)}% → ${fmt(s.shareEndPct, 1)}%<span class="sub">${sign(s.shareChangePp, 1)} pp</span></td>
+        <td>${cpill(s.label)}</td>
+        <td>${s.agree} of ${s.variants} agree ${s.robust ? "· robust" : "· fragile"}<span class="sub">${s.checks.map(c => `${esc(c.variant)}: ${c.agrees ? "same" : esc(c.label.toLowerCase())}`).join("; ")}</span></td></tr>`).join(""));
+
+      const methods = [...new Set(D.grid.map(g => g.method))];
+      const variants = [...new Set(D.grid.map(g => g.variant))];
+      const ths = [5, 10, 20];
+      const short = l => l.startsWith("Absolute") ? "Contraction" : l.startsWith("Relative") ? "Share loss" : "Growth";
+      set("heat", `<thead><tr><th>Method</th>${variants.map(v => `<th colspan="3" style="text-align:center">${esc(v)}</th>`).join("")}</tr>
+        <tr><th></th>${variants.map(() => ths.map(t => `<th style="text-align:center">${t}%</th>`).join("")).join("")}</tr></thead><tbody>` +
+        methods.map(m => `<tr><td class="id">${esc(m)}</td>${variants.map(v => ths.map(t => {
+          const g = D.grid.find(x => x.method === m && x.variant === v && x.threshold === t);
+          return `<td class="cell ${cls(g.label)}" title="${esc(g.label)}">${short(g.label)}</td>`;
+        }).join("")).join("")}</tr>`).join("") + "</tbody>");
+
+      set("fig-drawdown", drawChart({ title: "Fig 4. Drawdown of the 12-month average volume from its running peak", unit: "% below the highest 12-month average so far",
+        months, series: S.drawdown.map(s => ({ ...s, name: s.name })), H: 280,
+        refs: [{ value: -5, label: "−5%" }, { value: -10, label: "−10% (primary)" }, { value: -20, label: "−20%" }] }));
+      const daily = D.classification.find(c => c.method === "IMPS" && c.variant === "RBI daily data");
+      set("imps-callout", `<strong>IMPS is the boundary case.</strong> Its 12-month average volume peaked in the 12 months to ${label(imps.peak)} and is ${Math.abs(imps.drawdownPct).toFixed(1)}% below that peak by ${label(D.window.end)}: past the 5% line since ${label(imps.crossing["5"])} and the 10% line since ${label(imps.crossing["10"])}, but not the 20% line. ` +
+        `RBI's daily data, which run to ${label(D.window.dailyEnd)}, put the drawdown at ${Math.abs(daily.drawdownPct).toFixed(1)}%${daily.crossed20 ? `, past 20% from ${label(daily.crossed20)}` : ""}. IMPS's share loss against UPI is mechanical (UPI started near zero), so its drawdown and the timing of its peak are the informative evidence. In real value IMPS has not contracted.`);
+
+      set("dec-body", D.decomposition.map(r => `<tr><td class="id">${esc(r.method)}</td><td>${esc(r.group)}<span class="sub">${esc(r.from)} → ${esc(r.to)}</span></td>
+        <td class="num ${r.ownGrowthPct < 0 ? "neg" : ""}">${sign(r.ownGrowthPct, 0)}%</td><td class="num">${sign(r.groupGrowthPct, 0)}%</td>
+        <td class="num">${fmt(r.shareFromPct, 1)}% → ${fmt(r.shareToPct, 1)}%<span class="sub">${sign(r.shareChangePp, 1)} pp</span></td><td>${esc(r.driver)}</td></tr>`).join(""));
+
+      const h1 = D.h1.rows;
+      set("h1-table", `<thead><tr><th>Method</th><th class="num">A2: trend in log ticket ÷ UPI ticket</th><th class="num">A2: trend in log real ticket</th><th class="num">v2: drift of log ticket ÷ UPI ticket</th><th class="num">of which UPI's own ticket fall</th><th class="num">v2: drift of own real ticket</th><th>Result</th></tr></thead><tbody>` +
+        h1.map(r => `<tr><td class="id">${esc(r.method)}</td>
+          <td class="num">${pctYear(r.a2RelTrend)}/yr<span class="sub">p ${pval(r.a2RelP)}</span></td>
+          <td class="num">${pctYear(r.a2RealTicketTrend)}/yr<span class="sub">p ${pval(r.a2RealTicketP)}</span></td>
+          <td class="num">${pctYear(r.relDrift)}/yr<span class="sub">p ${pval(r.relDriftP)}</span></td>
+          <td class="num">${fmt(100 * r.shareFromUpiFall, 0)}%<span class="sub">UPI ticket ${pctYear(r.upiNominalDrift)}/yr</span></td>
+          <td class="num">${pctYear(r.realTicketDrift)}/yr<span class="sub">p ${pval(r.realTicketDriftP)}</span></td>
+          <td>${vpill(r.a2Pass ? "Not rejected" : "Rejected")} ${vpill(r.v2Pass ? "Supported" : r.v2Partial ? "Partially supported" : "Not supported")}${r.relP2mDrift !== undefined ? `<span class="sub">Debit ticket ÷ P2M ticket ${pctYear(r.relP2mDrift)}/yr (p ${pval(r.relP2mDriftP)})</span>` : ""}</td></tr>`).join("") + "</tbody>");
+
+      const h2 = D.h2;
+      set("h2-table", `<thead><tr><th>Series</th><th class="num">Break (least squares)</th><th class="num">95% confidence set</th><th class="num">Breaks chosen by BIC</th><th class="num hide-narrow">LR at Jan 2020 / Mar 2020</th><th>Timing</th></tr></thead><tbody>` +
+        h2.rows.map(r => `<tr><td class="id">${esc(r.series)}</td><td class="num">${label(r.break)}</td><td class="num">${label(r.confFrom)} – ${label(r.confTo)}</td>
+          <td class="num">${r.bicBreaks}${r.secondBreak ? `<span class="sub">second: ${label(r.secondBreak)}</span>` : ""}</td>
+          <td class="num hide-narrow">${fmt(r.lrJan2020, 1)} / ${fmt(r.lrMar2020, 1)}<span class="sub">critical 7.35</span></td>
+          <td>${vpill(r.timing === "COVID-timed" ? "Supported" : r.timing === "Indeterminate" ? "Indeterminate" : r.timing === "Zero-MDR-timed" ? "Not supported" : "neutral").replace(/>(Supported|Indeterminate|Not supported|neutral)</, `>${esc(r.timing)}<`)}</td></tr>`).join("") + "</tbody>");
+      const rj = h2.ratioJan, rm = h2.ratioMar;
+      document.getElementById("h2-ratio").textContent =
+        `Debit ÷ credit at known dates (zero MDR applied to RuPay debit, not to credit, so the ratio nets out shocks common to both; Apr 2017 – Mar 2023 with COVID-month dummies for both waves): ` +
+        `a trend change at Jan 2020 of ${sign(100 * rj.slope, 1)} log pts/yr (SE ${fmt(100 * rj.slopeSe, 1)}), against ${sign(100 * rm.slope, 1)} (SE ${fmt(100 * rm.slopeSe, 1)}) if dated at Mar 2020. ` +
+        `Debit turned against credit around early 2020 either way; monthly data cannot separate the two dates. Of the methods with a selected break, ${h2.covidTimed} is COVID-timed, ${h2.indeterminate} indeterminate, ${h2.mdrTimed} zero-MDR-timed. ` +
+        `A2 rule: ${h2.a2}; v2: ${h2.v2}.`;
+
+      const h3 = D.h3, sb = h3.slopeBreak, lo = h3.p2mLogOdds, su = h3.supply, post = h3.decomposition[h3.decomposition.length - 1];
+      set("h3-table", `<thead><tr><th>Test</th><th>Estimate</th><th>Result</th></tr></thead><tbody>
+        <tr><td class="id">A2 · trend in logit credit share of card volume, bridged</td><td>${sign(h3.a2Bridged.trend, 2)} log-odds/yr, p ${pval(h3.a2Bridged.p)}</td><td>${vpill(h3.a2Bridged.p < 0.05 ? "Not rejected" : "Rejected")}</td></tr>
+        <tr><td class="id">A2 · same, PSI period only</td><td>${sign(h3.a2Psi.trend, 2)} log-odds/yr, p ${pval(h3.a2Psi.p)} (${h3.a2Psi.n} months)</td><td>${vpill(h3.a2Psi.p < 0.05 ? "Not rejected" : "Rejected")}</td></tr>
+        <tr><td class="id">A2 · P2M monthly share gain, last 12 vs first 12 months</td><td>${sign(h3.leg2.last12, 2)} pp vs ${sign(h3.leg2.first12, 2)} pp<span class="sub">${esc(h3.leg2.note)}</span></td><td>${vpill(h3.leg2.pass ? "Not rejected" : "Rejected")}</td></tr>
+        <tr><td class="id">v2 · slope break in logit credit share</td><td>pre-COVID ${sign(sb.pre, 2)}/yr, post-COVID ${sign(sb.post, 2)}/yr; change ${sign(sb.diff, 2)} (SE ${fmt(sb.diffSe, 2)})</td><td>${vpill(sb.significant ? "Supported" : "Not supported")}</td></tr>
+        <tr><td class="id">v2 · what drove the post-COVID rise</td><td>Δ logit ${sign(post.dLogit, 2)} = credit ${sign(post.credit, 2)} + falling debit ${sign(post.debit, 2)}; debit's part ${fmt(post.debitSharePct, 0)}%<span class="sub">${esc(post.from)} → ${esc(post.to)}</span></td><td>${vpill(post.debitSharePct > 50 ? "Supported" : "Not supported")}</td></tr>
+        <tr><td class="id">v2 · P2M log-odds gains slowed</td><td>${sign(lo.base, 3)}/month in ${esc(lo.baseWindow)}; change ${sign(lo.change, 3)} (SE ${fmt(lo.changeSe, 3)}) by ${esc(lo.lastWindow)}</td><td>${vpill(lo.slowed ? "Supported" : "Not supported")}</td></tr>
+        <tr><td class="id">Context · credit-card supply</td><td>Credit volume ${pctYear(su.volumeGrowthLog)} over ${su.years.toFixed(1)} years: cards in force ${pctYear(su.cardsGrowthLog)}, payments per card ${pctYear(su.intensityGrowthLog)} (${fmt(su.txnPerCard0, 1)} → ${fmt(su.txnPerCard1, 1)} a month)</td><td>${vpill("neutral").replace(">neutral<", `>${fmt(su.cardsSharePct, 0)}% from new cards<`)}</td></tr>
+        </tbody>`);
+      document.getElementById("h3-note").textContent = `A2 rule: ${h3.a2}; v2: ${h3.v2}. About half of credit's growth since the PSI series began comes from more cards in force rather than displacement alone, so the issuer reading should rest on the debit side of the decomposition.`;
+
+      set("mag-body", D.magnitudes.map(m => `<tr><td>${esc(m.name)}</td><td class="num">${fmt(m.value)}</td><td>${esc(m.unit)}</td><td class="hide-narrow"><span class="sub">${esc(m.note)}</span></td></tr>`).join(""));
+
+      const rupay = D.sensitivity.filter(s => s.check.startsWith("RuPay"));
+      const prov = D.sensitivity.filter(s => s.check === "P2M provenance");
+      const ver = D.sensitivity.find(s => s.check === "P2M verified months only");
+      set("sens-table", `<thead><tr><th>Check</th><th>Setting</th><th>Result</th></tr></thead><tbody>` +
+        rupay.map(s => `<tr><td>${esc(s.check)}</td><td>${esc(s.setting)}</td><td>Credit: ${cpill(s.creditLabel)} (share ${sign(s.creditShareChangePp, 1)} pp); post-COVID logit credit share ${sign(s.postCovidLogitCreditShareDrift, 2)}/yr</td></tr>`).join("") +
+        prov.map(s => `<tr><td>UPI P2M source</td><td>${esc(s.setting)}</td><td>${s.months} months; P2P + P2M within ${fmt(s.maxP2pPlusP2mGapMn, 2)} million of total; total within ${fmt(s.maxGapVsProductStatsPct, 2)}% of NPCI product statistics</td></tr>`).join("") +
+        `<tr><td>UPI P2M verified months</td><td>${esc(ver.setting)}</td><td>${esc(ver.note)}</td></tr>` +
+        `<tr><td>Nov 2019 card dummy</td><td>with / without</td><td>See H2: the debit break moves by two months and stays indeterminate; credit is COVID-timed either way.</td></tr></tbody>`);
+      set("bridge-table", `<thead><tr><th>Series</th><th class="num">k</th><th class="num">Out-of-sample error (mean / max)</th><th class="num">Overlap with PSI</th><th class="num">Largest gap / from Mar 2022</th></tr></thead><tbody>` +
+        D.bridge.summary.map((b, i) => {
+          const f = D.bridge.factors.find(x => x.series.toLowerCase().startsWith(b.series.toLowerCase().split(" card")[0]) && x.series.includes(b.series.includes("volume") ? "volume" : "value"));
+          return `<tr><td class="id">${esc(b.series)}</td><td class="num">${f ? f.k.toFixed(4) : "–"}</td><td class="num">${f ? `${f.checkMape}% / ${f.checkMax}%` : "–"}<span class="sub">${f ? esc(f.checkMonths) : ""}</span></td>
+            <td class="num">${b.months} months<span class="sub">${esc(b.from)} – ${esc(b.to)}</span></td><td class="num">${b.maxAbsGapPct.toFixed(2)}% / ${b.maxAbsGapFromMar2022Pct.toFixed(2)}%${b.exactFromMar2022 ? '<span class="sub">identical from Mar 2022</span>' : ""}</td></tr>`;
+        }).join("") + "</tbody>");
+
+      set("diag-table", `<thead><tr><th>Series</th><th class="num">Months</th><th class="num">ADF</th><th class="num">KPSS</th><th>Reading</th></tr></thead><tbody>` +
+        D.diagnostics.map(d => `<tr><td>${esc(d.series)}</td><td class="num">${d.months}</td><td class="num">${d.adfStat.toFixed(2)}${d.adfUnitRootRejected5 ? " *" : ""}</td><td class="num">${d.kpssStat.toFixed(3)}${d.kpssStationarityRejected5 ? " *" : ""}</td><td>${esc(d.reading)}</td></tr>`).join("") +
+        `</tbody>`);
+      const keySeries = ["ln IMPS volume", "ln Debit cards volume", "ln Credit cards volume", "ln UPI P2M volume", "ln Debit cards real ticket", "logit credit share of card volume"];
+      set("trend-table", `<thead><tr><th>Series</th><th>Method</th><th class="num">Estimate</th><th class="num">p (&gt; 0 / &lt; 0)</th><th class="num">Ljung-Box p</th></tr></thead><tbody>` +
+        D.trend.filter(t => keySeries.includes(t.series) && !t.method.startsWith("Drift,")).map(t => {
+          const isLogit = t.series.startsWith("logit");
+          const est = isLogit ? `${sign(t.est, 2)} log-odds/yr` : `${pctYear(t.est)}/yr`;
+          const post = t.postTrend !== undefined && t.postTrend !== null && t.postTrend !== "" ? `<span class="sub">after Jan 2020: ${isLogit ? sign(t.postTrend, 2) : pctYear(t.postTrend)}/yr</span>` : "";
+          return `<tr><td>${esc(t.series)}<span class="sub">${esc(t.window)}</span></td><td>${esc(t.method)}</td><td class="num">${est}${post}</td><td class="num">${pval(t.pPos)} / ${pval(t.pNeg)}</td><td class="num">${t.ljungBoxP === undefined || t.ljungBoxP === null || t.ljungBoxP === "" ? "–" : pval(t.ljungBoxP)}</td></tr>`;
+        }).join("") + "</tbody>");
+    })();
+  </script>
+</body>
+</html>

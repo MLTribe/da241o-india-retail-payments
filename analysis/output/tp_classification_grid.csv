@@ -1,0 +1,28 @@
+method,variant,threshold,label
+IMPS,"Volume, bridged",5,Absolute contraction
+IMPS,"Volume, bridged",10,Absolute contraction
+IMPS,"Volume, bridged",20,Relative share loss
+IMPS,Real value,5,Relative share loss
+IMPS,Real value,10,Relative share loss
+IMPS,Real value,20,Relative share loss
+IMPS,"Volume, PSI period",5,Absolute contraction
+IMPS,"Volume, PSI period",10,Absolute contraction
+IMPS,"Volume, PSI period",20,Relative share loss
+Debit cards,"Volume, bridged",5,Absolute contraction
+Debit cards,"Volume, bridged",10,Absolute contraction
+Debit cards,"Volume, bridged",20,Absolute contraction
+Debit cards,Real value,5,Absolute contraction
+Debit cards,Real value,10,Absolute contraction
+Debit cards,Real value,20,Absolute contraction
+Debit cards,"Volume, PSI period",5,Absolute contraction
+Debit cards,"Volume, PSI period",10,Absolute contraction
+Debit cards,"Volume, PSI period",20,Absolute contraction
+Credit cards,"Volume, bridged",5,Relative share loss
+Credit cards,"Volume, bridged",10,Relative share loss
+Credit cards,"Volume, bridged",20,Relative share loss
+Credit cards,Real value,5,Relative share loss
+Credit cards,Real value,10,Relative share loss
+Credit cards,Real value,20,Relative share loss
+Credit cards,"Volume, PSI period",5,Relative share loss
+Credit cards,"Volume, PSI period",10,Relative share loss
+Credit cards,"Volume, PSI period",20,Relative share loss

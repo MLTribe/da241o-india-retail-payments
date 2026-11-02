@@ -6,6 +6,7 @@
   <meta name="theme-color" content="#f5f4ef">
   <meta name="description" content="Hypothesis register for the Utility Maximizers' DA241o study: each hypothesis, its test on official NPCI, RBI and MoSPI data, and the verdict.">
   <title>Hypotheses · Utility Maximizers</title>
+  <script src="embed.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
   <style>
@@ -156,13 +157,10 @@
       </a>
       <nav aria-label="Main navigation">
         <a href="index.html">Project home</a>
+        <a href="final.html">Final analysis</a>
+        <a href="data.html">Data explorer</a>
+        <a href="evidence.html">Hypotheses &amp; breaks</a>
         <a href="play.html">Play the model</a>
-        <a href="explore.html">Explore the series</a>
-        <a href="trends.html">Weekly &amp; monthly trends</a>
-        <a href="hypotheses.html" aria-current="page">Hypotheses</a>
-        <a href="landscape.html">Landscape</a>
-        <a href="breaks.html">Structural breaks</a>
-        <a href="index.html#data">Data sources</a>
       </nav>
     </header>
 
@@ -213,7 +211,7 @@
       <section class="panel" aria-labelledby="breaks-title">
         <p class="panel-kicker">Structural breaks</p>
         <h2 id="breaks-title">Known breaks: how each is handled and what the tests show</h2>
-        <p class="hint">Dashed lines in the long-series charts mark these dates. Break models regress the log series on a trend, month dummies, a level shift and a trend shift at the known date, and one dummy per COVID month; Wald tests use Newey-West covariances. These are tests of a change in path at a date, not causal effects of the policy. <a href="breaks.html" style="color:var(--green);font-weight:700">See every break on the full 2014–2026 charts, with the pre- vs post-COVID tests →</a></p>
+        <p class="hint">Dashed lines in the long-series charts mark these dates. Break models regress the log series on a trend, month dummies, a level shift and a trend shift at the known date, and one dummy per COVID month; Wald tests use Newey-West covariances. These are tests of a change in path at a date, not causal effects of the policy. <a href="evidence.html#breaks" style="color:var(--green);font-weight:700">See every break on the full 2014–2026 charts, with the pre- vs post-COVID tests →</a></p>
         <table>
           <thead><tr><th>Date</th><th>Break</th><th class="hide-narrow">Handling</th><th>Finding</th><th class="hide-narrow">Primary sample?</th></tr></thead>
           <tbody id="breaks"></tbody>

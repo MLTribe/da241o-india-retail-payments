@@ -1,0 +1,7 @@
+check,setting,creditLabel,creditDrawdownPct,creditShareChangePp,postCovidLogitCreditShareDrift,months,maxP2pPlusP2mGapMn,maxGapVsProductStatsPct,note
+RuPay credit on UPI: remove share of credit volume from Sep 2022,0%,Relative share loss,0.0,-7.304992,0.543256,,,,
+RuPay credit on UPI: remove share of credit volume from Sep 2022,5%,Relative share loss,0.0,-7.486829,0.529578,,,,
+RuPay credit on UPI: remove share of credit volume from Sep 2022,10%,Relative share loss,0.0,-7.669354,0.51516,,,,
+P2M provenance,"NPCI API JSON (archived, hash-checked)",,,,,21,0.01,0.0,
+P2M provenance,NPCI web table (transcribed),,,,,51,0.01,0.393535,
+P2M verified months only,Apr 2020 – Dec 2021,,,,,,,,"The end-window share (latest 12 months) falls in transcribed months, so the P2M-group classification cannot be run on archived API months alone; P2P + P2M totals match NPCI product statistics within the gaps shown."
