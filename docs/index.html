@@ -102,7 +102,7 @@
     .progress-summary { padding: 25px; border: 1px solid var(--line); background: var(--surface); border-radius: var(--radius); }
     .progress-summary .big { display: block; color: var(--green); font-family: Georgia, serif; font-size: 42px; line-height: 1; }
     .progress-summary p { margin: 13px 0 18px; color: var(--muted); font-size: 13px; }
-    .stage-track { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 18px; }
+    .stage-track { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 18px; }
     .stage-track span { min-height: 8px; border-radius: 99px; background: #e5e9e2; }
     .stage-track span.done { background: #6ca38a; }
     .stage-track span.active { background: var(--yellow); }
@@ -112,11 +112,15 @@
     .step { position: relative; padding: 0 0 24px 14px; }
     .step:last-child { padding-bottom: 0; }
     .step:before { content: ""; position: absolute; left: -24px; top: 4px; width: 11px; height: 11px; border: 2px solid var(--paper); border-radius: 50%; background: #b8c6bd; box-shadow: 0 0 0 1px #b8c6bd; }
-    .step.done:before { background: var(--green); box-shadow: 0 0 0 1px var(--green); }
+    .step.done:before { content: "✓"; left: -27px; top: 1px; width: 17px; height: 17px; display: grid; place-items: center; background: var(--green); box-shadow: 0 0 0 1px var(--green); color: white; font-size: 10px; font-weight: 900; line-height: 1; }
     .step.current:before { background: var(--yellow); box-shadow: 0 0 0 1px #c79e45; }
     .step h3 { margin: 0; font-size: 14px; }
+    .step.done h3 { color: var(--green); }
+    .step.current { margin-left: -10px; padding: 10px 12px 12px 24px; border-radius: 12px; background: #fbf3de; }
+    .step.current:before { left: -14px; top: 14px; }
     .step p { margin: 4px 0 0; color: var(--muted); font-size: 12px; }
-    .tag { display: inline-block; margin-left: 7px; color: var(--green); font-size: 9px; text-transform: uppercase; letter-spacing: .08em; font-weight: 850; }
+    .tag { display: inline-block; margin-left: 7px; padding: 2px 7px; border-radius: 99px; background: var(--green-soft); color: var(--green); font-size: 9px; text-transform: uppercase; letter-spacing: .08em; font-weight: 850; vertical-align: 2px; }
+    .step.current .tag { background: #f3dca3; color: #7a5a14; }
     .limits { padding: 65px 0; border-top: 1px solid var(--line); }
     .limits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 25px; }
     .limit { display: flex; gap: 13px; padding: 17px; background: #ffffff8c; border: 1px solid var(--line); border-radius: 13px; }
@@ -287,14 +291,14 @@
     <section class="progress-section" id="progress" aria-labelledby="progress-title">
       <div class="section-head">
         <div><p class="section-kicker">Where the work stands</p><h2 id="progress-title">From question to evidence</h2></div>
-        <p class="section-intro">A hypothesis register now tests the observed patterns, with a robustness window and structural-break checks. Final write-up continues.</p>
+        <p class="section-intro">The final analysis now classifies each payment system and tests H1–H3, with robustness and structural-break checks. The write-up continues.</p>
       </div>
       <div class="progress-layout">
         <div class="progress-summary">
           <span class="big">In progress</span>
-          <p>The monthly series, an exploratory model and the tested hypothesis register are ready to review. Some RBI workbook files and the final interpretation remain.</p>
-          <div class="stage-track" role="img" aria-label="Current stage: hypothesis testing and write-up"><span class="done"></span><span class="done"></span><span class="active"></span></div>
-          <div class="stage-labels"><span>Question</span><span>Core data</span><span>Testing</span></div>
+          <p>The monthly series, the exploratory model, the hypothesis register and the final analysis are ready to review. A few checks and the written report remain.</p>
+          <div class="stage-track" role="img" aria-label="Current stage: write-up"><span class="done"></span><span class="done"></span><span class="done"></span><span class="active"></span></div>
+          <div class="stage-labels"><span>Question</span><span>Core data</span><span>Testing</span><span>Write-up</span></div>
         </div>
         <div class="timeline" aria-label="Project milestones">
           <div class="step done"><h3>Assignment 1 submitted <span class="tag">Done</span></h3><p>The project has an initial research proposal to build on.</p></div>
@@ -302,7 +306,8 @@
           <div class="step done"><h3>Gather the monthly source data <span class="tag">Done</span></h3><p>The core series are assembled; some original release files still need archiving.</p></div>
           <div class="step done"><h3>Explore levels and shares <span class="tag">Done</span></h3><p>The first model and an interactive scenario are available for review.</p></div>
           <div class="step done"><h3>Test the hypotheses <span class="tag">Done</span></h3><p>Mature phase from Jun 2021, re-run from Jan 2022, plus the 2017–20 expansion phase and known breaks. <a href="evidence.html#register">See the register</a>.</p></div>
-          <div class="step current"><h3>Verify and write up findings <span class="tag">Current</span></h3><p>Resolve source differences and explain what the patterns can establish.</p></div>
+          <div class="step done"><h3>Run the final analysis <span class="tag">Done</span></h3><p>Each payment system classified as absolute contraction, share loss or continued growth; H1–H3 tested, with pre/post-COVID, magnitudes and robustness checks. <a href="final.html">See the final analysis</a>.</p></div>
+          <div class="step current"><h3>Finish checks and write up findings <span class="tag">Current</span></h3><p>Remaining checks (bandwidth, month-on-month growth, print-ready figures, hand cross-checks), then explain what the patterns can establish.</p></div>
         </div>
       </div>
     </section>
