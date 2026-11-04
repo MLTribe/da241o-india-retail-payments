@@ -1,0 +1,12 @@
+from,to,event,how_handled
+2016-11,2017-03,Demonetisation,Months left out of all tests and starting points
+2018-08,,NPCI stops counting UPI transfers between a person's own accounts,Level dummy for UPI series
+2019-11,,RBI card data definition change (bank-wise pages),Level dummy for card series
+2020-01,,Zero merchant fee (MDR) on UPI and RuPay debit,Tested as a break date; slope change in segmented OLS
+2020-03,2020-06,COVID-19 first wave,One dummy per month (covid = 1)
+2020-04,,NPCI P2P / P2M split begins,Merchant-payment tests start here
+2021-04,2021-06,COVID-19 second wave,One dummy per month (covid = 1)
+2021-06,,RBI card reclassification; PSI series start,Old and new card data joined here; level dummy
+2022-03,,RBI bank-wise page layout change,Level dummy for card series
+2022-09,,RuPay credit cards usable on UPI (launched 20 Sep 2022),A2 dummy from Oct 2022; sensitivity removes 0/5/10% of credit volume from Sep 2022
+2023-04,,"Interchange on wallet (PPI) UPI merchant payments above ₹2,000",A2 control dummy

@@ -1,0 +1,12 @@
+file,contents,units,first_month,last_month,rows,sha256
+npci/upi.csv,UPI total: number and value of payments,volume million; value ₹ crore,2016-04,2026-03,120,4be2539b5bd6794e839b227d7864c632597bccbdac56592f7da53b93b6e2db4a
+npci/imps.csv,IMPS: number and value of payments,volume million; value ₹ crore,2016-04,2026-03,120,f64217e2ffefb6f995abb616fd0c7ae901afef21de6e2b112ccbff43eac780e0
+npci/upi_p2p_p2m.csv,UPI split into person-to-person (P2P) and person-to-merchant (P2M),volume million; value ₹ crore,2020-04,2026-03,72,f70f4bf7ad703f678c5980f9b3cdbee7a904fea756c3a7cdf328b1f73452f73e
+rbi/cards_psi.csv,"Card payments, Payment System Indicators (in-store = pos, online = other)",volume lakh; value ₹ crore,2021-06,2026-03,58,c3128828dff2eab8653c68a944c473da1aabbb073f4b947d0fe8bef62764da31
+rbi/cards_bankwise_2014_2022.csv,"Card payments and stocks, all-bank totals of RBI bank-wise pages (older layout)",counts in units; value ₹ crore,2014-06,2022-02,93,df9b89f5253a2c4eed38b0e155c9b3b785554e21afb4ea60953c7b518320ea87
+rbi/card_acceptance.csv,"Cards issued, card machines (PoS) and QR codes, Payment System Indicators Part III",lakh,2021-06,2026-03,58,c847e92596a3b60f044d63fe3f3de7e95d7f3d6217a662715cc3826dbbb93e72
+mospi/cpi.csv,"CPI Combined, all-India general index, linked to base 2024 = 100",index,2014-01,2026-03,147,4b0f8dc3c73ce293b32c4d72ae2e42d08c387a240d71574889f417739a0a98c4
+rbi/daily_based_upi_imps.csv,UPI and IMPS monthly totals summed from RBI's daily payment data,volume million; value ₹ crore,2020-11,2026-09,142,7ca6199d29e22dabef0ce64eeb5f21599c2a32bb950e244f1bb9e6c2101c4e87
+monthly_panel.csv,Analysis-ready monthly panel built from the files above,see data_dictionary.csv,2017-11,2026-03,101,6af829884df8d67440eb007dbf8175065af300516fd41b5a236e190068a125c5
+data_dictionary.csv,Column descriptions for monthly_panel.csv,,,,37,f7f1b74de00a3c3f4076fb5c9b5c77136e405ba9fdd184ca423233bbe8e35e77
+events.csv,"Dated breaks, policy changes and COVID waves (A2 Appendix C1 and controls)",,,,11,1e93bb0d7f1c7b8149adeef39420cff8a7be5f8d96e8b6b8f900793ef65ba343
