@@ -56,6 +56,8 @@ daily_panel.csv,share_upi_ui_pct,"UPI share of UPI + IMPS payments that day, %"
 daily_panel.csv,share_imps_ui_pct,"IMPS share of UPI + IMPS payments that day, %"
 daily_panel.csv,share_debit_cc_pct,"Debit share of card-network card payments that day, %"
 daily_panel.csv,share_credit_cc_pct,"Credit share of card-network card payments that day, %"
-daily_panel.csv,diwali_day,1 on Diwali (Lakshmi Puja)
-daily_panel.csv,diwali_month,1 in the Diwali month (same as diwali in monthly_panel.csv)
+daily_panel.csv,festival_day,"1 on a major festival (Holi, Eid al-Fitr, Eid al-Adha, Janmashtami, Dussehra, Diwali, Guru Nanak Jayanti, Christmas; see festivals.csv)"
+daily_panel.csv,festival_name,"Name of the festival on that day, blank otherwise"
+daily_panel.csv,festival_month,1 if any of those festivals falls in the calendar month
+daily_panel.csv,festival_month_names,"Festivals in that calendar month, separated by '; '"
 daily_panel.csv,covid,1 in the second COVID wave (1 Apr – 30 Jun 2021); the daily data start after the first wave

@@ -9,7 +9,8 @@ Only the data the final analysis uses: the series named in the Assignment 2 data
 | File | Contents | Period | Units |
 | --- | --- | --- | --- |
 | `monthly_panel.csv` | Analysis-ready panel built from the files below | Nov 2017 – Mar 2026 | see `data_dictionary.csv` |
-| `daily_panel.csv` | One row per day from RBI's daily data: UPI, IMPS, credit and debit card volume, value and average payment; UPI/IMPS and debit/credit shares; weekday, Diwali and COVID flags | 1 Nov 2020 – 13 Oct 2026 | million; ₹ crore; ₹ |
+| `daily_panel.csv` | One row per day from RBI's daily data: UPI, IMPS, credit and debit card volume, value and average payment; UPI/IMPS and debit/credit shares; weekday, festival day and month (with names) and COVID flags | 1 Nov 2020 – 13 Oct 2026 | million; ₹ crore; ₹ |
+| `festivals.csv` | Dates of the major festivals behind the daily festival flags: Holi, Eid al-Fitr, Eid al-Adha (Bakrid), Janmashtami, Dussehra, Diwali, Guru Nanak Jayanti, Christmas | 2020 – 2026 | |
 | `npci/upi.csv` | UPI total: number and value of payments | Apr 2016 – Mar 2026 | million; ₹ crore |
 | `npci/imps.csv` | IMPS: number and value of payments | Apr 2016 – Mar 2026 | million; ₹ crore |
 | `npci/upi_p2p_p2m.csv` | UPI person-to-person (P2P) and person-to-merchant (P2M) | Apr 2020 – Mar 2026 | million; ₹ crore |
@@ -28,6 +29,7 @@ Only the data the final analysis uses: the series named in the Assignment 2 data
 - **Real values** are at March 2026 prices, deflated by `mospi/cpi.csv`.
 - **P2M starts in Apr 2020**, so anything using merchant payments has 72 months, not 101.
 - **Daily panel cards are card-network payments only.** RBI's daily file counts card payments processed by card networks, so it shows fewer card payments than the monthly figures (in Mar 2026 about 56% fewer credit-card and 9% fewer debit-card payments). Use the daily card columns for timing (weekdays, festivals, short-run changes), and `monthly_panel.csv` for card levels. The daily panel has no real values because CPI is monthly and ends in Mar 2026. Its UPI and IMPS days add up to the monthly totals in `rbi/daily_based_upi_imps.csv`.
+- **Festival flags (daily panel).** `festival_day` and `festival_name` mark the festival itself; `festival_month` is 1 when any listed festival falls in that month, and `festival_month_names` lists them. Dates follow the Government of India central holiday list (as encoded in the `holidays` Python package, India calendar). Eid dates depend on the moon and can differ by a day by region. National days (Republic Day, Independence Day, Gandhi Jayanti) are not counted as festivals. `monthly_panel.csv` keeps its `diwali` flag, because the final analysis regressions use a Diwali dummy.
 - **Daily-based totals** are for checks only. They agree with NPCI's monthly figures to within 1%, and they extend UPI and IMPS to Sep 2026.
 - **Shares** use these groups: UPI + IMPS (`_ui_`), P2M + debit + credit (`_pc_`), UPI total + debit + credit (`_uc_`), and debit + credit (`_cc_`).
 - Each raw file keeps a source column (page URL or archived file) so any value can be traced back.

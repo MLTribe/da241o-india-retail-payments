@@ -89,9 +89,35 @@ PANEL_PATTERNS = {
 DAILY_SYSTEMS = {"UPI": "upi", "IMPS": "imps", "Credit card": "credit_card", "Debit card": "debit_card"}
 DAILY_NAMES = {"upi": "UPI", "imps": "IMPS", "credit_card": "Credit-card (card-network only)",
                "debit_card": "Debit-card (card-network only)"}
-# Lakshmi Puja dates; the month matches the diwali flag of monthly_panel.csv.
-DIWALI_DAYS = {"2020-11-14", "2021-11-04", "2022-10-24", "2023-11-12", "2024-10-31", "2025-10-20", "2026-11-08"}
-DIWALI_MONTHS = {d[:7] for d in DIWALI_DAYS}
+# Major festivals on the Government of India central holiday list (dates as encoded in python-holidays
+# 0.108, India calendar); national days such as Republic Day are not festivals and are left out.
+FESTIVALS = [
+    ("2020-03-10", "Holi"), ("2020-05-25", "Eid al-Fitr"), ("2020-08-01", "Eid al-Adha (Bakrid)"),
+    ("2020-08-12", "Janmashtami"), ("2020-10-25", "Dussehra"), ("2020-11-14", "Diwali"),
+    ("2020-11-30", "Guru Nanak Jayanti"), ("2020-12-25", "Christmas"), ("2021-03-29", "Holi"),
+    ("2021-05-14", "Eid al-Fitr"), ("2021-07-21", "Eid al-Adha (Bakrid)"), ("2021-08-30", "Janmashtami"),
+    ("2021-10-15", "Dussehra"), ("2021-11-04", "Diwali"), ("2021-11-19", "Guru Nanak Jayanti"),
+    ("2021-12-25", "Christmas"), ("2022-03-18", "Holi"), ("2022-05-03", "Eid al-Fitr"),
+    ("2022-07-10", "Eid al-Adha (Bakrid)"), ("2022-08-19", "Janmashtami"), ("2022-10-05", "Dussehra"),
+    ("2022-10-24", "Diwali"), ("2022-11-08", "Guru Nanak Jayanti"), ("2022-12-25", "Christmas"),
+    ("2023-03-08", "Holi"), ("2023-04-22", "Eid al-Fitr"), ("2023-06-29", "Eid al-Adha (Bakrid)"),
+    ("2023-09-07", "Janmashtami"), ("2023-10-24", "Dussehra"), ("2023-11-12", "Diwali"),
+    ("2023-11-27", "Guru Nanak Jayanti"), ("2023-12-25", "Christmas"), ("2024-03-25", "Holi"),
+    ("2024-04-11", "Eid al-Fitr"), ("2024-06-17", "Eid al-Adha (Bakrid)"), ("2024-08-26", "Janmashtami"),
+    ("2024-10-12", "Dussehra"), ("2024-10-31", "Diwali"), ("2024-11-15", "Guru Nanak Jayanti"),
+    ("2024-12-25", "Christmas"), ("2025-03-14", "Holi"), ("2025-03-31", "Eid al-Fitr"),
+    ("2025-06-07", "Eid al-Adha (Bakrid)"), ("2025-08-16", "Janmashtami"), ("2025-10-02", "Dussehra"),
+    ("2025-10-20", "Diwali"), ("2025-11-05", "Guru Nanak Jayanti"), ("2025-12-25", "Christmas"),
+    ("2026-03-04", "Holi"), ("2026-03-21", "Eid al-Fitr"), ("2026-05-27", "Eid al-Adha (Bakrid)"),
+    ("2026-09-04", "Janmashtami"), ("2026-10-20", "Dussehra"), ("2026-11-08", "Diwali"),
+    ("2026-11-24", "Guru Nanak Jayanti"), ("2026-12-25", "Christmas"),
+]
+FESTIVAL_DAYS = {}
+for _date, _name in FESTIVALS:
+    FESTIVAL_DAYS[_date] = f"{FESTIVAL_DAYS[_date]}; {_name}" if _date in FESTIVAL_DAYS else _name
+FESTIVAL_MONTHS = {}
+for _date, _name in FESTIVALS:
+    FESTIVAL_MONTHS.setdefault(_date[:7], []).append(_name)
 COVID_DAYS = ("2021-04-01", "2021-06-30")
 DAILY_FIELDS = {
     "date": "Calendar date (YYYY-MM-DD)",
@@ -102,8 +128,10 @@ DAILY_FIELDS = {
     "share_imps_ui_pct": "IMPS share of UPI + IMPS payments that day, %",
     "share_debit_cc_pct": "Debit share of card-network card payments that day, %",
     "share_credit_cc_pct": "Credit share of card-network card payments that day, %",
-    "diwali_day": "1 on Diwali (Lakshmi Puja)",
-    "diwali_month": "1 in the Diwali month (same as diwali in monthly_panel.csv)",
+    "festival_day": "1 on a major festival (Holi, Eid al-Fitr, Eid al-Adha, Janmashtami, Dussehra, Diwali, Guru Nanak Jayanti, Christmas; see festivals.csv)",
+    "festival_name": "Name of the festival on that day, blank otherwise",
+    "festival_month": "1 if any of those festivals falls in the calendar month",
+    "festival_month_names": "Festivals in that calendar month, separated by '; '",
     "covid": "1 in the second COVID wave (1 Apr – 30 Jun 2021); the daily data start after the first wave",
 }
 DAILY_PATTERNS = {
@@ -173,7 +201,7 @@ def daily_panel() -> tuple[list[str], list[dict[str, object]]]:
     for key in DAILY_SYSTEMS.values():
         fields += [f"{key}_volume_mn", f"{key}_value_crore", f"{key}_ticket_rs"]
     fields += ["share_upi_ui_pct", "share_imps_ui_pct", "share_debit_cc_pct", "share_credit_cc_pct",
-               "diwali_day", "diwali_month", "covid"]
+               "festival_day", "festival_name", "festival_month", "festival_month_names", "covid"]
     share = lambda a, b: round(100 * a / (a + b), 4) if a + b else ""  # noqa: E731
     rows = []
     for date in sorted(days):
@@ -190,7 +218,9 @@ def daily_panel() -> tuple[list[str], list[dict[str, object]]]:
                     "share_imps_ui_pct": share(d["imps_volume_mn"], d["upi_volume_mn"]),
                     "share_debit_cc_pct": share(d["debit_card_volume_mn"], d["credit_card_volume_mn"]),
                     "share_credit_cc_pct": share(d["credit_card_volume_mn"], d["debit_card_volume_mn"]),
-                    "diwali_day": int(date in DIWALI_DAYS), "diwali_month": int(date[:7] in DIWALI_MONTHS),
+                    "festival_day": int(date in FESTIVAL_DAYS), "festival_name": FESTIVAL_DAYS.get(date, ""),
+                    "festival_month": int(date[:7] in FESTIVAL_MONTHS),
+                    "festival_month_names": "; ".join(FESTIVAL_MONTHS.get(date[:7], [])),
                     "covid": int(COVID_DAYS[0] <= date <= COVID_DAYS[1])})
         rows.append(row)
     return fields, rows
@@ -238,6 +268,11 @@ def main() -> None:
     write(DEST / "data_dictionary.csv", ["file", "column", "description"], dictionary)
     record("data_dictionary.csv", "Column descriptions for monthly_panel.csv and daily_panel.csv", "", dictionary,
            months=False)
+
+    festivals = [{"date": d, "month": d[:7], "festival": n} for d, n in FESTIVALS]
+    write(DEST / "festivals.csv", ["date", "month", "festival"], festivals)
+    record("festivals.csv", "Major festival dates used for the festival flags in daily_panel.csv "
+           "(Government of India central holiday list)", "", festivals)
 
     events = [dict(zip(("from", "to", "event", "how_handled"), e)) for e in EVENTS]
     write(DEST / "events.csv", ["from", "to", "event", "how_handled"], events)

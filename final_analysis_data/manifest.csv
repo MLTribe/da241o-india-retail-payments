@@ -8,6 +8,7 @@ rbi/card_acceptance.csv,"Cards issued, card machines (PoS) and QR codes, Payment
 mospi/cpi.csv,"CPI Combined, all-India general index, linked to base 2024 = 100",index,2014-01,2026-03,147,4b0f8dc3c73ce293b32c4d72ae2e42d08c387a240d71574889f417739a0a98c4
 rbi/daily_based_upi_imps.csv,UPI and IMPS monthly totals summed from RBI's daily payment data,volume million; value ₹ crore,2020-11,2026-09,142,7ca6199d29e22dabef0ce64eeb5f21599c2a32bb950e244f1bb9e6c2101c4e87
 monthly_panel.csv,Analysis-ready monthly panel built from the files above,see data_dictionary.csv,2017-11,2026-03,101,6af829884df8d67440eb007dbf8175065af300516fd41b5a236e190068a125c5
-daily_panel.csv,"Daily panel from RBI's daily payment data: UPI, IMPS and card-network card payments",see data_dictionary.csv,2020-11,2026-10,2173,d8c0115dbf546d221f28fd8fa9f1a9c61074d717b0bd301eadf6b0a5c32dea22
-data_dictionary.csv,Column descriptions for monthly_panel.csv and daily_panel.csv,,,,60,a2dc572c042c6a9c9f266b0ae0975b9c0861584659560cdb653233c1746cd88c
+daily_panel.csv,"Daily panel from RBI's daily payment data: UPI, IMPS and card-network card payments",see data_dictionary.csv,2020-11,2026-10,2173,9adbd5cbf2aa27f5e28823b8ccd6e3779b9b9a1c413efe42145d8e73627ffe3a
+data_dictionary.csv,Column descriptions for monthly_panel.csv and daily_panel.csv,,,,62,afd629c191f656b9c1328e46df6f37daf3062c0fb1d77c8154f4bc2dd8d7bc57
+festivals.csv,Major festival dates used for the festival flags in daily_panel.csv (Government of India central holiday list),,2020-03,2026-12,56,50ecbea5d8309f39a9cf00afe7388d8d128f7809953a840ee9d8de5f037d18b6
 events.csv,"Dated breaks, policy changes and COVID waves (A2 Appendix C1 and controls)",,,,11,1e93bb0d7f1c7b8149adeef39420cff8a7be5f8d96e8b6b8f900793ef65ba343
