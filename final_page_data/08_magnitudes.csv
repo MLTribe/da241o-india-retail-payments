@@ -1,0 +1,25 @@
+name,value,unit,note
+Debit cards: peak 12-month average volume,429.24162668886896,million a month,12 months to Feb 2020
+Debit cards: latest 12-month average volume,106.68425,million a month,12 months to Mar 2026
+Debit cards: transactions forgone versus peak,322.55737668886894,million a month,
+Debit cards: real value forgone versus peak,43562.839655932294,₹ crore a month (Mar 2026 prices),value peak: 12 months to Feb 2020
+IMPS: peak 12-month average volume,513.7716666666666,million a month,12 months to Jul 2024
+IMPS: latest 12-month average volume,411.925,million a month,12 months to Mar 2026
+IMPS: transactions forgone versus peak,101.84666666666664,million a month,
+IMPS: real value forgone versus peak,0.0,₹ crore a month (Mar 2026 prices),value peak: 12 months to Mar 2026
+"UPI total: average real ticket, latest 12 months",1317.6489223659576,₹ (Mar 2026 prices),
+"IMPS: average real ticket, latest 12 months",15956.1688512298,₹ (Mar 2026 prices),
+"UPI P2M: average real ticket, latest 12 months",603.8556823125023,₹ (Mar 2026 prices),
+"Debit cards: average real ticket, latest 12 months",3529.4320051532945,₹ (Mar 2026 prices),
+"Credit cards: average real ticket, latest 12 months",3979.096340753129,₹ (Mar 2026 prices),
+"Card share of merchant payment value (fee-bearing), reference",63.72316237891723,% of P2M + card value,"Jul 2020 – Jun 2021; cards carry MDR, UPI P2M has been at zero MDR"
+"Card share of merchant payment value (fee-bearing), latest",23.59417441234088,% of P2M + card value,"Apr 2025 – Mar 2026; cards carry MDR, UPI P2M has been at zero MDR"
+"UPI P2M share of P2M + card volume, latest 12 months",95.42076423172648,%,
+"Debit cards: payments per card per month, Jun 2021 – May 2022",0.3636025425224824,payments per card per month,
+"Debit cards: payments per card per month, latest 12 months",0.10442483959559445,payments per card per month,
+"Credit cards: payments per card per month, Jun 2021 – May 2022",2.9129027106688015,payments per card per month,
+"Credit cards: payments per card per month, latest 12 months",4.400127297595991,payments per card per month,
+"Card payments per PoS terminal per month, first PSI year",100.41899200968464,payments,
+"Card payments per PoS terminal per month, latest 12 months",51.93992377865769,payments,"Card payments include online use, so this overstates terminal use"
+Debit-card ATM withdrawals: peak 12-month average,839.00574625,million a month,12 months to Aug 2019
+Debit-card ATM withdrawals: latest 12-month average,444.9511191666666,million a month,Cash context

@@ -1,0 +1,16 @@
+method,variant,label,agrees
+IMPS,Threshold 5%,Absolute contraction,True
+IMPS,Threshold 20%,Relative share loss,False
+IMPS,Real value,Relative share loss,False
+IMPS,PSI-period window,Absolute contraction,True
+IMPS,RBI daily data,Absolute contraction,True
+Debit cards,Threshold 5%,Absolute contraction,True
+Debit cards,Threshold 20%,Absolute contraction,True
+Debit cards,Real value,Absolute contraction,True
+Debit cards,PSI-period window,Absolute contraction,True
+Debit cards,Secondary group,Absolute contraction,True
+Credit cards,Threshold 5%,Relative share loss,True
+Credit cards,Threshold 20%,Relative share loss,True
+Credit cards,Real value,Relative share loss,True
+Credit cards,PSI-period window,Relative share loss,True
+Credit cards,Secondary group,Relative share loss,True

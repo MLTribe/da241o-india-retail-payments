@@ -1,0 +1,22 @@
+section,item,value
+H2,a2,Not rejected
+H2,v2,Partially supported
+H2,methodsWithBreak,3
+H2,covidTimed,1
+H2,mdrTimed,0
+H2,indeterminate,1
+H2,inMarApr,1
+H2,inMdrWindow,0
+H2,ratioJan.slope,-0.37480043392478646
+H2,ratioJan.slopeSe,0.05981295376791129
+H2,ratioJan.level,0.16127163395915126
+H2,ratioJan.levelSe,0.09863113906944222
+H2,ratioJan.p,9.686842439293741e-10
+H2,ratioJan.n,72
+H2,ratioMar.slope,-0.4419601559834306
+H2,ratioMar.slopeSe,0.018868731359633736
+H2,ratioMar.level,0.2933034417644545
+H2,ratioMar.levelSe,0.028378525122979146
+H2,ratioMar.p,7.216449660063518e-15
+H2,ratioMar.n,72
+H2,ratioJanSignificant,True

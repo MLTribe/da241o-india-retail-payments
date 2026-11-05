@@ -1,0 +1,4 @@
+method,label,drawdownPct,peak,shareChangePp,shareRefPct,shareEndPct,group,agree,variants,robust,crossing.5,crossing.10,crossing.20
+IMPS,Absolute contraction,-19.823332673723403,2024-07,-32.91930756427681,34.942571704005566,2.02326413972876,UPI + IMPS,3,5,False,2025-02,2025-04,
+Debit cards,Absolute contraction,-75.14587510466944,2020-02,-23.610771896843698,24.417815306602822,0.807043409759125,P2M + debit + credit,5,5,True,2020-05,2020-07,2021-12
+Credit cards,Relative share loss,0.0,2026-03,-7.304992182804862,11.077184541319259,3.7721923585143964,P2M + debit + credit,5,5,True,,,

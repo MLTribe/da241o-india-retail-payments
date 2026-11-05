@@ -1,0 +1,32 @@
+section,item,value
+H3,a2,Not rejected
+H3,v2,Supported
+H3,a2Bridged.trend,0.500039219754196
+H3,a2Bridged.p,1.9766076139537128e-29
+H3,a2Psi.trend,0.5724498682310868
+H3,a2Psi.p,0.0
+H3,a2Psi.n,58
+H3,leg2.first12,0.8466801263295594
+H3,leg2.last12,0.02003470055205736
+H3,leg2.pass,True
+H3,leg2.note,Mechanically expected: a share near its 100% ceiling must gain fewer points.
+H3,slopeBreak.pre,0.03854591953486584
+H3,slopeBreak.preSe,0.023269324041689576
+H3,slopeBreak.post,0.5432564539100174
+H3,slopeBreak.postSe,0.04017372978073525
+H3,slopeBreak.diff,0.5047105343751516
+H3,slopeBreak.diffSe,0.04642617802331662
+H3,slopeBreak.significant,True
+H3,p2mLogOdds.base,0.06864231608515733
+H3,p2mLogOdds.change,-0.06415789028689761
+H3,p2mLogOdds.changeSe,0.006790209162258658
+H3,p2mLogOdds.slowed,True
+H3,p2mLogOdds.baseWindow,Jul 2020 – Jun 2021
+H3,p2mLogOdds.lastWindow,Apr 2025 – Mar 2026
+H3,supply.cardsGrowthLog,0.5047257528477512
+H3,supply.volumeGrowthLog,0.9166428242224575
+H3,supply.intensityGrowthLog,0.41191707137470623
+H3,supply.years,3.8333333333333335
+H3,supply.cardsSharePct,55.06242339003581
+H3,supply.txnPerCard0,2.917004860053941
+H3,supply.txnPerCard1,4.403829170005323

@@ -1,0 +1,8 @@
+type,from,to,id,label
+shaded band,2020-03,2020-06,,COVID wave 1
+shaded band,2021-04,2021-06,,COVID wave 2
+dashed line,2018-08,,SA,NPCI same-account exclusion
+dashed line,2019-11,,C19,RBI card data definition change
+dashed line,2020-01,,MDR,Zero MDR on UPI and RuPay debit
+dashed line,2021-06,,PSI,Card splice to RBI PSI
+dashed line,2022-09,,RCU,RuPay credit on UPI

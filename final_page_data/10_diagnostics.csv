@@ -1,0 +1,20 @@
+series,months,adfStat,adfUnitRootRejected5,kpssStat,kpssStationarityRejected5,reading
+ln UPI total volume,101,-2.0874992620544215,False,0.21904763081837839,True,unit root likely
+ln UPI total real ticket,101,-5.014585713335447,True,0.20578231969024677,True,inconclusive
+ln IMPS volume,101,-1.0622801270438704,False,0.22843989557370759,True,unit root likely
+ln IMPS real ticket,101,-0.9102706229556888,False,0.22457520303357414,True,unit root likely
+ln UPI P2M volume,72,-0.5407374118210926,False,0.1855883683715304,True,unit root likely
+ln UPI P2M real ticket,72,-2.021989444272223,False,0.10616899149263534,False,inconclusive
+ln Debit cards volume,101,-2.4979998676279664,False,0.21763672250288518,True,unit root likely
+ln Debit cards real ticket,101,-2.383364700753045,False,0.1919041161127741,True,unit root likely
+ln Credit cards volume,101,-2.142335688538908,False,0.1765460068361447,True,unit root likely
+ln Credit cards real ticket,101,-0.25575829709009545,False,0.15819506834220587,True,unit root likely
+ln IMPS ticket ÷ UPI total ticket,101,-2.450291004285319,False,0.23532644747419496,True,unit root likely
+ln Debit cards ticket ÷ UPI total ticket,101,-5.3284240137801975,True,0.2132747808397113,True,inconclusive
+ln Credit cards ticket ÷ UPI total ticket,101,-3.1955854384685027,False,0.1289142992598805,False,inconclusive
+ln Debit cards ticket ÷ P2M ticket,72,-1.9914827079966013,False,0.10861732149507299,False,inconclusive
+ln Credit cards ticket ÷ P2M ticket,72,-0.007641722785735226,False,0.14164339584145577,False,inconclusive
+logit credit share of card volume,101,-2.5738673184439618,False,0.22581046240116062,True,unit root likely
+logit P2M share of P2M + cards,72,0.3883991057779321,False,0.1699405517341391,True,unit root likely
+logit UPI share of UPI + IMPS,101,-3.2736402054286353,False,0.10743532883296436,False,inconclusive
+ln debit ÷ credit volume,101,-2.573867318443966,False,0.22581046240116084,True,unit root likely
