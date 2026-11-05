@@ -38,7 +38,9 @@ Only the data the final analysis uses: the series named in the Assignment 2 data
 
 Every column, in file order. Formulas use these terms:
 
-- **Real value** = nominal value × CPI(Mar 2026) ÷ CPI(month), with `cpi_combined_index_linked_2024` from `mospi/cpi.csv`.
+- **Real value**: real value_t = nominal value_t × CPI(Mar 2026) ÷ CPI_t. CPI_t is `cpi_combined_index_linked_2024` in `mospi/cpi.csv` (MoSPI CPI Combined, all-India general index), and CPI(Mar 2026) = 104.84. In code: `P[f"{k}_rv"] = v * base / cpi[m]` with `base = cpi[END]`, END = 2026-03 (`build_panel` in `analysis/final_analysis.py`).
+- **CPI linking.** MoSPI moved the CPI base from 2012 = 100 to 2024 = 100 in Jan 2026. Jan 2014 – Dec 2025 are published on base 2012 and multiplied by MoSPI's official Combined general-index link factor 0.5267 (CPI_t = CPI_t on base 2012 × 0.5267). Jan – Mar 2026 are used as published on base 2024 (factor 1.0). A constant rescaling leaves the old series' month-on-month inflation unchanged, but the two bases use different weights, so the join is approximate. Dec 2025 is provisional in the old-base table. `mospi/cpi.csv` keeps only the linked index and `native_base_year`; the base-2012 index and the factor are in `../by_year/*/mospi_cpi_combined_monthly.csv`.
+- **Worked example, Jun 2019:** UPI value 146,566.35 × 104.84 ÷ (142.9 × 0.5267 = 75.26543) ≈ 204,157.69 ₹ crore, which is `upi_real_value_crore` for 2019-06.
 - **Real ticket** = real value × 10 ÷ volume (₹ crore per million payments × 10 = ₹ per payment).
 - **Card splice.** From Jun 2021 card payments are the PSI totals (`*_total_volume_lakh` ÷ 10, `*_total_value_crore`; total = in-store + online). Before Jun 2021 they are the bank-wise totals (`*_payments_n` ÷ 1e6, `*_payments_v_crore`) times k, the geometric mean of PSI ÷ bank-wise over Jun 2021 – Feb 2022, worked out separately for each series (k = 1.0035 debit volume, 1.0094 debit value, 1.0000 credit volume and value).
 - **Share** = own volume ÷ sum of the group's volumes × 100, only for months where every group member has data. Shares use volumes, never values.
@@ -50,24 +52,24 @@ P2M columns and the `_pc_` shares are blank before Apr 2020 (Nov 2017 – Mar 20
 | `month` | Calendar month | YYYY-MM | built | Nov 2017 – Mar 2026 |
 | `upi_volume_mn` | UPI payments, total | million | NPCI, `npci/upi.csv` | `volume_mn` as published |
 | `upi_value_crore` | UPI value, nominal | ₹ crore | NPCI, `npci/upi.csv` | `value_crore` as published |
-| `upi_real_value_crore` | UPI value at Mar 2026 prices | ₹ crore | NPCI + MoSPI, `npci/upi.csv`, `mospi/cpi.csv` | real value of `upi_value_crore` |
-| `upi_real_ticket_rs` | UPI average payment at Mar 2026 prices | ₹ | built | `upi_real_value_crore` × 10 ÷ `upi_volume_mn` |
+| `upi_real_value_crore` | UPI value at Mar 2026 prices | ₹ crore | NPCI + MoSPI, `npci/upi.csv`, `mospi/cpi.csv` | `upi_value_crore` × 104.84 ÷ CPI_t (linked CPI; 2012-base months × 0.5267, see above) |
+| `upi_real_ticket_rs` | UPI average payment at Mar 2026 prices | ₹ | built | `upi_real_value_crore` × 10 ÷ `upi_volume_mn` (real ₹ at Mar 2026 prices; × 10 turns ₹ crore per million payments into ₹) |
 | `imps_volume_mn` | IMPS payments | million | NPCI, `npci/imps.csv` | `volume_mn` as published |
 | `imps_value_crore` | IMPS value, nominal | ₹ crore | NPCI, `npci/imps.csv` | `value_crore` as published |
-| `imps_real_value_crore` | IMPS value at Mar 2026 prices | ₹ crore | NPCI + MoSPI, `npci/imps.csv`, `mospi/cpi.csv` | real value of `imps_value_crore` |
-| `imps_real_ticket_rs` | IMPS average payment at Mar 2026 prices | ₹ | built | `imps_real_value_crore` × 10 ÷ `imps_volume_mn` |
+| `imps_real_value_crore` | IMPS value at Mar 2026 prices | ₹ crore | NPCI + MoSPI, `npci/imps.csv`, `mospi/cpi.csv` | `imps_value_crore` × 104.84 ÷ CPI_t (linked CPI; 2012-base months × 0.5267, see above) |
+| `imps_real_ticket_rs` | IMPS average payment at Mar 2026 prices | ₹ | built | `imps_real_value_crore` × 10 ÷ `imps_volume_mn` (real ₹ at Mar 2026 prices; × 10 turns ₹ crore per million payments into ₹) |
 | `p2m_volume_mn` | UPI person-to-merchant payments | million | NPCI, `npci/upi_p2p_p2m.csv` | `p2m_volume_mn` as published; from Apr 2020 |
 | `p2m_value_crore` | UPI person-to-merchant value, nominal | ₹ crore | NPCI, `npci/upi_p2p_p2m.csv` | `p2m_value_crore` as published; from Apr 2020 |
-| `p2m_real_value_crore` | P2M value at Mar 2026 prices | ₹ crore | NPCI + MoSPI, `npci/upi_p2p_p2m.csv`, `mospi/cpi.csv` | real value of `p2m_value_crore` |
-| `p2m_real_ticket_rs` | P2M average payment at Mar 2026 prices | ₹ | built | `p2m_real_value_crore` × 10 ÷ `p2m_volume_mn` |
+| `p2m_real_value_crore` | P2M value at Mar 2026 prices | ₹ crore | NPCI + MoSPI, `npci/upi_p2p_p2m.csv`, `mospi/cpi.csv` | `p2m_value_crore` × 104.84 ÷ CPI_t (linked CPI; 2012-base months × 0.5267, see above) |
+| `p2m_real_ticket_rs` | P2M average payment at Mar 2026 prices | ₹ | built | `p2m_real_value_crore` × 10 ÷ `p2m_volume_mn` (real ₹ at Mar 2026 prices; × 10 turns ₹ crore per million payments into ₹) |
 | `debit_volume_mn` | Debit-card payments, in-store + online | million | RBI, `rbi/cards_psi.csv` (from Jun 2021), `rbi/cards_bankwise_2014_2022.csv` (before) | card splice: `debit_total_volume_lakh` ÷ 10; before Jun 2021 `debit_payments_n` ÷ 1e6 × 1.0035 |
 | `debit_value_crore` | Debit-card payment value, nominal | ₹ crore | RBI, same two files | card splice: `debit_total_value_crore`; before Jun 2021 `debit_payments_v_crore` × 1.0094 |
-| `debit_real_value_crore` | Debit-card value at Mar 2026 prices | ₹ crore | built + MoSPI, `mospi/cpi.csv` | real value of `debit_value_crore` |
-| `debit_real_ticket_rs` | Debit-card average payment at Mar 2026 prices | ₹ | built | `debit_real_value_crore` × 10 ÷ `debit_volume_mn` |
+| `debit_real_value_crore` | Debit-card value at Mar 2026 prices | ₹ crore | built + MoSPI, `mospi/cpi.csv` | `debit_value_crore` × 104.84 ÷ CPI_t (linked CPI; 2012-base months × 0.5267, see above) |
+| `debit_real_ticket_rs` | Debit-card average payment at Mar 2026 prices | ₹ | built | `debit_real_value_crore` × 10 ÷ `debit_volume_mn` (real ₹ at Mar 2026 prices; × 10 turns ₹ crore per million payments into ₹) |
 | `credit_volume_mn` | Credit-card payments, in-store + online | million | RBI, `rbi/cards_psi.csv` (from Jun 2021), `rbi/cards_bankwise_2014_2022.csv` (before) | card splice: `credit_total_volume_lakh` ÷ 10; before Jun 2021 `credit_payments_n` ÷ 1e6 × k (k ≈ 1) |
 | `credit_value_crore` | Credit-card payment value, nominal | ₹ crore | RBI, same two files | card splice: `credit_total_value_crore`; before Jun 2021 `credit_payments_v_crore` × k (k ≈ 1) |
-| `credit_real_value_crore` | Credit-card value at Mar 2026 prices | ₹ crore | built + MoSPI, `mospi/cpi.csv` | real value of `credit_value_crore` |
-| `credit_real_ticket_rs` | Credit-card average payment at Mar 2026 prices | ₹ | built | `credit_real_value_crore` × 10 ÷ `credit_volume_mn` |
+| `credit_real_value_crore` | Credit-card value at Mar 2026 prices | ₹ crore | built + MoSPI, `mospi/cpi.csv` | `credit_value_crore` × 104.84 ÷ CPI_t (linked CPI; 2012-base months × 0.5267, see above) |
+| `credit_real_ticket_rs` | Credit-card average payment at Mar 2026 prices | ₹ | built | `credit_real_value_crore` × 10 ÷ `credit_volume_mn` (real ₹ at Mar 2026 prices; × 10 turns ₹ crore per million payments into ₹) |
 | `share_upi_ui_pct` | UPI share of UPI + IMPS | % | built | upi ÷ (upi + imps) × 100 |
 | `share_imps_ui_pct` | IMPS share of UPI + IMPS | % | built | imps ÷ (upi + imps) × 100 |
 | `share_p2m_pc_pct` | P2M share of P2M + debit + credit | % | built | p2m ÷ (p2m + debit + credit) × 100; from Apr 2020 |
