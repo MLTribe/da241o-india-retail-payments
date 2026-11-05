@@ -3,13 +3,15 @@
 Each file keeps just the series named in the Assignment 2 data table (plus a source column),
 stacked from the calendar-year files in by_year/ with months written as YYYY-MM. Column names
 are unchanged from by_year/ so values can be traced back. monthly_panel.csv is copied from
-analysis/output/tp_panel.csv, so run analysis/final_analysis.py first.
+analysis/output/tp_panel.csv, so run analysis/final_analysis.py first. daily_panel.csv is built
+from analysis/output/daily_five_systems.csv (analysis/daily_trends.py).
 
 Run from the assignment folder:  python3 scripts/build_final_analysis_data.py
 """
 from __future__ import annotations
 
 import csv
+import datetime
 import hashlib
 import shutil
 from pathlib import Path
@@ -84,6 +86,32 @@ PANEL_PATTERNS = {
     "_real_ticket_rs": "average payment, ₹ at March 2026 prices (real value ÷ volume)",
 }
 
+DAILY_SYSTEMS = {"UPI": "upi", "IMPS": "imps", "Credit card": "credit_card", "Debit card": "debit_card"}
+DAILY_NAMES = {"upi": "UPI", "imps": "IMPS", "credit_card": "Credit-card (card-network only)",
+               "debit_card": "Debit-card (card-network only)"}
+# Lakshmi Puja dates; the month matches the diwali flag of monthly_panel.csv.
+DIWALI_DAYS = {"2020-11-14", "2021-11-04", "2022-10-24", "2023-11-12", "2024-10-31", "2025-10-20", "2026-11-08"}
+DIWALI_MONTHS = {d[:7] for d in DIWALI_DAYS}
+COVID_DAYS = ("2021-04-01", "2021-06-30")
+DAILY_FIELDS = {
+    "date": "Calendar date (YYYY-MM-DD)",
+    "month": "Calendar month (YYYY-MM), to join with monthly_panel.csv",
+    "weekday": "Day of the week (Mon … Sun)",
+    "weekend": "1 on Saturday or Sunday",
+    "share_upi_ui_pct": "UPI share of UPI + IMPS payments that day, %",
+    "share_imps_ui_pct": "IMPS share of UPI + IMPS payments that day, %",
+    "share_debit_cc_pct": "Debit share of card-network card payments that day, %",
+    "share_credit_cc_pct": "Credit share of card-network card payments that day, %",
+    "diwali_day": "1 on Diwali (Lakshmi Puja)",
+    "diwali_month": "1 in the Diwali month (same as diwali in monthly_panel.csv)",
+    "covid": "1 in the second COVID wave (1 Apr – 30 Jun 2021); the daily data start after the first wave",
+}
+DAILY_PATTERNS = {
+    "_volume_mn": "payments that day, million (RBI daily data)",
+    "_value_crore": "value that day, ₹ crore, nominal",
+    "_ticket_rs": "average payment that day, ₹, nominal (value ÷ volume; blank if no payments settled)",
+}
+
 EVENTS = [
     ("2016-11", "2017-03", "Demonetisation", "Months left out of all tests and starting points"),
     ("2018-08", "", "NPCI stops counting UPI transfers between a person's own accounts", "Level dummy for UPI series"),
@@ -122,13 +150,50 @@ def write(path: Path, fields: list[str], rows: list[dict[str, str]]) -> None:
         writer.writerows(rows)
 
 
-def describe(field: str) -> str:
-    if field in PANEL_FIELDS:
-        return PANEL_FIELDS[field]
-    for suffix, text in PANEL_PATTERNS.items():
+def describe(field: str, fixed=PANEL_FIELDS, patterns=PANEL_PATTERNS, names=None) -> str:
+    if field in fixed:
+        return fixed[field]
+    for suffix, text in patterns.items():
         if field.endswith(suffix):
-            return f"{field[: -len(suffix)].upper()} {text}"
+            stem = field[: -len(suffix)]
+            return f"{names[stem] if names else stem.upper()} {text}"
     raise KeyError(f"no description for panel column {field}")
+
+
+def daily_panel() -> tuple[list[str], list[dict[str, object]]]:
+    days: dict[str, dict[str, object]] = {}
+    with (OUTPUT / "daily_five_systems.csv").open(newline="", encoding="utf-8") as stream:
+        for row in csv.DictReader(stream):
+            key = DAILY_SYSTEMS.get(row["system"])
+            if key:
+                day = days.setdefault(row["date"], {})
+                day[f"{key}_volume_mn"] = float(row["volume_mn"])
+                day[f"{key}_value_crore"] = float(row["value_cr"])
+    fields = ["date", "month", "weekday", "weekend"]
+    for key in DAILY_SYSTEMS.values():
+        fields += [f"{key}_volume_mn", f"{key}_value_crore", f"{key}_ticket_rs"]
+    fields += ["share_upi_ui_pct", "share_imps_ui_pct", "share_debit_cc_pct", "share_credit_cc_pct",
+               "diwali_day", "diwali_month", "covid"]
+    share = lambda a, b: round(100 * a / (a + b), 4) if a + b else ""  # noqa: E731
+    rows = []
+    for date in sorted(days):
+        d = days[date]
+        if len(d) != 2 * len(DAILY_SYSTEMS):
+            raise ValueError(f"{date}: not every system is present")
+        weekday = datetime.date.fromisoformat(date).strftime("%a")
+        row = {"date": date, "month": date[:7], "weekday": weekday, "weekend": int(weekday in ("Sat", "Sun"))}
+        for key in DAILY_SYSTEMS.values():
+            n, v = d[f"{key}_volume_mn"], d[f"{key}_value_crore"]
+            row.update({f"{key}_volume_mn": n, f"{key}_value_crore": v,
+                        f"{key}_ticket_rs": round(v * 10 / n, 2) if n else ""})
+        row.update({"share_upi_ui_pct": share(d["upi_volume_mn"], d["imps_volume_mn"]),
+                    "share_imps_ui_pct": share(d["imps_volume_mn"], d["upi_volume_mn"]),
+                    "share_debit_cc_pct": share(d["debit_card_volume_mn"], d["credit_card_volume_mn"]),
+                    "share_credit_cc_pct": share(d["credit_card_volume_mn"], d["debit_card_volume_mn"]),
+                    "diwali_day": int(date in DIWALI_DAYS), "diwali_month": int(date[:7] in DIWALI_MONTHS),
+                    "covid": int(COVID_DAYS[0] <= date <= COVID_DAYS[1])})
+        rows.append(row)
+    return fields, rows
 
 
 def main() -> None:
@@ -161,9 +226,18 @@ def main() -> None:
     write(DEST / "monthly_panel.csv", fields, rows)
     record("monthly_panel.csv", "Analysis-ready monthly panel built from the files above", "see data_dictionary.csv", rows)
 
-    dictionary = [{"column": f, "description": describe(f)} for f in fields]
-    write(DEST / "data_dictionary.csv", ["column", "description"], dictionary)
-    record("data_dictionary.csv", "Column descriptions for monthly_panel.csv", "", dictionary, months=False)
+    dictionary = [{"file": "monthly_panel.csv", "column": f, "description": describe(f)} for f in fields]
+
+    daily_fields, daily_rows = daily_panel()
+    write(DEST / "daily_panel.csv", daily_fields, daily_rows)
+    record("daily_panel.csv", "Daily panel from RBI's daily payment data: UPI, IMPS and card-network card payments",
+           "see data_dictionary.csv", daily_rows)
+    dictionary += [{"file": "daily_panel.csv", "column": f,
+                    "description": describe(f, DAILY_FIELDS, DAILY_PATTERNS, DAILY_NAMES)} for f in daily_fields]
+
+    write(DEST / "data_dictionary.csv", ["file", "column", "description"], dictionary)
+    record("data_dictionary.csv", "Column descriptions for monthly_panel.csv and daily_panel.csv", "", dictionary,
+           months=False)
 
     events = [dict(zip(("from", "to", "event", "how_handled"), e)) for e in EVENTS]
     write(DEST / "events.csv", ["from", "to", "event", "how_handled"], events)
