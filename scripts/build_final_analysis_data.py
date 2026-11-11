@@ -84,6 +84,7 @@ PANEL_FIELDS = {
 PANEL_PATTERNS = {
     "_real_value_crore": "value, ₹ crore at March 2026 prices (deflated by CPI Combined)",
     "_real_ticket_rs": "average payment, ₹ at March 2026 prices (real value ÷ volume)",
+    "_ticket_rs": "average payment, ₹, nominal (value ÷ volume, no CPI adjustment)",
 }
 
 DAILY_SYSTEMS = {"UPI": "upi", "IMPS": "imps", "Credit card": "credit_card", "Debit card": "debit_card"}

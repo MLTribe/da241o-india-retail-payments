@@ -995,6 +995,7 @@ def run():
         row = {"month": m}
         for k in RAILS:
             row.update({f"{k}_volume_mn": P[f"{k}_n"].get(m), f"{k}_value_crore": P[f"{k}_v"].get(m),
+                        f"{k}_ticket_rs": P[f"{k}_tn"].get(m),
                         f"{k}_real_value_crore": P[f"{k}_rv"].get(m), f"{k}_real_ticket_rs": P[f"{k}_t"].get(m)})
         for g in GROUPS:
             for k in GROUPS[g][1]:
