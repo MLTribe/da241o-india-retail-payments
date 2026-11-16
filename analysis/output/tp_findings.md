@@ -24,7 +24,7 @@ Debit cards show absolute contraction: their 12-month average volume is 75% belo
 
 ## Corrections to Assignment 2
 
-- **Card overlap with RBI PSI.** A2: 63 months (Jun 2021 – Aug 2026), largest gap 2.3%. Repository: 58 months (Jun 2021 – Mar 2026); largest gap 2.32%; from Mar 2022 the bank-level sums equal PSI exactly, so the overlap confirms the transcription rather than the definitions.
+- **Card overlap with RBI PSI.** A2: 63 months (Jun 2021 – Aug 2026), largest gap 2.3%. Repository: 58 months (Jun 2021 – Mar 2026); largest gap 2.32%; from Mar 2022 the bank-level sums match PSI to within 0.01% in 36–43 of 49 months per series (largest gap 1.02%), so the overlap mostly confirms the transcription rather than testing the definitions.
 - **Card bridge method.** A2: Direct join of bank-wise totals to PSI. Repository: Bank-wise series scaled by k (geometric-mean PSI ÷ bank-wise ratio, Jun 2021 – Feb 2022) and spliced at Jun 2021.
 - **RBI Bulletin overlap.** A2: Nov 2017 – Jun 2019, within 1.4%. Repository: No Bulletin data or script in the repository; not reproduced.
 - **RBI daily file against monthly figures.** A2: 63 months from Jun 2020. Repository: 65 months (Nov 2020 – Mar 2026); largest UPI gap 0.41%, IMPS 0.77%.

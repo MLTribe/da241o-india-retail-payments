@@ -863,6 +863,8 @@ def bridge_checks(P, splice, bank, bank_level):
                             "from": label_month(gaps[0][0]), "to": label_month(gaps[-1][0]),
                             "maxAbsGapPct": max(abs(g) for _, _, g in gaps),
                             "maxAbsGapFromMar2022Pct": max(after) if after else None,
+                            "monthsFromMar2022": len(after),
+                            "within001FromMar2022": sum(a < 0.01 for a in after),
                             "exactFromMar2022": all(a < 0.01 for a in after)})
     return rows, summary, splice["factors"]
 
@@ -876,11 +878,14 @@ def corrections(bridge_summary, split):
             if row["gap_pct"]:
                 gaps[row["system"]] = max(gaps[row["system"]], abs(float(row["gap_pct"])))
     upi_months = sorted(daily["UPI"])
+    matched = [b["within001FromMar2022"] for b in bridge_summary]
     return [
         {"item": "Card overlap with RBI PSI", "a2": "63 months (Jun 2021 – Aug 2026), largest gap 2.3%",
          "repo": f"{bridge_summary[0]['months']} months ({bridge_summary[0]['from']} – {bridge_summary[0]['to']}); largest gap "
-                 f"{max(b['maxAbsGapPct'] for b in bridge_summary):.2f}%; from Mar 2022 the bank-level sums equal PSI exactly, "
-                 "so the overlap confirms the transcription rather than the definitions"},
+                 f"{max(b['maxAbsGapPct'] for b in bridge_summary):.2f}%; from Mar 2022 the bank-level sums match PSI to "
+                 f"within 0.01% in {min(matched)}–{max(matched)} of {bridge_summary[0]['monthsFromMar2022']} months per series "
+                 f"(largest gap {max(b['maxAbsGapFromMar2022Pct'] for b in bridge_summary):.2f}%), so the overlap mostly "
+                 "confirms the transcription rather than testing the definitions"},
         {"item": "Card bridge method", "a2": "Direct join of bank-wise totals to PSI",
          "repo": "Bank-wise series scaled by k (geometric-mean PSI ÷ bank-wise ratio, Jun 2021 – Feb 2022) and spliced at Jun 2021"},
         {"item": "RBI Bulletin overlap", "a2": "Nov 2017 – Jun 2019, within 1.4%",
