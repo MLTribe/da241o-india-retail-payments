@@ -110,6 +110,8 @@ def main() -> None:
     add("09c_card_bridge_factors.csv", "Card bridge: scale factors and their test", table(D["bridge"]["factors"]))
     add("10_diagnostics.csv", "Unit roots and stationarity (ADF, KPSS)", table(D["diagnostics"]))
     add("10b_trend_tests.csv", "Trend estimates", table(D["trend"]))
+    add("11_method_constants.csv", "How the final analysis works (`docs/methods.html`): constants and worked-example inputs",
+        key_values(D["method"], "Method"))
 
     shutil.rmtree(DEST, ignore_errors=True)
     DEST.mkdir()

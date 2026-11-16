@@ -1,0 +1,919 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f4ef">
+  <meta name="description" content="How every section of the Final analysis page is calculated: data, the card bridge, formulas, thresholds, tests, decision rules and the actual numbers.">
+  <title>How the final analysis works · Utility Maximizers</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f5f4ef;
+      --surface: #fffefa;
+      --ink: #152b33;
+      --muted: #53656a;
+      --line: #dce2dc;
+      --green: #126b54;
+      --navy: #16323b;
+      --shadow: 0 14px 38px rgba(21, 43, 51, .07);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; }
+    a:focus-visible, button:focus-visible, summary:focus-visible { outline: 3px solid #bb8d31; outline-offset: 3px; }
+    .wrap { width: min(1120px, calc(100% - 40px)); margin-inline: auto; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 22px 0; border-bottom: 1px solid var(--line); }
+    .brand { display: flex; gap: 11px; align-items: center; text-decoration: none; font-weight: 750; letter-spacing: -.02em; }
+    .brand-mark { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 11px; background: var(--green); color: white; font-size: 17px; }
+    .brand small { display: block; color: var(--muted); font-size: 11px; font-weight: 600; letter-spacing: .11em; text-transform: uppercase; }
+    nav { display: flex; gap: 23px; align-items: center; }
+    nav a { color: #42575c; font-size: 13px; font-weight: 650; text-decoration: none; }
+    nav a:hover, nav a[aria-current="page"] { color: var(--green); }
+    .intro { display: grid; grid-template-columns: 1.2fr .8fr; gap: 32px; padding: 54px 0 26px; align-items: end; }
+    .eyebrow { display: inline-flex; gap: 8px; align-items: center; color: var(--green); font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .14em; }
+    .eyebrow::before { content: ""; width: 20px; height: 2px; background: var(--green); }
+    .eyebrow a { color: inherit; }
+    h1 { margin: 17px 0 15px; font-family: Georgia, "Times New Roman", serif; font-size: clamp(34px, 4.6vw, 54px); line-height: 1.06; letter-spacing: -.045em; font-weight: 500; }
+    h1 em { color: var(--green); font-weight: 500; }
+    .lede { margin: 0; max-width: 660px; color: var(--muted); font-size: 16px; line-height: 1.65; }
+    .intro-aside { padding: 22px 24px; background: var(--navy); color: #f6f5ed; border-radius: 18px; box-shadow: var(--shadow); }
+    .intro-aside strong { display: block; font-family: Georgia, "Times New Roman", serif; font-size: 23px; font-weight: 500; line-height: 1.2; }
+    .intro-aside p { margin: 10px 0 0; color: #c7d5d3; font-size: 13px; }
+    .intro-aside a { color: #f6f5ed; font-weight: 700; }
+    .toc { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 18px; padding: 0; list-style: none; }
+    .toc a { display: inline-block; padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); font-size: 12px; font-weight: 700; color: #42575c; text-decoration: none; }
+    .toc a:hover { color: var(--green); border-color: var(--green); }
+    .toc a.toc-back { background: var(--navy); border-color: var(--navy); color: #f6f5ed; }
+    .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; box-shadow: var(--shadow); padding: 25px; margin-bottom: 18px; scroll-margin-top: 16px; }
+    .panel-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+    .panel-kicker { margin: 0 0 4px; color: var(--green); font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .backlink { flex: none; padding: 6px 12px; border: 1px solid var(--green); border-radius: 999px; color: var(--green); font-size: 12px; font-weight: 800; text-decoration: none; white-space: nowrap; }
+    .backlink:hover { background: var(--green); color: white; }
+    h2 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: 27px; font-weight: 500; letter-spacing: -.025em; line-height: 1.15; }
+    h3 { margin: 22px 0 6px; font-size: 15px; display: flex; gap: 8px; align-items: center; }
+    h3 .tag { display: inline-grid; place-items: center; min-width: 22px; height: 22px; padding: 0 6px; border-radius: 7px; background: #e3f1e9; color: var(--green); font-size: 11px; font-weight: 800; }
+    h4 { margin: 16px 0 4px; font-size: 13.5px; }
+    p, li { font-size: 14px; }
+    p { margin: 6px 0; }
+    ul, ol { margin: 6px 0; padding-left: 22px; }
+    li { margin-bottom: 4px; }
+    .hint { color: var(--muted); font-size: 13px; margin: 8px 0 0; }
+    .formula { margin: 10px 0; padding: 10px 14px; border: 1px solid var(--line); border-radius: 12px; background: #fbfcf9; overflow-x: auto; }
+    .formula .katex-display { margin: 4px 0; text-align: left; }
+    .formula .katex-display > .katex { text-align: left; }
+    .formula p { margin: 4px 0; font-size: 12.5px; color: var(--muted); }
+    .tex, .tex-i { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12.5px; }
+    .rule { margin: 10px 0; padding: 12px 14px; border-left: 4px solid var(--green); background: #eef6f1; border-radius: 0 10px 10px 0; font-size: 14px; }
+    .rule ol, .rule ul { margin: 4px 0; }
+    .example { margin: 10px 0; padding: 12px 14px; border: 1px dashed #b9c8bf; border-radius: 12px; background: #fdfdf8; font-size: 14px; }
+    .example .calc { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12.5px; background: #eef2ee; padding: 1px 5px; border-radius: 5px; white-space: nowrap; }
+    .example p, .example li { font-size: 13.5px; }
+    .caveats { margin: 10px 0 0; padding: 12px 14px; border-left: 4px solid #bb8d31; background: #fbf6e9; border-radius: 0 10px 10px 0; }
+    .caveats ul { margin: 0; }
+    .caveats li { font-size: 13px; }
+    details { margin: 10px 0; border: 1px solid var(--line); border-radius: 12px; background: #fbfcf9; padding: 8px 14px; }
+    details summary { cursor: pointer; font-weight: 750; font-size: 13.5px; color: var(--navy); }
+    details[open] summary { margin-bottom: 6px; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; font-variant-numeric: tabular-nums; margin-top: 10px; }
+    th, td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    th { color: var(--muted); font-weight: 700; font-size: 12px; }
+    td.num, th.num { text-align: right; white-space: nowrap; }
+    td.id { font-weight: 800; }
+    td .sub { display: block; color: var(--muted); font-size: 12px; }
+    .table-scroll { overflow-x: auto; }
+    .neg { color: #9c3b1d; font-weight: 700; }
+    .pos { color: #0f6247; font-weight: 700; }
+    .yes { color: #0f6247; font-weight: 800; }
+    .no { color: #9c3b1d; font-weight: 800; }
+    .pill { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 11px; font-weight: 800; white-space: nowrap; }
+    .c-contraction { background: #fbe3da; color: #8f2f13; }
+    .c-share { background: #fbf0d6; color: #7a5712; }
+    .c-growth { background: #e3f1e9; color: #0f6247; }
+    .v-supported, .v-not-rejected { background: #e3f1e9; color: #0f6247; }
+    .v-partially-supported, .v-indeterminate { background: #fbf0d6; color: #7a5712; }
+    .v-not-supported, .v-rejected { background: #fbe3da; color: #8f2f13; }
+    .v-neutral { background: #eceeec; color: #4d5b5e; }
+    code { font-size: 12px; background: #eef2ee; padding: 1px 5px; border-radius: 5px; }
+    pre { margin: 8px 0; padding: 12px 14px; border-radius: 12px; background: var(--navy); color: #e8efe9; font-size: 12.5px; overflow-x: auto; }
+    pre code { background: none; padding: 0; color: inherit; }
+    .two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    dl.gloss { display: grid; grid-template-columns: 180px 1fr; gap: 8px 16px; margin: 12px 0 0; font-size: 14px; }
+    dl.gloss dt { font-weight: 800; }
+    dl.gloss dd { margin: 0; }
+    mark.missing { background: #fbe3da; color: #8f2f13; }
+    .bottom-note { max-width: 880px; padding: 10px 0 44px; color: var(--muted); font-size: 12px; }
+    .bottom-note a { color: var(--green); font-weight: 700; }
+    footer { border-top: 1px solid var(--line); padding: 20px 0 28px; display: flex; justify-content: space-between; gap: 20px; color: var(--muted); font-size: 11px; }
+    @media (max-width: 820px) {
+      .intro, .two { grid-template-columns: 1fr; }
+      dl.gloss { grid-template-columns: 1fr; }
+      .panel-head { flex-direction: column; }
+    }
+    @media (max-width: 570px) {
+      .wrap { width: min(100% - 28px, 1120px); }
+      .topbar { display: block; }
+      nav { margin-top: 14px; flex-wrap: wrap; gap: 7px 14px; }
+      .panel { padding: 18px; }
+      footer { display: block; }
+    }
+    @media print {
+      nav, .toc, .backlink { display: none; }
+      .panel { box-shadow: none; }
+      details { border: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="topbar">
+      <a class="brand" href="index.html" aria-label="Utility Maximizers home">
+        <span class="brand-mark">U</span>
+        <span>Utility Maximizers<small>DA241o · Managerial Economics</small></span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="index.html">Project home</a>
+        <a href="final.html" aria-current="page">Final analysis</a>
+        <a href="data.html">Data explorer</a>
+        <a href="evidence.html">Hypotheses &amp; breaks</a>
+        <a href="play.html">Play the model</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="intro" aria-labelledby="page-title">
+        <div>
+          <span class="eyebrow"><a href="final.html">Final analysis</a> · Method</span>
+          <h1 id="page-title">How the final analysis works: <em>every number, step by step</em></h1>
+          <p class="lede">This page explains how each section of the <a href="final.html">Final analysis</a> page is calculated: which data go in, the exact formulas, the thresholds and tests, the rule that turns numbers into a label or verdict, and a worked example using the numbers the page shows now. The numbers here are read from the same data file as the results page, so the two stay in step whenever the analysis is re-run.</p>
+        </div>
+        <div class="intro-aside">
+          <strong id="aside-headline"></strong>
+          <p id="aside-text"></p>
+          <p>Every section below ends with a link back to its result on the <a href="final.html">Final analysis</a> page.</p>
+        </div>
+      </section>
+
+      <ul class="toc" aria-label="Sections">
+        <li><a class="toc-back" href="final.html">← Final analysis</a></li>
+        <li><a href="#data">Data and sample</a></li>
+        <li><a href="#bridge">Card bridge</a></li>
+        <li><a href="#answer">Answer</a></li>
+        <li><a href="#corrections">Corrections to A2</a></li>
+        <li><a href="#descriptives">Descriptives</a></li>
+        <li><a href="#covid">Pre / post COVID</a></li>
+        <li><a href="#classification">Classification</a></li>
+        <li><a href="#decomposition">Share decomposition</a></li>
+        <li><a href="#hypotheses">H1–H3</a></li>
+        <li><a href="#magnitudes">Magnitudes</a></li>
+        <li><a href="#robustness">Robustness</a></li>
+        <li><a href="#diagnostics">Diagnostics</a></li>
+        <li><a href="#glossary">Glossary</a></li>
+        <li><a href="#reproduce">Reproduce it</a></li>
+      </ul>
+
+      <!-- 1. Data -->
+      <section class="panel" id="data" aria-labelledby="data-title">
+        <div class="panel-head">
+          <div><p class="panel-kicker">1 · Data and sample</p><h2 id="data-title">What goes in: series, sources, units and the four groups</h2></div>
+          <a class="backlink" href="final.html#descriptives">See the data on the results page →</a>
+        </div>
+
+        <h3><span class="tag">a</span>The question</h3>
+        <p>Which payment series are measured, for which months, in which units, and how are they turned into comparable numbers (real values, average tickets and shares)?</p>
+
+        <h3><span class="tag">b</span>Data used</h3>
+        <p>The main window is <b data-v="start"></b> – <b data-v="end"></b>, <b data-v="months"></b> months. NPCI splits UPI into person-to-person (P2P) and person-to-merchant (P2M) payments only from <b data-v="p2mStart"></b>, so anything that uses UPI P2M has <b data-v="p2mMonths"></b> months. RBI's daily payment file extends UPI and IMPS to <b data-v="dailyEnd"></b>; it is used only as a robustness check. All series are monthly all-India totals. The analysis-ready file is <code>final_analysis_data/monthly_panel.csv</code>; its column names are given below.</p>
+        <div class="table-scroll"><table>
+          <thead><tr><th>Series</th><th>Source</th><th>Months</th><th>Unit as published → unit used</th><th><code>monthly_panel.csv</code> columns</th></tr></thead>
+          <tbody>
+            <tr><td class="id">UPI total</td><td>NPCI UPI product statistics</td><td data-v="winFull"></td><td>million; ₹ crore (used as published)</td><td><code>upi_volume_mn</code>, <code>upi_value_crore</code></td></tr>
+            <tr><td class="id">IMPS</td><td>NPCI IMPS product statistics</td><td data-v="winFull"></td><td>million; ₹ crore</td><td><code>imps_volume_mn</code>, <code>imps_value_crore</code></td></tr>
+            <tr><td class="id">UPI P2M</td><td>NPCI UPI ecosystem statistics (P2P/P2M split)</td><td data-v="winP2m"></td><td>million; ₹ crore</td><td><code>p2m_volume_mn</code>, <code>p2m_value_crore</code></td></tr>
+            <tr><td class="id">Debit and credit card payments</td><td>RBI Payment System Indicators (PSI) from <span data-v="psiStart"></span>; RBI bank-wise ATM/PoS/card statistics before (see the <a href="#bridge">card bridge</a>)</td><td data-v="winFull"></td><td>PSI: lakh, ₹ crore → million (÷ 10), ₹ crore. Bank-wise: raw counts, ₹ value → million (÷ 10<sup>6</sup>), ₹ crore</td><td><code>debit_volume_mn</code>, <code>debit_value_crore</code>, <code>credit_volume_mn</code>, <code>credit_value_crore</code></td></tr>
+            <tr><td class="id">Cards outstanding, PoS terminals</td><td>RBI PSI infrastructure from <span data-v="psiStart"></span>; bank-wise totals before</td><td data-v="winFull"></td><td>lakh (bank-wise counts ÷ 10<sup>5</sup>); not scaled by k</td><td><code>credit_cards_lakh</code>, <code>debit_cards_lakh</code>, <code>pos_terminals_lakh</code></td></tr>
+            <tr><td class="id">Debit-card ATM withdrawals</td><td>RBI bank-wise card statistics (all-bank total to Feb 2022, sum over banks from Mar 2022)</td><td data-v="winFull"></td><td>million; not scaled (cash context only)</td><td><code>debit_atm_withdrawals_mn</code></td></tr>
+            <tr><td class="id">Consumer prices</td><td>MoSPI CPI Combined, all-India general index, linked to base 2024 = 100</td><td data-v="winFull"></td><td>index</td><td>used for the <code>*_real_*</code> columns</td></tr>
+            <tr><td class="id">RBI daily payment data</td><td>RBI daily file, UPI and IMPS summed to months</td><td data-v="winDaily"></td><td>million; ₹ crore</td><td>not in the monthly panel; <code>rbi/daily_based_upi_imps.csv</code> and <code>daily_panel.csv</code></td></tr>
+          </tbody>
+        </table></div>
+        <p class="hint">Units: 1 lakh = 100,000 = 0.1 million; 1 crore = 10 million. Calendar flags in the panel: <code>diwali</code> = 1 in <span data-v="diwaliList"></span>; <code>covid</code> = 1 in <span data-v="covidList"></span>.</p>
+
+        <h3><span class="tag">c</span>Formulas</h3>
+        <div class="formula">
+          <div class="tex">\text{real value}_t = \text{value}_t \times \dfrac{\text{CPI}_{\text{Mar 2026}}}{\text{CPI}_t}, \qquad \text{CPI}_t = \begin{cases} \text{CPI}^{2012\text{ base}}_t \times 0.5267 & t \le \text{Dec 2025} \\ \text{CPI}^{2024\text{ base}}_t & t \ge \text{Jan 2026} \end{cases}</div>
+          <p>MoSPI moved the CPI from base 2012 = 100 to base 2024 = 100 in Jan 2026. Months published on the old base are multiplied by MoSPI's official link factor for the Combined general index (<span data-v="linkFactor"></span>); CPI(<span data-v="cpiBaseMonth"></span>) = <span data-v="cpiBase"></span>. Real values are therefore in <span data-v="cpiBaseMonth"></span> prices.</p>
+          <div class="tex">\text{ticket}_t = \dfrac{\text{value}_t\ (\text{₹ crore}) \times 10}{\text{volume}_t\ (\text{million})}\ \text{₹ per payment}, \qquad \text{real ticket}_t = \dfrac{\text{real value}_t \times 10}{\text{volume}_t}</div>
+          <p>One crore is 10<sup>7</sup> rupees and one million is 10<sup>6</sup> payments, so ₹ crore per million payments × 10 = ₹ per payment.</p>
+          <div class="tex">s_{i,g,t} = \dfrac{N_{i,t}}{\sum_{j \in g} N_{j,t}} \times 100</div>
+          <p>A share is always computed from volumes N (number of payments), and only in months where every member of the group has data.</p>
+        </div>
+        <h4>The four comparison groups</h4>
+        <div class="table-scroll"><table>
+          <thead><tr><th>Group</th><th>Column suffix</th><th>Members</th><th>Used for</th></tr></thead>
+          <tbody>
+            <tr><td class="id">Transfers</td><td><code>_ui_</code></td><td>UPI total + IMPS</td><td>IMPS's primary group (both are account-to-account transfer rails)</td></tr>
+            <tr><td class="id">Merchant payments</td><td><code>_pc_</code></td><td>UPI P2M + debit + credit</td><td>Cards' primary group (from <span data-v="p2mStart"></span> only)</td></tr>
+            <tr><td class="id">UPI and cards</td><td><code>_uc_</code></td><td>UPI total + debit + credit</td><td>Cards' secondary group (covers the whole window, but total UPI includes P2P transfers that cards never served)</td></tr>
+            <tr><td class="id">Cards only</td><td><code>_cc_</code></td><td>debit + credit</td><td>"Within cards" variant and H3 (credit's share of card payments)</td></tr>
+          </tbody>
+        </table></div>
+
+        <h3><span class="tag">e</span>Worked example (live numbers)</h3>
+        <div class="example" id="ex-data"></div>
+
+        <h3><span class="tag">f</span>Caveats</h3>
+        <div class="caveats"><ul>
+          <li>The two CPI bases use different weights, so linking by a constant factor keeps old-base inflation rates but makes the join approximate. Dec 2025 is provisional in the old-base table.</li>
+          <li>"Debit" and "credit" card payments include in-store (PoS) and online card payments; they exclude ATM cash withdrawals.</li>
+          <li>Monthly all-India totals show what happened to each rail, not who switched or why.</li>
+        </ul></div>
+      </section>
+
+      <!-- 2. Bridge -->
+      <section class="panel" id="bridge" aria-labelledby="bridge-title">
+        <div class="panel-head">
+          <div><p class="panel-kicker">2 · The card bridge (splice)</p><h2 id="bridge-title">Joining two RBI card sources into one series</h2></div>
+          <a class="backlink" href="final.html#robustness">See the bridge table on the results page →</a>
+        </div>
+
+        <h3><span class="tag">a</span>The question</h3>
+        <p>RBI publishes card payments in two places that do not line up before mid-2021. How do we build one consistent monthly series of debit- and credit-card payments (volume and value) from <span data-v="start"></span>, and how do we know the join is sound?</p>
+
+        <h3><span class="tag">b</span>The two sources and why they differ</h3>
+        <ul>
+          <li><b>RBI Payment System Indicators (PSI)</b> is RBI's monthly release of payment statistics for every payment system (RTGS, NEFT, UPI, IMPS, cards, prepaid instruments and so on). Its card tables (4.1 debit, 4.2 credit) split card payments into "PoS based" and "Others" (mostly online); the total of the two is every card payment. RBI reclassified card data in Jun 2021, and the PSI card series is consistently classified only from <span data-v="psiStart"></span>.</li>
+          <li><b>RBI bank-wise ATM/PoS/card statistics</b> are monthly pages with one row per bank (cards issued, ATMs, PoS terminals, card use) and an all-bank "Total" row, available back to 2014. In the layout used before Mar 2022 the page reports card use only "at ATM" and "at PoS". That "at PoS" column in fact covers every card payment, online included: in the overlap months it equals PSI "PoS based" + "Others", not PSI "PoS based" alone. So the bank-wise PoS column maps to the PSI <em>total</em>.</li>
+          <li>From Mar 2022 the bank-wise pages use a new layout with separate PoS, online and other columns per bank. The all-bank totals file (<code>rbi/cards_bankwise_2014_2022.csv</code>) therefore ends in Feb 2022.</li>
+        </ul>
+        <h4>The five bridging assumptions (from <code>analysis/long_series.py</code>)</h4>
+        <ol id="assumptions"></ol>
+
+        <h3><span class="tag">c</span>Formulas</h3>
+        <div class="formula">
+          <div class="tex">k = \exp\!\Big(\frac{1}{9}\sum_{m=\text{Jun 2021}}^{\text{Feb 2022}} \ln \frac{\text{PSI}_m}{B_m}\Big) \qquad \text{(geometric mean of the nine overlap ratios)}</div>
+          <div class="tex">X_t = \begin{cases} \text{PSI}_t & t \ge \text{Jun 2021} \\ k \times B_t & t \lt \text{Jun 2021} \end{cases}</div>
+          <p>B is the bank-wise all-bank total (PoS column) and PSI the PSI total (PoS based + Others), in the same unit. k is worked out four times: debit volume, debit value, credit volume, credit value. Card stocks (cards outstanding, PoS terminals) and ATM withdrawals are not scaled.</p>
+          <div class="tex">e_m = \Big|\frac{k \times B_m}{\text{PSI}^{\text{prior}}_m} - 1\Big|, \quad \text{MAPE} = 100 \times \frac{1}{12}\sum_m e_m, \quad \text{max error} = 100 \times \max_m e_m</div>
+          <p>The out-of-sample check: each PSI release from Jun 2021 to May 2022 also prints the same month one year earlier ("same month last year"). Those columns give PSI-consistent figures for <span data-v="checkMonths"></span>, months that were <em>not</em> used to estimate k. If the bridged series k × B is close to them, the bridge works outside the months that fixed it.</p>
+        </div>
+
+        <h3><span class="tag">d</span>Decision rule and checks</h3>
+        <div class="rule">The splice is accepted if (1) the nine overlap ratios are close to one another, so a single k describes them; (2) k × B is close to the PSI "same month last year" figures out of sample; and (3) the average ticket does not jump at the bank-wise unit change in Jul 2019 (the pages switched from ₹ million to ₹ lakh). In the regressions a level dummy from <span data-v="psiStart"></span> absorbs any step left at the splice (assumption 5).</div>
+        <div class="table-scroll"><table id="k-table"></table></div>
+        <p class="hint" id="unit-check"></p>
+        <h4>The overlap table on the results page</h4>
+        <p>The "Card bridge" table on the results page compares the bank-wise figures with PSI month by month, <span data-v="bridgeFrom"></span> – <span data-v="bridgeTo"></span> (<span data-v="bridgeMonths"></span> months). Up to Feb 2022 the bank-wise number is the all-bank total (PoS column); from Mar 2022 it is the sum over banks of PoS + online + other from the new-layout pages. The gap is bank-wise ÷ PSI − 1.</p>
+        <div class="table-scroll"><table id="gap-table"></table></div>
+
+        <h3><span class="tag">e</span>Worked example (live numbers)</h3>
+        <div class="example" id="ex-bridge"></div>
+
+        <h3><span class="tag">f</span>Caveats</h3>
+        <div class="caveats"><ul>
+          <li>From Mar 2022 the bank-level sums match PSI to within 0.01% in only <span data-v="within001"></span> of <span data-v="monthsFromMar2022"></span> months per series (largest gap <span data-v="maxGapLate"></span>). They are not identical, and since the panel uses PSI itself from Jun 2021, this comparison mainly confirms the transcription of the bank-level pages rather than testing the definitions.</li>
+          <li>The Jun 2021 level dummy is a weak test of assumption 5 because Jun 2021 is also the last month of COVID's second wave: a recovery step and a bridge error look the same.</li>
+          <li>The bridged series before Jun 2021 can only be as good as the bank-wise definitions; k corrects levels, not month-to-month reporting differences.</li>
+        </ul></div>
+      </section>
+
+      <!-- 3. Answer -->
+      <section class="panel" id="answer" aria-labelledby="answer-title">
+        <div class="panel-head">
+          <div><p class="panel-kicker">3 · The answer</p><h2 id="answer-title">How the headline paragraph and the verdict cards are built</h2></div>
+          <a class="backlink" href="final.html#answer">See the answer →</a>
+        </div>
+        <h3><span class="tag">a</span>The question</h3>
+        <p>Did IMPS, debit cards and credit cards contract in absolute terms, only lose share, or keep growing as UPI expanded; and do hypotheses H1–H3 hold?</p>
+        <h3><span class="tag">b</span>Data used</h3>
+        <p>No new calculation: the headline is assembled from the primary classification (<a href="#classification">section 7</a>) and the hypothesis verdicts (<a href="#hypotheses">section 9</a>).</p>
+        <h3><span class="tag">c–d</span>How the text and labels are produced</h3>
+        <ul>
+          <li><b>Headline sentence 1 (debit)</b>: the debit drawdown D at the 10% primary threshold and the month its 12-month average peaked.</li>
+          <li><b>Sentence 2 (IMPS)</b>: IMPS's label, its drawdown and peak month. It is called "the boundary case" because its label changes with the threshold.</li>
+          <li><b>Sentence 3 (credit)</b>: credit's label and its share change within P2M + debit + credit.</li>
+          <li><b>Verdict cards</b>: each hypothesis has two labels, shown side by side and never merged into one. The left label applies the rejection rule stated in Assignment 2 ("Not rejected" / "Rejected"). The right label is the sharper "v2" test added after the review, which can come out "Supported", "Partially supported", "Not supported" or "Indeterminate". The exact rules are in <a href="#hypotheses">section 9</a>.</li>
+        </ul>
+        <h3><span class="tag">e</span>Worked example (live numbers)</h3>
+        <div class="example" id="ex-answer"></div>
+        <h3><span class="tag">f</span>Caveats</h3>
+        <div class="caveats"><ul><li>The headline uses only the primary variant (volume, 10%, primary group). How far each label survives other choices is in the robustness column of <a href="#classification">section 7</a>.</li></ul></div>
+      </section>
+
+      <!-- 4. Corrections -->
+      <section class="panel" id="corrections" aria-labelledby="corr-title">
+        <div class="panel-head">
+          <div><p class="panel-kicker">4 · Corrections to Assignment 2</p><h2 id="corr-title">What each row of the corrections table compares</h2></div>
+          <a class="backlink" href="final.html#corrections">See the corrections →</a>
+        </div>
+        <h3><span class="tag">a</span>The question</h3>
+        <p>Which claims in the submitted Assignment 2 data-and-methods plan does the repository confirm, and which does it correct?</p>
+        <h3><span class="tag">b–d</span>Data, calculation and rule for each row</h3>
+        <p>The "Assignment 2 said" column is fixed text quoted from the plan. The "repository shows" column is recomputed on every run, as described here. A row counts as a correction whenever the two differ.</p>
+        <div class="table-scroll"><table id="corr-table"></table></div>
+        <h3><span class="tag">f</span>Caveats</h3>
+        <div class="caveats"><ul><li>The RBI Bulletin overlap cannot be checked: no Bulletin data or script exist in the repository, so the row reports it as not reproduced rather than confirmed or refuted.</li></ul></div>
+      </section>
+
+      <!-- 5. Descriptives -->
+      <section class="panel" id="descriptives" aria-labelledby="desc-title">
+        <div class="panel-head">
+          <div><p class="panel-kicker">5 · Descriptives</p><h2 id="desc-title">Figures 1, 1b, 2 and 3: indices, shares and real tickets</h2></div>
+          <a class="backlink" href="final.html#descriptives">See the figures →</a>
+        </div>
+        <h3><span class="tag">a</span>The question</h3>
+        <p>What did volumes, shares and average payment sizes do over the window, before any test is run?</p>
+        <h3><span class="tag">b</span>Data used</h3>
+        <ul>
+          <li><b>Fig 1</b>: volumes of UPI total, IMPS, debit and credit (<code>*_volume_mn</code>), <span data-v="start"></span> – <span data-v="end"></span>.</li>
+          <li><b>Fig 1b</b>: volumes of UPI P2M, debit and credit, <span data-v="p2mStart"></span> – <span data-v="end"></span>.</li>
+          <li><b>Fig 2</b>: <code>share_imps_ui_pct</code>, <code>share_debit_pc_pct</code>, <code>share_credit_pc_pct</code>, <code>share_credit_cc_pct</code>.</li>
+          <li><b>Fig 3</b>: real tickets of all five rails (<code>*_real_ticket_rs</code>), in <span data-v="cpiBaseMonth"></span> prices.</li>
+        </ul>
+        <h3><span class="tag">c</span>Formulas</h3>
+        <div class="formula">
+          <div class="tex">I_{i,t} = 100 \times \frac{N_{i,t}}{N_{i,\text{base}}}, \qquad \text{base} = \text{Nov 2017 (Fig 1)},\ \text{Apr 2020 (Fig 1b)}</div>
+          <p>Figs 1, 1b and 3 use a log scale, so equal percentage changes are equal vertical distances. Fig 2 is in percent of the stated group. Fig 3 is the real ticket defined in <a href="#data">section 1</a>.</p>
+        </div>
+        <h3><span class="tag">d</span>Chart markers</h3>
+        <div class="table-scroll"><table id="marker-table"></table></div>
+        <h3><span class="tag">e</span>Worked example (live numbers)</h3>
+        <div class="example" id="ex-desc"></div>
+        <h3><span class="tag">f</span>Caveats</h3>
+        <div class="caveats"><ul>
+          <li>Apr 2020, the Fig 1b base, is a lockdown month, so card indices start from a depressed level and their rebound looks larger.</li>
+          <li>The debit and credit shares of P2M + cards in Fig 2 start in Apr 2020: there is no merchant-payment group before NPCI's P2P/P2M split.</li>
+        </ul></div>
+      </section>
+
+      <!-- 6. COVID -->
+      <section class="panel" id="covid" aria-labelledby="covid-title">
+        <div class="panel-head">
+          <div><p class="panel-kicker">6 · Pre vs post COVID</p><h2 id="covid-title">Growth and share by period</h2></div>
+          <a class="backlink" href="final.html#covid">See the table →</a>
+        </div>
+        <h3><span class="tag">a</span>The question</h3>
+        <p>How fast did each rail grow before, during and after COVID, did its share in its group rise or fall in each period, and did growth change between the pre- and post-COVID periods?</p>
+        <h3><span class="tag">b</span>Data used</h3>
+        <p>Volumes (<code>upi_volume_mn</code>, <code>imps_volume_mn</code>, <code>p2m_volume_mn</code>, <code>debit_volume_mn</code>, <code>credit_volume_mn</code>) in logs; shares within UPI + IMPS for UPI and IMPS, and within P2M + debit + credit for P2M and cards. Periods:</p>
+        <div class="table-scroll"><table id="period-table"></table></div>
+        <h3><span class="tag">c</span>Formulas</h3>
+        <div class="formula">
+          <div class="tex">g_t = \ln N_t - \ln N_{t-12} \qquad \text{(the change on the same month a year earlier, in log points)}</div>
+          <p>A month t counts if it lies in the period, its base month t − 12 is not earlier than the period's <em>base start</em>, both months are observed, and (UPI only) the pair does not straddle the Aug 2018 same-account exclusion (t − 12 &lt; Aug 2018 ≤ t). At least 3 comparisons are needed.</p>
+          <div class="tex">\hat g = \frac{1}{n}\sum_t g_t, \qquad \text{SE}(\hat g)^2 = \frac{1}{n^2}\Big[\sum_t e_t^2 + 2\sum_{l=1}^{12}\Big(1-\frac{l}{13}\Big)\sum_{t} e_t e_{t-l}\Big],\quad e_t = g_t - \hat g</div>
+          <p>This is the Newey–West (HAC) standard error with Bartlett weights and 12 lags, from an OLS regression of g on a constant. It allows for the strong overlap between neighbouring 12-month changes.</p>
+          <div class="tex">\text{growth a year} = 100\,(e^{\hat g}-1)\%, \qquad 95\%\ \text{CI} = 100\,(e^{\hat g \pm 1.96\,\text{SE}}-1)\%</div>
+          <div class="tex">\Delta = \hat g_{\text{post}} - \hat g_{\text{pre}}, \qquad \text{SE}(\Delta) = \sqrt{\text{SE}_{\text{pre}}^2 + \text{SE}_{\text{post}}^2}</div>
+          <p>Shares: s<sub>from</sub> is the mean share in the first three months of the period that have share data, s<sub>to</sub> the mean of the last three.</p>
+        </div>
+        <h3><span class="tag">d</span>Decision rule</h3>
+        <div class="rule"><b>Base-start rule.</b> Pre-COVID and post-COVID compare months only with bases inside the same period. The COVID period is the exception: its base start is moved 12 months earlier, so COVID months are compared with the same month before COVID, on purpose.<br>
+          <b>Class rule</b> for each cell, in order: <b>Absolute contraction</b> if the upper end of the 95% CI is below zero (ĝ + 1.96 SE &lt; 0); otherwise <b>Relative share loss</b> if the share fell (s<sub>to</sub> &lt; s<sub>from</sub>); otherwise <b>Co-expansion</b>. The post − pre column is coloured red if its whole 95% interval is below zero and green if it is above.</div>
+        <h3><span class="tag">e</span>Worked example (live numbers)</h3>
+        <div class="example" id="ex-covid"></div>
+        <h3><span class="tag">f</span>Caveats</h3>
+        <div class="caveats"><ul>
+          <li>Debit and credit have no P2M + cards share before Apr 2020, so in the pre-COVID period they can only be "Absolute contraction" or "Co-expansion".</li>
+          <li>n counts overlapping 12-month comparisons, not independent observations; that is why the HAC correction matters.</li>
+          <li>The difference's SE treats the two periods as independent, which ignores any correlation across the boundary.</li>
+        </ul></div>
+      </section>
+
+      <!-- 7. Classification -->
+      <section class="panel" id="classification" aria-labelledby="class-title">
+        <div class="panel-head">
+          <div><p class="panel-kicker">7 · The classification rule</p><h2 id="class-title">Absolute contraction, relative share loss or continued growth</h2></div>
+          <a class="backlink" href="final.html#classification">See the classification →</a>
+        </div>
+        <h3><span class="tag">a</span>The question</h3>
+        <p>For IMPS, debit cards and credit cards: has the rail actually shrunk (fewer payments than at its best), has it only lost share to UPI while still growing, or has it kept growing in both senses?</p>
+        <h3><span class="tag">b</span>Data used</h3>
+        <p>Primary variant: monthly volume (<code>imps_volume_mn</code>, <code>debit_volume_mn</code>, <code>credit_volume_mn</code>), <span data-v="start"></span> – <span data-v="end"></span>; shares within the primary group (<code>share_imps_ui_pct</code> for IMPS; <code>share_debit_pc_pct</code>, <code>share_credit_pc_pct</code> for cards). Reference windows for the share change:</p>
+        <div class="table-scroll"><table id="ref-table"></table></div>
+
+        <h3><span class="tag">c</span>Formulas</h3>
+        <div class="formula">
+          <div class="tex">A_t = \frac{1}{12}\sum_{j=0}^{11} X_{t-j} \qquad \text{(12-month average, only if all 12 months are in the window)}</div>
+          <div class="tex">P = \arg\max_t A_t, \qquad D = \frac{A_T}{A_P} - 1 \qquad (T = \text{last month of the window})</div>
+          <div class="tex">\Delta s = \underbrace{\tfrac{1}{12}\textstyle\sum_{t=T-11}^{T} s_t}_{\text{latest 12 months}} - \underbrace{\overline{s}_{\text{reference window}}}_{\text{mean monthly share}} \quad \text{(percentage points)}</div>
+          <p>D is never positive: if the latest 12-month average is the highest so far, P = T and D = 0. The share terms are averages of monthly shares.</p>
+        </div>
+
+        <h3><span class="tag">d</span>Decision rule</h3>
+        <div class="rule">For threshold θ (<span data-v="thresholds"></span>; primary <span data-v="primaryTh"></span>):
+          <ol>
+            <li><b>Absolute contraction</b> if D ≤ −θ;</li>
+            <li>otherwise <b>Relative share loss</b> if Δs &lt; 0;</li>
+            <li>otherwise <b>Continued growth</b>.</li>
+          </ol>
+          <b>Robustness.</b> The primary label (volume, 10%, primary group, full window) is compared with five checks: threshold 5%, threshold 20%, real value, PSI-period window, and either RBI daily data (IMPS) or the secondary group (cards). The label is <b>robust</b> if at least 4 of the 5 agree (n − 1 of n) <em>and</em> the PSI-period window agrees; otherwise it is "fragile".</div>
+        <h4>The variants</h4>
+        <ul>
+          <li><b>Real value</b>: X is CPI-deflated value (<code>*_real_value_crore</code>) and the share is a share of nominal <em>value</em> within the group (CPI cancels out of a value share).</li>
+          <li><b>PSI-period window</b>: the window starts in <span data-v="psiStart"></span>, so the first 12-month average ends in May 2022 and the reference window is <span data-v="refPsi"></span>. This uses only consistently classified RBI card data.</li>
+          <li><b>RBI daily data</b> (IMPS only): UPI and IMPS volumes summed from RBI's daily file, window <span data-v="winDaily"></span>, reference <span data-v="refDaily"></span>.</li>
+          <li><b>Secondary group</b> (cards): share within UPI total + debit + credit, reference <span data-v="refUi"></span>.</li>
+          <li><b>Within cards</b> (cards, shown in the table only, not one of the five checks): share within debit + credit, reference <span data-v="refUi"></span>.</li>
+        </ul>
+        <h4>Crossing month, heat-map and Fig 4</h4>
+        <div class="formula">
+          <div class="tex">d_t = \frac{A_t}{\max_{u \le t} A_u} - 1 \qquad \text{(drawdown from the running peak)}</div>
+          <p><b>Crossing month</b> for threshold θ: the first month of the spell with d<sub>t</sub> ≤ −θ that is still running at the end of the window. If d<sub>t</sub> climbs back above −θ, the clock resets; if the latest month is above −θ, there is no crossing. <b>Fig 4</b> plots d<sub>t</sub> × 100 for the three primary variants, with reference lines at −5%, −10% and −20%. The <b>heat-map</b> applies the same rule at 5%, 10% and 20% to three variants: "Volume, bridged" (primary), "Real value" and "Volume, PSI period".</p>
+        </div>
+
+        <h3><span class="tag">e</span>Worked example (live numbers)</h3>
+        <div class="example" id="ex-class"></div>
+        <details><summary>Every variant, with D, Δs and the labels at 5 / 10 / 20%</summary>
+          <div class="table-scroll"><table id="variant-table"></table></div>
+        </details>
+
+        <h3><span class="tag">f</span>Caveats</h3>
+        <div class="caveats"><ul>
+          <li>The thresholds are conventions. A rail between two thresholds (IMPS now) gets different labels at 10% and 20%, which is why IMPS is reported as the boundary case.</li>
+          <li>IMPS's share loss against UPI is mechanical (UPI started small), so its drawdown and peak timing carry the information.</li>
+          <li>The 12-month average smooths seasonality, so D reacts to a fall with a lag of up to a year.</li>
+        </ul></div>
+      </section>
+
+      <!-- 8. Decomposition -->
+      <section class="panel" id="decomposition" aria-labelledby="dec-title">
+        <div class="panel-head">
+          <div><p class="panel-kicker">8 · Share decomposition</p><h2 id="dec-title">Own growth against comparison-group growth</h2></div>
+          <a class="backlink" href="final.html#decomposition">See the decomposition →</a>
+        </div>
+        <h3><span class="tag">a</span>The question</h3>
+        <p>When a rail's share fell, was that because the rail shrank, or because the group (mostly UPI) grew faster?</p>
+        <h3><span class="tag">b</span>Data used</h3>
+        <p>Volumes of the rail and of every group member. "From" is the group's reference window (<span data-v="refUi"></span> for UPI + IMPS, UPI + cards and cards only; <span data-v="refPc"></span> for P2M + cards); "to" is the latest 12 months, <span data-v="last12"></span>.</p>
+        <h3><span class="tag">c</span>Formulas</h3>
+        <div class="formula">
+          <div class="tex">\bar N_0, \bar N_1 = \text{mean own volume in the "from" and "to" windows}; \quad \bar G_0, \bar G_1 = \text{mean group total volume}</div>
+          <div class="tex">\text{share}_w = \bar N_w / \bar G_w, \qquad \ln\frac{\text{share}_1}{\text{share}_0} = \ln\frac{\bar N_1}{\bar N_0} - \ln\frac{\bar G_1}{\bar G_0}</div>
+          <p>The identity is exact: the log change in share is own log growth minus group log growth. "Own growth" and "group growth" in the table are 100 × (N̄<sub>1</sub>/N̄<sub>0</sub> − 1) and 100 × (Ḡ<sub>1</sub>/Ḡ<sub>0</sub> − 1).</p>
+        </div>
+        <h3><span class="tag">d</span>Decision rule (main driver)</h3>
+        <div class="rule">If the share fell: <b>own decline</b> if the rail's own average volume fell (N̄<sub>1</sub> &lt; N̄<sub>0</sub>), otherwise <b>group grew faster</b>. If the share rose: <b>gained share</b>.</div>
+        <h3><span class="tag">e</span>Worked example (live numbers)</h3>
+        <div class="example" id="ex-dec"></div>
+        <h3><span class="tag">f</span>Caveats</h3>
+        <div class="caveats"><ul>
+          <li>Here the share is a ratio of window averages, while the classification uses the average of monthly shares, so the two "from" shares differ slightly (<span data-v="impsShareGap"></span> for IMPS).</li>
+          <li>Group growth is dominated by UPI, much of it payments that were never digital, so "group grew faster" does not mean the rail lost customers to UPI.</li>
+        </ul></div>
+      </section>
+
+      <!-- 9. Hypotheses -->
+      <section class="panel" id="hypotheses" aria-labelledby="hyp-title">
+        <div class="panel-head">
+          <div><p class="panel-kicker">9 · Hypotheses</p><h2 id="hyp-title">H1–H3: the Assignment 2 rule and the sharper v2 test</h2></div>
+          <a class="backlink" href="final.html#hypotheses">See H1–H3 →</a>
+        </div>
+
+        <h3><span class="tag">c</span>Shared tools: the regression design and the drift test</h3>
+        <p>Two estimators are used throughout. The <b>A2 OLS trend</b> is the regression stated in Assignment 2; the <b>drift</b> is the mean 12-month log change of <a href="#covid">section 6</a>, applied to the whole window (bases from the window start, and for any series involving total UPI the comparisons straddling Aug 2018 are dropped).</p>
+        <div class="formula">
+          <div class="tex">y_t = \alpha + \beta\, t + \sum_{c=2}^{12}\gamma_c\,\mathbb 1[\text{month}_t = c] + \delta\,\text{Diwali}_t + \sum_{m \in \text{COVID}}\phi_m\,\mathbb 1[t = m] + \sum_j \lambda_j\,\mathbb 1[t \ge d_j] + \varepsilon_t</div>
+          <p>t is in years from <span data-v="trendOrigin"></span>, so β is the change in y per year (for a log series, 100(e<sup>β</sup> − 1)% a year). Diwali months: <span data-v="diwaliList"></span>. One dummy per COVID month: <span data-v="covidList"></span> (each such month is fitted exactly, so it has no influence on β). A2 level dummies d<sub>j</sub>, by the rail the series belongs to (for a ratio, the rail in the numerator): UPI's own series, Aug 2018 (same-account exclusion); card series, <span data-v="cardDummies"></span> (card definition change, PSI splice, bank-wise layout change); IMPS and P2M series, none. Columns that are constant or duplicate in the sample are dropped. Standard errors: Newey–West, Bartlett, <span data-v="hac"></span> lags. One-sided p-values: p(&gt; 0) = 1 − Φ(β̂/SE), p(&lt; 0) = Φ(β̂/SE).</p>
+        </div>
+
+        <h3><span class="tag">H1</span>Small payments move to UPI, so IMPS and debit tickets rise</h3>
+        <p><b>Data.</b> For IMPS and debit: the log relative ticket r<sub>t</sub> = ln(ticket<sub>own</sub> ÷ ticket<sub>UPI total</sub>) from nominal tickets (<code>*_ticket_rs</code>; the ratio is the same in real terms), the log real ticket (<code>*_real_ticket_rs</code>), and the log nominal tickets. Window <span data-v="start"></span> – <span data-v="end"></span>.</p>
+        <div class="rule">
+          <b>A2 rule (per rail):</b> the A2 OLS trend of r<sub>t</sub> <em>and</em> the A2 OLS trend of the log real ticket are both positive at 5% (one-sided, p(&gt; 0) &lt; 0.05). <b>"Not rejected"</b> only if this holds for both IMPS and debit; otherwise <b>"Rejected"</b>.<br>
+          <b>v2 test (per rail), three parts:</b> (1) drift of r<sub>t</sub> &gt; 0 at 5%; (2) drift of the log real ticket &gt; 0 at 5%; (3) the drift of the rail's own nominal ticket is positive (point estimate), so the relative ticket is not rising only because UPI's ticket falls. <b>Supported</b> if all three hold for both rails; <b>Partially supported</b> if at least one part holds for at least one rail; otherwise <b>Not supported</b>.<br>
+          <b>"Of which UPI's own ticket fall"</b> = −drift(ln ticket<sub>UPI</sub>) ÷ drift(r<sub>t</sub>): the part of the relative-ticket rise that comes from UPI's falling ticket. For debit, the drift of ln(debit ticket ÷ P2M ticket) is also shown, for information only.</div>
+        <div class="example" id="ex-h1"></div>
+
+        <h3><span class="tag">H2</span>The shifts coincide with COVID, not with zero MDR</h3>
+        <p><b>Data.</b> ln volume of IMPS, debit and credit, <span data-v="start"></span> – <span data-v="end"></span> (<span data-v="bsMonths"></span> months); the card regressions are also run without the Nov 2019 dummy, and ln(debit ÷ credit) nets out shocks common to both card types.</p>
+        <div class="formula">
+          <div class="tex">y_t = \text{design}_t + \delta\,\mathbb 1[t \ge \tau] + \theta\,\frac{t-\tau}{12}\,\mathbb 1[t \ge \tau] + \varepsilon_t \qquad \text{(level and slope break at } \tau)</div>
+          <p><b>Search.</b> τ runs over every month after trimming <span data-v="trim"></span> of the sample at each end (<span data-v="bsTrimMonths"></span> months): <span data-v="bsFirst"></span> – <span data-v="bsLast"></span>, <span data-v="bsCandidates"></span> candidates. A candidate is skipped when the break dummies coincide with the fixed dummies and the model cannot be estimated. τ̂ minimises the sum of squared residuals SSR(τ).</p>
+          <div class="tex">\text{LR}(\tau) = n\,\frac{\text{SSR}(\tau) - \text{SSR}(\hat\tau)}{\text{SSR}(\hat\tau)}, \qquad \text{95\% confidence set} = \{\tau : \text{LR}(\tau) \le 7.35\}</div>
+          <p>7.35 is Hansen's (2000) 95% critical value for inverting the likelihood-ratio statistic of a break date. The page reports the earliest and latest month in the set.</p>
+          <div class="tex">\text{BIC}_0 = n\ln\frac{\text{SSR}_0}{n} + k_0\ln n,\quad \text{BIC}_1 = n\ln\frac{\text{SSR}(\hat\tau)}{n} + (k_0+3)\ln n,\quad \text{BIC}_2 = n\ln\frac{\text{SSR}(\hat\tau,\hat\tau_2)}{n} + (k_0+5)\ln n</div>
+          <p>k<sub>0</sub> is the number of regressors without a break. The second break τ̂<sub>2</sub> is searched with τ̂ held fixed, at least <span data-v="bsTrimMonths"></span> months from it. The number of breaks (0, 1 or 2) is the one with the smallest BIC.</p>
+        </div>
+        <div class="rule"><b>Timing label</b> for each series, checked in this order:
+          <ol>
+            <li><b>No break selected</b> if BIC chooses 0 breaks;</li>
+            <li><b>Indeterminate</b> if the confidence set covers both Jan 2020 (zero MDR) and Mar 2020 (COVID);</li>
+            <li><b>COVID-timed</b> if τ̂ is in Mar – Dec 2020 and the set does not cover Jan 2020;</li>
+            <li><b>Zero-MDR-timed</b> if τ̂ is in Oct 2019 – Feb 2020 and the set does not cover Mar 2020;</li>
+            <li>otherwise <b>Elsewhere</b>.</li>
+          </ol>
+          Only IMPS, debit and credit with their full design (the first, second and fourth rows) enter the verdict, and only if BIC selects a break.<br>
+          <b>A2 rule:</b> <b>Rejected</b> if more than half of those breaks fall in Oct 2019 – Feb 2020, or none falls in Mar – Apr 2020; otherwise <b>Not rejected</b>.<br>
+          <b>v2 test:</b> <b>Indeterminate</b> if at least half (and at least one) are Indeterminate; else <b>Supported</b> if more than half are COVID-timed <em>and</em> the debit ÷ credit trend change at Jan 2020 is not significant; else <b>Not supported</b> if more than half are Zero-MDR-timed; else <b>Partially supported</b>.</div>
+        <details><summary>The debit ÷ credit test at the two known dates</summary>
+          <p>Zero MDR (Jan 2020) applied to UPI and RuPay debit, not to credit cards, so the ratio of debit to credit volume nets out shocks that hit both card types (such as COVID). The model is ln(debit ÷ credit) on a trend, month dummies, a level step and a slope change at τ, a Jun 2021 splice dummy, and one dummy for each month of Mar – Dec 2020 and Apr – Jun 2021, over <span data-v="ratioWindow"></span>, with Newey–West (12) errors, fitted once with τ = Jan 2020 and once with τ = Mar 2020. "Significant" means |slope change ÷ SE| &gt; 1.96 at Jan 2020.</p>
+        </details>
+        <div class="example" id="ex-h2"></div>
+
+        <h3><span class="tag">H3</span>Remaining card volume is increasingly credit; P2M's gains slow</h3>
+        <p><b>Data.</b> Credit's share of debit + credit volume (<code>share_credit_cc_pct</code>) as log-odds; UPI P2M's share of P2M + debit + credit (<code>share_p2m_pc_pct</code>); debit and credit volumes; credit cards outstanding (<code>credit_cards_lakh</code>).</p>
+        <div class="formula">
+          <div class="tex">\text{logit}(p) = \ln\frac{p}{1-p}; \qquad \text{logit}\Big(\frac{C}{C+D}\Big) = \ln C - \ln D \;\Rightarrow\; \Delta\,\text{logit} = \underbrace{\Delta\ln \bar C}_{\text{credit part}} + \underbrace{(-\Delta\ln \bar D)}_{\text{debit part}}</div>
+          <p>For each period, Δ compares the mean volume in the period's first 12 months with its last 12 months. "Debit's part" = 100 × (−Δln D̄) ÷ Δlogit.</p>
+          <div class="tex">\Delta\,\text{logit}(s^{P2M}_t) = a + b\,\mathbb 1[t \in \text{latest 12 months}] + u_t,\quad t \in \text{Jul 2020–Jun 2021} \cup \text{latest 12 months}</div>
+          <p>a is the average monthly gain in P2M's log-odds in its first full year, b how much smaller the gain is in the latest year (Newey–West 12).</p>
+        </div>
+        <div class="rule">
+          <b>A2 rule:</b> <b>Not rejected</b> if all three legs pass: (1) A2 OLS trend in logit credit share, bridged series, p(&gt; 0) &lt; 0.05; (2) the same on the PSI period only (from <span data-v="psiStart"></span>); (3) P2M's average monthly share gain (pp) over the latest 12 months (<span data-v="leg2Last"></span>) is smaller than over its first 12 (<span data-v="leg2First"></span>). Otherwise <b>Rejected</b>.<br>
+          <b>v2 test</b>, three parts: (1) <b>slope break</b>: the post-COVID drift of the logit credit share exceeds the pre-COVID drift, (post − pre) ÷ √(SE<sub>pre</sub>² + SE<sub>post</sub>²) &gt; 1.96; (2) <b>debit drove it</b>: debit's part of the post-COVID rise is above 50%; (3) <b>P2M slowed</b>: b ÷ SE(b) &lt; −1.96. <b>Supported</b> if all three hold, <b>Partially supported</b> if one or two, else <b>Not supported</b>.<br>
+          <b>Card supply (context, no verdict):</b> between <span data-v="refPsi"></span> and the latest 12 months, ln growth of credit volume = ln growth of cards in force + ln growth of payments per card; "from new cards" = cards' ln growth ÷ volume's ln growth.</div>
+        <div class="example" id="ex-h3"></div>
+        <h3><span class="tag">f</span>Caveats</h3>
+        <div class="caveats"><ul>
+          <li>Most log levels look persistent (<a href="#diagnostics">section 12</a>), so OLS trend t-statistics can overstate significance. That is why the v2 tests use drifts.</li>
+          <li>The H3 A2 leg 3 is mechanically expected: a share near its 100% ceiling must gain fewer points.</li>
+          <li>The break confidence set is reported as its earliest–latest span; it need not be a solid block (debit's set has <span data-v="debitConfSize"></span> months inside a <span data-v="debitConfSpan"></span>-month span).</li>
+          <li>Monthly data cannot separate Jan 2020 from Mar 2020 well: the two dates are only two months apart.</li>
+        </ul></div>
+      </section>
+
+      <!-- 10. Magnitudes -->
+      <section class="panel" id="magnitudes" aria-labelledby="mag-title">
+        <div class="panel-head">
+          <div><p class="panel-kicker">10 · Managerial magnitudes</p><h2 id="mag-title">The formula behind each row</h2></div>
+          <a class="backlink" href="final.html#magnitudes">See the magnitudes →</a>
+        </div>
+        <h3><span class="tag">a</span>The question</h3>
+        <p>What do the shifts mean in payments a month, rupees, and use per card or terminal?</p>
+        <h3><span class="tag">b–c</span>Data and formula per row (with the current value)</h3>
+        <p>"Latest 12 months" is <span data-v="last12"></span>. A<sub>t</sub> is the 12-month average of <a href="#classification">section 7</a>. Real values are in <span data-v="cpiBaseMonth"></span> prices.</p>
+        <div class="table-scroll"><table id="mag-table"></table></div>
+        <h3><span class="tag">f</span>Caveats</h3>
+        <div class="caveats"><ul>
+          <li>Average real tickets are means of monthly tickets, not total value ÷ total volume over the year.</li>
+          <li>Card payments include online use, so payments per PoS terminal overstate how much each terminal is used.</li>
+          <li>The card share of merchant value uses nominal values; deflating both sides by the same CPI would not change it.</li>
+        </ul></div>
+      </section>
+
+      <!-- 11. Robustness -->
+      <section class="panel" id="robustness" aria-labelledby="rob-title">
+        <div class="panel-head">
+          <div><p class="panel-kicker">11 · Robustness</p><h2 id="rob-title">Sensitivity checks and the card bridge</h2></div>
+          <a class="backlink" href="final.html#robustness">See the checks →</a>
+        </div>
+        <h3><span class="tag">a</span>The question</h3>
+        <p>Do the credit-card result and the P2M-based results depend on data choices that could be wrong?</p>
+        <h3><span class="tag">b–d</span>Each check</h3>
+        <ul>
+          <li><b>RuPay credit on UPI.</b> Since <span data-v="rupay"></span> RuPay credit cards can be linked to UPI, so some payments counted as credit-card payments may also be UPI payments. From that month credit volume is multiplied by (1 − c) for c = 0%, 5% and 10%. For each c, credit is reclassified with the rule of section 7 (P2M + debit + credit group recomputed with the adjusted credit), and the drift of logit(credit ÷ (credit + debit)) is recomputed over Jul 2021 – <span data-v="end"></span>. The result holds if the label and the sign of the drift do not change.</li>
+          <li><b>UPI P2M source.</b> Each P2M month is either an archived, hash-checked NPCI API JSON file or a transcribed NPCI web table. For each source the table reports the number of months, the largest |P2P + P2M − total| (million), and the largest gap between that total and NPCI's UPI product statistics (%).</li>
+          <li><b>UPI P2M verified months.</b> The archived API months (<span data-v="verifiedMonths"></span>) do not include the latest 12 months, so the P2M-group classification cannot be re-run on verified months alone.</li>
+          <li><b>Nov 2019 card dummy.</b> The H2 break search is repeated without it (rows "no Nov 2019 dummy" in the H2 table).</li>
+          <li><b>Card bridge table.</b> k, the out-of-sample error and the overlap gaps, as explained in <a href="#bridge">section 2</a>.</li>
+        </ul>
+        <h3><span class="tag">e</span>Worked example (live numbers)</h3>
+        <div class="example" id="ex-rob"></div>
+      </section>
+
+      <!-- 12. Diagnostics -->
+      <section class="panel" id="diagnostics" aria-labelledby="diag-title">
+        <div class="panel-head">
+          <div><p class="panel-kicker">12 · Diagnostics</p><h2 id="diag-title">Unit roots, trend tests and residual autocorrelation</h2></div>
+          <a class="backlink" href="final.html#diagnostics">See the diagnostics →</a>
+        </div>
+        <h3><span class="tag">a</span>The question</h3>
+        <p>Do the log series wander like random walks (a unit root) or move around a deterministic trend? The answer decides which trend test to trust.</p>
+        <h3><span class="tag">b</span>Data used</h3>
+        <p>Every log or logit series used in the tests (volumes, real tickets, relative tickets, the three logit shares and ln debit ÷ credit), over each series' own months in the window. Nominal tickets and real values are left out of the diagnostics table.</p>
+        <h3><span class="tag">c</span>Formulas</h3>
+        <div class="formula">
+          <div class="tex">\text{ADF:}\quad \Delta y_t = a + b\,\tfrac{t}{12} + \rho\,y_{t-1} + c_1\Delta y_{t-1} + c_2\Delta y_{t-2} + \textstyle\sum_{c=2}^{12}\gamma_c\,\mathbb 1[\text{month}_t=c] + u_t, \qquad \text{statistic} = \hat\rho/\text{SE}(\hat\rho)</div>
+          <p>Constant, trend, month dummies and 2 lags; ordinary (not HAC) standard error. A unit root is rejected at 5% if the statistic is below <span data-v="adfCrit"></span> (MacKinnon value for a constant and trend, about 100 observations).</p>
+          <div class="tex">\text{KPSS:}\quad e_t = \text{residual of } y_t \text{ on constant, trend, month dummies};\ S_t = \textstyle\sum_{s\le t} e_s;\ \ \eta = \dfrac{\sum_t S_t^2}{n^2\,\hat\sigma^2},\ \ \hat\sigma^2 = \tfrac1n\textstyle\sum e_t^2 + 2\sum_{l=1}^{12}\big(1-\tfrac{l}{13}\big)\tfrac1n\sum_t e_t e_{t-l}</div>
+          <p>Trend stationarity is rejected at 5% if η &gt; <span data-v="kpssCrit"></span>.</p>
+          <div class="tex">\text{Ljung–Box:}\quad Q = n(n+2)\sum_{k=1}^{12}\frac{\hat\rho_k^2}{n-k} \sim \chi^2_{12}</div>
+          <p>ρ̂<sub>k</sub> is the k-th autocorrelation of the regression residuals; a small p-value means the residuals are autocorrelated (another reason for Newey–West errors).</p>
+        </div>
+        <h3><span class="tag">d</span>Decision rule ("reading")</h3>
+        <div class="rule"><b>trend-stationary</b> if ADF &lt; <span data-v="adfCrit"></span> and KPSS ≤ <span data-v="kpssCrit"></span> (both tests agree there is no unit root); <b>unit root likely</b> if ADF ≥ <span data-v="adfCrit"></span> and KPSS &gt; <span data-v="kpssCrit"></span> (both point to a unit root); otherwise <b>inconclusive</b>. An asterisk on the results page marks a rejection at 5%.</div>
+        <h4>The trend-estimates table: four methods</h4>
+        <ul>
+          <li><b>Drift: mean 12-month log change, NW(12)</b>: as in <a href="#covid">section 6</a>, on the full window. Valid whether or not the series has a unit root.</li>
+          <li><b>A2 OLS trend</b>: β in the regression design of <a href="#hypotheses">section 9</a>.</li>
+          <li><b>Segmented OLS</b>: the same design plus max(t, 0), a slope change from <span data-v="trendOrigin"></span>; "after Jan 2020" = β + slope change, with its SE from the covariance of the two.</li>
+          <li><b>A2 OLS trend with cards outstanding and PoS terminals</b> (card volumes only): the A2 design plus ln cards outstanding (own card type) and ln PoS terminals as controls, to separate usage from supply.</li>
+        </ul>
+        <p>The p column shows p(&gt; 0) / p(&lt; 0); the Ljung–Box p is for the residuals of that regression.</p>
+        <h3><span class="tag">e</span>Worked example (live numbers)</h3>
+        <div class="example" id="ex-diag"></div>
+        <h3><span class="tag">f</span>Caveats</h3>
+        <div class="caveats"><ul>
+          <li>The ADF critical value ignores the month dummies and the COVID collapse, both of which shift the true distribution, so readings near the line are uncertain.</li>
+          <li>With about 100 months, both tests have low power; "inconclusive" is common and honest.</li>
+        </ul></div>
+      </section>
+
+      <!-- Glossary -->
+      <section class="panel" id="glossary" aria-labelledby="gloss-title">
+        <p class="panel-kicker">Glossary</p>
+        <h2 id="gloss-title">Terms used on the Final analysis pages</h2>
+        <dl class="gloss">
+          <dt>NPCI</dt><dd>National Payments Corporation of India, which runs UPI and IMPS and publishes their monthly statistics.</dd>
+          <dt>UPI</dt><dd>Unified Payments Interface: instant account-to-account payments by phone, using a virtual address or QR code.</dd>
+          <dt>IMPS</dt><dd>Immediate Payment Service: NPCI's older instant bank transfer, by account number and IFSC or mobile number.</dd>
+          <dt>P2P / P2M</dt><dd>Person-to-person and person-to-merchant UPI payments. NPCI publishes the split from Apr 2020.</dd>
+          <dt>PSI</dt><dd>RBI's Payment System Indicators, the monthly release of payment statistics for every system, including card payments (PoS based and Others) and acceptance infrastructure.</dd>
+          <dt>Bank-wise statistics</dt><dd>RBI's monthly ATM/PoS/card pages, with one row per bank and an all-bank total.</dd>
+          <dt>MDR</dt><dd>Merchant discount rate: the fee a merchant pays to accept a payment. Set to zero for UPI and RuPay debit cards from 1 Jan 2020; credit cards still carry it.</dd>
+          <dt>Splice, k</dt><dd>Joining two sources into one series. k is the scale factor (geometric mean of PSI ÷ bank-wise over the overlap) applied to the older source.</dd>
+          <dt>Drawdown</dt><dd>How far a series is below its own highest level: latest ÷ peak − 1, using 12-month averages.</dd>
+          <dt>Log points</dt><dd>Differences in natural logs. A change of 0.10 log points is about 10.5%; exactly 100(e<sup>x</sup> − 1)%.</dd>
+          <dt>Logit / log-odds</dt><dd>logit(p) = ln(p ÷ (1 − p)). For a share it spreads out values near 0% and 100%, so changes there stay visible.</dd>
+          <dt>HAC / Newey–West</dt><dd>Standard errors robust to heteroskedasticity and autocorrelation. Bartlett weights 1 − l/13 down-weight lags l = 1 … 12.</dd>
+          <dt>Trimming</dt><dd>Excluding the first and last 15% of months as possible break dates, so each side of a break has enough data.</dd>
+          <dt>BIC</dt><dd>Bayesian information criterion: fit (n ln SSR/n) plus a penalty per parameter (ln n); smaller is better.</dd>
+          <dt>ADF, KPSS</dt><dd>Unit-root tests with opposite null hypotheses: ADF assumes a unit root, KPSS assumes trend stationarity.</dd>
+          <dt>A2 rule / v2 test</dt><dd>The rejection rule pre-stated in Assignment 2, and the revised, sharper test added after the review.</dd>
+        </dl>
+      </section>
+
+      <!-- Reproduce -->
+      <section class="panel" id="reproduce" aria-labelledby="repro-title">
+        <p class="panel-kicker">Reproduce it</p>
+        <h2 id="repro-title">Rebuild every number on both pages</h2>
+        <p>Python 3, standard library only. From the <code>assignment2</code> folder:</p>
+<pre><code>python3 analysis/final_analysis.py            # docs/final-data.js, analysis/output/tp_*.csv, tp_findings.md
+python3 scripts/export_final_page_data.py     # final_page_data/: every table and chart as CSV
+python3 scripts/build_final_analysis_data.py  # final_analysis_data/: inputs and monthly_panel.csv</code></pre>
+        <div class="two">
+          <div>
+            <h4>Outputs</h4>
+            <ul>
+              <li><code>final_page_data/</code>: one CSV per table or chart on the results page, in page order (<code>01_answer_headline.csv</code> … <code>10b_trend_tests.csv</code>), plus <code>11_method_constants.csv</code> with the constants and worked-example inputs used on this page.</li>
+              <li><code>analysis/output/tp_numbers.csv</code> and <code>tp_findings.md</code>: the key numbers and a text summary.</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Inputs</h4>
+            <ul>
+              <li><code>final_analysis_data/monthly_panel.csv</code>: one row per month with every series in this method (column reference in its <code>README.md</code>).</li>
+              <li><code>final_analysis_data/npci/</code>, <code>rbi/</code>, <code>mospi/</code>: the raw inputs, each with a source column; <code>manifest.csv</code> has checksums.</li>
+              <li>Code: <code>analysis/final_analysis.py</code> (all sections), <code>analysis/long_series.py</code> (card splice), <code>analysis/hypothesis_tests.py</code> (OLS and Newey–West).</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <p class="bottom-note">Every number on this page is read from <code>docs/final-data.js</code>, the file behind the <a href="final.html">Final analysis</a> page; constants that live only in the code are exported in its <code>method</code> block. Associations only: monthly all-India totals cannot show who switched or why.</p>
+    </main>
+    <footer><span>Utility Maximizers · DA241o · Managerial Economics</span><span id="footer-through"></span></footer>
+  </div>
+
+  <script src="final-data.js"></script>
+  <script>
+    (function () {
+      const D = window.FINAL_DATA;
+      const M = D.method;
+      const S = D.series;
+      const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+      const label = m => m ? `${MONTHS[+m.slice(5, 7) - 1]} ${m.slice(0, 4)}` : "none";
+      const win = w => `${label(w[0])} – ${label(w[1])}`;
+      const mdiff = (a, b) => (+b.slice(0, 4) - +a.slice(0, 4)) * 12 + (+b.slice(5, 7) - +a.slice(5, 7));
+      const shift = (m, k) => { const i = +m.slice(0, 4) * 12 + +m.slice(5, 7) - 1 + k; return `${Math.floor(i / 12)}-${String(i % 12 + 1).padStart(2, "0")}`; };
+      const minus = s => s.replace(/^-/, "−");
+      const f = (v, d = 1) => v === null || v === undefined || Number.isNaN(v) ? "–" : minus(v.toLocaleString("en-IN", { minimumFractionDigits: d, maximumFractionDigits: d }));
+      const sign = (v, d = 1) => v === null || v === undefined ? "–" : (v >= 0 ? "+" : "−") + Math.abs(v).toFixed(d);
+      const pctOf = lp => 100 * (Math.exp(lp) - 1);
+      const pctYear = lp => sign(pctOf(lp), 1) + "%";
+      const pval = p => p < 0.001 ? "&lt; 0.001" : p.toFixed(3);
+      const yes = ok => ok ? '<span class="yes">✓</span>' : '<span class="no">✗</span>';
+      const slug = v => "v-" + String(v).toLowerCase().replace(/\s+/g, "-");
+      const vpill = v => `<span class="pill ${slug(v)}">${esc(v)}</span>`;
+      const cls = l => l.startsWith("Absolute") ? "c-contraction" : l.startsWith("Relative") ? "c-share" : "c-growth";
+      const cpill = l => `<span class="pill ${cls(l)}">${esc(l)}</span>`;
+      const calc = s => `<span class="calc">${s}</span>`;
+      const set = (id, html) => { document.getElementById(id).innerHTML = html; };
+      const byMethod = Object.fromEntries(D.summary.map(s => [s.method, s]));
+      const imps = byMethod["IMPS"], debit = byMethod["Debit cards"], credit = byMethod["Credit cards"];
+      const L = M.classificationLevels;
+      const last12 = [shift(D.window.end, -11), D.window.end];
+      const cv = (series, period) => D.covid.find(r => r.series === series).periods[period];
+      const trend = (series, method) => D.trend.find(t => t.series === series && t.method.startsWith(method));
+      const sp = M.splice;
+
+      // ---------- simple placeholders ----------
+      const within = D.bridge.summary.map(b => b.within001FromMar2022);
+      const debitH2 = D.h2.rows.find(r => r.series === "Debit cards");
+      const V = {
+        start: label(D.window.start), end: label(D.window.end), months: D.window.months,
+        p2mStart: label(D.window.p2mStart), p2mMonths: D.window.p2mMonths, dailyEnd: label(D.window.dailyEnd),
+        winFull: win([D.window.start, D.window.end]), winP2m: win([D.window.p2mStart, D.window.end]),
+        winDaily: win([M.refWindows.daily[0], D.window.dailyEnd]),
+        psiStart: label(M.events.psiStart), rupay: label(M.events.rupayCreditOnUpi), trendOrigin: label(M.trendOrigin),
+        diwaliList: M.diwaliMonths.map(label).join(", "), covidList: M.covidMonths.map(label).join(", "),
+        cardDummies: [M.events.cardDefinition, M.events.psiStart, M.events.cardLayout].map(label).join(", "),
+        linkFactor: M.cpi.linkFactor, cpiBase: M.cpi.base.toFixed(2), cpiBaseMonth: label(M.cpi.baseMonth),
+        checkMonths: D.bridge.factors[0].checkMonths,
+        bridgeFrom: D.bridge.summary[0].from, bridgeTo: D.bridge.summary[0].to, bridgeMonths: D.bridge.summary[0].months,
+        within001: `${Math.min(...within)}–${Math.max(...within)}`, monthsFromMar2022: D.bridge.summary[0].monthsFromMar2022,
+        maxGapLate: f(Math.max(...D.bridge.summary.map(b => b.maxAbsGapFromMar2022Pct)), 2) + "%",
+        thresholds: M.thresholdsPct.map(t => t + "%").join(", "), primaryTh: M.primaryThresholdPct + "%",
+        refUi: win(M.refWindows.ui), refPc: win(M.refWindows.pc), refPsi: win(M.refWindows.psi), refDaily: win(M.refWindows.daily),
+        last12: win(last12), hac: M.hacLags, trim: M.trimPct + "%",
+        bsMonths: M.breakSearch.months, bsTrimMonths: M.breakSearch.trimMonths, bsFirst: label(M.breakSearch.firstCandidate),
+        bsLast: label(M.breakSearch.lastCandidate), bsCandidates: M.breakSearch.candidates, ratioWindow: win(M.ratioWindow),
+        leg2First: win(M.h3Leg2Windows.first), leg2Last: win(M.h3Leg2Windows.last),
+        adfCrit: minus(String(M.adfCrit5)), kpssCrit: M.kpssCrit5,
+        verifiedMonths: D.sensitivity.find(s => s.check === "P2M verified months only").setting,
+        debitConfSize: debitH2.confSize, debitConfSpan: mdiff(debitH2.confFrom, debitH2.confTo) + 1,
+        impsShareGap: `${f(D.decomposition[0].shareFromPct, 1)}% here against ${f(imps.shareRefPct, 1)}% in the classification`,
+      };
+
+      document.getElementById("aside-headline").textContent = `${D.window.months} months, 12 sections, every rule written out`;
+      document.getElementById("aside-text").textContent =
+        `Window ${V.start} – ${V.end} (${D.window.months} months; ${D.window.p2mMonths} for UPI P2M). Primary threshold ${V.primaryTh}; Newey–West errors with ${M.hacLags} lags; break search with ${M.trimPct}% trimming.`;
+      document.getElementById("footer-through").textContent = `Data through ${V.end}`;
+
+      // ---------- 1. Data ----------
+      const ce = M.cpi.example;
+      set("ex-data", `<p><b>UPI in ${label(ce.month)}.</b> NPCI reports ${f(ce.upiVolume, 2)} million payments worth ₹${f(ce.upiValue, 2)} crore. CPI on the 2012 base was ${ce.native}, so the linked CPI is ${calc(`${ce.native} × ${M.cpi.linkFactor} = ${f(ce.linked, 5)}`)}.</p>
+        <ul>
+          <li>Real value: ${calc(`${f(ce.upiValue, 2)} × ${M.cpi.base.toFixed(2)} ÷ ${f(ce.linked, 5)} = ₹${f(ce.upiRealValue, 2)} crore`)} (column <code>upi_real_value_crore</code>).</li>
+          <li>Nominal ticket: ${calc(`${f(ce.upiValue, 2)} × 10 ÷ ${f(ce.upiVolume, 2)} = ₹${f(ce.upiTicket, 0)}`)} (<code>upi_ticket_rs</code>); real ticket ${calc(`${f(ce.upiRealValue, 2)} × 10 ÷ ${f(ce.upiVolume, 2)} = ₹${f(ce.upiRealTicket, 0)}`)} at ${V.cpiBaseMonth} prices (<code>upi_real_ticket_rs</code>).</li>
+          <li>Latest shares (${V.end}): IMPS ${f(S.shares[0].values.at(-1), 1)}% of UPI + IMPS; debit ${f(S.shares[1].values.at(-1), 1)}% and credit ${f(S.shares[2].values.at(-1), 1)}% of P2M + debit + credit; credit ${f(S.shares[3].values.at(-1), 1)}% of debit + credit.</li>
+        </ul>`);
+
+      // ---------- 2. Bridge ----------
+      set("assumptions", sp.assumptions.map(a => `<li>${esc(a)}</li>`).join(""));
+      set("k-table", `<thead><tr><th>Series</th><th class="num">k</th><th class="num">Overlap ratios PSI ÷ bank-wise (min – max)</th><th class="num">Out-of-sample MAPE / max error</th></tr></thead><tbody>` +
+        D.bridge.factors.map(x => `<tr><td class="id">${esc(x.series)}<span class="sub">${esc(x.unit)}</span></td><td class="num">${x.k.toFixed(4)}</td><td class="num">${x.overlapMin.toFixed(4)} – ${x.overlapMax.toFixed(4)}</td><td class="num">${f(x.checkMape, 2)}% / ${f(x.checkMax, 2)}%<span class="sub">${esc(x.checkMonths)}</span></td></tr>`).join("") + "</tbody>");
+      set("unit-check", `Unit check at Jul 2019: ${esc(sp.unitCheck)}. ₹1 million is ₹10 lakh, so a conversion error would move the ticket roughly tenfold; a change of a few percent is ordinary month-to-month variation.`);
+      set("gap-table", `<thead><tr><th>Series</th><th class="num">Months</th><th class="num">Largest gap (month)</th><th class="num">Largest gap from Mar 2022 (month)</th><th class="num">Within 0.01% from Mar 2022</th></tr></thead><tbody>` +
+        D.bridge.summary.map(b => {
+          const w = sp.worstGaps[b.series];
+          return `<tr><td class="id">${esc(b.series)}</td><td class="num">${b.months}<span class="sub">${esc(b.from)} – ${esc(b.to)}</span></td>
+            <td class="num">${f(b.maxAbsGapPct, 2)}%<span class="sub">${label(w.month)}, ${esc(w.source)}</span></td>
+            <td class="num">${f(b.maxAbsGapFromMar2022Pct, 2)}%<span class="sub">${label(w.monthFromMar2022)}</span></td>
+            <td class="num">${b.within001FromMar2022} of ${b.monthsFromMar2022}<span class="sub">${b.exactFromMar2022 ? "identical" : "not identical"}</span></td></tr>`;
+        }).join("") + "</tbody>");
+      const ox = sp.overlapExample, cx = sp.cardExample;
+      const kDv = D.bridge.factors.find(x => x.series === "Debit card volume");
+      set("ex-bridge", `<p><b>One overlap month, debit volume, ${label(ox.month)}.</b> PSI: ${f(ox.psiLakh, 2)} lakh = ${calc(`${f(ox.psiLakh, 2)} ÷ 10 = ${f(ox.psiLakh / 10, 3)} million`)}. Bank-wise total: ${ox.bankwiseCount.toLocaleString("en-IN")} payments = ${f(ox.bankwiseCount / 1e6, 3)} million. Ratio ${calc(`${f(ox.psiLakh / 10, 3)} ÷ ${f(ox.bankwiseCount / 1e6, 3)} = ${(ox.psiLakh / 10 / (ox.bankwiseCount / 1e6)).toFixed(4)}`)}, the largest of the nine (range ${kDv.overlapMin.toFixed(4)} – ${kDv.overlapMax.toFixed(4)}).</p>
+        <p><b>k.</b> The geometric mean of the nine debit-volume ratios is k = ${kDv.k.toFixed(4)}: bank-wise debit counts are scaled up by ${f(100 * (kDv.k - 1), 2)}%. For credit the overlap ratios range ${D.bridge.factors.filter(x => x.series.startsWith("Credit")).map(x => `${x.overlapMin.toFixed(4)} – ${x.overlapMax.toFixed(4)} (${x.series.endsWith("volume") ? "volume" : "value"})`).join(" and ")}, so k is ${D.bridge.factors.filter(x => x.series.startsWith("Credit")).map(x => x.k.toFixed(4)).join(" and ")}.</p>
+        <p><b>Applying it, ${label(cx.month)}.</b> Bank-wise debit payments ${cx.bankwiseCount.toLocaleString("en-IN")} → ${calc(`${f(cx.bankwiseCount / 1e6, 3)} × ${cx.k.toFixed(4)} = ${f(cx.spliced, 3)} million`)}, the value in <code>debit_volume_mn</code> for ${label(cx.month)}.</p>
+        <p><b>Out of sample.</b> Against PSI's "same month last year" figures for ${esc(kDv.checkMonths)}, k × bank-wise debit volume is off by ${f(kDv.checkMape, 2)}% on average and ${f(kDv.checkMax, 2)}% at most; every series stays within ${f(Math.max(...D.bridge.factors.map(x => x.checkMax)), 2)}%.</p>`);
+
+      // ---------- 3. Answer ----------
+      set("ex-answer", `<p><b>Debit</b>: D = ${sign(debit.drawdownPct, 1)}% from a peak in the 12 months to ${label(debit.peak)} → ${cpill(debit.label)}. <b>IMPS</b>: D = ${sign(imps.drawdownPct, 1)}% (peak ${label(imps.peak)}); it is past ${M.thresholdsPct.filter(t => imps.drawdownPct <= -t).map(t => t + "%").join(" and ") || "no threshold"}${M.thresholdsPct.some(t => imps.drawdownPct > -t) ? ` but not ${M.thresholdsPct.filter(t => imps.drawdownPct > -t).map(t => t + "%").join(" or ")}` : ""} → ${cpill(imps.label)} at ${M.primaryThresholdPct}%. <b>Credit</b>: D = ${sign(credit.drawdownPct, 1)}%, Δs = ${sign(credit.shareChangePp, 1)} pp → ${cpill(credit.label)}.</p>
+        <div class="table-scroll"><table><thead><tr><th></th><th>Assignment 2 rule</th><th>v2 test</th></tr></thead><tbody>` +
+        Object.entries(D.verdicts).map(([k, v]) => `<tr><td class="id">${k}</td><td>${vpill(v.a2)}</td><td>${vpill(v.v2)}</td></tr>`).join("") +
+        `</tbody></table></div><p class="hint">Generated headline: “${esc(D.headline)}”</p>`);
+
+      // ---------- 4. Corrections ----------
+      const HOW = {
+        "Card overlap with RBI PSI": "Months where both bank-wise figures and PSI exist (bank-wise totals to Feb 2022, bank-level sums PoS + online + other from Mar 2022); largest |bank-wise ÷ PSI − 1| over the four card series; months from Mar 2022 within 0.01% (see section 2).",
+        "Card bridge method": "Method comparison: a direct end-to-end join versus scaling the bank-wise series by k and switching to PSI from Jun 2021 (section 2).",
+        "RBI Bulletin overlap": "Searched for in the repository; nothing to recompute.",
+        "RBI daily file against monthly figures": "Months where RBI's daily UPI and IMPS data, summed to months, can be compared with NPCI's monthly figures (analysis/output/daily_vs_official_monthly.csv); largest |gap| in % per system.",
+        "UPI P2P/P2M months": "Number of months in the NPCI P2P/P2M file and whether any are missing.",
+        "Data window": "First month to the last month every monthly series covers; months counted for the full window and for P2M.",
+      };
+      set("corr-table", `<thead><tr><th>Row</th><th>What is compared and how the repository figure is computed</th><th>Current result</th></tr></thead><tbody>` +
+        D.corrections.map(c => `<tr><td class="id">${esc(c.item)}<span class="sub">A2: ${esc(c.a2)}</span></td><td>${esc(HOW[c.item] || "")}</td><td>${esc(c.repo)}</td></tr>`).join("") + "</tbody>");
+
+      // ---------- 5. Descriptives ----------
+      set("marker-table", `<thead><tr><th>Marker</th><th>Month(s)</th><th>Meaning</th></tr></thead><tbody>` +
+        S.bands.map(b => `<tr><td class="id">Shaded band</td><td>${win([b.from, b.to])}</td><td>${esc(b.label)}</td></tr>`).join("") +
+        S.lines.map(l => `<tr><td class="id">Dashed line “${esc(l.id)}”</td><td>${label(l.month)}</td><td>${esc(l.label)}</td></tr>`).join("") + "</tbody>");
+      const idxLast = S.index.map(s => `${esc(s.name)} ${f(s.values.at(-1), 0)}`).join(", ");
+      const p2mLast = S.indexP2m.map(s => `${esc(s.name)} ${f(s.values.at(-1), 0)}`).join(", ");
+      const tk = S.tickets.map(s => `${esc(s.name)} ₹${f(s.values.at(-1), 0)}`).join(", ");
+      const dIdx = S.index.find(s => s.name === "Debit cards").values.at(-1);
+      set("ex-desc", `<p><b>Fig 1, ${V.end}</b> (Nov 2017 = 100): ${idxLast}. Debit's index of ${f(dIdx, 0)} means ${f(Math.abs(dIdx - 100), 0)}% ${dIdx < 100 ? "fewer" : "more"} debit payments than in Nov 2017.</p>
+        <p><b>Fig 1b, ${V.end}</b> (Apr 2020 = 100): ${p2mLast}.</p>
+        <p><b>Fig 3, ${V.end}</b> (₹ per payment at ${V.cpiBaseMonth} prices): ${tk}.</p>`);
+
+      // ---------- 6. COVID ----------
+      set("period-table", `<thead><tr><th>Period</th><th>Months</th><th>Base months allowed from</th></tr></thead><tbody>` +
+        Object.entries(M.periods).map(([k, w]) => `<tr><td class="id">${esc(k)}</td><td>${win(w)}</td><td>${label(k === "COVID" ? shift(w[0], -12) : w[0])}${k === "COVID" ? " (a year before the period, on purpose)" : " (inside the period)"}</td></tr>`).join("") + "</tbody>");
+      const dp = cv("Debit cards volume", "Post-COVID"), dpre = cv("Debit cards volume", "Pre-COVID");
+      const drow = D.covid.find(r => r.series === "Debit cards volume");
+      const upre = cv("UPI total volume", "Pre-COVID"), p2mc = cv("UPI P2M volume", "COVID");
+      const preSpan = mdiff(shift(M.periods["Pre-COVID"][0], 12), M.periods["Pre-COVID"][1]) + 1;
+      set("ex-covid", `<p><b>Debit cards, post-COVID.</b> ${dp.n} comparisons (${label(shift(M.periods["Post-COVID"][0], 12))} vs ${label(M.periods["Post-COVID"][0])} up to ${V.end}). ĝ = ${sign(dp.est, 4)} log points a year, Newey–West SE ${dp.se.toFixed(4)}.</p>
+        <ul>
+          <li>Growth: ${calc(`100 × (e^${sign(dp.est, 4)} − 1) = ${sign(dp.growthPct, 1)}%`)} a year; 95% CI ${calc(`100 × (e^(${sign(dp.est, 4)} ± 1.96 × ${dp.se.toFixed(4)}) − 1) = [${sign(dp.lo, 1)}%, ${sign(dp.hi, 1)}%]`)}.</li>
+          <li>Upper bound ${sign(dp.hi, 1)}% ${dp.hi < 0 ? "&lt; 0" : "≥ 0"} → ${cpill(dp.class === "Co-expansion" ? "Continued growth" : dp.class).replace("Continued growth", "Co-expansion")}. (Share ${f(dp.shareFrom, 1)}% → ${f(dp.shareTo, 1)}% is not needed once contraction is established.)</li>
+          <li>Post − pre: ${calc(`${sign(dp.est, 4)} − ${sign(dpre.est, 4)} = ${sign(drow.diff, 4)}`)}, SE ${calc(`√(${dpre.se.toFixed(4)}² + ${dp.se.toFixed(4)}²) = ${drow.diffSe.toFixed(4)}`)}, 95% CI [${sign(drow.diffLo, 2)}, ${sign(drow.diffHi, 2)}].</li>
+        </ul>
+        <p><b>Why UPI's pre-COVID cell has only ${upre.n} comparisons.</b> Bases must be from Nov 2017, so the possible months are ${label(shift(M.periods["Pre-COVID"][0], 12))} – ${label(M.periods["Pre-COVID"][1])} (${preSpan}). Those up to Jul 2019 compare with a base before Aug 2018, across the same-account exclusion, and are dropped, leaving ${upre.n}.</p>
+        <p><b>Why UPI P2M's COVID cell has only ${p2mc.n}.</b> P2M starts in Apr 2020, so only Apr – Jun 2021 have a base a year earlier inside the data.</p>`);
+
+      // ---------- 7. Classification ----------
+      set("ref-table", `<thead><tr><th>Group</th><th>Reference window</th><th>Used by</th></tr></thead><tbody>
+        <tr><td class="id">UPI + IMPS</td><td>${V.refUi}</td><td>IMPS primary (UPI already existed; the first 12 months of the window)</td></tr>
+        <tr><td class="id">P2M + debit + credit</td><td>${V.refPc}</td><td>Cards primary (P2M data start in Apr 2020; the window begins after the first COVID wave, Mar – Jun 2020)</td></tr>
+        <tr><td class="id">Any group, PSI-period variant</td><td>${V.refPsi}</td><td>First 12 months of consistently classified PSI card data</td></tr>
+        <tr><td class="id">UPI + IMPS, RBI daily data</td><td>${V.refDaily}</td><td>First 12 months of the daily file</td></tr>
+        <tr><td class="id">UPI + cards, cards only</td><td>${V.refUi}</td><td>Cards secondary group and within-cards variants</td></tr></tbody>`);
+      const ex = (s, name) => {
+        const l = L[name];
+        const th = M.primaryThresholdPct;
+        const contr = s.drawdownPct <= -th;
+        return `<li><b>${esc(name)}</b> (${esc(s.group)}). Highest 12-month average ${f(l.rollPeak, 2)} million a month (12 months to ${label(l.peak)}); latest ${f(l.rollEnd, 2)} million. ${calc(`D = ${f(l.rollEnd, 2)} ÷ ${f(l.rollPeak, 2)} − 1 = ${sign(s.drawdownPct, 1)}%`)}. ${contr ? `D ≤ −${th}% → ${cpill(s.label)}` : `D &gt; −${th}%, so check the share: ${calc(`Δs = ${f(s.shareEndPct, 2)} − ${f(s.shareRefPct, 2)} = ${sign(s.shareChangePp, 2)} pp`)} ${s.shareChangePp < 0 ? "&lt; 0" : "≥ 0"} → ${cpill(s.label)}`}${contr ? ` (share ${f(s.shareRefPct, 1)}% → ${f(s.shareEndPct, 1)}%, Δs = ${sign(s.shareChangePp, 1)} pp, not needed)` : ""}.
+          Crossings: 5% ${label(s.crossing["5"])}, 10% ${label(s.crossing["10"])}, 20% ${label(s.crossing["20"])}.
+          Checks: ${s.checks.map(c => `${esc(c.variant)} ${yes(c.agrees)}`).join(", ")} → ${s.agree} of ${s.variants} agree, PSI window ${s.checks.find(c => c.variant === "PSI-period window").agrees ? "agrees" : "disagrees"} → <b>${s.robust ? "robust" : "fragile"}</b>.</li>`;
+      };
+      set("ex-class", `<p>The first 12-month average ends in ${label(L["Debit cards"].firstRolled)} (Nov 2017 – Oct 2018), so peaks are searched from there to ${V.end}.</p><ul>${ex(debit, "Debit cards")}${ex(imps, "IMPS")}${ex(credit, "Credit cards")}</ul>
+        ${D.summary.filter(s => !s.robust).map(s => `<p><b>${esc(s.method)} is fragile</b>: ${s.checks.filter(c => !c.agrees).map(c => `${esc(c.variant)} gives “${esc(c.label)}”`).join(" and ")}, against “${esc(s.label)}” in the primary variant.</p>`).join("")}`);
+      set("variant-table", `<thead><tr><th>Method</th><th>Variant</th><th>Window · reference</th><th class="num">Peak (12 m to)</th><th class="num">D</th><th class="num">Δs</th><th>5%</th><th>10%</th><th>20%</th></tr></thead><tbody>` +
+        D.classification.map(c => `<tr><td class="id">${esc(c.method)}</td><td>${esc(c.variant)}<span class="sub">${esc(c.measure)}, ${esc(c.group)}</span></td><td>${esc(c.window)}<span class="sub">ref ${esc(c.reference)}</span></td><td class="num">${label(c.peak12mEnding)}</td><td class="num">${sign(c.drawdownPct, 1)}%</td><td class="num">${sign(c.shareChangePp, 1)} pp</td><td>${cpill(c.label5)}</td><td>${cpill(c.label10)}</td><td>${cpill(c.label20)}</td></tr>`).join("") + "</tbody>");
+
+      // ---------- 8. Decomposition ----------
+      const dd = D.decomposition.find(r => r.method === "Debit cards" && r.group.startsWith("P2M"));
+      const dc = D.decomposition.find(r => r.method === "Credit cards" && r.group.startsWith("P2M"));
+      set("ex-dec", `<p><b>Debit cards in P2M + debit + credit</b>, ${esc(dd.from)} → ${esc(dd.to)}: ${calc(`ln share change = ${sign(dd.logOwn, 3)} − (${sign(dd.logGroup, 3)}) = ${sign(dd.logShareChange, 3)}`)}. Own growth ${sign(dd.ownGrowthPct, 0)}% (own volume fell) → <b>${esc(dd.driver)}</b>; share ${f(dd.shareFromPct, 1)}% → ${f(dd.shareToPct, 1)}%.</p>
+        <p><b>Credit cards, same group</b>: ${calc(`${sign(dc.logOwn, 3)} − (${sign(dc.logGroup, 3)}) = ${sign(dc.logShareChange, 3)}`)}. Credit grew ${sign(dc.ownGrowthPct, 0)}% but the group grew ${sign(dc.groupGrowthPct, 0)}% → <b>${esc(dc.driver)}</b>.</p>`);
+
+      // ---------- 9. Hypotheses ----------
+      set("ex-h1", `<div class="table-scroll"><table><thead><tr><th>Rail</th><th>A2: trend r<sub>t</sub> &gt; 0</th><th>A2: trend real ticket &gt; 0</th><th>v2 (1) drift r<sub>t</sub></th><th>v2 (2) drift real ticket</th><th>v2 (3) own nominal drift &gt; 0</th><th>UPI's part</th></tr></thead><tbody>` +
+        D.h1.rows.map(r => `<tr><td class="id">${esc(r.method)}</td>
+          <td>${yes(r.a2RelP < 0.05)} ${pctYear(r.a2RelTrend)}/yr, p ${pval(r.a2RelP)}</td>
+          <td>${yes(r.a2RealTicketP < 0.05)} ${pctYear(r.a2RealTicketTrend)}/yr, p ${pval(r.a2RealTicketP)}</td>
+          <td>${yes(r.relDriftP < 0.05)} ${pctYear(r.relDrift)}/yr, p ${pval(r.relDriftP)}</td>
+          <td>${yes(r.realTicketDriftP < 0.05)} ${pctYear(r.realTicketDrift)}/yr, p ${pval(r.realTicketDriftP)}</td>
+          <td>${yes(r.ownNominalDrift > 0)} ${pctYear(r.ownNominalDrift)}/yr</td>
+          <td>${calc(`${(-r.upiNominalDrift).toFixed(4)} ÷ ${r.relDrift.toFixed(4)} = ${f(100 * r.shareFromUpiFall, 0)}%`)}</td></tr>`).join("") +
+        `</tbody></table></div><p>A2: ${D.h1.rows.map(r => `${esc(r.method)} ${r.a2Pass ? "passes" : "fails"}`).join(", ")} → ${vpill(D.h1.a2)}. v2: ${D.h1.rows.map(r => `${esc(r.method)} ${r.v2Pass ? "all three parts" : r.v2Partial ? "some parts" : "no part"}`).join(", ")} → ${vpill(D.h1.v2)}.</p>`);
+
+      const h2 = D.h2;
+      const covers = (r, m) => r.confFrom <= m && m <= r.confTo;
+      set("ex-h2", `<div class="table-scroll"><table><thead><tr><th>Series</th><th class="num">τ̂</th><th class="num">LR(Jan 2020) / LR(Mar 2020)</th><th class="num">95% set</th><th>Covers Jan / Mar 2020</th><th class="num">BIC 0 / 1 / 2 → breaks</th><th>Timing</th></tr></thead><tbody>` +
+        h2.rows.map(r => `<tr><td class="id">${esc(r.series)}</td><td class="num">${label(r.break)}</td>
+          <td class="num">${f(r.lrJan2020, 2)} / ${f(r.lrMar2020, 2)}<span class="sub">${r.lrJan2020 <= M.lr95 ? "Jan in set" : "Jan out"} · ${r.lrMar2020 <= M.lr95 ? "Mar in set" : "Mar out"} (≤ ${M.lr95})</span></td>
+          <td class="num">${label(r.confFrom)} – ${label(r.confTo)}<span class="sub">${r.confSize} months</span></td>
+          <td>${yes(covers(r, "2020-01"))} / ${yes(covers(r, "2020-03"))}</td>
+          <td class="num">${f(r.bic0, 1)} / ${f(r.bic1, 1)} / ${f(r.bic2, 1)} → ${r.bicBreaks}${r.secondBreak ? `<span class="sub">second ${label(r.secondBreak)}</span>` : ""}</td>
+          <td>${esc(r.timing)}</td></tr>`).join("") + `</tbody></table></div>
+        ${["Credit cards", "Debit cards"].map(name => { const r = h2.rows.find(x => x.series === name); return `<p><b>Example, ${name.toLowerCase()}.</b> τ̂ = ${label(r.break)}. LR at Jan 2020 is ${f(r.lrJan2020, 2)} ${r.lrJan2020 <= M.lr95 ? "≤" : "&gt;"} ${M.lr95} (Jan 2020 ${covers(r, "2020-01") ? "inside" : "outside"} the set) and at Mar 2020 ${f(r.lrMar2020, 2)} (Mar 2020 ${covers(r, "2020-03") ? "inside" : "outside"}). BIC picks ${r.bicBreaks} break${r.bicBreaks === 1 ? "" : "s"} → <b>${esc(r.timing)}</b>.</p>`; }).join("")}
+        <p><b>Counting</b> (IMPS, debit, credit with a selected break: ${h2.methodsWithBreak}): COVID-timed ${h2.covidTimed}, zero-MDR-timed ${h2.mdrTimed}, indeterminate ${h2.indeterminate}; breaks in Mar – Apr 2020: ${h2.inMarApr}; in Oct 2019 – Feb 2020: ${h2.inMdrWindow}.
+          A2: ${h2.inMdrWindow} &gt; ${h2.methodsWithBreak / 2}? ${h2.inMdrWindow > h2.methodsWithBreak / 2 ? "yes" : "no"}; none in Mar – Apr? ${h2.inMarApr === 0 ? "yes" : "no"} → ${vpill(h2.a2)}.
+          v2: indeterminate ${h2.indeterminate} ≥ ${Math.max(1, h2.methodsWithBreak / 2)}? ${h2.indeterminate >= Math.max(1, h2.methodsWithBreak / 2) ? "yes" : "no"}; COVID-timed ${h2.covidTimed} &gt; ${h2.methodsWithBreak / 2}? ${h2.covidTimed > h2.methodsWithBreak / 2 ? "yes" : "no"}; zero-MDR-timed ${h2.mdrTimed} &gt; ${h2.methodsWithBreak / 2}? ${h2.mdrTimed > h2.methodsWithBreak / 2 ? "yes" : "no"} → ${vpill(h2.v2)}.</p>
+        <p><b>Debit ÷ credit at known dates</b> (${h2.ratioJan.n} months): trend change at Jan 2020 ${sign(h2.ratioJan.slope, 3)} (SE ${h2.ratioJan.slopeSe.toFixed(3)}), |t| = ${f(Math.abs(h2.ratioJan.slope / h2.ratioJan.slopeSe), 1)} → ${h2.ratioJanSignificant ? "significant" : "not significant"}; at Mar 2020 ${sign(h2.ratioMar.slope, 3)} (SE ${h2.ratioMar.slopeSe.toFixed(3)}).</p>`);
+
+      const h3 = D.h3, sb = h3.slopeBreak, lo = h3.p2mLogOdds, su = h3.supply, post = h3.decomposition.at(-1);
+      set("ex-h3", `<ul>
+        <li><b>A2 leg 1</b>: trend ${sign(h3.a2Bridged.trend, 3)} log-odds a year, p ${pval(h3.a2Bridged.p)} ${yes(h3.a2Bridged.p < 0.05)}. <b>Leg 2</b> (PSI period, ${h3.a2Psi.n} months): ${sign(h3.a2Psi.trend, 3)}, p ${pval(h3.a2Psi.p)} ${yes(h3.a2Psi.p < 0.05)}. <b>Leg 3</b>: ${sign(h3.leg2.last12, 3)} pp a month vs ${sign(h3.leg2.first12, 3)} pp ${yes(h3.leg2.pass)} → ${vpill(h3.a2)}.</li>
+        <li><b>v2 (1) slope break</b>: ${calc(`(${sign(sb.post, 3)} − ${sign(sb.pre, 3)}) ÷ √(${sb.preSe.toFixed(3)}² + ${sb.postSe.toFixed(3)}²) = ${f(sb.diff / sb.diffSe, 1)}`)} ${sb.diff / sb.diffSe > 1.96 ? "&gt;" : "≤"} 1.96 ${yes(sb.significant)}.</li>
+        <li><b>v2 (2) debit drove it</b>, ${esc(post.from)} → ${esc(post.to)}: ${calc(`Δlogit ${sign(post.dLogit, 3)} = credit ${sign(post.credit, 3)} + debit ${sign(post.debit, 3)}`)}; debit's part ${calc(`${post.debit.toFixed(3)} ÷ ${post.dLogit.toFixed(3)} = ${f(post.debitSharePct, 0)}%`)} ${post.debitSharePct > 50 ? "&gt;" : "≤"} 50% ${yes(post.debitSharePct > 50)}.</li>
+        <li><b>v2 (3) P2M slowed</b>: a = ${sign(lo.base, 4)} a month in ${esc(lo.baseWindow)}; b = ${sign(lo.change, 4)} (SE ${lo.changeSe.toFixed(4)}), ${calc(`t = ${f(lo.change / lo.changeSe, 1)}`)} ${lo.change / lo.changeSe < -1.96 ? "&lt;" : "≥"} −1.96 ${yes(lo.slowed)} → ${vpill(h3.v2)}.</li>
+        <li><b>Supply</b> over ${su.years.toFixed(2)} years: ${calc(`ln volume ${su.volumeGrowthLog.toFixed(3)} = ln cards ${su.cardsGrowthLog.toFixed(3)} + ln per card ${su.intensityGrowthLog.toFixed(3)}`)}; from new cards ${calc(`${su.cardsGrowthLog.toFixed(3)} ÷ ${su.volumeGrowthLog.toFixed(3)} = ${f(su.cardsSharePct, 0)}%`)}; payments per card ${f(su.txnPerCard0, 2)} → ${f(su.txnPerCard1, 2)} a month.</li></ul>`);
+
+      // ---------- 10. Magnitudes ----------
+      const formula = name => {
+        if (/peak 12-month average volume/.test(name)) return "max<sub>t</sub> A<sub>t</sub> of monthly volume (million); the note gives the peak's 12-month window";
+        if (/latest 12-month average volume/.test(name)) return `A<sub>${label(D.window.end)}</sub>: mean monthly volume over the latest 12 months`;
+        if (/transactions forgone/.test(name)) return "peak A<sub>t</sub> − latest A<sub>t</sub> (volume)";
+        if (/real value forgone/.test(name)) return "peak − latest 12-month average of real value (₹ crore); the value peak can differ from the volume peak, and is 0 if the latest average is the highest";
+        if (/average real ticket/.test(name)) return "mean of the monthly real tickets (real value × 10 ÷ volume) over the latest 12 months";
+        if (/Card share of merchant payment value/.test(name)) return "Σ (debit + credit value) ÷ Σ (debit + credit + P2M value) × 100, summed over the window (nominal ₹ crore)";
+        if (/UPI P2M share of P2M \+ card volume/.test(name)) return "mean of the monthly P2M share of P2M + debit + credit volume";
+        if (/payments per card per month/.test(name)) return "mean over the window of volume (million) × 10 ÷ cards outstanding (lakh)";
+        if (/per PoS terminal/.test(name)) return "mean over the window of (debit + credit volume) × 10<sup>6</sup> ÷ (PoS terminals in lakh × 10<sup>5</sup>)";
+        if (/ATM withdrawals: peak/.test(name)) return "max<sub>t</sub> of the 12-month average of debit-card ATM withdrawals";
+        if (/ATM withdrawals: latest/.test(name)) return "12-month average of debit-card ATM withdrawals to the last month";
+        return "";
+      };
+      set("mag-table", `<thead><tr><th>Row</th><th>Formula</th><th class="num">Current value</th></tr></thead><tbody>` +
+        D.magnitudes.map(m => `<tr><td class="id">${esc(m.name)}${m.note ? `<span class="sub">${esc(m.note)}</span>` : ""}</td><td>${formula(m.name) || '<mark class="missing">no formula</mark>'}</td><td class="num">${f(m.value, Math.abs(m.value) >= 100 ? 0 : 2)}<span class="sub">${esc(m.unit)}</span></td></tr>`).join("") + "</tbody>");
+
+      // ---------- 11. Robustness ----------
+      const rup = D.sensitivity.filter(s => s.check.startsWith("RuPay"));
+      const prov = D.sensitivity.filter(s => s.check === "P2M provenance");
+      const noDummy = D.h2.rows.filter(r => r.series.includes("no Nov 2019"));
+      set("ex-rob", `<ul>
+        <li><b>RuPay credit on UPI</b>: ${rup.map(s => `c = ${esc(s.setting)}: ${cpill(s.creditLabel)}, Δs ${sign(s.creditShareChangePp, 2)} pp, post-COVID logit drift ${sign(s.postCovidLogitCreditShareDrift, 3)}`).join("; ")}. ${new Set(rup.map(s => s.creditLabel)).size === 1 && rup.every(s => Math.sign(s.postCovidLogitCreditShareDrift) === Math.sign(rup[0].postCovidLogitCreditShareDrift)) ? "The label and the sign of the drift do not change." : "The result changes with c."}</li>
+        <li><b>P2M source</b>: ${prov.map(s => `${esc(s.setting)}: ${s.months} months, P2P + P2M within ${f(s.maxP2pPlusP2mGapMn, 2)} million of the total, total within ${f(s.maxGapVsProductStatsPct, 2)}% of the product statistics`).join("; ")}.</li>
+        <li><b>Without the Nov 2019 dummy</b>: ${noDummy.map(r => `${esc(r.series.replace(" (no Nov 2019 dummy)", ""))} break ${label(r.break)}, set ${label(r.confFrom)} – ${label(r.confTo)}, ${esc(r.timing)}`).join("; ")}.</li></ul>`);
+
+      // ---------- 12. Diagnostics ----------
+      const dv = D.diagnostics.find(d => d.series === "ln Debit cards volume");
+      const tDrift = trend("ln Debit cards volume", "Drift:"), tA2 = D.trend.find(t => t.series === "ln Debit cards volume" && t.method.startsWith("A2 OLS trend (")),
+        tSeg = trend("ln Debit cards volume", "Segmented"), tCtl = trend("ln Debit cards volume", "A2 OLS trend with");
+      set("ex-diag", `<p><b>ln debit-card volume</b> (${dv.months} months): ADF ${f(dv.adfStat, 2)} ${dv.adfStat < M.adfCrit5 ? "&lt;" : "≥"} ${V.adfCrit} (${dv.adfUnitRootRejected5 ? "unit root rejected" : "unit root not rejected"}); KPSS ${dv.kpssStat.toFixed(3)} ${dv.kpssStat > M.kpssCrit5 ? "&gt;" : "≤"} ${M.kpssCrit5} (${dv.kpssStationarityRejected5 ? "stationarity rejected" : "stationarity not rejected"}) → <b>${esc(dv.reading)}</b>.</p>
+        <p>Trend estimates for the same series: drift ${pctYear(tDrift.est)}/yr (${tDrift.n} comparisons, p(&lt; 0) ${pval(tDrift.pNeg)}); A2 OLS trend ${pctYear(tA2.est)}/yr (Ljung–Box p ${pval(tA2.ljungBoxP)}); segmented: ${pctYear(tSeg.est)}/yr before Jan 2020 and ${pctYear(tSeg.postTrend)}/yr after (slope change ${sign(tSeg.slopeChange, 3)}, SE ${tSeg.slopeChangeSe.toFixed(3)})${tCtl ? `; with supply controls ${pctYear(tCtl.est)}/yr (cards outstanding coefficient ${sign(tCtl.controlCards, 2)}, PoS ${sign(tCtl.controlPos, 2)})` : ""}.${dv.reading === "trend-stationary" ? "" : " Because the reading is not “trend-stationary”, the drift is the estimate to rely on; the OLS trend's p-value may be too small."}</p>`);
+
+      // ---------- fill placeholders, then render formulas ----------
+      document.querySelectorAll("[data-v]").forEach(el => {
+        const k = el.dataset.v;
+        el.innerHTML = V[k] === undefined || V[k] === null ? `<mark class="missing">missing: ${esc(k)}</mark>` : esc(V[k]);
+      });
+      if (window.katex) {
+        document.querySelectorAll(".tex").forEach(el => window.katex.render(el.textContent, el, { displayMode: true, throwOnError: false }));
+        document.querySelectorAll(".tex-i").forEach(el => window.katex.render(el.textContent, el, { displayMode: false, throwOnError: false }));
+      }
+    })();
+  </script>
+</body>
+</html>

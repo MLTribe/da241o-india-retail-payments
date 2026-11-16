@@ -45,6 +45,10 @@
     .toc a:hover { color: var(--green); border-color: var(--green); }
     .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; box-shadow: var(--shadow); padding: 25px; margin-bottom: 18px; scroll-margin-top: 16px; }
     .panel-kicker { margin: 0 0 4px; color: var(--green); font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .method-link { float: right; margin-left: 12px; color: var(--green); font-size: 11px; font-weight: 800; letter-spacing: .02em; text-transform: none; text-decoration: none; }
+    .method-link:hover { text-decoration: underline; }
+    .toc a.toc-method { background: var(--navy); border-color: var(--navy); color: #f6f5ed; }
+    .toc a.toc-method:hover { color: white; background: var(--green); border-color: var(--green); }
     h2 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: 27px; font-weight: 500; letter-spacing: -.025em; line-height: 1.15; }
     h3 { margin: 22px 0 4px; font-size: 15px; }
     .hint { color: var(--muted); font-size: 13px; margin: 8px 0 0; }
@@ -156,10 +160,11 @@
         <li><a href="#magnitudes">Magnitudes</a></li>
         <li><a href="#robustness">Robustness</a></li>
         <li><a href="#diagnostics">Diagnostics</a></li>
+        <li><a class="toc-method" href="methods.html">How each result is calculated →</a></li>
       </ul>
 
       <section class="panel" id="answer" aria-labelledby="answer-title">
-        <p class="panel-kicker">The answer</p>
+        <p class="panel-kicker"><a class="method-link" href="methods.html#answer">Method →</a>The answer</p>
         <h2 id="answer-title">The research question in one paragraph</h2>
         <p class="headline" id="headline"></p>
         <div class="verdicts" id="verdicts"></div>
@@ -167,7 +172,7 @@
       </section>
 
       <section class="panel" id="corrections" aria-labelledby="corrections-title">
-        <p class="panel-kicker">Use of feedback</p>
+        <p class="panel-kicker"><a class="method-link" href="methods.html#corrections">Method →</a>Use of feedback</p>
         <h2 id="corrections-title">What changed from Assignment 2, stated openly</h2>
         <p class="hint">Claims in the submitted data-and-methods plan checked against the repository.</p>
         <div class="table-scroll"><table>
@@ -177,7 +182,7 @@
       </section>
 
       <section class="panel" id="descriptives" aria-labelledby="desc-title">
-        <p class="panel-kicker">Descriptives</p>
+        <p class="panel-kicker"><a class="method-link" href="methods.html#descriptives">Method →</a>Descriptives</p>
         <h2 id="desc-title">Levels, shares and tickets</h2>
         <p class="hint">Log scales show equal percentage changes as equal distances. Shaded: the two COVID waves. Dashed lines: SA same-account exclusion (Aug 2018), C19 RBI card definition change (Nov 2019), MDR zero MDR (Jan 2020), PSI card splice (Jun 2021), RCU RuPay credit on UPI (Sep 2022). Hover a month for values.</p>
         <div id="fig-index"></div>
@@ -189,14 +194,14 @@
       </section>
 
       <section class="panel" id="covid" aria-labelledby="covid-title">
-        <p class="panel-kicker">Pre vs post COVID (requested by Prof. Gandhi)</p>
+        <p class="panel-kicker"><a class="method-link" href="methods.html#covid">Method →</a>Pre vs post COVID (requested by Prof. Gandhi)</p>
         <h2 id="covid-title">Growth and share by period</h2>
         <p class="hint">Mean change on the same month a year earlier, with Newey-West (12) 95% intervals. Pre-COVID Nov 2017 – Feb 2020 (bases from Nov 2017; UPI comparisons across the Aug 2018 exclusion dropped), COVID Mar 2020 – Jun 2021 (bases a year earlier), post-COVID Jul 2021 – Mar 2026 (bases from Jul 2021). Shares are within the comparison group, first and last three months of the period.</p>
         <div class="table-scroll"><table id="covid-table"></table></div>
       </section>
 
       <section class="panel" id="classification" aria-labelledby="class-title">
-        <p class="panel-kicker">The classification rule</p>
+        <p class="panel-kicker"><a class="method-link" href="methods.html#classification">Method →</a>The classification rule</p>
         <h2 id="class-title">Absolute contraction, relative share loss or continued growth</h2>
         <p class="hint">Drawdown D = latest 12-month average volume ÷ the method's own highest 12-month average − 1. Share change = latest 12-month average share − reference-window average, within the primary group. Absolute contraction if D ≤ −10%; otherwise relative share loss if the share fell; otherwise continued growth. A label is robust if at least four of five variants agree, including the PSI-period window.</p>
         <div class="table-scroll"><table>
@@ -211,7 +216,7 @@
       </section>
 
       <section class="panel" id="decomposition" aria-labelledby="dec-title">
-        <p class="panel-kicker">Why shares fell</p>
+        <p class="panel-kicker"><a class="method-link" href="methods.html#decomposition">Method →</a>Why shares fell</p>
         <h2 id="dec-title">Own growth against comparison-group growth</h2>
         <p class="hint">Log share change = log own growth − log group growth, between the reference window and the latest 12 months. A share can fall because the method shrank or because the group (mostly UPI, much of it payments that were never digital) grew faster.</p>
         <div class="table-scroll"><table>
@@ -221,7 +226,7 @@
       </section>
 
       <section class="panel" id="hypotheses" aria-labelledby="hyp-title">
-        <p class="panel-kicker">Hypotheses</p>
+        <p class="panel-kicker"><a class="method-link" href="methods.html#hypotheses">Method →</a>Hypotheses</p>
         <h2 id="hyp-title">H1–H3: the Assignment 2 rule and the sharper test</h2>
 
         <h3>H1 · Small payments move to UPI, so IMPS and debit tickets rise</h3>
@@ -239,7 +244,7 @@
       </section>
 
       <section class="panel" id="magnitudes" aria-labelledby="mag-title">
-        <p class="panel-kicker">Managerial magnitudes</p>
+        <p class="panel-kicker"><a class="method-link" href="methods.html#magnitudes">Method →</a>Managerial magnitudes</p>
         <h2 id="mag-title">What the shifts mean in transactions and rupees</h2>
         <div class="table-scroll"><table>
           <thead><tr><th>Measure</th><th class="num">Value</th><th>Unit</th><th class="hide-narrow">Note</th></tr></thead>
@@ -248,17 +253,17 @@
       </section>
 
       <section class="panel" id="robustness" aria-labelledby="rob-title">
-        <p class="panel-kicker">Robustness</p>
+        <p class="panel-kicker"><a class="method-link" href="methods.html#robustness">Method →</a>Robustness</p>
         <h2 id="rob-title">Sensitivity checks and the card bridge</h2>
         <h3>Sensitivity</h3>
         <div class="table-scroll"><table id="sens-table"></table></div>
         <h3>Card bridge: bank-wise statistics against RBI PSI</h3>
         <div class="table-scroll"><table id="bridge-table"></table></div>
-        <p class="note">Before Jun 2021 the card series are RBI bank-wise totals multiplied by k; from Jun 2021 they are RBI PSI. The out-of-sample check compares k × bank-wise with PSI "same month last year" figures for Jun 2020 – May 2021.</p>
+        <p class="note">Before Jun 2021 the card series are RBI bank-wise totals multiplied by k; from Jun 2021 they are RBI PSI. The out-of-sample check compares k × bank-wise with PSI "same month last year" figures for Jun 2020 – May 2021. <a class="method-link" style="float:none;margin:0" href="methods.html#bridge">How the bridge is built →</a></p>
       </section>
 
       <section class="panel" id="diagnostics" aria-labelledby="diag-title">
-        <p class="panel-kicker">Diagnostics</p>
+        <p class="panel-kicker"><a class="method-link" href="methods.html#diagnostics">Method →</a>Diagnostics</p>
         <h2 id="diag-title">Unit roots, trend tests and residual autocorrelation</h2>
         <p class="hint">ADF with constant, trend, month dummies and 2 lags (5% critical value −3.45); KPSS for trend stationarity with 12 Bartlett lags (5% critical value 0.146). Most log levels look persistent, which is why the primary trend tests use mean 12-month log changes rather than OLS trend t-statistics.</p>
         <div class="table-scroll"><table id="diag-table"></table></div>

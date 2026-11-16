@@ -34,6 +34,7 @@ Charts are in wide format: one row per month, one column per line. Blank cells a
 | `09c_card_bridge_factors.csv` | Card bridge: scale factors and their test | 4 |
 | `10_diagnostics.csv` | Unit roots and stationarity (ADF, KPSS) | 19 |
 | `10b_trend_tests.csv` | Trend estimates | 84 |
+| `11_method_constants.csv` | How the final analysis works (`docs/methods.html`): constants and worked-example inputs | 90 |
 
 The input data behind these numbers are in `../final_analysis_data/`.
 

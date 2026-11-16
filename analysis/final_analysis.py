@@ -903,6 +903,68 @@ def corrections(bridge_summary, split):
 
 # ---------- page data ----------
 
+def method_block(P, splice, bank, bridge_rows):
+    """Constants and worked-example inputs for docs/methods.html (no new results)."""
+    months = month_range(START, END)
+    n, gap = len(months), int(TRIM * len(months))
+    candidates = months[gap:n - gap]
+    cpi = read_all("mospi_cpi_combined_monthly.csv")
+    ex = "2019-06"
+    levels = {}
+    for method, level, share, ref in (("IMPS", "imps_n", "sh_imps_ui_n", LONG_REF),
+                                      ("Debit cards", "debit_n", "sh_debit_pc_n", P2M_REF),
+                                      ("Credit cards", "credit_n", "sh_credit_pc_n", P2M_REF)):
+        c = classify(P[level], P[share], (START, END), ref)
+        levels[method] = {"rollPeak": c["rollPeak"], "rollEnd": c["rollEnd"], "peak": c["peak"],
+                          "firstRolled": min(c["path"])}
+    psi = read_all("rbi_psi_card_ppi_own_month.csv")
+    k = {f["series"]: f["k"] for f in splice["factors"]}
+    card_ex, overlap_ex = "2021-01", "2021-06"
+    worst = {}
+    for rail in ("debit", "credit"):
+        for measure in ("volume", "value"):
+            rows = [x for x in bridge_rows if x["rail"] == rail and x["measure"] == measure]
+            top = max(rows, key=lambda x: abs(x["gapPct"]))
+            late = max((x for x in rows if x["month"] >= CARD_LAYOUT), key=lambda x: abs(x["gapPct"]))
+            worst[f"{rail.capitalize()} card {measure}"] = {
+                "month": top["month"], "source": top["source"], "gapPct": top["gapPct"],
+                "monthFromMar2022": late["month"], "gapFromMar2022Pct": late["gapPct"]}
+    return {
+        "thresholdsPct": [int(100 * th) for th in THRESHOLDS], "primaryThresholdPct": int(100 * PRIMARY_TH),
+        "trimPct": int(100 * TRIM), "lr95": LR95, "adfCrit5": ADF_CRIT_5, "kpssCrit5": KPSS_CRIT_5,
+        "adfLags": 2, "hacLags": HAC, "ljungBoxLags": 12, "z95": Z95,
+        "refWindows": {"ui": list(LONG_REF), "pc": list(P2M_REF), "psi": list(PSI_REF),
+                       "daily": [DAILY_START, shift_month(DAILY_START, 11)]},
+        "periods": {label: [a, b] for label, a, b in PERIODS},
+        "covidMonths": COVID_MONTHS, "diwaliMonths": sorted(m for m in DIWALI if START <= m <= END),
+        "events": {"sameAccount": SAME_ACCOUNT, "cardDefinition": CARD_DEFINITION, "zeroMdr": ZERO_MDR,
+                   "psiStart": PSI_START, "cardLayout": CARD_LAYOUT, "rupayCreditOnUpi": RUPAY_CREDIT_ON_UPI},
+        "trendOrigin": ZERO_MDR, "ratioWindow": ["2017-04", "2023-03"],
+        "breakSearch": {"months": n, "trimMonths": gap, "firstCandidate": candidates[0],
+                        "lastCandidate": candidates[-1], "candidates": len(candidates),
+                        "mdrWindow": ["2019-10", "2020-02"], "covidWindow": ["2020-03", "2020-12"]},
+        "h3Leg2Windows": {"first": [shift_month(P2M_START, 1), shift_month(P2M_START, 12)],
+                          "last": [shift_month(END, -11), END]},
+        "cpi": {"baseMonth": END, "base": float(cpi[END]["cpi_combined_index_linked_2024"]),
+                "linkFactor": float(cpi[ex]["link_factor_to_2024"]),
+                "example": {"month": ex, "native": float(cpi[ex]["cpi_combined_index_native"]),
+                            "nativeBase": cpi[ex]["native_base_year"],
+                            "linked": float(cpi[ex]["cpi_combined_index_linked_2024"]),
+                            "upiValue": P["upi_v"][ex], "upiVolume": P["upi_n"][ex],
+                            "upiRealValue": P["upi_rv"][ex], "upiTicket": P["upi_tn"][ex],
+                            "upiRealTicket": P["upi_t"][ex]}},
+        "splice": {"assumptions": splice["assumptions"], "overlap": splice["overlap"],
+                   "unitCheck": splice["unitCheck"],
+                   "cardExample": {"month": card_ex, "bankwiseCount": float(bank[card_ex]["debit_payments_n"]),
+                                   "k": k["Debit card volume"], "spliced": P["debit_n"][card_ex]},
+                   "overlapExample": {"month": overlap_ex,
+                                      "psiLakh": float(psi[overlap_ex]["debit_total_volume_lakh"]),
+                                      "bankwiseCount": float(bank[overlap_ex]["debit_payments_n"])},
+                   "worstGaps": worst},
+        "classificationLevels": levels,
+    }
+
+
 def page_series(P, paths):
     months = month_range(START, END)
     idx = lambda key, base: [r(100 * P[key][m] / P[key][base], 2) if m in P[key] else None for m in months]  # noqa: E731
@@ -1033,7 +1095,7 @@ def run():
             "h3": h3, "verdicts": verdicts, "magnitudes": mags, "sensitivity": sens,
             "bridge": {"summary": bridge_summary, "factors": factors}, "corrections": corr,
             "diagnostics": diag, "trend": [x for x in trend_rows if x["method"].startswith(("Drift:", "A2 OLS trend", "Segmented"))],
-            "series": page_series(P, paths)}
+            "series": page_series(P, paths), "method": method_block(P, splice, bank, bridge_rows)}
     DOCS_DATA.write_text("window.FINAL_DATA = " + json.dumps(data, ensure_ascii=False, default=str,
                                                               separators=(",", ":")) + ";\n", encoding="utf-8")
     print(head)
