@@ -7,9 +7,9 @@ shares** of IMPS, domestic debit-card purchases, and domestic credit-card
 purchases changed alongside UPI's expansion in India. The model is a
 **fixed-basket, monthly comparative accounting model**. It separately tracks:
 
-1. Total UPI and IMPS, April 2016–March 2026 (120 months).
+1. Total UPI and IMPS, April 2016–August 2026 (125 months).
 2. UPI person-to-merchant (P2M), domestic credit-card purchases, and domestic
-   debit-card purchases, June 2021–March 2026 (58 months): UPI's mature
+   debit-card purchases, June 2021–August 2026 (63 months): UPI's mature
    phase, the longest period with consistently classified RBI card data.
 
 A secondary, spliced card series back to June 2014 tests the 2017–20
@@ -60,7 +60,9 @@ percentage growth from that zero base.
 RBI card volume arrives in **lakh** transactions, so the script divides it by
 10 before comparison with NPCI's millions. The model applies MoSPI's published
 0.5267 link factor to put the old CPI observations on the 2024 base, then
-multiplies nominal value and ticket by `March 2026 CPI / month CPI`. The CPI
+multiplies nominal value and ticket by `CPI(BASE_MONTH) / month CPI`, where
+`BASE_MONTH` is the last month of the window (`END_MONTH`, now August 2026,
+CPI 108.74), so real values are in August 2026 rupees. The CPI
 back-series starts in 2014, so real measures cover every month of both
 baskets. Fiscal-year totals run April to
 March and include only complete 12-month years. Year-on-year comparisons use
@@ -84,7 +86,7 @@ The script reads `by_year/YYYY/*.csv` and writes:
 | `analysis/output/period_comparison.csv` | First-to-last and most recent fiscal-year comparisons |
 | `analysis/output/source_checks.json` | Coverage, extended-basket windows, optional-series counts, published-identity checks, and NPCI table mismatches |
 | `analysis/output/timeseries_stats.csv` | Trend growth, first-to-last 12-month growth, seasonal indices, and monthly HHI (long format) |
-| `analysis/output/infrastructure_panel.csv` | Monthly acceptance points, cards in force, and use per point or card from RBI PSI Part III, June 2021–March 2026 |
+| `analysis/output/infrastructure_panel.csv` | Monthly acceptance points, cards in force, and use per point or card from RBI PSI Part III, June 2021–August 2026 |
 | `analysis/output/figures/*.svg` | Static charts for the paper, drawn without a plotting package |
 | `docs/explore-data.js` | Data file for the interactive `docs/explore.html` page |
 
@@ -93,7 +95,7 @@ MoSPI CPI are all observed (currently June 2021, set by RBI's card
 reclassification; NPCI P2M starts April 2020 and CPI in 2014). The first full
 fiscal year in this window is still FY2022-23.
 
-The infrastructure panel uses 58 own-month RBI PSI Part III release-page
+The infrastructure panel uses 63 own-month RBI PSI Part III release-page
 observations: January 2022 onward from `scripts/import_rbi_psi_pages.py`,
 June–December 2021 from `scripts/import_card_history.py`. Its monthly
 debit-card payment intensity is domestic debit-card purchases divided by
@@ -200,7 +202,7 @@ both sources) and `analysis/output/structural_breaks.csv`. The break tests
 are tests of a change in path at a known date, not causal policy effects.
 
 It also compares growth before and after COVID. It takes mean year-on-year
-log growth in Apr 2018 – Feb 2020 and in Jul 2022 – Mar 2026, and tests the
+log growth in Apr 2018 – Feb 2020 and in Jul 2022 – Aug 2026, and tests the
 difference with Newey-West SEs. A trend-break model then tests a level and a
 trend shift at Mar 2020. Results are in `analysis/output/covid_pre_post.csv`;
 financial-year totals and growth are in `analysis/output/fy_growth.csv`.
@@ -223,7 +225,8 @@ verdict rules and derivation helpers from `hypothesis_tests.py`, and adds:
 
 - exact one-sided binomial sign tests across banks or states;
 - cross-section OLS with HC1 standard errors (one observation per bank or
-  state, annualised change from FY2022-23 to FY2025-26 or 2022 to 2025);
+  state, annualised change from FY2022-23 to the latest complete financial
+  year, FY2025-26, or 2022 to 2025);
 - quarterly drift tests (4-quarter changes, 4 Newey-West lags) for PhonePe
   Pulse;
 - a known-date level break at the Paytm Payments Bank order (Feb 2024).
@@ -240,8 +243,8 @@ and R2.
 python3 analysis/final_analysis.py      # about 5 seconds
 ```
 
-Runs the Assignment 2 design with the review additions on Nov 2017–Mar 2026
-(72 months for UPI P2M): drawdown and share-change classification with
+Runs the Assignment 2 design with the review additions on Nov 2017–Aug 2026
+(77 months for UPI P2M): drawdown and share-change classification with
 robustness variants, share decomposition, drift and trend regressions with
 COVID and definition-change dummies, ADF/KPSS/Ljung-Box diagnostics, a
 level-and-slope break search with LR confidence sets, H1–H3 with both the
@@ -258,7 +261,7 @@ python3 analysis/forecast_model.py      # after payment_mix_model.py; about 6 se
 
 This is term-paper material, not part of the Assignment 2 data and methods
 note. It answers the forward version of the research question: if the trends
-of June 2021–March 2026 continue, which rails are heading for absolute
+of June 2021–August 2026 continue, which rails are heading for absolute
 contraction, relative share loss or co-expansion by FY2029–30, and how
 would real policy levers change that? Everything is a **conditional
 projection**, not a prediction of policy.
@@ -303,12 +306,14 @@ therefore likely too narrow. The two-year test from Mar 2024 covered
 credit and debit but missed P2M, P2P and IMPS.
 
 **Base case, FY2029–30** (median, 80% band; FY2025–26 actual in brackets):
-UPI P2M 223 bn [113–451] (152 bn), share 94.4% of the merchant basket; credit
-cards 11.9 bn [5.3–21.9] (6.0 bn), share 5.1%; debit cards 0.89 bn [0.13–4.28]
-(1.28 bn), share 0.4%; UPI P2P 124 bn [66–206] (89 bn); IMPS 2.2 bn [1.2–4.2]
-(4.9 bn), share 1.8% of transfers. Patterns: credit co-expands (87% of paths
-above FY2025–26), debit contracts absolutely (61%), IMPS contracts absolutely
-(95%). The base is a **pre-MDR baseline**: it contains no merchant charge on UPI.
+UPI P2M 229 bn [138–428] (152 bn), share 94.2% of the merchant basket; credit
+cards 12.3 bn [6.3–20.7] (6.0 bn), share 5.0%; debit cards 1.33 bn [0.30–3.71]
+(1.28 bn), share 0.5%; UPI P2P 141 bn [73–236] (89 bn); IMPS 2.9 bn [1.5–5.3]
+(4.9 bn), share 2.1% of transfers. Patterns: credit co-expands (91% of paths
+above FY2025–26); debit ends below FY2025–26 in 48% of paths, so its absolute
+contraction is no longer the median outcome; IMPS contracts absolutely (86%).
+FY2026–27 adds the observed April–August 2026 to the simulated rest of the
+year. The base is a **pre-MDR baseline**: it contains no merchant charge on UPI.
 
 **Levers.** Each lever shifts a utility (log-odds) term in the share model or
 moves volume after it, phased in over the forecast years. The register is in
@@ -319,20 +324,22 @@ Calibrated, Anchored, Assumed or Scenario:
 | --- | --- | --- |
 | MDR on UPI P2M above ₹2,000 | Card log-odds +β·MDR·(card share above ₹2,000); UPI fee pool = MDR × P2M value above ₹2,000 | 0 (pre-MDR). Preset 0.4% (announced from 15 Oct 2026). β ≈ 0.32 anchored on the Jan 2020 zero-MDR break; both ₹2,000 shares assumed at 50% |
 | Credit on UPI (RuPay credit, credit lines) | Moves a cannibalised fraction of the adoption share from credit cards to P2M | 0; 30% cannibalisation assumed |
-| Issuer push | Card-growth gap vs the latest year × elasticity 0.5; rewards × 0.25 | Card growth 8.0%/yr calibrated (Mar 2025–Mar 2026); elasticities assumed |
-| Acceptance | PoS vs UPI-QR growth gap × 0.3 on both card latents | PoS 6.0%, QR 15.7%/yr calibrated |
+| Issuer push | Card-growth gap vs the latest year × elasticity 0.5; rewards × 0.25 | Card growth 10.5%/yr calibrated (Aug 2025–Aug 2026); elasticities assumed |
+| Acceptance | PoS vs UPI-QR growth gap × 0.3 on both card latents | PoS −14.7%, QR 16.5%/yr calibrated (Aug 2025–Aug 2026; RBI's PoS count fell from 115 lakh in May to 99 lakh in June 2026) |
 | Debit issuance or clean-up | Direct shift on the debit latent | 0 |
-| NPCI 30% app cap | Caps Mar 2026 app shares at 30%, redistributes the excess proportionally; optional friction loses that share of moved volume | Off; friction 0% assumed |
+| NPCI 30% app cap | Caps Aug 2026 app shares at 30%, redistributes the excess proportionally; optional friction loses that share of moved volume | Off; friction 0% assumed |
 
-At the 0.4% preset, FY2029–30 credit-card volume is 6.2% above base, UPI P2M
-0.6% below, and the new UPI fee pool is about ₹27,000 crore against a ₹77,000
+At the 0.4% preset, FY2029–30 credit-card volume is 6.1% above base, UPI P2M
+0.4% below, and the new UPI fee pool is about ₹27,000 crore against a ₹61,000
 crore card pool (card MDR 1.8% credit and 0.3% debit, assumed). The app cap
-moves 20% of UPI volume and cuts app HHI from 3,384 to 2,127. Without friction it
+moves 18% of UPI volume and cuts app HHI from 3,247 to 2,112. Because the
+calibrated PoS growth is now negative, the "PoS stalls" preset (0% a year) is
+faster PoS growth than the base. Without friction it
 changes concentration, not rail volumes.
 
 **Limitations.** The elasticities are not identified from this data. A
 regression of card log-odds on acceptance and card-growth gaps gave the wrong
-sign (cards −3.0, SE 0.6), so the defaults are anchored or assumed, and the
+sign (cards −3.3, SE 0.6), so the defaults are anchored or assumed, and the
 page lets the reader change them. Trend models cannot foresee new products
 (UPI credit lines, UPI Lite growth) or a reversal of the MDR policy. Cash, PPI and
 UPI Lite sit outside the baskets. The fee pools are gross MDR at assumed rates,

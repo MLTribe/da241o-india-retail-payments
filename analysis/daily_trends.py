@@ -299,6 +299,10 @@ def month_span(start: str, end: str) -> list[str]:
     return out
 
 
+def month_label(month: str) -> str:
+    return date(int(month[:4]), int(month[5:]), 1).strftime("%b %Y")
+
+
 def neft_psi() -> dict[str, tuple[float, float]]:
     """NEFT volume (mn) and value (Rs crore) from the archived RBI PSI release pages.
 
@@ -532,7 +536,8 @@ def break_blocks(long: dict, monthly) -> dict:
             *[(f"{s} (RBI bank-wise)", s, cards["bank"][s], "RBI bank-wise ATM/PoS/card pages, as published", False, True)
               for s in ("Credit card", "Debit card")]]),
         "after": (CARD_BREAK, lp[-1], [
-            *[(s, s, rails[s], "NPCI / RBI, daily data from Apr 2026", False, True) for s in THREE],
+            *[(s, s, rails[s], f"NPCI / RBI, daily data from {month_label(long['appendFrom'][s])}"
+               if s in long["appendFrom"] else "NPCI / RBI", False, True) for s in THREE],
             *[(f"{s} (RBI PSI)", s, cards["psi"][s], "RBI Payment System Indicators, new definitions", False, True)
               for s in ("Credit card", "Debit card")],
             *[(f"{s} (RBI bank-wise)", s, cards["bank"][s], "RBI bank-wise pages, old publication (to Feb 2022)", True, False)

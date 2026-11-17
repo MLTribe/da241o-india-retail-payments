@@ -771,10 +771,10 @@ def magnitudes(P, summary):
         add(f"{RAILS[rail]}: peak 12-month average volume", roll_n[pk], "million a month", f"12 months to {label_month(pk)}")
         add(f"{RAILS[rail]}: latest 12-month average volume", roll_n[END], "million a month", f"12 months to {label_month(END)}")
         add(f"{RAILS[rail]}: transactions forgone versus peak", roll_n[pk] - roll_n[END], "million a month", "")
-        add(f"{RAILS[rail]}: real value forgone versus peak", roll_v[pv] - roll_v[END], "₹ crore a month (Mar 2026 prices)",
+        add(f"{RAILS[rail]}: real value forgone versus peak", roll_v[pv] - roll_v[END], f"₹ crore a month ({label_month(END)} prices)",
             f"value peak: 12 months to {label_month(pv)}")
     for rail in RAILS:
-        add(f"{RAILS[rail]}: average real ticket, latest 12 months", last12(P[f"{rail}_t"]), "₹ (Mar 2026 prices)")
+        add(f"{RAILS[rail]}: average real ticket, latest 12 months", last12(P[f"{rail}_t"]), f"₹ ({label_month(END)} prices)")
     for label, window in (("reference", P2M_REF), ("latest", (shift_month(END, -11), END))):
         ms = month_range(*window)
         card = sum(P["debit_v"][m] + P["credit_v"][m] for m in ms)
@@ -828,11 +828,23 @@ def sensitivity(P, split):
     for src, n in provenance.items():
         rows.append({"check": "P2M provenance", "setting": src, "months": n,
                      "maxP2pPlusP2mGapMn": gaps[(src, "inner")], "maxGapVsProductStatsPct": gaps[(src, "outer")]})
-    verified = [m for m, x in split.items() if "ecosystem_api" in x["source_file"]]
-    rows.append({"check": "P2M verified months only", "setting": f"{label_month(min(verified))} – {label_month(max(verified))}",
-                 "note": "The end-window share (latest 12 months) falls in transcribed months, so the P2M-group classification "
-                         "cannot be run on archived API months alone; P2P + P2M totals match NPCI product statistics within the "
-                         "gaps shown."})
+    verified = sorted(m for m, x in split.items() if "ecosystem_api" in x["source_file"])
+    runs = []
+    for m in verified:
+        if runs and shift_month(runs[-1][1], 1) == m:
+            runs[-1][1] = m
+        else:
+            runs.append([m, m])
+    last12 = month_range(shift_month(END, -11), END)
+    transcribed = sum(m not in verified for m in last12)
+    rows.append({"check": "P2M verified months only",
+                 "setting": "; ".join(f"{label_month(a)} – {label_month(b)}" for a, b in runs),
+                 "note": f"{transcribed} of the 12 end-window months ({label_month(last12[0])} – {label_month(END)}) are "
+                         "transcribed, so the P2M-group classification cannot be run on archived API months alone; "
+                         "P2P + P2M totals match NPCI product statistics within the gaps shown."
+                         if transcribed else
+                         "Every end-window month is an archived API response; P2P + P2M totals match NPCI product "
+                         "statistics within the gaps shown."})
     return rows
 
 
@@ -995,9 +1007,14 @@ def page_series(P, paths):
 def headline(summary, h):
     by = {s["method"]: s for s in summary}
     d, i, c = by["Debit cards"], by["IMPS"], by["Credit cards"]
+    every_threshold = i["label"] == CONTRACTION and all(i["crossing"].values())
+    imps = (f"IMPS also shows absolute contraction, past all three thresholds ({i['drawdownPct']:+.1f}% from its "
+            f"peak, 12 months to {label_month(i['peak'])}; beyond 20% since {label_month(i['crossing']['20'])})"
+            if every_threshold else
+            f"IMPS is the boundary case at {d_word(i)} ({i['drawdownPct']:+.1f}% from its peak, 12 months to "
+            f"{label_month(i['peak'])})")
     return (f"Debit cards show absolute contraction: their 12-month average volume is {abs(d['drawdownPct']):.0f}% below "
-            f"its peak (12 months to {label_month(d['peak'])}). IMPS is the boundary case at {d_word(i)} "
-            f"({i['drawdownPct']:+.1f}% from its peak, 12 months to {label_month(i['peak'])}). Credit cards "
+            f"its peak (12 months to {label_month(d['peak'])}). {imps}. Credit cards "
             f"{'kept growing but lost share' if c['label'] == SHARE_LOSS else c['label'].lower()} to UPI P2M "
             f"({c['shareChangePp']:+.1f} pp). Verdicts (Assignment 2 rule / v2 test): H1 {h['H1']['a2']} / {h['H1']['v2']}; "
             f"H2 {h['H2']['a2']} / {h['H2']['v2']}; H3 {h['H3']['a2']} / {h['H3']['v2']}.")

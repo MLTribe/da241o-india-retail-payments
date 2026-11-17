@@ -2,7 +2,7 @@
 
 Every table and chart on the Final analysis page (`docs/final.html`), one CSV each, in page order. The numbers are exactly what the page shows; they are exported from `docs/final-data.js`.
 
-Window: 2017-11 to 2026-03 (101 months; 72 for UPI P2M, from 2020-04). RBI daily data extend UPI and IMPS to 2026-09.
+Window: 2017-11 to 2026-08 (106 months; 77 for UPI P2M, from 2020-04). RBI daily data extend UPI and IMPS to 2026-09.
 
 Charts are in wide format: one row per month, one column per line. Blank cells are months a series does not cover. Nested results (H2 and H3 summaries) are listed as `item, value` pairs.
 
@@ -13,15 +13,15 @@ Charts are in wide format: one row per month, one column per line. Blank cells a
 | `01c_answer_summary.csv` | The answer: label per payment system (primary method) | 3 |
 | `01d_answer_robustness_checks.csv` | The answer: agreement across robustness variants | 15 |
 | `02_corrections.csv` | What changed from Assignment 2 | 6 |
-| `03_fig1_index_nov2017.csv` | Fig 1. Transactions per month, Nov 2017 = 100 | 101 |
-| `03b_fig1b_index_apr2020.csv` | Fig 1b. UPI P2M against cards, Apr 2020 = 100 | 72 |
-| `03c_fig2_shares.csv` | Fig 2. Shares within comparison groups (%) | 101 |
-| `03d_fig3_real_tickets.csv` | Fig 3. Average ticket, ₹ at Mar 2026 prices | 101 |
+| `03_fig1_index_nov2017.csv` | Fig 1. Transactions per month, Nov 2017 = 100 | 106 |
+| `03b_fig1b_index_apr2020.csv` | Fig 1b. UPI P2M against cards, Apr 2020 = 100 | 77 |
+| `03c_fig2_shares.csv` | Fig 2. Shares within comparison groups (%) | 106 |
+| `03d_fig3_real_tickets.csv` | Fig 3. Average ticket, ₹ at Aug 2026 prices | 106 |
 | `03e_chart_markers.csv` | Shaded COVID waves and dashed event lines on all charts | 7 |
 | `04_pre_post_covid.csv` | Growth and share by period | 19 |
 | `05_classification.csv` | Classification: every method and variant | 14 |
 | `05b_classification_heatmap.csv` | Heat-map: threshold × measure × window | 27 |
-| `05c_fig4_drawdown.csv` | Fig 4. Drawdown of the 12-month average from its running peak (%) | 101 |
+| `05c_fig4_drawdown.csv` | Fig 4. Drawdown of the 12-month average from its running peak (%) | 106 |
 | `06_share_decomposition.csv` | Own growth against comparison-group growth | 7 |
 | `07_h1.csv` | H1: IMPS and debit tickets | 2 |
 | `07b_h2_breaks.csv` | H2: break search per series | 6 |

@@ -26,7 +26,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from payment_mix_model import END_MONTH, OUTPUT, REPO, month_range, read_series  # noqa: E402
+from payment_mix_model import BASE_MONTH, END_MONTH, OUTPUT, REPO, month_range, read_series  # noqa: E402
 
 DOCS_DATA = REPO / "docs" / "hypotheses-data.js"
 # Primary sample: the mature-UPI phase, from the first consistently classified RBI card month.
@@ -273,7 +273,7 @@ def drift_test_text() -> str:
 # LaTeX building blocks for the formulas shown on docs/hypotheses.html (rendered with KaTeX).
 D12 = r"\Delta_{12}"
 REAL_TICKET = (r"\tau^{X}_t = \frac{V^{X}_t}{N^{X}_t}\cdot"
-               r"\frac{\mathrm{CPI}_{\text{Mar 2026}}}{\mathrm{CPI}_t}")
+               r"\frac{\mathrm{CPI}_{\text{" + label_month(BASE_MONTH) + r"}}}{\mathrm{CPI}_t}")
 CARD_SYMBOLS = (r"N^{D}_t,\ N^{C}_t,\ N^{P}_t = \text{debit, credit, UPI P2M volume};\quad "
                 r"V^{X}_t = \text{value of rail } X")
 
@@ -416,7 +416,7 @@ def h3(s):
         statement="The average real debit-card payment rises while the average real UPI P2M payment falls.",
         framework="If UPI wins small, frequent purchases first, the debit payments that remain are larger.",
         test="Two parts: mean Δ12 ln(real debit ticket) > 0 and mean Δ12 ln(real P2M ticket) < 0. "
-             + drift_test_text() + ". Real = March 2026 rupees (MoSPI CPI).",
+             + drift_test_text() + f". Real = {label_month(BASE_MONTH)} rupees (MoSPI CPI).",
         estimate=f"Debit ticket {drift_line(dd, 'growth')[0]}; P2M ticket {drift_line(dp, 'growth')[0]}",
         consistency=f"Debit ticket up in {dd['pos']} of {dd['n']} months; P2M ticket down in "
                     f"{dp['neg']} of {dp['n']}",
@@ -424,7 +424,7 @@ def h3(s):
         ci=[dd["lo"], dd["hi"]], point=dd["est"], verdict=combine(parts),
         components=[{"name": "Debit ticket rises", "verdict": parts[0]},
                     {"name": "P2M ticket falls", "verdict": parts[1]}],
-        chart=chart("lines", "Average real ticket, March 2026 rupees", s["months"],
+        chart=chart("lines", f"Average real ticket, {label_month(BASE_MONTH)} rupees", s["months"],
                     [("Debit card", s["debit_total_ticket_real"]), ("UPI P2M", s["p2m_ticket_real"]),
                      ("Credit card", s["credit_total_ticket_real"])], "₹ per transaction"),
         data=f"{RBI_CARDS}; {NPCI_P2M}; MoSPI CPI",
@@ -759,7 +759,7 @@ def h8(s):
     card_test, use_test = drift(card_growth), drift(use_growth)
     card_verdict = verdict(card_test["lo"], card_test["hi"], ">0")
     use_verdict = verdict(use_test["lo"], use_test["hi"], "<0")
-    march_2022 = s["months"].index("2022-03")
+    base = s["months"].index(f"2022-{END_MONTH[5:]}")  # same calendar month as the window end
     return hypothesis(
         id="H8", group="Network and acceptance", title=title,
         statement="Domestic debit-card payments per card in force fall while the number of cards rises.",
@@ -787,9 +787,9 @@ def h8(s):
                                          ("Payments per card", use_growth)]),
         data="RBI Payment System Indicators: Part I 4.2 domestic debit-card payments; "
              "Part III 1.2 debit cards outstanding (lakh), own-month release pages.",
-        note=(f"Same-month comparison: Mar 2022 {s['debit_total_n'][march_2022] * 10:,.2f} "
-              f"lakh domestic debit-card payments / {cards[march_2022]:,.2f} lakh cards "
-              f"= {per_card[march_2022]:.3f} payments/card; Mar 2026 "
+        note=(f"Same-month comparison: {label_month(s['months'][base])} {s['debit_total_n'][base] * 10:,.2f} "
+              f"lakh domestic debit-card payments / {cards[base]:,.2f} lakh cards "
+              f"= {per_card[base]:.3f} payments/card; {label_month(END_MONTH)} "
               f"{s['debit_total_n'][-1] * 10:,.2f} lakh payments / {cards[-1]:,.2f} lakh "
               f"cards = {per_card[-1]:.3f} payments/card. Cards in force are not distinct "
               "people; aggregate data cannot show who kept a card or whether they switched to UPI. "

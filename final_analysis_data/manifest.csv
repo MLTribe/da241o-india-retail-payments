@@ -1,14 +1,14 @@
 file,contents,units,first_month,last_month,rows,sha256
-npci/upi.csv,UPI total: number and value of payments,volume million; value ₹ crore,2016-04,2026-03,120,4be2539b5bd6794e839b227d7864c632597bccbdac56592f7da53b93b6e2db4a
-npci/imps.csv,IMPS: number and value of payments,volume million; value ₹ crore,2016-04,2026-03,120,f64217e2ffefb6f995abb616fd0c7ae901afef21de6e2b112ccbff43eac780e0
-npci/upi_p2p_p2m.csv,UPI split into person-to-person (P2P) and person-to-merchant (P2M),volume million; value ₹ crore,2020-04,2026-03,72,f70f4bf7ad703f678c5980f9b3cdbee7a904fea756c3a7cdf328b1f73452f73e
-rbi/cards_psi.csv,"Card payments, Payment System Indicators (in-store = pos, online = other)",volume lakh; value ₹ crore,2021-06,2026-03,58,c3128828dff2eab8653c68a944c473da1aabbb073f4b947d0fe8bef62764da31
+npci/upi.csv,UPI total: number and value of payments,volume million; value ₹ crore,2016-04,2026-08,125,5a1764ef1544ce288d15602a0c2b2616afec43839d7fb3fc43de8de598fefe72
+npci/imps.csv,IMPS: number and value of payments,volume million; value ₹ crore,2016-04,2026-08,125,6fa66ef2d55e4b3ed0aed9f83b0d6b46e9fe91b0f20894ed404290b4a8fd71a3
+npci/upi_p2p_p2m.csv,UPI split into person-to-person (P2P) and person-to-merchant (P2M),volume million; value ₹ crore,2020-04,2026-08,77,fdada453dd2c2f73e3fa980c7e18e332aeb2c8e6a92d8a2cd8eb8a770e73fe86
+rbi/cards_psi.csv,"Card payments, Payment System Indicators (in-store = pos, online = other)",volume lakh; value ₹ crore,2021-06,2026-08,63,81f33c799cf911c5a0fbe352cc6db25a5e0d77a14419ad696b1b9b4558ee5bac
 rbi/cards_bankwise_2014_2022.csv,"Card payments and stocks, all-bank totals of RBI bank-wise pages (older layout)",counts in units; value ₹ crore,2014-06,2022-02,93,df9b89f5253a2c4eed38b0e155c9b3b785554e21afb4ea60953c7b518320ea87
-rbi/card_acceptance.csv,"Cards issued, card machines (PoS) and QR codes, Payment System Indicators Part III",lakh,2021-06,2026-03,58,c847e92596a3b60f044d63fe3f3de7e95d7f3d6217a662715cc3826dbbb93e72
-mospi/cpi.csv,"CPI Combined, all-India general index, linked to base 2024 = 100",index,2014-01,2026-03,147,4b0f8dc3c73ce293b32c4d72ae2e42d08c387a240d71574889f417739a0a98c4
+rbi/card_acceptance.csv,"Cards issued, card machines (PoS) and QR codes, Payment System Indicators Part III",lakh,2021-06,2026-08,63,bca43d47df1cf0e08f45b5877d3d1ca09eff3f4bfaf33ad67a096d345cbb169f
+mospi/cpi.csv,"CPI Combined, all-India general index, linked to base 2024 = 100",index,2014-01,2026-08,152,4125ed09649456d16cab48cdfaf0ae38de57b88c30c8f000048b42b0c1265c26
 rbi/daily_based_upi_imps.csv,UPI and IMPS monthly totals summed from RBI's daily payment data,volume million; value ₹ crore,2020-11,2026-09,142,7ca6199d29e22dabef0ce64eeb5f21599c2a32bb950e244f1bb9e6c2101c4e87
-monthly_panel.csv,Analysis-ready monthly panel built from the files above,see data_dictionary.csv,2017-11,2026-03,101,d2c26c44124d49e8bdd9701caf0e76a31afa52a4093ae95f4d62e139b1acafc4
+monthly_panel.csv,Analysis-ready monthly panel built from the files above,see data_dictionary.csv,2017-11,2026-08,106,e1175af1d5cee226692b3944e0578a534d5799f8f1f9badd39e2defbd1e88bb0
 daily_panel.csv,"Daily panel from RBI's daily payment data: UPI, IMPS and card-network card payments",see data_dictionary.csv,2020-11,2026-10,2173,9adbd5cbf2aa27f5e28823b8ccd6e3779b9b9a1c413efe42145d8e73627ffe3a
-data_dictionary.csv,Column descriptions for monthly_panel.csv and daily_panel.csv,,,,67,07a9e653f6e9e8c3f63c5799f76f061f6bcb913d26c592ad5cb795f99a4dc4de
+data_dictionary.csv,Column descriptions for monthly_panel.csv and daily_panel.csv,,,,67,611683557ddd61d35a537262b91b46a0d415f54616159cd5da84124194f6a7f9
 festivals.csv,Major festival dates used for the festival flags in daily_panel.csv (Government of India central holiday list),,2020-03,2026-12,56,50ecbea5d8309f39a9cf00afe7388d8d128f7809953a840ee9d8de5f037d18b6
 events.csv,"Dated breaks, policy changes and COVID waves (A2 Appendix C1 and controls)",,,,11,1e93bb0d7f1c7b8149adeef39420cff8a7be5f8d96e8b6b8f900793ef65ba343

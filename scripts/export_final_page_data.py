@@ -50,6 +50,11 @@ def wide(months, lines):
     return fields, rows
 
 
+def month_label(month: str) -> str:
+    names = "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split()
+    return f"{names[int(month[5:7]) - 1]} {month[:4]}"
+
+
 def key_values(obj, section):
     return ["section", "item", "value"], [{"section": section, "item": k, "value": v} for k, v in flat(obj).items()]
 
@@ -77,7 +82,8 @@ def main() -> None:
     add("03b_fig1b_index_apr2020.csv", "Fig 1b. UPI P2M against cards, Apr 2020 = 100",
         wide(S["p2mMonths"], S["indexP2m"]))
     add("03c_fig2_shares.csv", "Fig 2. Shares within comparison groups (%)", wide(S["months"], S["shares"]))
-    add("03d_fig3_real_tickets.csv", "Fig 3. Average ticket, ₹ at Mar 2026 prices", wide(S["months"], S["tickets"]))
+    add("03d_fig3_real_tickets.csv", f"Fig 3. Average ticket, ₹ at {month_label(D['window']['end'])} prices",
+        wide(S["months"], S["tickets"]))
     add("03e_chart_markers.csv", "Shaded COVID waves and dashed event lines on all charts",
         (["type", "from", "to", "id", "label"],
          [{"type": "shaded band", "from": b["from"], "to": b["to"], "id": "", "label": b["label"]} for b in S["bands"]]

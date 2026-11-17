@@ -1,6 +1,6 @@
 method,variant,label,agrees
 IMPS,Threshold 5%,Absolute contraction,True
-IMPS,Threshold 20%,Relative share loss,False
+IMPS,Threshold 20%,Absolute contraction,True
 IMPS,Real value,Relative share loss,False
 IMPS,PSI-period window,Absolute contraction,True
 IMPS,RBI daily data,Absolute contraction,True

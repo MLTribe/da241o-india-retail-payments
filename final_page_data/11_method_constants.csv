@@ -15,7 +15,7 @@ Method,refWindows.psi,2021-06; 2022-05
 Method,refWindows.daily,2020-11; 2021-10
 Method,periods.Pre-COVID,2017-11; 2020-02
 Method,periods.COVID,2020-03; 2021-06
-Method,periods.Post-COVID,2021-07; 2026-03
+Method,periods.Post-COVID,2021-07; 2026-08
 Method,covidMonths,2020-03; 2020-04; 2020-05; 2020-06; 2021-04; 2021-05; 2021-06
 Method,diwaliMonths,2018-11; 2019-10; 2020-11; 2021-11; 2022-10; 2023-11; 2024-10; 2025-10
 Method,events.sameAccount,2018-08
@@ -26,17 +26,17 @@ Method,events.cardLayout,2022-03
 Method,events.rupayCreditOnUpi,2022-09
 Method,trendOrigin,2020-01
 Method,ratioWindow,2017-04; 2023-03
-Method,breakSearch.months,101
+Method,breakSearch.months,106
 Method,breakSearch.trimMonths,15
 Method,breakSearch.firstCandidate,2019-02
-Method,breakSearch.lastCandidate,2024-12
-Method,breakSearch.candidates,71
+Method,breakSearch.lastCandidate,2025-05
+Method,breakSearch.candidates,76
 Method,breakSearch.mdrWindow,2019-10; 2020-02
 Method,breakSearch.covidWindow,2020-03; 2020-12
 Method,h3Leg2Windows.first,2020-05; 2021-04
-Method,h3Leg2Windows.last,2025-04; 2026-03
-Method,cpi.baseMonth,2026-03
-Method,cpi.base,104.84
+Method,h3Leg2Windows.last,2025-09; 2026-08
+Method,cpi.baseMonth,2026-08
+Method,cpi.base,108.74
 Method,cpi.linkFactor,0.5267
 Method,cpi.example.month,2019-06
 Method,cpi.example.native,142.9
@@ -44,9 +44,9 @@ Method,cpi.example.nativeBase,2012
 Method,cpi.example.linked,75.26543
 Method,cpi.example.upiValue,146566.35
 Method,cpi.example.upiVolume,754.54
-Method,cpi.example.upiRealValue,204157.6874535893
+Method,cpi.example.upiRealValue,211752.25995520124
 Method,cpi.example.upiTicket,1942.4596442865852
-Method,cpi.example.upiRealTicket,2705.7238510031184
+Method,cpi.example.upiRealTicket,2806.3755394704226
 Method,splice.assumptions,"From June 2021 card payments are RBI PSI 4.1/4.2 (PoS + Others), the consistently classified series.; Before June 2021 they are the all-bank ""Total"" row of RBI's bank-wise ATM/PoS/card pages. In the pre-March-2022 layouts that page reports card use only ""at ATM"" and ""at PoS""; the PoS column covers every card payment, online included (it equals PSI PoS + Others in the overlap), so it maps to PSI totals, not to PSI ""PoS based"".; The bank-wise series is scaled by k, the geometric-mean ratio PSI / bank-wise over the nine overlap months June 2021 - February 2022 (separately for debit/credit, volume/value).; k is checked out of sample against the PSI values for June 2020 - May 2021 printed in the following year's releases (their ""same month last year"" column).; RBI's June 2021 reclassification is assumed to change presentation (PoS vs Others split, which banks report), not the total of card payments; a level dummy at June 2021 tests this."
 Method,splice.overlap,2021-06; 2022-02
 Method,splice.unitCheck,"Credit-card average ticket ₹3,488 (Jun 2019, published in ₹ million) vs ₹3,341 (Jul 2019, ₹ lakh)"
@@ -78,14 +78,14 @@ Method,splice.worstGaps.Credit card value.gapPct,-0.37547897253455975
 Method,splice.worstGaps.Credit card value.monthFromMar2022,2022-09
 Method,splice.worstGaps.Credit card value.gapFromMar2022Pct,-0.37547897253455975
 Method,classificationLevels.IMPS.rollPeak,513.7716666666666
-Method,classificationLevels.IMPS.rollEnd,411.925
+Method,classificationLevels.IMPS.rollEnd,368.45250000000004
 Method,classificationLevels.IMPS.peak,2024-07
 Method,classificationLevels.IMPS.firstRolled,2018-10
 Method,classificationLevels.Debit cards.rollPeak,429.24162668886896
-Method,classificationLevels.Debit cards.rollEnd,106.68425
+Method,classificationLevels.Debit cards.rollEnd,101.30158333333334
 Method,classificationLevels.Debit cards.peak,2020-02
 Method,classificationLevels.Debit cards.firstRolled,2018-10
-Method,classificationLevels.Credit cards.rollPeak,501.96900000000005
-Method,classificationLevels.Credit cards.rollEnd,501.96900000000005
-Method,classificationLevels.Credit cards.peak,2026-03
+Method,classificationLevels.Credit cards.rollPeak,553.4517500000001
+Method,classificationLevels.Credit cards.rollEnd,553.4517500000001
+Method,classificationLevels.Credit cards.peak,2026-08
 Method,classificationLevels.Credit cards.firstRolled,2018-10

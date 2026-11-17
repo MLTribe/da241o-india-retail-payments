@@ -19,9 +19,14 @@ INPUT = REPO / "by_year"
 OUTPUT = Path(__file__).resolve().parent / "output"
 FIGURES = OUTPUT / "figures"
 DOCS_DATA = REPO / "docs" / "explore-data.js"
-END_MONTH = "2026-03"
+END_MONTH = "2026-08"
 TRANSFER_START = "2016-04"
-BASE_MONTH = "2026-03"
+# Real values are in prices of the last month of the window.
+BASE_MONTH = END_MONTH
+MONTH_ABBR = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+REAL_TAG = f"{MONTH_ABBR[int(BASE_MONTH[5:]) - 1].lower()}{BASE_MONTH[:4]}"
+REAL_VALUE = f"value_real_{REAL_TAG}_crore"
+REAL_TICKET = f"average_ticket_real_{REAL_TAG}_rs"
 CORE_BASKETS = ("transfer", "merchant")
 BASKET_LABELS = {
     "transfer": "UPI total vs IMPS",
@@ -195,9 +200,9 @@ def rail_row(month: str, basket: str, rail: str, volume: float,
         "rail": rail,
         "volume_mn": volume,
         "value_nominal_crore": value,
-        "value_real_mar2026_crore": real_value,
+        REAL_VALUE: real_value,
         "average_ticket_nominal_rs": value * 10 / volume if volume else None,
-        "average_ticket_real_mar2026_rs": (
+        REAL_TICKET: (
             real_value * 10 / volume if real_value is not None and volume else None
         ),
         "source_url": source_url,
@@ -308,12 +313,12 @@ def build_monthly(
         row["volume_share_yoy_pp"] = (
             float(row["volume_share_pct"]) - float(prior["volume_share_pct"])
         ) if prior else None
-        if prior and row["value_real_mar2026_crore"] is not None \
-                and prior["value_real_mar2026_crore"] is not None \
-                and float(prior["value_real_mar2026_crore"]) > 0:
+        if prior and row[REAL_VALUE] is not None \
+                and prior[REAL_VALUE] is not None \
+                and float(prior[REAL_VALUE]) > 0:
             row["real_value_yoy_pct"] = 100 * (
-                float(row["value_real_mar2026_crore"])
-                / float(prior["value_real_mar2026_crore"]) - 1
+                float(row[REAL_VALUE])
+                / float(prior[REAL_VALUE]) - 1
             )
         else:
             row["real_value_yoy_pct"] = None
@@ -375,6 +380,19 @@ def fiscal_year(month: str) -> str:
     return f"FY{start}-{str(start + 1)[-2:]}"
 
 
+def last_full_fiscal_year(end: str = END_MONTH, back: int = 0) -> str:
+    """Latest April-March year that ends in or before `end`; `back` steps further back."""
+    year = int(end[:4]) if int(end[5:]) >= 3 else int(end[:4]) - 1
+    return fiscal_year(f"{year - back}-03")
+
+
+def short_fy(fy: str) -> str:
+    return f"FY{fy[4:6]}-{fy[-2:]}"
+
+
+LATEST_FY, PREVIOUS_FY = last_full_fiscal_year(), last_full_fiscal_year(back=1)
+
+
 def annualize(monthly: list[dict[str, object]]) -> list[dict[str, object]]:
     groups: dict[tuple[str, str, str], list[dict[str, object]]] = defaultdict(list)
     for row in monthly:
@@ -386,7 +404,7 @@ def annualize(monthly: list[dict[str, object]]) -> list[dict[str, object]]:
             continue
         volume = sum(float(row["volume_mn"]) for row in rows)
         value = sum(float(row["value_nominal_crore"]) for row in rows)
-        real_items = [row["value_real_mar2026_crore"] for row in rows]
+        real_items = [row[REAL_VALUE] for row in rows]
         real_value = sum(float(item) for item in real_items) if all(
             item is not None for item in real_items
         ) else None
@@ -394,9 +412,9 @@ def annualize(monthly: list[dict[str, object]]) -> list[dict[str, object]]:
             "basket": basket, "fiscal_year": fy, "rail": rail,
             "months": 12, "volume_mn": volume,
             "value_nominal_crore": value,
-            "value_real_mar2026_crore": real_value,
+            REAL_VALUE: real_value,
             "average_ticket_nominal_rs": value * 10 / volume,
-            "average_ticket_real_mar2026_rs": (
+            REAL_TICKET: (
                 real_value * 10 / volume if real_value is not None else None
             ),
         })
@@ -429,8 +447,8 @@ def compare_years(annual: list[dict[str, object]], basket: str,
         volume_growth = 100 * (float(after["volume_mn"]) /
                                float(before["volume_mn"]) - 1)
         share_change = float(after["volume_share_pct"]) - float(before["volume_share_pct"])
-        real_before = before["value_real_mar2026_crore"]
-        real_after = after["value_real_mar2026_crore"]
+        real_before = before[REAL_VALUE]
+        real_after = after[REAL_VALUE]
         comparisons.append({
             "basket": basket, "rail": rail, "first_year": first, "last_year": last,
             "volume_growth_pct": volume_growth,
@@ -445,8 +463,8 @@ def compare_years(annual: list[dict[str, object]], basket: str,
             "real_value_growth_pct": 100 * (float(real_after) / float(real_before) - 1)
                 if real_after is not None and real_before is not None else None,
             "real_ticket_growth_pct": 100 * (
-                float(after["average_ticket_real_mar2026_rs"])
-                / float(before["average_ticket_real_mar2026_rs"]) - 1
+                float(after[REAL_TICKET])
+                / float(before[REAL_TICKET]) - 1
             ) if real_after is not None and real_before is not None else None,
             "pattern": classify(volume_growth, share_change),
         })
@@ -558,8 +576,8 @@ def build_timeseries_stats(monthly: list[dict[str, object]]) -> list[dict[str, o
         rows.sort(key=lambda item: str(item["month"]))
         months = [str(item["month"]) for item in rows]
         volume = [(str(item["month"]), float(item["volume_mn"])) for item in rows]
-        real = [(str(item["month"]), float(item["value_real_mar2026_crore"]))
-                for item in rows if item["value_real_mar2026_crore"] is not None]
+        real = [(str(item["month"]), float(item[REAL_VALUE]))
+                for item in rows if item[REAL_VALUE] is not None]
         if len(rows) >= 24:
             first = sum(v for _, v in volume[:12])
             last = sum(v for _, v in volume[-12:])
@@ -683,8 +701,8 @@ def write_figures(monthly: list[dict[str, object]], infra_panel: list[dict[str, 
          "Value share (%)", series_for("upi_use", "value_share_pct")),
         ("transfer_volume_share.svg", "UPI total vs IMPS: monthly volume share",
          "Volume share (%)", series_for("transfer", "volume_share_pct")),
-        ("merchant_real_ticket.svg", "Merchant basket: real average ticket (Mar 2026 Rs)",
-         "Rupees per transaction", series_for("merchant", "average_ticket_real_mar2026_rs")),
+        ("merchant_real_ticket.svg", f"Merchant basket: real average ticket ({label_month(BASE_MONTH)} Rs)",
+         "Rupees per transaction", series_for("merchant", REAL_TICKET)),
         ("context_retail_volume_share.svg", "Context basket: monthly volume share",
          "Volume share (%)", series_for("context_retail", "volume_share_pct")),
     ]
@@ -720,7 +738,7 @@ def write_explore_data(monthly: list[dict[str, object]],
     baskets: dict[str, dict[str, object]] = {}
     fields = {
         "volume": "volume_mn", "value": "value_nominal_crore",
-        "real": "value_real_mar2026_crore", "volShare": "volume_share_pct",
+        "real": REAL_VALUE, "volShare": "volume_share_pct",
         "valShare": "value_share_pct", "rollVolShare": "rolling12_volume_share_pct",
         "rollValShare": "rolling12_value_share_pct", "ticket": "average_ticket_nominal_rs",
         "yoy": "volume_yoy_pct",
@@ -794,7 +812,7 @@ def extension_sections(comparisons: list[dict[str, object]],
                        stats: list[dict[str, object]],
                        infra_panel: list[dict[str, object]],
                        windows: dict[str, tuple[str, str]]) -> list[str]:
-    first, last = "FY2022-23", "FY2025-26"
+    first, last = "FY2022-23", LATEST_FY
     lines = [
         "## Additional time series",
         "",
@@ -927,19 +945,19 @@ def write_findings(annual: list[dict[str, object]],
     annual_index = {(row["basket"], row["fiscal_year"], row["rail"]): row
                     for row in annual}
     march = {(row["basket"], row["rail"], row["month"]): row
-             for row in monthly if row["month"] == "2026-03"}
+             for row in monthly if row["month"] == END_MONTH}
     yoy_months = sorted({str(row["month"]) for row in monthly if row["basket"] == "merchant"
                          and row["volume_pattern_yoy"] is not None})
     lines = [
         "# What the payment-mix model says",
         "",
-        "Data freeze: March 2026. Figures below are computed from the annual CSV extracts.",
+        f"Data freeze: {label_month(END_MONTH)}. Figures below are computed from the annual CSV extracts.",
         "Volumes are transactions, values are rupees, and shares are within the named",
         "analytical comparison basket. These shares are not economy-wide market shares.",
         "",
-        "## Merchant payments: FY2022-23 to FY2025-26",
+        f"## Merchant payments: FY2022-23 to {LATEST_FY}",
         "",
-        "| Rail | FY22-23 volume (bn) | FY25-26 volume (bn) | Volume change | Share change | Pattern |",
+        f"| Rail | FY22-23 volume (bn) | {short_fy(LATEST_FY)} volume (bn) | Volume change | Share change | Pattern |",
         "| --- | ---: | ---: | ---: | ---: | --- |",
     ]
     for item in comparisons:
@@ -976,16 +994,16 @@ def write_findings(annual: list[dict[str, object]],
     lines += [
         "",
         "Real value and ticket use MoSPI CPI linked to the 2024 base and are",
-        "expressed in March 2026 rupees. Value shares use nominal values within",
+        f"expressed in {label_month(BASE_MONTH)} rupees. Value shares use nominal values within",
         "the same month or fiscal year.",
         "",
-        "### March 2026 transaction size",
+        f"### {label_month(END_MONTH)} transaction size",
         "",
         "| Rail | Transactions (bn) | Nominal value (₹ lakh crore) | Average ticket (₹) | Volume share | Value share |",
         "| --- | ---: | ---: | ---: | ---: | ---: |",
     ]
     for rail in ("UPI P2M", "credit card", "debit card"):
-        row = march[("merchant", rail, "2026-03")]
+        row = march[("merchant", rail, END_MONTH)]
         lines.append(
             f"| {rail} | {float(row['volume_mn']) / 1000:,.3f} | "
             f"{float(row['value_nominal_crore']) / 100000:,.2f} | "
@@ -1016,9 +1034,9 @@ def write_findings(annual: list[dict[str, object]],
                      f"{patterns['co-expansion']} | {other} |")
     lines += [
         "",
-        "## UPI and IMPS: FY2016-17 to FY2025-26",
+        f"## UPI and IMPS: FY2016-17 to {LATEST_FY}",
         "",
-        "| Rail | FY16-17 volume (bn) | FY25-26 volume (bn) | Volume change | Share change | Pattern |",
+        f"| Rail | FY16-17 volume (bn) | {short_fy(LATEST_FY)} volume (bn) | Volume change | Share change | Pattern |",
         "| --- | ---: | ---: | ---: | ---: | --- |",
     ]
     for item in comparisons:
@@ -1039,13 +1057,13 @@ def write_findings(annual: list[dict[str, object]],
         "UPI's very large percentage growth starts from a near-zero launch base;",
         "the change in transaction counts and basket shares is more informative.",
         "",
-        "### Most recent full year: FY2024-25 to FY2025-26",
+        f"### Most recent full year: {PREVIOUS_FY} to {LATEST_FY}",
         "",
         "| Basket | Rail | Volume change | Share change | Real value change | Pattern |",
         "| --- | --- | ---: | ---: | ---: | --- |",
     ]
     for item in comparisons:
-        if item["first_year"] != "FY2024-25" or item["basket"] not in CORE_BASKETS:
+        if item["first_year"] != PREVIOUS_FY or item["basket"] not in CORE_BASKETS:
             continue
         real = item["real_value_growth_pct"]
         real_text = f"{float(real):+.1f}%" if real is not None else "n/a"
@@ -1059,8 +1077,8 @@ def write_findings(annual: list[dict[str, object]],
     lines += [
         "## Inflation and source checks",
         "",
-        "MoSPI's linked all-India CPI expresses 2022–26 values and tickets in March",
-        "2026 rupees. Nominal shares are unchanged by a common monthly deflator,",
+        "MoSPI's linked all-India CPI expresses 2022–26 values and tickets in",
+        f"{label_month(BASE_MONTH)} rupees. Nominal shares are unchanged by a common monthly deflator,",
         "although annual real-value shares can differ slightly because monthly rail",
         "composition differs. The panel CSV contains nominal and real measures.",
         "",
@@ -1111,8 +1129,9 @@ def write_findings(annual: list[dict[str, object]],
         "slopes, seasonal indices and HHI summarise national totals and are not",
         "estimates of demand or substitution. Acceptance-infrastructure counts measure",
         "terminals and QR codes deployed, not active merchants. The P2P/P2M monthly",
-        "series was transcribed from NPCI's official selector table; six original",
-        "month workbooks are archived locally. The announced October 2026 merchant",
+        "series for Jan 2022 – Mar 2026 was transcribed from NPCI's official selector",
+        "table (six original month workbooks are archived locally); the other months",
+        "are archived NPCI API responses. The announced October 2026 merchant",
         "charge is outside this data window.",
         "",
     ]
@@ -1136,10 +1155,10 @@ def main() -> None:
     stats = build_timeseries_stats(monthly)
     annual = annualize(monthly)
     comparisons = (
-        compare_years(annual, "transfer", "FY2016-17", "FY2025-26")
-        + compare_years(annual, "merchant", "FY2022-23", "FY2025-26")
-        + compare_years(annual, "transfer", "FY2024-25", "FY2025-26")
-        + compare_years(annual, "merchant", "FY2024-25", "FY2025-26")
+        compare_years(annual, "transfer", "FY2016-17", LATEST_FY)
+        + compare_years(annual, "merchant", "FY2022-23", LATEST_FY)
+        + compare_years(annual, "transfer", PREVIOUS_FY, LATEST_FY)
+        + compare_years(annual, "merchant", PREVIOUS_FY, LATEST_FY)
     )
     windows: dict[str, tuple[str, str]] = {}
     for row in monthly:
@@ -1149,13 +1168,13 @@ def main() -> None:
         start = windows.get(basket, (str(row["month"]), ""))[0]
         windows[basket] = (min(start, str(row["month"])), str(row["month"]))
     for basket in windows:
-        for first in ("FY2022-23", "FY2024-25"):
-            comparisons += compare_years(annual, basket, first, "FY2025-26")
+        for first in ("FY2022-23", PREVIOUS_FY):
+            comparisons += compare_years(annual, basket, first, LATEST_FY)
     OUTPUT.mkdir(parents=True, exist_ok=True)
     write_csv(OUTPUT / "monthly_panel.csv", monthly, [
         "month", "basket", "rail", "volume_mn", "value_nominal_crore",
-        "value_real_mar2026_crore", "average_ticket_nominal_rs",
-        "average_ticket_real_mar2026_rs", "basket_volume_mn",
+        REAL_VALUE, "average_ticket_nominal_rs",
+        REAL_TICKET, "basket_volume_mn",
         "volume_share_pct", "value_share_pct", "volume_yoy_pct",
         "volume_share_yoy_pp", "real_value_yoy_pct", "volume_pattern_yoy",
         "source_url", "rolling12_volume_mn", "rolling12_value_nominal_crore",
@@ -1169,8 +1188,8 @@ def main() -> None:
     write_explore_data(monthly, infra_panel, stats)
     write_csv(OUTPUT / "annual_summary.csv", annual, [
         "basket", "fiscal_year", "rail", "months", "volume_mn",
-        "value_nominal_crore", "value_real_mar2026_crore",
-        "average_ticket_nominal_rs", "average_ticket_real_mar2026_rs",
+        "value_nominal_crore", REAL_VALUE,
+        "average_ticket_nominal_rs", REAL_TICKET,
         "volume_share_pct", "value_share_pct",
     ])
     write_csv(OUTPUT / "period_comparison.csv", comparisons, [

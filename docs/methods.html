@@ -204,8 +204,8 @@
 
         <h3><span class="tag">c</span>Formulas</h3>
         <div class="formula">
-          <div class="tex">\text{real value}_t = \text{value}_t \times \dfrac{\text{CPI}_{\text{Mar 2026}}}{\text{CPI}_t}, \qquad \text{CPI}_t = \begin{cases} \text{CPI}^{2012\text{ base}}_t \times 0.5267 & t \le \text{Dec 2025} \\ \text{CPI}^{2024\text{ base}}_t & t \ge \text{Jan 2026} \end{cases}</div>
-          <p>MoSPI moved the CPI from base 2012 = 100 to base 2024 = 100 in Jan 2026. Months published on the old base are multiplied by MoSPI's official link factor for the Combined general index (<span data-v="linkFactor"></span>); CPI(<span data-v="cpiBaseMonth"></span>) = <span data-v="cpiBase"></span>. Real values are therefore in <span data-v="cpiBaseMonth"></span> prices.</p>
+          <div class="tex">\text{real value}_t = \text{value}_t \times \dfrac{\text{CPI}_{T}}{\text{CPI}_t}, \qquad \text{CPI}_t = \begin{cases} \text{CPI}^{2012\text{ base}}_t \times 0.5267 & t \le \text{Dec 2025} \\ \text{CPI}^{2024\text{ base}}_t & t \ge \text{Jan 2026} \end{cases}</div>
+          <p>MoSPI moved the CPI from base 2012 = 100 to base 2024 = 100 in Jan 2026. Months published on the old base are multiplied by MoSPI's official link factor for the Combined general index (<span data-v="linkFactor"></span>); T is the last month of the window, so CPI<sub>T</sub> = CPI(<span data-v="cpiBaseMonth"></span>) = <span data-v="cpiBase"></span>. Real values are therefore in <span data-v="cpiBaseMonth"></span> prices.</p>
           <div class="tex">\text{ticket}_t = \dfrac{\text{value}_t\ (\text{₹ crore}) \times 10}{\text{volume}_t\ (\text{million})}\ \text{₹ per payment}, \qquad \text{real ticket}_t = \dfrac{\text{real value}_t \times 10}{\text{volume}_t}</div>
           <p>One crore is 10<sup>7</sup> rupees and one million is 10<sup>6</sup> payments, so ₹ crore per million payments × 10 = ₹ per payment.</p>
           <div class="tex">s_{i,g,t} = \dfrac{N_{i,t}}{\sum_{j \in g} N_{j,t}} \times 100</div>
@@ -293,7 +293,7 @@
         <h3><span class="tag">c–d</span>How the text and labels are produced</h3>
         <ul>
           <li><b>Headline sentence 1 (debit)</b>: the debit drawdown D at the 10% primary threshold and the month its 12-month average peaked.</li>
-          <li><b>Sentence 2 (IMPS)</b>: IMPS's label, its drawdown and peak month. It is called "the boundary case" because its label changes with the threshold.</li>
+          <li><b>Sentence 2 (IMPS)</b>: IMPS's label, its drawdown and peak month. It is called "the boundary case" only while its label changes with the threshold; once it is past all three thresholds the sentence says so and gives the month it crossed 20%.</li>
           <li><b>Sentence 3 (credit)</b>: credit's label and its share change within P2M + debit + credit.</li>
           <li><b>Verdict cards</b>: each hypothesis has two labels, shown side by side and never merged into one. The left label applies the rejection rule stated in Assignment 2 ("Not rejected" / "Rejected"). The right label is the sharper "v2" test added after the review, which can come out "Supported", "Partially supported", "Not supported" or "Indeterminate". The exact rules are in <a href="#hypotheses">section 9</a>.</li>
         </ul>
@@ -433,7 +433,7 @@
 
         <h3><span class="tag">f</span>Caveats</h3>
         <div class="caveats"><ul>
-          <li>The thresholds are conventions. A rail between two thresholds (IMPS now) gets different labels at 10% and 20%, which is why IMPS is reported as the boundary case.</li>
+          <li>The thresholds are conventions. A rail between two thresholds gets different labels at 10% and 20% and is reported as the boundary case; IMPS was one until its drawdown passed 20% (see the crossing months in the table above).</li>
           <li>IMPS's share loss against UPI is mechanical (UPI started small), so its drawdown and peak timing carry the information.</li>
           <li>The 12-month average smooths seasonality, so D reacts to a fall with a lag of up to a year.</li>
         </ul></div>
@@ -567,7 +567,7 @@
         <ul>
           <li><b>RuPay credit on UPI.</b> Since <span data-v="rupay"></span> RuPay credit cards can be linked to UPI, so some payments counted as credit-card payments may also be UPI payments. From that month credit volume is multiplied by (1 − c) for c = 0%, 5% and 10%. For each c, credit is reclassified with the rule of section 7 (P2M + debit + credit group recomputed with the adjusted credit), and the drift of logit(credit ÷ (credit + debit)) is recomputed over Jul 2021 – <span data-v="end"></span>. The result holds if the label and the sign of the drift do not change.</li>
           <li><b>UPI P2M source.</b> Each P2M month is either an archived, hash-checked NPCI API JSON file or a transcribed NPCI web table. For each source the table reports the number of months, the largest |P2P + P2M − total| (million), and the largest gap between that total and NPCI's UPI product statistics (%).</li>
-          <li><b>UPI P2M verified months.</b> The archived API months (<span data-v="verifiedMonths"></span>) do not include the latest 12 months, so the P2M-group classification cannot be re-run on verified months alone.</li>
+          <li><b>UPI P2M verified months.</b> The archived API months (<span data-v="verifiedMonths"></span>) do not cover all of the latest 12 months, so the P2M-group classification cannot be re-run on verified months alone.</li>
           <li><b>Nov 2019 card dummy.</b> The H2 break search is repeated without it (rows "no Nov 2019 dummy" in the H2 table).</li>
           <li><b>Card bridge table.</b> k, the out-of-sample error and the overlap gaps, as explained in <a href="#bridge">section 2</a>.</li>
         </ul>

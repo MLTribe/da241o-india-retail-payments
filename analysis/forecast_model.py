@@ -23,9 +23,10 @@ an equal-weight geometric average of two components.
     log-odds space. Residuals are scaled by kappa so that the 80% intervals cover 12-month-ahead
     outcomes in the rolling backtest; second-year coverage is reported as a diagnostic.
 
-Estimation window: June 2021 - March 2026, UPI's mature phase with consistently classified RBI
-card data (the study's primary sample). The backtest refits every model at each origin using only
-data up to that origin.
+Estimation window: June 2021 to END_MONTH (August 2026), UPI's mature phase with consistently
+classified RBI card data (the study's primary sample). The backtest refits every model at each
+origin using only data up to that origin. When the window ends inside a fiscal year, that year's
+totals add the observed months to the simulated rest of the year.
 
 Outputs:
   analysis/output/forecast_base.csv              FY volumes, shares, tickets with 80%/95% intervals
@@ -52,7 +53,8 @@ from collections import defaultdict
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from payment_mix_model import END_MONTH, INPUT, OUTPUT, REPO, fiscal_year, month_range, shift_month  # noqa: E402
+from payment_mix_model import (  # noqa: E402
+    END_MONTH, INPUT, LATEST_FY, OUTPUT, REPO, fiscal_year, label_month, month_range, shift_month)
 from hypothesis_tests import Z95, hac_se, ols  # noqa: E402
 
 DOCS_DATA = REPO / "docs" / "forecast-data.js"
@@ -76,6 +78,7 @@ PHIS = [0.80, 0.85, 0.90, 0.93, 0.95, 0.97, 0.98, 0.99, 1.0]
 FIXED_ORIGINS = {"2024-03": ["FY2024-25", "FY2025-26"], "2025-03": ["FY2025-26"]}
 ROLLING_ORIGINS = month_range("2024-03", "2025-03")
 Z80 = 1.281552
+GROWTH_SPAN = f"{label_month(shift_month(END_MONTH, -12))} – {label_month(END_MONTH)}"
 
 # Scenario ramps: policy levers phase in over two years (full effect from FY2028-29);
 # credit-on-UPI adoption rises linearly to its FY2029-30 target; the app cap binds from Jan 2027
@@ -633,9 +636,11 @@ def final_forecast(data, kappa):
             monthly.append({"month": m, "rail": r, "median_mn": quantile(vals, .5),
                             "lo80_mn": quantile(vals, .1), "hi80_mn": quantile(vals, .9)})
 
+    # A fiscal year the data window ends inside is its observed months plus the simulated rest.
+    span = months + future
     annual_draws = []
     for d in draws:
-        annual_draws.append([[fy_sum(d[r], future, fy) for r in RAILS] for fy in FORECAST_FYS])
+        annual_draws.append([[fy_sum(vol[r] + d[r], span, fy) for r in RAILS] for fy in FORECAST_FYS])
 
     med_paths = {r: [quantile([d[r][h] for d in draws], .5) for h in range(len(future))] for r in RAILS}
     fy_ticket = {}
@@ -643,8 +648,11 @@ def final_forecast(data, kappa):
         fy_ticket[fy] = {}
         for r in RAILS:
             idx = [h for h, m in enumerate(future) if fiscal_year(m) == fy]
-            vol_fy = sum(med_paths[r][h] for h in idx)
-            fy_ticket[fy][r] = sum(med_paths[r][h] * tickets[r][h] for h in idx) / vol_fy
+            seen = [i for i, m in enumerate(months) if fiscal_year(m) == fy]
+            vol_fy = sum(med_paths[r][h] for h in idx) + sum(vol[r][i] for i in seen)
+            rupees = (sum(med_paths[r][h] * tickets[r][h] for h in idx)
+                      + sum(data["val"][r][i] * 10 for i in seen))
+            fy_ticket[fy][r] = rupees / vol_fy
     params = {k: {"alpha": fits[k]["alpha"], "beta": fits[k]["beta"], "phi": fits[k]["phi"]}
               for k in LATENTS}
     return {"future": future, "draws": draws, "annual_draws": annual_draws, "monthly": monthly,
@@ -676,7 +684,7 @@ def lever_defaults(data) -> dict[str, float]:
     i12 = months.index(shift_month(END_MONTH, -12))
 
     def cagr(key):
-        # Latest year: UPI QR codes nearly doubled in FY2024-25, a one-off a 24-month CAGR would extrapolate.
+        # Latest 12 months: UPI QR codes nearly doubled in FY2024-25, a one-off a 24-month CAGR would extrapolate.
         return 100 * (infra[key][-1] / infra[key][i12] - 1)
 
     return {"mdr": 0.0, "mdr_value_share": 50.0, "mdr_card_overlap": 50.0,
@@ -798,7 +806,7 @@ def assumption_rows(data, defaults):
          "basis": "Not identified in national aggregates."},
         {"lever": "Issuer push", "parameter": "cards_growth_base", "default": defaults["cards_growth_base"],
          "unit": "% per year", "status": "Calibrated",
-         "basis": "Credit cards in force, growth Mar 2025 – Mar 2026 (RBI PSI Part III)."},
+         "basis": f"Credit cards in force, growth {GROWTH_SPAN} (RBI PSI Part III)."},
         {"lever": "Issuer push", "parameter": "eps_cards", "default": defaults["eps_cards"],
          "unit": "elasticity of credit log-odds to cards in force", "status": "Assumed",
          "basis": f"Our data do not identify it: 12-month changes in credit log-odds on card growth give {cards['b']:.2f} (HAC SE {cards['se']:.2f}, n={cards['n']}), the wrong sign because issuance and UPI growth move together. Default assumes new cards are used half as intensively as existing ones."},
@@ -806,9 +814,9 @@ def assumption_rows(data, defaults):
          "unit": "log-odds per pp reward rate", "status": "Assumed",
          "basis": "No reward-rate data in our sources."},
         {"lever": "Merchant acceptance", "parameter": "pos_growth_base", "default": defaults["pos_growth_base"],
-         "unit": "% per year", "status": "Calibrated", "basis": "PoS terminals, growth Mar 2025 – Mar 2026 (RBI PSI)."},
+         "unit": "% per year", "status": "Calibrated", "basis": f"PoS terminals, growth {GROWTH_SPAN} (RBI PSI)."},
         {"lever": "Merchant acceptance", "parameter": "qr_growth_base", "default": defaults["qr_growth_base"],
-         "unit": "% per year", "status": "Calibrated", "basis": "UPI QR codes, growth Mar 2025 – Mar 2026 (RBI PSI). The 24-month rate (48% a year) includes a one-off near-doubling in FY2024-25."},
+         "unit": "% per year", "status": "Calibrated", "basis": f"UPI QR codes, growth {GROWTH_SPAN} (RBI PSI). A 24-month rate would include the one-off near-doubling in FY2024-25."},
         {"lever": "Merchant acceptance", "parameter": "b_acc", "default": defaults["b_acc"],
          "unit": "log-odds per log point of PoS ÷ QR", "status": "Assumed",
          "basis": f"Our data do not identify it: 12-month changes in credit log-odds on ln(PoS ÷ QR) give {acc['b']:.2f} (HAC SE {acc['se']:.2f}, n={acc['n']}), the wrong sign for a causal reading."},
@@ -817,7 +825,7 @@ def assumption_rows(data, defaults):
          "basis": "Direct utility shift for debit. Removing inactive cards changes cards in force, not payments, so it is 0 unless it pushes users to UPI."},
         {"lever": "NPCI app market-share cap", "parameter": "cap_level", "default": defaults["cap_level"],
          "unit": "% of UPI volume per app", "status": "Policy",
-         "basis": "NPCI circular (Nov 2020); compliance deadline extended to 31 Dec 2026. App shares from npci_upi_apps.csv, Mar 2026."},
+         "basis": "NPCI circular (Nov 2020); compliance deadline extended to 31 Dec 2026. App shares from npci_upi_apps.csv, " + label_month(END_MONTH) + "."},
         {"lever": "NPCI app market-share cap", "parameter": "cap_friction", "default": defaults["cap_friction"],
          "unit": "% of capped-out volume lost", "status": "Assumed",
          "basis": "Default 0: the cap moves users between apps, not off UPI."},
@@ -881,8 +889,8 @@ def main() -> None:
     write_csv(OUTPUT / "forecast_assumptions.csv", assumptions)
 
     vol, months = data["vol"], data["months"]
-    last_fy = {r: fy_sum(vol[r], months, "FY2025-26") for r in RAILS}
-    last_val = {r: fy_sum(data["val"][r], months, "FY2025-26") for r in RAILS}
+    last_fy = {r: fy_sum(vol[r], months, LATEST_FY) for r in RAILS}
+    last_val = {r: fy_sum(data["val"][r], months, LATEST_FY) for r in RAILS}
     infra_last = {k: v[-1] for k, v in data["infra"].items()}
     future = final["future"]
     model_views = []
@@ -897,7 +905,7 @@ def main() -> None:
         "rails": RAILS,
         "names": NAMES,
         "history": data["history"],
-        "last_fy": {"fy": "FY2025-26", "volume": {r: r1(v) for r, v in last_fy.items()},
+        "last_fy": {"fy": LATEST_FY, "volume": {r: r1(v) for r, v in last_fy.items()},
                     "value_crore": {r: round(v) for r, v in last_val.items()}},
         "draws": [[[r1(v) for v in fy] for fy in d] for d in final["annual_draws"]],
         "tickets": {fy: {r: r1(v) for r, v in t.items()} for fy, t in final["fy_ticket"].items()},

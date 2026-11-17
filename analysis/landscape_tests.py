@@ -29,7 +29,7 @@ from hypothesis_tests import (  # noqa: E402
     drift_step, hac_se, hypothesis, label_month, ln, logodds, ols, p_two_sided, pct, rounded,
     sub, verdict, yoy_example,
 )
-from payment_mix_model import END_MONTH, OUTPUT, REPO, month_range  # noqa: E402
+from payment_mix_model import END_MONTH, LATEST_FY, OUTPUT, REPO, month_range  # noqa: E402
 
 DOCS_DATA = REPO / "docs" / "landscape-data.js"
 BANK_START = "2022-03"           # first month of RBI's 26-column bank-wise layout
@@ -38,14 +38,15 @@ APP_START = "2022-01"
 PULSE_START, PULSE_END = "2022-Q1", "2026-Q1"
 PULSE_LONG_START = "2018-Q1"
 FY_BASE = month_range("2022-04", "2023-03")
-FY_LATEST = month_range("2025-04", "2026-03")
+FY_LATEST = month_range(f"{LATEST_FY[2:6]}-04", f"{int(LATEST_FY[2:6]) + 1}-03")  # latest full financial year
+FY_LATEST_SPAN = f"{label_month(FY_LATEST[0])}–{label_month(FY_LATEST[-1])}"
 TOP_BANKS = 20
 CITI = "CITI BANK"
 PAYTM_ORDER = "2024-02"          # first full month after RBI's 31 Jan 2024 order on Paytm Payments Bank
 LEADERS = ("PhonePe", "Google Pay")
 QUARTER_LAGS = 4
 
-RBI_BANKS = "RBI Bank-wise ATM/PoS/Card Statistics (monthly, Mar 2022–Mar 2026)"
+RBI_BANKS = f"RBI Bank-wise ATM/PoS/Card Statistics (monthly, {label_month(BANK_START)}–{label_month(END_MONTH)})"
 NPCI_APPS = "NPCI UPI ecosystem statistics: UPI Applications"
 NPCI_MEMBERS = "NPCI UPI ecosystem statistics: Top 50 member banks (volume)"
 NPCI_STATES = "NPCI UPI ecosystem statistics: UPI state-wise statistics"
@@ -248,7 +249,7 @@ def b1(s):
         "question": f"Of the top {TOP_BANKS} debit-card issuers, do significantly more than half show a fall?",
         "calc": (r"k = \#\{i : c_i < 0\} = " + str(k) + r",\quad n = " + str(len(changes))
                  + r",\quad p = \Pr(K \ge " + str(k) + r" \mid \text{fair coin}) = " + f"{p:.2g}"),
-        "check": (f"{k} of {len(changes)} banks fell between FY2022-23 and FY2025-26; "
+        "check": (f"{k} of {len(changes)} banks fell between FY2022-23 and {LATEST_FY}; "
                   f"p = {p:.2g} is {'below' if p < 0.05 else 'not below'} 0.05."),
         "verdict": part1,
         "example": "; ".join(f"{nice(b)} {pct(c)}/yr" for b, c in changes[:5]) + " (the five largest issuers).",
@@ -260,14 +261,14 @@ def b1(s):
         framework="If debit and UPI are close substitutes for every account holder, the decline should not "
                   "depend on one bank's customers, reporting changes or card-portfolio clean-ups.",
         test=f"Two parts. (1) Sign test: annualised change in each bank's debit-card payments, FY2022-23 to "
-             f"FY2025-26, for the {TOP_BANKS} largest issuers in FY2022-23; supported if one-sided binomial "
+             f"{LATEST_FY}, for the {TOP_BANKS} largest issuers in FY2022-23; supported if one-sided binomial "
              "p < 0.05. (2) Drift test on all other banks' combined monthly debit payments (excluding SBI), "
              "Newey-West (12-lag) SE.",
         estimate=f"{k} of {len(changes)} banks fell (p = {p:.2g}); excluding SBI: {drift_line(d, 'growth')[0]}",
         consistency=drift_line(d)[1], p_value=None, verdict=final,
         components=[{"name": "Most large banks fall", "verdict": part1},
                     {"name": "Falls excluding SBI", "verdict": part2}],
-        coverage=("Part 1 compares full financial years (Apr 2022–Mar 2023 vs Apr 2025–Mar 2026), so it "
+        coverage=(f"Part 1 compares full financial years (Apr 2022–Mar 2023 vs {FY_LATEST_SPAN}), so it "
                   "is a three-year change per bank, annualised. Part 2 averages "
                   f"{d['n']} year-on-year monthly changes, {label_month(months[12])} to {label_month(months[-1])}."),
         derivation=derivation([sign_step, drift_step("Excluding SBI, do the other banks' debit payments fall?",
@@ -277,7 +278,7 @@ def b1(s):
                   ("Sign test", r"k = \#\{i : c_i < 0\},\qquad p = \sum_{j=k}^{n}\binom{n}{j}0.5^{n}"),
                   ("Supported if", r"p < 0.05")]
         + drift_formulas(D12 + r"\ln \textstyle\sum_{i \ne \mathrm{SBI}} D_{it}", "<0", tag="-SBI"),
-        chart=hbar(f"Top {TOP_BANKS} debit issuers: annualised change in debit-card payments, FY2022-23 to FY2025-26",
+        chart=hbar(f"Top {TOP_BANKS} debit issuers: annualised change in debit-card payments, FY2022-23 to {LATEST_FY}",
                    "% a year", [(nice(b), 100 * (math.exp(c) - 1), s["bank_group"][b]) for b, c in sorted(changes, key=lambda t: t[1])]),
         data=RBI_BANKS)
 
@@ -380,13 +381,13 @@ def b4(s):
         framework="Within a bank, debit card and UPI draw on the same account balance. If they are close "
                   "substitutes, the banks whose customers shift most to UPI should see the steepest card decline.",
         test="Cross-section of banks present in both RBI bank-wise card data and NPCI's top-50 UPI member list "
-             "in every month of FY2022-23 and FY2025-26. OLS with heteroskedasticity-robust (HC1) SE. "
+             f"in every month of FY2022-23 and {LATEST_FY}. OLS with heteroskedasticity-robust (HC1) SE. "
              "Supported if b < 0 with the 95% interval below zero.",
         estimate=f"b = {b:+.3f} [95% CI {lo:+.3f}, {hi:+.3f}], n = {len(pairs)} banks",
         consistency=f"Without the card-base control, b = {simple['beta'][1]:+.3f}",
         p_value=p_two_sided(b, se), verdict=final,
         coverage=("One observation per bank: its annualised change between full financial years FY2022-23 "
-                  "(Apr 2022–Mar 2023) and FY2025-26 (Apr 2025–Mar 2026). b is the average link across banks, "
+                  f"(Apr 2022–Mar 2023) and {LATEST_FY} ({FY_LATEST_SPAN}). b is the average link across banks, "
                   "not a time-series result."),
         note=("NPCI counts UPI volume by member bank (the bank whose account sends the payment, as published "
               "for the top 50 members). Bank-level associations can reflect customer mix, mergers or app "
@@ -397,7 +398,7 @@ def b4(s):
                             r"D = \text{debit payments},\ U = \text{UPI payments sent},\ K = \text{debit cards in force}"),
                   ("Hypothesis", r"H_0:\ b = 0 \qquad H_1:\ b < 0"),
                   ("Supported if", r"\hat b + 1.96\,\widehat{\mathrm{SE}}_{\mathrm{HC1}}(\hat b) < 0")],
-        chart=dict(scatter("Banks: UPI growth vs debit-card growth, FY2022-23 to FY2025-26 (annualised log change)",
+        chart=dict(scatter(f"Banks: UPI growth vs debit-card growth, FY2022-23 to {LATEST_FY} (annualised log change)",
                            "UPI payments sent, log change a year", "Debit-card payments, log change a year",
                            [(nice(p[0]), p[1], p[2], s["bank_group"][p[0]]) for p in pairs],
                            (simple["beta"][0], simple["beta"][1])),
@@ -675,7 +676,7 @@ def distributions(s):
     latest = {b: fy_total(v, FY_LATEST, "debit_n") or 0 for b, v in s["banks"].items()}
     tot = sum(latest.values())
     top = sorted(latest, key=latest.get, reverse=True)[:12]
-    bank_bar = hbar("Largest debit-card issuers, share of FY2025-26 debit payments", "%",
+    bank_bar = hbar(f"Largest debit-card issuers, share of {LATEST_FY} debit payments", "%",
                     [(nice(b), 100 * latest[b] / tot, s["bank_group"][b]) for b in top])
 
     am = s["app_months"]

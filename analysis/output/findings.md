@@ -1,6 +1,6 @@
 # What the payment-mix model says
 
-Data freeze: March 2026. Figures below are computed from the annual CSV extracts.
+Data freeze: Aug 2026. Figures below are computed from the annual CSV extracts.
 Volumes are transactions, values are rupees, and shares are within the named
 analytical comparison basket. These shares are not economy-wide market shares.
 
@@ -26,27 +26,27 @@ relative share loss; falling transactions and share is absolute contraction.
 | debit card | -45.1% | -10.05 pp | +46.7% |
 
 Real value and ticket use MoSPI CPI linked to the 2024 base and are
-expressed in March 2026 rupees. Value shares use nominal values within
+expressed in Aug 2026 rupees. Value shares use nominal values within
 the same month or fiscal year.
 
-### March 2026 transaction size
+### Aug 2026 transaction size
 
 | Rail | Transactions (bn) | Nominal value (₹ lakh crore) | Average ticket (₹) | Volume share | Value share |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| UPI P2M | 14.180 | 8.61 | 608 | 95.43% | 76.99% |
-| credit card | 0.577 | 2.19 | 3,801 | 3.89% | 19.62% |
-| debit card | 0.101 | 0.38 | 3,745 | 0.68% | 3.39% |
+| UPI P2M | 15.510 | 8.95 | 577 | 95.47% | 78.92% |
+| credit card | 0.632 | 2.02 | 3,201 | 3.89% | 17.85% |
+| debit card | 0.104 | 0.37 | 3,533 | 0.64% | 3.23% |
 
 Average ticket = value in ₹ crore × 10 / volume in millions. Lower UPI P2M
 ticket size is consistent with different transaction mixes; it does not show
 that a given card transaction switched to UPI.
 
-### Year-on-year pattern counts (46 matched months, Jun 2022–Mar 2026)
+### Year-on-year pattern counts (51 matched months, Jun 2022–Aug 2026)
 
 | Rail | Absolute contraction | Relative share loss | Co-expansion | Other |
 | --- | ---: | ---: | ---: | ---: |
-| credit card | 0 | 45 | 1 | 0 |
-| debit card | 45 | 1 | 0 | 0 |
+| credit card | 0 | 45 | 6 | 0 |
+| debit card | 50 | 1 | 0 | 0 |
 
 ## UPI and IMPS: FY2016-17 to FY2025-26
 
@@ -79,9 +79,9 @@ and do not change the core answer.
 
 | Basket | Window | Rails |
 | --- | --- | --- |
-| Merchant channel: UPI P2M vs card PoS and card online | 2021-06 to 2026-03 | UPI P2M, credit card PoS, credit card online/other, debit card PoS, debit card online/other |
-| Within UPI: P2P vs P2M | 2021-06 to 2026-03 | UPI P2M, UPI P2P |
-| Context: wider retail digital rails | 2021-06 to 2026-03 | IMPS, PPI (wallets + cards), UPI total, cards (credit + debit) |
+| Merchant channel: UPI P2M vs card PoS and card online | 2021-06 to 2026-08 | UPI P2M, credit card PoS, credit card online/other, debit card PoS, debit card online/other |
+| Within UPI: P2P vs P2M | 2021-06 to 2026-08 | UPI P2M, UPI P2P |
+| Context: wider retail digital rails | 2021-06 to 2026-08 | IMPS, PPI (wallets + cards), UPI total, cards (credit + debit) |
 
 ### Card channel split: FY2022-23 to FY2025-26
 
@@ -104,7 +104,7 @@ concentrated in the in-store channel where UPI QR competes most directly.
 | UPI P2M | +257.5% | +12.17 pp | +6.85 pp | +163.2% | co-expansion |
 | UPI P2P | +117.0% | -12.17 pp | -6.85 pp | +83.1% | relative share loss |
 
-In Mar 2026, P2M was 62.6% of UPI ecosystem transactions but 29.2% of UPI value, with an average ticket of ₹608.
+In Aug 2026, P2M was 63.3% of UPI ecosystem transactions but 30.0% of UPI value, with an average ticket of ₹577.
 
 ### Wider retail context: FY2022-23 to FY2025-26
 
@@ -128,28 +128,28 @@ a descriptive comparison, not an estimated structural break.
 
 | Basket | Rail | Period | Trend growth | Fit |
 | --- | --- | --- | ---: | --- |
-| merchant | UPI P2M | full window: 2021-06..2026-03 | +65.6% | R2=0.952 |
-| merchant | UPI P2M | last 24 months: 2024-04..2026-03 | +30.7% | R2=0.957 |
-| merchant | credit card | full window: 2021-06..2026-03 | +27.5% | R2=0.977 |
-| merchant | credit card | last 24 months: 2024-04..2026-03 | +26.3% | R2=0.923 |
-| merchant | debit card | full window: 2021-06..2026-03 | -26.8% | R2=0.972 |
-| merchant | debit card | last 24 months: 2024-04..2026-03 | -21.0% | R2=0.910 |
-| merchant_channel | credit card PoS | full window: 2021-06..2026-03 | +26.6% | R2=0.962 |
-| merchant_channel | credit card PoS | last 24 months: 2024-04..2026-03 | +22.2% | R2=0.900 |
-| merchant_channel | credit card online/other | full window: 2021-06..2026-03 | +28.5% | R2=0.966 |
-| merchant_channel | credit card online/other | last 24 months: 2024-04..2026-03 | +30.6% | R2=0.927 |
-| merchant_channel | debit card PoS | full window: 2021-06..2026-03 | -22.6% | R2=0.937 |
-| merchant_channel | debit card PoS | last 24 months: 2024-04..2026-03 | -20.3% | R2=0.902 |
-| merchant_channel | debit card online/other | full window: 2021-06..2026-03 | -34.9% | R2=0.976 |
-| merchant_channel | debit card online/other | last 24 months: 2024-04..2026-03 | -23.1% | R2=0.905 |
-| transfer | IMPS | full window: 2016-04..2026-03 | +29.1% | R2=0.791 |
-| transfer | IMPS | last 24 months: 2024-04..2026-03 | -16.2% | R2=0.644 |
+| merchant | UPI P2M | full window: 2021-06..2026-08 | +60.7% | R2=0.945 |
+| merchant | UPI P2M | last 24 months: 2024-09..2026-08 | +27.2% | R2=0.950 |
+| merchant | credit card | full window: 2021-06..2026-08 | +27.5% | R2=0.981 |
+| merchant | credit card | last 24 months: 2024-09..2026-08 | +25.6% | R2=0.923 |
+| merchant | debit card | full window: 2021-06..2026-08 | -25.6% | R2=0.965 |
+| merchant | debit card | last 24 months: 2024-09..2026-08 | -15.3% | R2=0.773 |
+| merchant_channel | credit card PoS | full window: 2021-06..2026-08 | +26.3% | R2=0.969 |
+| merchant_channel | credit card PoS | last 24 months: 2024-09..2026-08 | +22.5% | R2=0.899 |
+| merchant_channel | credit card online/other | full window: 2021-06..2026-08 | +28.9% | R2=0.973 |
+| merchant_channel | credit card online/other | last 24 months: 2024-09..2026-08 | +28.9% | R2=0.932 |
+| merchant_channel | debit card PoS | full window: 2021-06..2026-08 | -22.0% | R2=0.943 |
+| merchant_channel | debit card PoS | last 24 months: 2024-09..2026-08 | -15.6% | R2=0.806 |
+| merchant_channel | debit card online/other | full window: 2021-06..2026-08 | -32.7% | R2=0.954 |
+| merchant_channel | debit card online/other | last 24 months: 2024-09..2026-08 | -14.3% | R2=0.611 |
+| transfer | IMPS | full window: 2016-04..2026-08 | +26.6% | R2=0.753 |
+| transfer | IMPS | last 24 months: 2024-09..2026-08 | -13.7% | R2=0.595 |
 | transfer | IMPS | before 2020-04: 2016-04..2020-03 | +75.5% | R2=0.962 |
-| transfer | IMPS | from 2020-04: 2020-04..2026-03 | +9.0% | R2=0.295 |
-| transfer | UPI total | full window: 2016-04..2026-03 | +151.1% | R2=0.770 |
-| transfer | UPI total | last 24 months: 2024-04..2026-03 | +30.0% | R2=0.959 |
+| transfer | IMPS | from 2020-04: 2020-04..2026-08 | +6.5% | R2=0.194 |
+| transfer | UPI total | full window: 2016-04..2026-08 | +141.1% | R2=0.766 |
+| transfer | UPI total | last 24 months: 2024-09..2026-08 | +26.3% | R2=0.951 |
 | transfer | UPI total | before 2020-04: 2016-04..2020-03 | +1102.6% | R2=0.842 |
-| transfer | UPI total | from 2020-04: 2020-04..2026-03 | +61.8% | R2=0.957 |
+| transfer | UPI total | from 2020-04: 2020-04..2026-08 | +58.3% | R2=0.951 |
 
 ### Seasonality
 
@@ -159,39 +159,39 @@ the full index is in `timeseries_stats.csv`.
 
 | Basket | Rail | Peak month | Peak index | Trough month | Trough index |
 | --- | --- | --- | ---: | --- | ---: |
-| merchant | UPI P2M | Oct | 105.1 | Feb | 92.7 |
-| merchant | credit card | Oct | 106.6 | Feb | 91.0 |
-| merchant | debit card | Oct | 105.8 | Feb | 91.0 |
-| merchant_channel | credit card PoS | Oct | 106.2 | Feb | 90.6 |
-| merchant_channel | credit card online/other | Oct | 107.0 | Feb | 91.6 |
-| merchant_channel | debit card PoS | Oct | 106.2 | Feb | 90.7 |
-| merchant_channel | debit card online/other | Oct | 105.2 | Feb | 91.8 |
-| transfer | IMPS | Dec | 106.7 | Jun | 93.7 |
-| transfer | UPI total | Dec | 112.5 | Jun | 89.7 |
+| merchant | UPI P2M | Oct | 104.4 | Feb | 92.9 |
+| merchant | credit card | Oct | 105.7 | Feb | 91.0 |
+| merchant | debit card | Oct | 105.3 | Feb | 90.9 |
+| merchant_channel | credit card PoS | Oct | 105.6 | Feb | 90.5 |
+| merchant_channel | credit card online/other | Oct | 105.8 | Feb | 91.4 |
+| merchant_channel | debit card PoS | Oct | 105.7 | Feb | 90.8 |
+| merchant_channel | debit card online/other | Jul | 105.3 | Feb | 91.3 |
+| transfer | IMPS | Mar | 106.8 | Jun | 94.0 |
+| transfer | UPI total | Dec | 112.1 | Jun | 89.9 |
 
 ### Concentration within each basket (volume HHI, 0–10,000)
 
 | Basket | First month | HHI | Last month | HHI |
 | --- | --- | ---: | --- | ---: |
-| context_retail | 2021-06 | 5,177 | 2026-03 | 8,521 |
-| merchant | 2021-06 | 5,775 | 2026-03 | 9,123 |
-| merchant_channel | 2021-06 | 5,580 | 2026-03 | 9,115 |
-| transfer | 2016-04 | 10,000 | 2026-03 | 9,687 |
-| upi_use | 2021-06 | 5,054 | 2026-03 | 5,319 |
+| context_retail | 2021-06 | 5,177 | 2026-08 | 8,529 |
+| merchant | 2021-06 | 5,775 | 2026-08 | 9,130 |
+| merchant_channel | 2021-06 | 5,580 | 2026-08 | 9,122 |
+| transfer | 2016-04 | 10,000 | 2026-08 | 9,715 |
+| upi_use | 2021-06 | 5,054 | 2026-08 | 5,353 |
 
 ### Acceptance infrastructure and usage intensity
 
-| Measure | 2021-06 | 2026-03 |
+| Measure | 2021-06 | 2026-08 |
 | --- | ---: | ---: |
-| credit_cards_outstanding_lakh | 628.15 | 1,186.34 |
-| debit_cards_outstanding_lakh | 9,060.08 | 10,447.56 |
-| pos_terminals_lakh | 45.93 | 117.69 |
-| bharat_qr_codes_lakh | 49.33 | 56.33 |
-| upi_qr_codes_lakh | 1,018.06 | 7,612.17 |
-| atms_lakh | 2.40 | 2.54 |
-| card_pos_txn_per_pos_terminal | 49.10 | 30.50 |
-| upi_p2m_txn_per_upi_qr | 12.35 | 18.63 |
-| credit_txn_per_credit_card | 2.46 | 4.87 |
+| credit_cards_outstanding_lakh | 628.15 | 1,240.54 |
+| debit_cards_outstanding_lakh | 9,060.08 | 10,368.29 |
+| pos_terminals_lakh | 45.93 | 102.08 |
+| bharat_qr_codes_lakh | 49.33 | 53.30 |
+| upi_qr_codes_lakh | 1,018.06 | 8,130.31 |
+| atms_lakh | 2.40 | 2.53 |
+| card_pos_txn_per_pos_terminal | 49.10 | 37.71 |
+| upi_p2m_txn_per_upi_qr | 12.35 | 19.08 |
+| credit_txn_per_credit_card | 2.46 | 5.10 |
 | debit_txn_per_debit_card | 0.33 | 0.10 |
 
 Rising acceptance points alongside falling use per terminal is
@@ -199,12 +199,12 @@ consistent with, but does not test, cross-side network effects.
 
 ## Inflation and source checks
 
-MoSPI's linked all-India CPI expresses 2022–26 values and tickets in March
-2026 rupees. Nominal shares are unchanged by a common monthly deflator,
+MoSPI's linked all-India CPI expresses 2022–26 values and tickets in
+Aug 2026 rupees. Nominal shares are unchanged by a common monthly deflator,
 although annual real-value shares can differ slightly because monthly rail
 composition differs. The panel CSV contains nominal and real measures.
 
-Source coverage: 120 transfer months and 58 merchant months. No missing months were filled.
+Source coverage: 125 transfer months and 63 merchant months. No missing months were filled.
 
 Maximum absolute source differences (published rounding allowed for
 within-source identities):
@@ -249,6 +249,7 @@ The card 'Others' channel is mostly, but not only, online purchases. Trend
 slopes, seasonal indices and HHI summarise national totals and are not
 estimates of demand or substitution. Acceptance-infrastructure counts measure
 terminals and QR codes deployed, not active merchants. The P2P/P2M monthly
-series was transcribed from NPCI's official selector table; six original
-month workbooks are archived locally. The announced October 2026 merchant
+series for Jan 2022 – Mar 2026 was transcribed from NPCI's official selector
+table (six original month workbooks are archived locally); the other months
+are archived NPCI API responses. The announced October 2026 merchant
 charge is outside this data window.

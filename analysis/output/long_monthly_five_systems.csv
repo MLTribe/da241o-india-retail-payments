@@ -119,11 +119,11 @@ month,series,volume_mn,value_cr,source
 2026-01,UPI,21703.44,2833481.2,official
 2026-02,UPI,20394.18,2684229.3,official
 2026-03,UPI,22641.11,2952542.0,official
-2026-04,UPI,22346.797,2902988.0,daily
-2026-05,UPI,23201.928,2990424.2,daily
-2026-06,UPI,22716.066,2892138.7,daily
-2026-07,UPI,23658.353,2987880.5,daily
-2026-08,UPI,24508.958,2982355.9,daily
+2026-04,UPI,22346.8,2902988.0,official
+2026-05,UPI,23201.93,2990424.2,official
+2026-06,UPI,22716.07,2892138.7,official
+2026-07,UPI,23658.35,2987880.5,official
+2026-08,UPI,24508.96,2982356.0,official
 2026-09,UPI,24068.38,2937396.7,daily
 2016-04,IMPS,26.78,21044.3,official
 2016-05,IMPS,27.66,21617.8,official
@@ -245,11 +245,11 @@ month,series,volume_mn,value_cr,source
 2026-01,IMPS,374.03,672989.4,official
 2026-02,IMPS,336.09,642473.9,official
 2026-03,IMPS,365.68,740176.2,official
-2026-04,IMPS,362.487,700909.2,daily
-2026-05,IMPS,358.097,695701.3,daily
-2026-06,IMPS,353.918,676543.0,daily
-2026-07,IMPS,364.339,711704.4,daily
-2026-08,IMPS,359.942,703724.0,daily
+2026-04,IMPS,362.49,700909.2,official
+2026-05,IMPS,358.1,695701.3,official
+2026-06,IMPS,353.92,676543.0,official
+2026-07,IMPS,364.34,711704.3,official
+2026-08,IMPS,359.94,703724.0,official
 2026-09,IMPS,354.08,705912.1,daily
 2016-04,NEFT,111.84,832452.0,official
 2016-05,NEFT,117.5,773254.0,official
@@ -371,11 +371,11 @@ month,series,volume_mn,value_cr,source
 2026-01,NEFT,872.42,4329421.0,official
 2026-02,NEFT,812.247,4251141.0,official
 2026-03,NEFT,939.043,5661604.0,official
-2026-04,NEFT,833.047,4424471.1,daily
-2026-05,NEFT,849.629,4232611.4,daily
-2026-06,NEFT,858.23,4453677.0,daily
-2026-07,NEFT,897.005,4661075.5,daily
-2026-08,NEFT,882.502,4408551.6,daily
+2026-04,NEFT,833.047,4424471.0,official
+2026-05,NEFT,849.629,4232611.0,official
+2026-06,NEFT,858.23,4453677.0,official
+2026-07,NEFT,897.005,4661076.0,official
+2026-08,NEFT,882.502,4408552.0,official
 2026-09,NEFT,862.093,4675236.9,daily
 2014-06,Credit card,48.262,14860.6,official
 2014-07,Credit card,50.916,15266.8,official
@@ -519,6 +519,11 @@ month,series,volume_mn,value_cr,source
 2026-01,Credit card,539.711,199085.0,official
 2026-02,Credit card,493.795,177292.0,official
 2026-03,Credit card,577.476,219495.0,official
+2026-04,Credit card,559.615,197305.0,official
+2026-05,Credit card,595.502,202742.0,official
+2026-06,Credit card,581.259,201362.0,official
+2026-07,Credit card,605.267,208186.0,official
+2026-08,Credit card,632.447,202449.0,official
 2014-06,Debit card,59.77,9360.9,official
 2014-07,Debit card,64.887,10001.5,official
 2014-08,Debit card,67.894,10574.6,official
@@ -661,6 +666,11 @@ month,series,volume_mn,value_cr,source
 2026-01,Debit card,101.829,37957.0,official
 2026-02,Debit card,91.712,33135.0,official
 2026-03,Debit card,101.317,37948.0,official
+2026-04,Debit card,97.885,36977.0,official
+2026-05,Debit card,99.862,35420.0,official
+2026-06,Debit card,97.093,35299.0,official
+2026-07,Debit card,101.556,37932.0,official
+2026-08,Debit card,103.865,36697.0,official
 2020-11,Credit card (card networks),141.488,43629.8,daily
 2020-12,Credit card (card networks),142.143,46191.7,daily
 2021-01,Credit card (card networks),127.088,45029.1,daily

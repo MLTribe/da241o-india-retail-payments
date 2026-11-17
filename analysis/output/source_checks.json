@@ -1,25 +1,25 @@
 {
   "coverage": {
-    "transfer_months": 120,
-    "merchant_months": 58
+    "transfer_months": 125,
+    "merchant_months": 63
   },
   "extended_windows": {
     "merchant_channel": {
       "start": "2021-06",
-      "end": "2026-03"
+      "end": "2026-08"
     },
     "upi_use": {
       "start": "2021-06",
-      "end": "2026-03"
+      "end": "2026-08"
     },
     "context_retail": {
       "start": "2021-06",
-      "end": "2026-03"
+      "end": "2026-08"
     }
   },
   "optional_series": {
     "rbi_psi_other_rails": 0,
-    "rbi_psi_infrastructure": 58
+    "rbi_psi_infrastructure": 63
   },
   "maximum_absolute_source_difference": {
     "CPI linked-index rounding": 2.842170943040401e-14,

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f5f4ef">
-  <meta name="description" content="Final analysis: did IMPS, debit cards and credit cards contract, lose share or keep growing as UPI expanded, Nov 2017 – Mar 2026? Classification, H1–H3, breaks, magnitudes and robustness.">
+  <meta name="description" content="Final analysis: did IMPS, debit cards and credit cards contract, lose share or keep growing as UPI expanded, Nov 2017 – Aug 2026? Classification, H1–H3, breaks, magnitudes and robustness.">
   <title>Final analysis · Utility Maximizers</title>
   <style>
     :root {
@@ -196,7 +196,7 @@
       <section class="panel" id="covid" aria-labelledby="covid-title">
         <p class="panel-kicker"><a class="method-link" href="methods.html#covid">Method →</a>Pre vs post COVID (requested by Prof. Gandhi)</p>
         <h2 id="covid-title">Growth and share by period</h2>
-        <p class="hint">Mean change on the same month a year earlier, with Newey-West (12) 95% intervals. Pre-COVID Nov 2017 – Feb 2020 (bases from Nov 2017; UPI comparisons across the Aug 2018 exclusion dropped), COVID Mar 2020 – Jun 2021 (bases a year earlier), post-COVID Jul 2021 – Mar 2026 (bases from Jul 2021). Shares are within the comparison group, first and last three months of the period.</p>
+        <p class="hint">Mean change on the same month a year earlier, with Newey-West (12) 95% intervals. Pre-COVID Nov 2017 – Feb 2020 (bases from Nov 2017; UPI comparisons across the Aug 2018 exclusion dropped), COVID Mar 2020 – Jun 2021 (bases a year earlier), post-COVID Jul 2021 – Aug 2026 (bases from Jul 2021). Shares are within the comparison group, first and last three months of the period.</p>
         <div class="table-scroll"><table id="covid-table"></table></div>
       </section>
 
@@ -392,7 +392,7 @@
         months: S.p2mMonths, series: S.indexP2m, log: true, H: 300, W: 560 }));
       set("fig-shares", drawChart({ title: "Fig 2. Shares within comparison groups", unit: "% of the stated group's transactions",
         months, series: S.shares, H: 300, W: 560 }));
-      set("fig-tickets", drawChart({ title: "Fig 3. Average ticket in Mar 2026 prices", unit: "₹ per transaction, log scale",
+      set("fig-tickets", drawChart({ title: `Fig 3. Average ticket in ${label(D.window.end)} prices`, unit: "₹ per transaction, log scale",
         months, series: S.tickets, log: true, H: 300 }));
 
       const PER = ["Pre-COVID", "COVID", "Post-COVID"];
@@ -427,7 +427,8 @@
         months, series: S.drawdown.map(s => ({ ...s, name: s.name })), H: 280,
         refs: [{ value: -5, label: "−5%" }, { value: -10, label: "−10% (primary)" }, { value: -20, label: "−20%" }] }));
       const daily = D.classification.find(c => c.method === "IMPS" && c.variant === "RBI daily data");
-      set("imps-callout", `<strong>IMPS is the boundary case.</strong> Its 12-month average volume peaked in the 12 months to ${label(imps.peak)} and is ${Math.abs(imps.drawdownPct).toFixed(1)}% below that peak by ${label(D.window.end)}: past the 5% line since ${label(imps.crossing["5"])} and the 10% line since ${label(imps.crossing["10"])}, but not the 20% line. ` +
+      const impsAll = imps.crossing["20"] != null;
+      set("imps-callout", `<strong>${impsAll ? "IMPS has contracted at every threshold." : "IMPS is the boundary case."}</strong> Its 12-month average volume peaked in the 12 months to ${label(imps.peak)} and is ${Math.abs(imps.drawdownPct).toFixed(1)}% below that peak by ${label(D.window.end)}: past the 5% line since ${label(imps.crossing["5"])}, the 10% line since ${label(imps.crossing["10"])}${impsAll ? ` and the 20% line since ${label(imps.crossing["20"])}` : ", but not the 20% line"}. ` +
         `RBI's daily data, which run to ${label(D.window.dailyEnd)}, put the drawdown at ${Math.abs(daily.drawdownPct).toFixed(1)}%${daily.crossed20 ? `, past 20% from ${label(daily.crossed20)}` : ""}. IMPS's share loss against UPI is mechanical (UPI started near zero), so its drawdown and the timing of its peak are the informative evidence. In real value IMPS has not contracted.`);
 
       set("dec-body", D.decomposition.map(r => `<tr><td class="id">${esc(r.method)}</td><td>${esc(r.group)}<span class="sub">${esc(r.from)} → ${esc(r.to)}</span></td>

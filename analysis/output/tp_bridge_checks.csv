@@ -57,6 +57,11 @@ debit,volume,2025-12,bank-level sums (PoS + online + other),104.92403,104.924,2.
 debit,volume,2026-01,bank-level sums (PoS + online + other),101.829499,101.829,0.00049
 debit,volume,2026-02,bank-level sums (PoS + online + other),91.712184,91.712,0.000201
 debit,volume,2026-03,bank-level sums (PoS + online + other),101.317413,101.317,0.000408
+debit,volume,2026-04,bank-level sums (PoS + online + other),97.5143,97.885,-0.37871
+debit,volume,2026-05,bank-level sums (PoS + online + other),99.861587,99.862,-0.000414
+debit,volume,2026-06,bank-level sums (PoS + online + other),97.093017,97.093,1.8e-05
+debit,volume,2026-07,bank-level sums (PoS + online + other),101.555931,101.556,-6.8e-05
+debit,volume,2026-08,bank-level sums (PoS + online + other),103.86517,103.865,0.000164
 debit,value,2021-06,bank-wise totals (PoS column),50576.23,51594.0,-1.972652
 debit,value,2021-07,bank-wise totals (PoS column),60598.74,61087.0,-0.799286
 debit,value,2021-08,bank-wise totals (PoS column),64351.52,64867.0,-0.794672
@@ -115,6 +120,11 @@ debit,value,2025-12,bank-level sums (PoS + online + other),37274.38,37274.0,0.00
 debit,value,2026-01,bank-level sums (PoS + online + other),37956.691,37957.0,-0.000814
 debit,value,2026-02,bank-level sums (PoS + online + other),33134.6247,33135.0,-0.001133
 debit,value,2026-03,bank-level sums (PoS + online + other),37948.3916,37948.0,0.001032
+debit,value,2026-04,bank-level sums (PoS + online + other),36902.7431,36977.0,-0.200819
+debit,value,2026-05,bank-level sums (PoS + online + other),35420.4406,35420.0,0.001244
+debit,value,2026-06,bank-level sums (PoS + online + other),35298.5683,35299.0,-0.001223
+debit,value,2026-07,bank-level sums (PoS + online + other),37932.4608,37932.0,0.001215
+debit,value,2026-08,bank-level sums (PoS + online + other),36697.2575,36697.0,0.000702
 credit,volume,2021-06,bank-wise totals (PoS column),154.700561,154.701,-0.000284
 credit,volume,2021-07,bank-wise totals (PoS column),182.048394,182.049,-0.000333
 credit,volume,2021-08,bank-wise totals (PoS column),190.470198,190.471,-0.000421
@@ -173,6 +183,11 @@ credit,volume,2025-12,bank-level sums (PoS + online + other),539.834125,539.834,
 credit,volume,2026-01,bank-level sums (PoS + online + other),539.711275,539.711,5.1e-05
 credit,volume,2026-02,bank-level sums (PoS + online + other),493.795492,493.795,0.0001
 credit,volume,2026-03,bank-level sums (PoS + online + other),577.476495,577.476,8.6e-05
+credit,volume,2026-04,bank-level sums (PoS + online + other),559.527429,559.615,-0.015648
+credit,volume,2026-05,bank-level sums (PoS + online + other),595.501525,595.502,-8e-05
+credit,volume,2026-06,bank-level sums (PoS + online + other),581.259085,581.259,1.5e-05
+credit,volume,2026-07,bank-level sums (PoS + online + other),605.26668,605.267,-5.3e-05
+credit,volume,2026-08,bank-level sums (PoS + online + other),632.447167,632.447,2.6e-05
 credit,value,2021-06,bank-wise totals (PoS column),62745.96,62746.0,-6.4e-05
 credit,value,2021-07,bank-wise totals (PoS column),74884.67,74885.0,-0.000441
 credit,value,2021-08,bank-wise totals (PoS column),77732.94,77733.0,-7.7e-05
@@ -231,3 +246,8 @@ credit,value,2025-12,bank-level sums (PoS + online + other),204686.6066,204687.0
 credit,value,2026-01,bank-level sums (PoS + online + other),199084.8662,199085.0,-6.7e-05
 credit,value,2026-02,bank-level sums (PoS + online + other),177291.9828,177292.0,-1e-05
 credit,value,2026-03,bank-level sums (PoS + online + other),219494.6908,219495.0,-0.000141
+credit,value,2026-04,bank-level sums (PoS + online + other),197273.7628,197305.0,-0.015832
+credit,value,2026-05,bank-level sums (PoS + online + other),202742.0724,202742.0,3.6e-05
+credit,value,2026-06,bank-level sums (PoS + online + other),201361.6738,201362.0,-0.000162
+credit,value,2026-07,bank-level sums (PoS + online + other),208185.6988,208186.0,-0.000145
+credit,value,2026-08,bank-level sums (PoS + online + other),202448.6458,202449.0,-0.000175

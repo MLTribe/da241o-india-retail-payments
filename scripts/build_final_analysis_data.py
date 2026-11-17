@@ -14,9 +14,13 @@ import csv
 import datetime
 import hashlib
 import shutil
+import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(REPO / "analysis"))
+from payment_mix_model import BASE_MONTH, label_month  # noqa: E402
+
 BY_YEAR = REPO / "by_year"
 OUTPUT = REPO / "analysis" / "output"
 DEST = REPO / "final_analysis_data"
@@ -82,8 +86,8 @@ PANEL_FIELDS = {
     "covid": "1 in a COVID wave month (Mar–Jun 2020, Apr–Jun 2021)",
 }
 PANEL_PATTERNS = {
-    "_real_value_crore": "value, ₹ crore at March 2026 prices (deflated by CPI Combined)",
-    "_real_ticket_rs": "average payment, ₹ at March 2026 prices (real value ÷ volume)",
+    "_real_value_crore": f"value, ₹ crore at {label_month(BASE_MONTH)} prices (deflated by CPI Combined)",
+    "_real_ticket_rs": f"average payment, ₹ at {label_month(BASE_MONTH)} prices (real value ÷ volume)",
     "_ticket_rs": "average payment, ₹, nominal (value ÷ volume, no CPI adjustment)",
 }
 
