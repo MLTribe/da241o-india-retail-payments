@@ -218,7 +218,7 @@
         <div>
           <span class="eyebrow">Forecast and policy lab</span>
           <h1 id="page-title">Where is India’s payment mix heading by <em>FY2029–30?</em></h1>
-          <p class="lede">A backtested forecast of UPI, cards and IMPS to March 2030, fitted to monthly data through March 2026. Pull real policy and business levers (the MDR on UPI payments above ₹2,000 announced for October 2026, credit on UPI, issuer pushes, acceptance, the NPCI app cap) and see what changes for issuers, acquirers, merchants and regulators.</p>
+          <p class="lede">A backtested forecast of UPI, cards and IMPS to March 2030, fitted to monthly data through August 2026. Pull real policy and business levers (the MDR on UPI payments above ₹2,000 announced for October 2026, credit on UPI, issuer pushes, acceptance, the NPCI app cap) and see what changes for issuers, acquirers, merchants and regulators.</p>
         </div>
         <div class="intro-aside" aria-live="polite">
           <strong id="headline-title">Base case, FY2029–30</strong>
@@ -508,7 +508,7 @@
 
       <p class="bottom-note">Merchant payments are NPCI UPI P2M plus RBI domestic credit- and debit-card purchases; transfers are NPCI UPI P2P plus IMPS. Card history before June 2021 is the spliced RBI bank-wise series (see <a href="breaks.html">Structural breaks</a>). A card can fund a UPI payment, so these are shares of defined analytical baskets, not of all retail payments. The model is <code>analysis/forecast_model.py</code>; outputs are in <code>analysis/output/forecast_*.csv</code>. <a href="index.html#data">See the data sources</a>.</p>
     </main>
-    <footer><span>Utility Maximizers · DA241o · Managerial Economics</span><span>Forecast to FY2029–30 · Data through March 2026</span></footer>
+    <footer><span>Utility Maximizers · DA241o · Managerial Economics</span><span>Forecast to FY2029–30 · Data through August 2026</span></footer>
   </div>
 
   <script src="monthly-payment-data.js"></script>
@@ -969,7 +969,7 @@
 
       const policy = [
         `On the study’s question, FY2025–26 → FY2029–30: credit <strong>${pattern(s.credit.med - last.credit, s.share_credit.med - lastShares.credit).toLowerCase()}</strong>, debit <strong>${pattern(s.debit.med - last.debit, s.share_debit.med - lastShares.debit).toLowerCase()}</strong> (P(fall) ${pDebitDown.toFixed(0)}%), IMPS <strong>${pattern(s.imps.med - last.imps, s.share_imps.med - lastShares.imps).toLowerCase()}</strong> (P(fall) ${pImpsDown.toFixed(0)}%).`,
-        `UPI app concentration (Mar 2026): HHI ${Math.round(hhiNow).toLocaleString("en-IN")}, top two apps ${pct(top2Now)}. A ${lv.cap_level.toFixed(0)}% cap would bring them to HHI <strong>${Math.round(hhiCap).toLocaleString("en-IN")}</strong> and <strong>${pct(top2Cap)}</strong>, moving ${pct(ENGINE.appExcess(lv.cap_level))} of volume between apps.${lv.cap_on && lv.cap_friction > 0 ? ` With ${lv.cap_friction}% of that volume lost, UPI P2M is ${signedPct(100 * (s.p2m.med / b.p2m.med - 1))} against base.` : " Totals are unchanged unless users drop off (set the assumed loss)."}`
+        `UPI app concentration (Aug 2026): HHI ${Math.round(hhiNow).toLocaleString("en-IN")}, top two apps ${pct(top2Now)}. A ${lv.cap_level.toFixed(0)}% cap would bring them to HHI <strong>${Math.round(hhiCap).toLocaleString("en-IN")}</strong> and <strong>${pct(top2Cap)}</strong>, moving ${pct(ENGINE.appExcess(lv.cap_level))} of volume between apps.${lv.cap_on && lv.cap_friction > 0 ? ` With ${lv.cap_friction}% of that volume lost, UPI P2M is ${signedPct(100 * (s.p2m.med / b.p2m.med - 1))} against base.` : " Totals are unchanged unless users drop off (set the assumed loss)."}`
       ];
       if (lv.mdr > 0) {
         policy.push(`MDR trade-off: ${crore(s.upi_pool.med)} a year for the ecosystem against UPI P2M volume ${signedPct(100 * (s.p2m.med / b.p2m.med - 1))} vs base (steering to cards only; cash leakage is not modelled).`);
@@ -1028,7 +1028,7 @@
         <p>1,000 paths from the share model’s state-space equations with a joint 6-month block bootstrap of residuals, centred on the combined forecast. Residuals are scaled by κ = ${c.kappa.toFixed(2)} so that 80% intervals cover ${c.coverage80_12m_calibrated.toFixed(0)}% of 12-month-ahead outcomes (${c.coverage80_12m_raw.toFixed(0)}% before scaling; ${c.n12} checks). In the second year ahead they cover ${c.coverage80_24m_calibrated.toFixed(0)}% (${c.n24} checks), and the two-year forecast from March 2024 covered FY2025–26 for ${covered} of 5 rails. Treat the FY2028–29 and FY2029–30 bands as optimistic.</p>
         <h3 style="margin-top:14px">What it cannot do</h3>
         <ul>
-          <li>It extrapolates the June 2021 – March 2026 regime. It cannot foresee new shocks (a UPI outage, a fee, a new rail such as credit lines at scale) beyond what you set with the levers.</li>
+          <li>It extrapolates the June 2021 – August 2026 regime. It cannot foresee new shocks (a UPI outage, a fee, a new rail such as credit lines at scale) beyond what you set with the levers.</li>
           <li>Lever elasticities are not estimated: national monthly totals do not identify how users respond to fees, rewards or acceptance. They are labelled assumptions.</li>
           <li>Cash and other rails are outside both baskets, so leakage to cash under a UPI fee is not modelled.</li>
           <li>UPI P2M growth is the most uncertain number: diffusion says ${bn(F.model_views.find(v => v.model === "logistic").fy30.p2m)}, damped trends say ${bn(F.model_views.find(v => v.model === "holt").fy30.p2m)} for FY2029–30.</li>
