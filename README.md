@@ -18,8 +18,8 @@ The structural-breaks page, [`docs/breaks.html`](docs/breaks.html), shows the lo
 
 | Source | Raw files | Normalised CSV (per year in `by_year/`) |
 | --- | --- | --- |
-| RBI Bank-wise ATM/PoS/Card Statistics, monthly HTML pages (`ATMView.aspx?atmid=131..181`) | `source_archive/rbi/bankwise_html/` | `rbi_bankwise_cards.csv`, Mar 2022–Mar 2026 |
-| NPCI UPI ecosystem statistics: apps, top-50 member banks, states | `source_archive/npci/ecosystem_api/<tab>/<YYYY-MM>.json` | `npci_upi_apps.csv`, `npci_upi_member_banks.csv` (Jan 2022–Mar 2026), `npci_upi_states.csv` (Apr 2023–Mar 2026) |
+| RBI Bank-wise ATM/PoS/Card Statistics, monthly HTML pages (`ATMView.aspx?atmid=131..186`) | `source_archive/rbi/bankwise_html/` | `rbi_bankwise_cards.csv`, Mar 2022–Aug 2026 |
+| NPCI UPI ecosystem statistics: apps, top-50 member banks, states | `source_archive/npci/ecosystem_api/<tab>/<YYYY-MM>.json` | `npci_upi_apps.csv`, `npci_upi_member_banks.csv` (Jan 2022–Aug 2026), `npci_upi_states.csv` (Apr 2023–Aug 2026) |
 | PhonePe Pulse state transactions (CDLA-Permissive-2.0, commit `257bf38e`) | `source_archive/phonepe_pulse/` | `phonepe_pulse_states.csv`, 2018 Q1–2026 Q2 |
 
 `python3 scripts/fetch_npci_ecosystem.py` downloads the NPCI files. NPCI's API refuses plain HTTP clients, so the script loads each URL in headless Chrome, one at a time. `python3 scripts/import_landscape_sources.py` rebuilds all the CSVs above from the raw files.
@@ -29,7 +29,7 @@ Caveats:
 - RBI bank-wise values are in ₹ thousand. Jan–Feb 2022 use an older table layout and are skipped. Summed across banks, debit-card payments match RBI's national PSI total in every month except Oct 2024 (within 1%).
 - Bank names are unified across months (for example IDFC/IDFC First, DBS). Citibank India's consumer card book moved to Axis Bank in March 2023; the credit-card share test counts Citibank as private throughout.
 - NPCI app names are unified across months (PhonePe, Paytm, WhatsApp and others). The listed apps sum to within about 2% of total UPI.
-- NPCI's share of UPI volume not assigned to any state rose from 13% (Apr 2023) to 44% (Mar 2026), so NPCI state growth rates are not used for tests. Mar 2026 is published by district; only the "<STATE> Total" rows are kept.
+- NPCI's share of UPI volume not assigned to any state rose from 13% (Apr 2023) to 44% (Mar 2026), so NPCI state growth rates are not used for tests. From Mar 2026 the table is published by district; only the "<STATE> Total" rows are kept (Apr–Jun 2026 print "-" as their district).
 - PhonePe Pulse covers PhonePe only (about 45–50% of UPI). Its category mix before 2022 is erratic, so the state tests start in 2022 Q1.
 
 To preview the site locally, run `python3 -m http.server 8642` from `docs/` and open `http://localhost:8642/index.html`.
@@ -44,23 +44,23 @@ To preview the site locally, run `python3 -m http.server 8642` from `docs/` and 
 
 | Series | Planned coverage | Current status |
 |---|---|---|
-| NPCI total UPI | April 2016–March 2026, for long-run context and UPI–IMPS comparison | Complete fiscal-year originals FY2016–17 to FY2025–26 collected; 120 monthly rows split across 2016–2026 |
-| NPCI IMPS | April 2016–March 2026 | Complete; FY2016–17 to FY2025–26 originals collected; 120 monthly rows split across 2016–2026 |
-| NPCI UPI P2P/P2M | April 2020 (first month NPCI publishes the split)–March 2026 | Complete. January 2022 onward: 51 observations from NPCI's month/year-selected table, retained raw in `source_archive/npci/upi_p2p_p2m_ui_extract_2022-01_2026-03.tsv`. April 2020–December 2021: 21 months from the NPCI ecosystem API (`source_archive/npci/ecosystem_api/p2p-and-p2m-transactions/`); the API matches the table in every overlapping month |
-| RBI domestic cards and PPI components | June 2021–March 2026 (consistently classified) | 58 own-month release-page observations. January 2022 onward transcribed; June–December 2021 parsed from archived release pages by `scripts/import_card_history.py`. Original RBI XLSX files are not archived. |
+| NPCI total UPI | April 2016–August 2026, for long-run context and UPI–IMPS comparison | Complete fiscal-year originals FY2016–17 to FY2026–27 collected; 125 monthly rows split across 2016–2026 (the FY2026–27 workbook also carries Sep–Oct 2026, not imported yet) |
+| NPCI IMPS | April 2016–August 2026 | Complete; FY2016–17 to FY2026–27 originals collected; 125 monthly rows split across 2016–2026 (Sep–Oct 2026 not imported yet) |
+| NPCI UPI P2P/P2M | April 2020 (first month NPCI publishes the split)–August 2026 | Complete. January 2022 onward: 51 observations from NPCI's month/year-selected table, retained raw in `source_archive/npci/upi_p2p_p2m_ui_extract_2022-01_2026-03.tsv`. April 2020–December 2021 and April–August 2026: 26 months from the NPCI ecosystem API (`source_archive/npci/ecosystem_api/p2p-and-p2m-transactions/`); the API matches the table in every overlapping month |
+| RBI domestic cards and PPI components | June 2021–August 2026 (consistently classified) | 63 own-month release-page observations. January 2022–March 2026 transcribed; April–August 2026 parsed from archived release pages by `scripts/import_rbi_psi_pages.py` (the same parser reproduces every transcribed month); June–December 2021 parsed from archived release pages by `scripts/import_card_history.py`. Original RBI XLSX files are not archived. |
 | RBI bank-wise card totals (long series) | June 2014–February 2022 | 93 monthly all-bank totals from archived bank-wise ATM/PoS/card HTML pages, used only for the spliced long series |
-| MoSPI CPI Combined | January 2014–March 2026 | Complete, with original index base, official Combined link factor and source release URLs. The December 2025 release PDF (Annexure VI, 2013–2025) is archived. |
+| MoSPI CPI Combined | January 2014–August 2026 | Complete, with original index base, official Combined link factor and source release URLs. The December 2025 release PDF (Annexure VI, 2013–2025) and the October 2026 release PDF (Annexure IV, base 2024, Jan 2025–Oct 2026) are archived. |
 | RBI other rails (RTGS, NEFT, AePS fund transfers, NETC, ATM cash withdrawals) | June 2021–March 2026 | Pending. Importer ready; RBI workbooks must be saved from a browser into `source_archive/rbi/xlsx/` because RBI's bot protection blocks scripted downloads |
-| RBI payment-system infrastructure (cards outstanding, PoS terminals, Bharat QR, UPI QR, ATMs) | June 2021–March 2026 | Complete: 58 own-month observations from official PSI Part III release pages |
+| RBI payment-system infrastructure (cards outstanding, PoS terminals, Bharat QR, UPI QR, ATMs) | June 2021–August 2026 | Complete: 63 own-month observations from official PSI Part III release pages |
 | NPCI UPI Lite | Context | Not collected. The NPCI site returned HTTP 403 to scripted requests on 2026-10-01 |
 | MoSPI IIP general index | At least June 2021–March 2026 for activity context | Optional context; not collected for the core comparison |
 
-The sources do not all start in the same month. Do not fill gaps by interpolation or mix rails into a denominator where coverage differs. The CPI extract records native 2012-base indices through Dec 2025 and native 2024-base indices for Jan–Mar 2026; a separate linked 2024-base column applies MoSPI’s official 0.5267 Combined general-index linking factor to the 2012-base observations. Dec 2025 is marked provisional in the old-base table. CPI values were transcribed from official MoSPI release PDFs; the December 2025 release, which carries the 2013–2025 Annexure VI series, is archived in `source_archive/mospi/`.
+The sources do not all start in the same month. Do not fill gaps by interpolation or mix rails into a denominator where coverage differs. The CPI extract records native 2012-base indices through Dec 2025 and native 2024-base indices for Jan–Aug 2026; a separate linked 2024-base column applies MoSPI’s official 0.5267 Combined general-index linking factor to the 2012-base observations. Dec 2025 is marked provisional in the old-base table. CPI values were transcribed from official MoSPI release PDFs; the December 2025 release, which carries the 2013–2025 Annexure VI series, and the October 2026 release, whose Annexure IV carries the 2024-base series for Jan 2025–Oct 2026 (Apr–Aug 2026 are taken from it; its Jan–Mar 2026 values equal the earlier releases), are archived in `source_archive/mospi/`.
 
 ## Long card series and 2020–21 back-data
 
 ```shell
-python3 scripts/fetch_rbi_bankwise_html.py            # bank-wise pages atmid 40–181, Jun 2014 – Mar 2026 (paced, skips existing files)
+python3 scripts/fetch_rbi_bankwise_html.py            # bank-wise pages atmid 40–186, Jun 2014 – Aug 2026 (paced, skips existing files)
 python3 scripts/fetch_npci_ecosystem.py 2020-01 2021-12 p2p-and-p2m-transactions
 python3 scripts/import_card_history.py
 python3 analysis/hypothesis_tests.py                   # also runs analysis/long_series.py
@@ -75,10 +75,10 @@ Full rebuild order for every generated file: `payment_mix_model.py`, `hypothesis
 | `rbi_psi_card_ppi_own_month.csv`, `rbi_psi_infrastructure.csv` | RBI PSI release pages `PSIUserView.aspx?Id=1..7` (`source_archive/rbi/html/`) | Jun–Dec 2021 |
 | `rbi_psi_card_prior_year_column.csv` | "Same month last year" column of the Jun 2021 – May 2022 PSI pages | Jun 2020 – May 2021 (out-of-sample splice check only) |
 | `rbi_bankwise_card_totals.csv` | All-bank Total row of the older-layout RBI bank-wise pages (`ATMView.aspx?atmid=40..134`, `source_archive/rbi/bankwise_html/`) | Jun 2014 – Feb 2022 |
-| `npci_upi_p2p_p2m_transactions.csv` | NPCI ecosystem API JSON | Apr 2020 – Dec 2021 |
-| `mospi_cpi_combined_monthly.csv` | `source_archive/mospi/cpi_combined_2012_base_annexure_vi_2013-01_2025-12.csv` | 2014–2021 |
+| `npci_upi_p2p_p2m_transactions.csv` | NPCI ecosystem API JSON | Apr 2020 – Dec 2021; Apr – Aug 2026 appended after the transcribed months |
+| `mospi_cpi_combined_monthly.csv` | `source_archive/mospi/cpi_combined_2012_base_annexure_vi_2013-01_2025-12.csv`; `cpi_combined_2024_base_annexure_iv_2025-01_2026-10.csv` | 2014–2021; Apr – Aug 2026 appended (final months only) |
 
-The importer first checks that its parser reproduces the transcribed January–May 2022 PSI rows, and never rewrites the tracked 2022+ files. Caveats:
+The importer first checks that its parser reproduces the transcribed January–May 2022 PSI rows. It never rewrites rows already in the tracked 2022+ files: appended months must agree with any month already there (the P2P/P2M JSON equals all 51 transcribed months). Caveats:
 
 - Bank-wise pages before March 2022 report card use only "at ATM" and "at PoS"; summed across banks the PoS column equals PSI PoS + Others (all card payments), so it is spliced to PSI totals. See `analysis/README.md` for the bridging assumptions and out-of-sample check.
 - Bank-wise values are in ₹ million to June 2019 and ₹ lakh from May 2020; Aug and Nov 2016 and Jul 2019 – Apr 2020 pages print no unit and are scaled like their neighbours (the average ticket is continuous across the switch).
@@ -93,11 +93,11 @@ After adding original NPCI product-statistics workbooks to `source_archive/npci/
 python3 scripts/import_assignment2_npci_workbooks.py
 ```
 
-The importer splits monthly rows into `by_year/YYYY/`, preserves units, retains source filenames and URLs, sorts months chronologically, and writes checksums to the source manifest.
+The importer reads the workbooks with the standard library, splits monthly rows into `by_year/YYYY/`, preserves units, retains source filenames and URLs, and sorts months chronologically. It stops at `IMPORT_END` (August 2026) so every series ends in the same month, and fails if a month is missing or two workbooks disagree. Record each new workbook's SHA-256 in the source manifest. NPCI serves the workbooks only to a browser: the page's Download button calls `/api/products-statistics-files?product_name=upi&tab_name=product-statistics-upi&year_range=2026-27&excel_type=monthly` (IMPS: `imps`, `product-statistics-imps`), which returns the XLSX as base64; open that URL in headless Chrome as `scripts/fetch_npci_ecosystem.py` does and decode the `file` field unchanged.
 
 ## Importing RBI PSI infrastructure from release pages
 
-RBI's monthly Payment System Indicators release pages publish Part III counts for cards in force, PoS terminals, Bharat QR codes, UPI QR codes and ATMs. The release-page importer reads the own-month column for January 2022–March 2026, archives the original HTML under `source_archive/rbi/html/`, records each source URL and HTML checksum, and writes `by_year/YYYY/rbi_psi_infrastructure.csv` (June–December 2021 come from `scripts/import_card_history.py`; see "Long card series and 2020–21 back-data"):
+RBI's monthly Payment System Indicators release pages publish Part III counts for cards in force, PoS terminals, Bharat QR codes, UPI QR codes and ATMs. The release-page importer reads the own-month column for January 2022–August 2026 (one link index and extract per batch: `…_2022-01_2026-03.csv` and `…_2026-04_2026-08.csv`), archives the original HTML under `source_archive/rbi/html/`, records each source URL and HTML checksum, and writes `by_year/YYYY/rbi_psi_infrastructure.csv` (June–December 2021 come from `scripts/import_card_history.py`; see "Long card series and 2020–21 back-data"):
 
 ```shell
 python3 scripts/import_rbi_psi_pages.py
@@ -120,4 +120,4 @@ The importer reads real XLSX files (needs `openpyxl`) or the HTML tables RBI som
 
 ## RBI extraction notes
 
-`source_archive/rbi/rbi_psi_card_ppi_monthly_own_release_extract_2022-01_2026-03.csv` contains 51 monthly rows transcribed from the current-month column of each RBI Payment System Indicators release page. It covers total cards, credit/debit cards and their PoS/Other splits, plus PPI, wallets, and PPI cards with PoS/Other splits. `source_archive/rbi/rbi_psi_infrastructure_own_release_extract_2022-01_2026-03.csv` contains the corresponding 51 Part III infrastructure rows, with each release-page URL, archived HTML filename, and checksum of the original HTML response. `rbi_psi_release_links_2022-01_2026-03.csv` maps every observation month to the official release page and linked XLSX. The original RBI workbook files have not yet been downloaded into the archive. June–December 2021 card and PPI rows, and the Jun 2020 – May 2021 prior-year column, are in `rbi_psi_card_history_extract_2020-06_2022-05.csv`, parsed from the archived pages; the June–December 2021 infrastructure rows cite their archived HTML page directly. Card transaction volume and infrastructure counts use lakh; payment value uses ₹ crore. ₹ crore components may differ from parent totals by ₹1 due to rounding.
+`source_archive/rbi/rbi_psi_card_ppi_monthly_own_release_extract_2022-01_2026-03.csv` contains 51 monthly rows transcribed from the current-month column of each RBI Payment System Indicators release page. It covers total cards, credit/debit cards and their PoS/Other splits, plus PPI, wallets, and PPI cards with PoS/Other splits. `source_archive/rbi/rbi_psi_infrastructure_own_release_extract_2022-01_2026-03.csv` contains the corresponding 51 Part III infrastructure rows, with each release-page URL, archived HTML filename, and checksum of the original HTML response. `rbi_psi_release_links_2022-01_2026-03.csv` maps every observation month to the official release page and linked XLSX. April–August 2026 (release Id 59–63) have their own files: `rbi_psi_release_links_2026-04_2026-08.csv`, `rbi_psi_infrastructure_own_release_extract_2026-04_2026-08.csv` and `rbi_psi_card_ppi_monthly_own_release_extract_2026-04_2026-08.csv`, whose card/PPI rows are parsed from the archived pages (not transcribed) by `scripts/import_rbi_psi_pages.py`; the same parser reproduces all 51 transcribed months. The original RBI workbook files have not yet been downloaded into the archive. June–December 2021 card and PPI rows, and the Jun 2020 – May 2021 prior-year column, are in `rbi_psi_card_history_extract_2020-06_2022-05.csv`, parsed from the archived pages; the June–December 2021 infrastructure rows cite their archived HTML page directly. Card transaction volume and infrastructure counts use lakh; payment value uses ₹ crore. ₹ crore components may differ from parent totals by ₹1 due to rounding.

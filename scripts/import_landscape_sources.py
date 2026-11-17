@@ -202,9 +202,11 @@ def npci_states() -> None:
     rows = []
     for month, results in npci_tab("statewise-statistic"):
         totals: dict[str, list[float]] = defaultdict(lambda: [0.0, 0.0])
-        has_districts = any(r.get("district") for r in results)
-        for r in results:
-            if has_districts and r.get("district"):
+        # Apr-Jun 2026 releases print "-" as the district of the "<STATE> Total" rows.
+        district = [(r.get("district") or "").strip() not in ("", "-") for r in results]
+        has_districts = any(district)
+        for r, is_district in zip(results, district):
+            if has_districts and is_district:
                 continue  # district releases also carry one "<STATE> Total" row per state
             state = state_key(r["state_union_territory"])
             if state in ("TOTAL", "GRAND TOTAL"):

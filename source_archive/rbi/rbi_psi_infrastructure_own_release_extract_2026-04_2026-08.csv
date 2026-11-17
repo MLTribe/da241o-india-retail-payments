@@ -1,0 +1,6 @@
+month,credit_cards_outstanding,debit_cards_outstanding,atms,pos_terminals,bharat_qr_codes,upi_qr_codes,unit,rbi_release_id,rbi_release_page_url,archived_html_file,source_html_sha256
+2026-04,1194.36,10233.92,2.54,114.47,56.16,7708.11,lakh,59,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=59,source_archive/rbi/html/2026-04_id59.html,37b805e7bb5ccfd7d2bf2d1d0a38ba3143f296d5ccaf5020dee6f08bfdb97bb6
+2026-05,1204.54,10279.08,2.54,115.25,56.05,7797.65,lakh,60,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=60,source_archive/rbi/html/2026-05_id60.html,2bb58ab208bc479bc0a151b586aa0ef2393412b14885374d6e46759c7904562c
+2026-06,1215.91,10318.66,2.52,99.22,52.66,7925.74,lakh,61,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=61,source_archive/rbi/html/2026-06_id61.html,2ed6919dce79f00703d4bb184392950d128127ad1da2b56560e6e74ea89bc39d
+2026-07,1228.58,10333.11,2.53,100.28,52.69,8030.48,lakh,62,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=62,source_archive/rbi/html/2026-07_id62.html,7e8816e98751e3338f17882bbcfb8d3b9913cf073cc2dcb028d2337655c58b34
+2026-08,1240.54,10368.29,2.53,102.08,53.30,8130.31,lakh,63,https://www.rbi.org.in/Scripts/PSIUserView.aspx?Id=63,source_archive/rbi/html/2026-08_id63.html,d4dab84a96322d9c9cbcd0b1c1c7b3428cc4ae4ac5329bcae25e350d8927fa94

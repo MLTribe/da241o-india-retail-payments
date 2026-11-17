@@ -17,6 +17,13 @@ Inputs and outputs:
       -> by_year/<YYYY>/mospi_cpi_combined_monthly.csv for 2014-2021 (2022 onward is left untouched)
   NPCI P2P/P2M JSON, source_archive/npci/ecosystem_api/p2p-and-p2m-transactions/<YYYY-MM>.json
       -> by_year/{2020,2021}/npci_upi_p2p_p2m_transactions.csv (Apr 2020 - Dec 2021; NPCI has no earlier split)
+      -> months after the transcribed Jan 2022 - Mar 2026 table (Apr 2026 onward), added to by_year/2026+;
+         the JSON must equal the transcribed rows wherever both exist
+  MoSPI CPI Annexure IV (base 2024), source_archive/mospi/cpi_combined_2024_base_annexure_iv_2025-01_2026-10.csv
+      -> final months after March 2026 up to CPI_IMPORT_END, added to by_year/2026 mospi_cpi_combined_monthly.csv;
+         Jan - Mar 2026 must equal the rows already there
+
+Rows already in the by_year files from 2022 onward are never rewritten; new months are appended.
 
 Old bank-wise layouts report card use only "at ATM" and "at PoS". Summed over banks, that PoS
 column equals the PSI total of PoS + Others (online) card payments: credit Jan 2022 195.81 mn in
@@ -45,7 +52,11 @@ CPI_SOURCE = ARCHIVE / "mospi" / "cpi_combined_2012_base_annexure_vi_2013-01_202
 CPI_URL = ("https://mospi.gov.in/uploads/latestReleases/latest_release_1768213461321_53cd35fd-1bbc-"
            "4b43-b92d-8fb67474ee74_Press_Release_of_CPI_for_December_2025.pdf")
 CPI_LINK_FACTOR = 0.5267
+CPI_2024_SOURCE = ARCHIVE / "mospi" / "cpi_combined_2024_base_annexure_iv_2025-01_2026-10.csv"
+CPI_IMPORT_END = "2026-08"
 NPCI_URL = "https://www.npci.org.in/product/ecosystem-statistics/upi"
+P2P_TRANSCRIBED_END = "2026-03"
+P2P_IMPORT_END = "2026-08"
 MONTHS = "January February March April May June July August September October November December".split()
 # PSI release Id 1 is June 2021; ids then run one per month.
 PSI_IDS = {n: f"{2021 + (n + 4) // 12}-{(n + 4) % 12 + 1:02d}" for n in range(1, 13)}
@@ -285,29 +296,79 @@ def cpi_history() -> None:
     write_by_year("mospi_cpi_combined_monthly.csv", list(rows[0]), rows)
 
 
-def npci_split_history() -> None:
+def append_by_year(filename: str, rows: list[dict[str, object]], same: list[str]) -> None:
+    """Add rows for months not yet in by_year/<YYYY>/filename; a month already there must agree
+    on the `same` fields and is left as it is."""
+    by_year: dict[str, list[dict[str, object]]] = defaultdict(list)
+    for row in rows:
+        by_year[str(row["month"])[:4]].append(row)
+    added = 0
+    for year, items in sorted(by_year.items()):
+        path = YEAR_ROOT / year / filename
+        with path.open(newline="", encoding="utf-8") as stream:
+            reader = csv.DictReader(stream)
+            fields, existing = list(reader.fieldnames or []), list(reader)
+        have = {r["month"][:7]: r for r in existing}
+        for row in items:
+            old = have.get(str(row["month"])[:7])
+            if old is None:
+                existing.append({k: row.get(k, "") for k in fields})
+                added += 1
+            elif any(abs(float(old[k]) - float(row[k])) > 0.006 for k in same):
+                raise ValueError(f"{path}: {row['month']} differs from the row already there")
+        with path.open("w", newline="", encoding="utf-8") as stream:
+            writer = csv.DictWriter(stream, fieldnames=fields, lineterminator="\n")
+            writer.writeheader()
+            writer.writerows(sorted(existing, key=lambda r: r["month"]))
+    print(f"{filename}: {added} new months appended ({len(rows) - added} existing months matched)")
+
+
+def cpi_new_base() -> None:
     rows = []
+    with CPI_2024_SOURCE.open(encoding="utf-8") as stream:
+        for line in csv.DictReader(stream):
+            if "2026-01" <= line["month"] <= CPI_IMPORT_END:
+                if line["status"] != "final":
+                    raise ValueError(f"CPI {line['month']} is {line['status']}, not final")
+                rows.append({
+                    "month": line["month"], "cpi_combined_index_native": line["combined_index"],
+                    "native_base_year": 2024, "status": "final", "link_factor_to_2024": "1.0",
+                    "cpi_combined_index_linked_2024": line["combined_index"], "source_url": line["source_url"],
+                    "notes": "Official MoSPI national Combined CPI General index, base 2024=100; Annexure IV "
+                             "of the October 2026 release.",
+                })
+    append_by_year("mospi_cpi_combined_monthly.csv", rows, ["cpi_combined_index_native"])
+
+
+def npci_split_history() -> None:
+    rows, later = [], []
     for path in sorted((ARCHIVE / "npci" / "ecosystem_api" / "p2p-and-p2m-transactions").glob("*.json")):
-        if path.stem >= "2022-01":
-            continue  # 2022 onward is the checked transcription; the JSON agrees with it
+        if path.stem > P2P_IMPORT_END:
+            continue
         r = json.loads(path.read_text(encoding="utf-8"))["data"]["results"][0]
         n = {k: float(str(r[k]).replace(",", "").strip()) for k in r if k.endswith(("_mn", "_cr"))}
         if abs(n["p_2_p_volume_mn"] + n["p_2_m_volume_mn"] - n["total_volume_mn"]) > 0.02:
             raise ValueError(f"{path.stem}: P2P + P2M does not add to total")
-        rows.append({
+        row = {
             "month": f"{path.stem}-01", "total_volume_mn": n["total_volume_mn"],
             "total_value_crore": n["total_value_cr"], "p2p_volume_mn": n["p_2_p_volume_mn"],
             "p2p_value_crore": n["p_2_p_value_cr"], "p2m_volume_mn": n["p_2_m_volume_mn"],
             "p2m_value_crore": n["p_2_m_value_cr"], "source_month_label": r["month_value"],
             "source_file": str(path.relative_to(REPO)), "source_url": NPCI_URL,
-        })
+        }
+        # Jan 2022 - Mar 2026 is the checked transcription; append_by_year confirms the JSON agrees.
+        (rows if path.stem < "2022-01" else later).append(row)
     write_by_year("npci_upi_p2p_p2m_transactions.csv", list(rows[0]), rows)
+    append_by_year("npci_upi_p2p_p2m_transactions.csv", later,
+                   ["total_volume_mn", "total_value_crore", "p2p_volume_mn", "p2p_value_crore",
+                    "p2m_volume_mn", "p2m_value_crore"])
 
 
 def main() -> None:
     psi_history()
     bankwise_totals()
     cpi_history()
+    cpi_new_base()
     npci_split_history()
 
 

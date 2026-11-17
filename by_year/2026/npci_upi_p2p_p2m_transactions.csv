@@ -2,3 +2,8 @@ month,total_volume_mn,total_value_crore,p2p_volume_mn,p2p_value_crore,p2m_volume
 2026-01-01,21703.44,2833481.22,8095.35,1992655.39,13608.10,840825.83,Jan-26,source_archive/npci/upi_p2p_p2m_ui_extract_2022-01_2026-03.tsv,https://www.npci.org.in/product/ecosystem-statistics/upi
 2026-02-01,20394.18,2684229.29,7598.40,1911812.35,12795.78,772416.94,Feb-26,source_archive/npci/upi_p2p_p2m_ui_extract_2022-01_2026-03.tsv,https://www.npci.org.in/product/ecosystem-statistics/upi
 2026-03-01,22641.11,2952542.05,8460.65,2091059.00,14180.46,861483.05,Mar-26,source_archive/npci/upi_p2p_p2m_ui_extract_2022-01_2026-03.tsv,https://www.npci.org.in/product/ecosystem-statistics/upi
+2026-04-01,22346.8,2902988.05,8236.58,2051386.16,14110.22,851601.89,Apr-26,source_archive/npci/ecosystem_api/p2p-and-p2m-transactions/2026-04.json,https://www.npci.org.in/product/ecosystem-statistics/upi
+2026-05-01,23201.93,2990424.21,8480.63,2117966.16,14721.3,872458.05,May-26,source_archive/npci/ecosystem_api/p2p-and-p2m-transactions/2026-05.json,https://www.npci.org.in/product/ecosystem-statistics/upi
+2026-06-01,22716.07,2892138.67,8288.19,2031141.53,14427.88,860997.14,Jun-26,source_archive/npci/ecosystem_api/p2p-and-p2m-transactions/2026-06.json,https://www.npci.org.in/product/ecosystem-statistics/upi
+2026-07-01,23658.35,2987880.49,8686.5,2081267.3,14971.85,906613.19,Jul-26,source_archive/npci/ecosystem_api/p2p-and-p2m-transactions/2026-07.json,https://www.npci.org.in/product/ecosystem-statistics/upi
+2026-08-01,24508.96,2982355.95,8998.95,2087035.27,15510.01,895320.68,Aug-26,source_archive/npci/ecosystem_api/p2p-and-p2m-transactions/2026-08.json,https://www.npci.org.in/product/ecosystem-statistics/upi

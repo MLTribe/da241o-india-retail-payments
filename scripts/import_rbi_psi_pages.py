@@ -1,13 +1,17 @@
 #!/usr/bin/env python3
-"""Import RBI PSI infrastructure from each release page's own-month column.
+"""Import RBI PSI infrastructure and card/PPI rows from each release page's own-month column.
 
 Run from any directory: python3 scripts/import_rbi_psi_pages.py
 
-The official release-page URLs are taken from the checked-in link index. This
-script fetches all 51 pages (January 2022 through March 2026), archives their
-raw HTML, validates each release month, and extracts Part III counts in lakh. It
-publishes files only after every page has been parsed successfully. The source
-extract records each release URL and a SHA-256 hash of its HTML response.
+The official release-page URLs are taken from the checked-in link indexes, one per
+batch (BATCHES). This script fetches every page (January 2022 through August 2026),
+archives their raw HTML, validates each release month, and extracts Part III counts
+in lakh. For batches after the transcribed panel it also reads the Part I card and
+PPI rows (volume lakh, value ₹ crore) with the parser of import_card_history.py; for
+the transcribed January 2022 - March 2026 panel those rows are only cross-checked and
+never rewritten. It publishes files only after every page has been parsed
+successfully. Each source extract records the release URL and a SHA-256 hash of its
+HTML response.
 """
 
 from __future__ import annotations
@@ -31,14 +35,29 @@ from urllib.parse import urlsplit
 from urllib.request import HTTPRedirectHandler, Request, build_opener
 
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from import_card_history import CARD_FIELDS, CARD_ROWS, CARD_STEMS, match, rows_of, section  # noqa: E402
+
 REPO = Path(__file__).resolve().parents[1]
 RBI_ARCHIVE = REPO / "source_archive" / "rbi"
-LINK_INDEX = RBI_ARCHIVE / "rbi_psi_release_links_2022-01_2026-03.csv"
-EXTRACT = RBI_ARCHIVE / "rbi_psi_infrastructure_own_release_extract_2022-01_2026-03.csv"
 MANIFEST = REPO / "source_manifest.csv"
 YEAR_ROOT = REPO / "by_year"
-SOURCE_ID = "RBI_PSI_INFRASTRUCTURE_OWN_MONTH_PANEL"
-START_MONTH, END_MONTH = "2022-01", "2026-03"
+# One link index and extract per batch of releases. The first batch's card/PPI rows were
+# transcribed (card_source_id None): they are cross-checked against the pages, never rewritten.
+BATCHES = [
+    {"start": "2022-01", "end": "2026-03",
+     "links": RBI_ARCHIVE / "rbi_psi_release_links_2022-01_2026-03.csv",
+     "infra": RBI_ARCHIVE / "rbi_psi_infrastructure_own_release_extract_2022-01_2026-03.csv",
+     "cards": RBI_ARCHIVE / "rbi_psi_card_ppi_monthly_own_release_extract_2022-01_2026-03.csv",
+     "infra_source_id": "RBI_PSI_INFRASTRUCTURE_OWN_MONTH_PANEL", "card_source_id": None},
+    {"start": "2026-04", "end": "2026-08",
+     "links": RBI_ARCHIVE / "rbi_psi_release_links_2026-04_2026-08.csv",
+     "infra": RBI_ARCHIVE / "rbi_psi_infrastructure_own_release_extract_2026-04_2026-08.csv",
+     "cards": RBI_ARCHIVE / "rbi_psi_card_ppi_monthly_own_release_extract_2026-04_2026-08.csv",
+     "infra_source_id": "RBI_PSI_INFRASTRUCTURE_OWN_MONTH_2026_04_08",
+     "card_source_id": "RBI_PSI_CARDS_PPI_OWN_MONTH_2026_04_08"},
+]
+CARD_VALUE_FIELDS = CARD_FIELDS[1:-3]
 MAX_RESPONSE_BYTES = 5_000_000
 MAX_WORKERS = 4
 MAX_ATTEMPTS = 3
@@ -62,6 +81,7 @@ EXTRACT_FIELDS = [
     "rbi_release_page_url", "archived_html_file", "source_html_sha256",
 ]
 YEAR_FIELDS = ["month", *FIELD_PATTERNS, "unit", "source_file"]
+CARD_EXTRACT_FIELDS = [*CARD_FIELDS, "archived_html_file", "source_html_sha256"]
 
 
 def month_range(start: str, end: str) -> list[str]:
@@ -184,16 +204,37 @@ def parse_release(html_bytes: bytes, month: str) -> dict[str, str]:
     return found
 
 
-def read_index() -> list[dict[str, str]]:
-    with LINK_INDEX.open(newline="", encoding="utf-8-sig") as stream:
+def parse_cards(html_bytes: bytes, month: str) -> dict[str, str]:
+    """Part I card and PPI rows; the 4th volume and 4th value cells are the release month."""
+    cards: dict[str, str] = {}
+    for cells in section(rows_of(html_bytes.decode("utf-8", errors="replace")), "PART I", "PART II"):
+        stem = match(cells[0], CARD_ROWS) if cells else None
+        if not stem:
+            continue
+        values = [cell.replace(",", "").strip() for cell in cells[1:]]
+        if len(values) != 8 or not all(re.fullmatch(r"\d+(\.\d+)?", values[i]) for i in (3, 7)):
+            raise ValueError(f"{month}: {cells[0]} has unexpected cells {cells[1:]}")
+        if stem in cards:
+            raise ValueError(f"{month}: duplicate Part I row {stem}")
+        cards[f"{stem}_volume_lakh"], cards[f"{stem}_value_crore"] = values[3], values[7]
+    missing = set(CARD_STEMS) - {key.rsplit("_", 2)[0] for key in cards}
+    if missing:
+        raise ValueError(f"{month}: missing Part I rows: {', '.join(sorted(missing))}")
+    return cards
+
+
+def read_index(batch: dict) -> list[dict[str, str]]:
+    link_index = batch["links"]
+    with link_index.open(newline="", encoding="utf-8-sig") as stream:
         reader = csv.DictReader(stream)
-        required = {"month", "release_id", "release_page_url"}
+        required = {"month", "release_id", "release_page_url", "official_xlsx_url"}
         if not required.issubset(reader.fieldnames or []):
-            raise ValueError(f"Missing required columns in {LINK_INDEX}")
+            raise ValueError(f"Missing required columns in {link_index}")
         rows = list(reader)
-    expected = month_range(START_MONTH, END_MONTH)
+    expected = month_range(batch["start"], batch["end"])
     if [row["month"] for row in rows] != expected:
-        raise ValueError(f"Expected exactly {len(expected)} ordered months {START_MONTH} to {END_MONTH}")
+        raise ValueError(f"{link_index.name}: expected exactly {len(expected)} ordered months "
+                         f"{batch['start']} to {batch['end']}")
     for row in rows:
         validate_url(row["release_page_url"])
         if not row["release_id"].isdigit():
@@ -216,8 +257,10 @@ def fetch_one(index_row: dict[str, str]) -> dict[str, str]:
             "month": month, **values, "unit": "lakh",
             "rbi_release_id": index_row["release_id"],
             "rbi_release_page_url": url,
+            "official_xlsx_url": index_row["official_xlsx_url"],
             "archived_html_file": str(cache_path.relative_to(REPO)),
             "source_html_sha256": hashlib.sha256(raw).hexdigest(),
+            "cards": parse_cards(raw, month),
         }
 
     if cache_path.exists():
@@ -264,62 +307,118 @@ def csv_bytes(rows: list[dict[str, str]], fields: list[str], newline: str = "\n"
     return buffer.getvalue().encode("utf-8")
 
 
-def manifest_bytes(extract_bytes: bytes, last_url: str) -> bytes:
-    original = MANIFEST.read_bytes()
-    newline = "\r\n" if b"\r\n" in original else "\n"
-    with io.StringIO(original.decode("utf-8-sig"), newline="") as stream:
-        reader = csv.DictReader(stream)
-        fields = list(reader.fieldnames or [])
-        rows = list(reader)
+def manifest_bytes(records: list[dict[str, str]]) -> bytes:
+    """Replace or append one manifest line per source_id; other lines are kept byte for byte."""
+    original = MANIFEST.read_bytes().decode("utf-8-sig")
+    newline = "\r\n" if "\r\n" in original else "\n"
+    lines = original.splitlines()
+    fields = next(csv.reader([lines[0]]))
     required = {"source_id", "owner", "series", "source_period", "source_url",
                 "downloaded_file", "retrieved_utc", "sha256", "status", "notes"}
     if not required.issubset(fields):
         raise ValueError(f"Unexpected manifest columns in {MANIFEST}")
-    record = {
-        "source_id": SOURCE_ID,
-        "owner": "RBI",
-        "series": "Payment System Indicators - payment infrastructure",
-        "source_period": f"{START_MONTH} to {END_MONTH}",
-        "source_url": last_url,
-        "downloaded_file": f"data/assignment2/{EXTRACT.relative_to(REPO)}",
+    rows = [dict(zip(fields, next(csv.reader([line])))) for line in lines[1:]]
+    if any(len(row) != len(fields) for row in rows):
+        raise ValueError(f"{MANIFEST}: every record must be on one line")
+    for record in records:
+        matches = [i for i, row in enumerate(rows) if row["source_id"] == record["source_id"]]
+        if len(matches) > 1:
+            raise ValueError(f"Duplicate {record['source_id']} entries in {MANIFEST}")
+        if matches and rows[matches[0]]["sha256"] == record["sha256"]:
+            continue
+        line = csv_bytes([record], fields).decode("utf-8").split("\n", 1)[1].rstrip("\n")
+        if matches:
+            lines[matches[0] + 1] = line
+        else:
+            lines.append(line)
+    return (newline.join(lines) + newline).encode("utf-8")
+
+
+def manifest_record(source_id: str, series: str, batch: dict, extract: Path, content: bytes,
+                    last_url: str, notes: str) -> dict[str, str]:
+    return {
+        "source_id": source_id, "owner": "RBI", "series": series,
+        "source_period": f"{batch['start']} to {batch['end']}", "source_url": last_url,
+        "downloaded_file": f"data/assignment2/{extract.relative_to(REPO)}",
         "retrieved_utc": datetime.now(timezone.utc).date().isoformat(),
-        "sha256": hashlib.sha256(extract_bytes).hexdigest(),
-        "status": "extracted_from_official_release_pages",
-        "notes": ("51 own-month Part III observations in lakh; each row records its RBI "
-                  "release URL, local HTML file, and SHA-256 of the HTML response. "
-                  "Raw HTML is archived under source_archive/rbi/html/."),
+        "sha256": hashlib.sha256(content).hexdigest(),
+        "status": "extracted_from_official_release_pages", "notes": notes,
     }
-    matches = [i for i, row in enumerate(rows) if row["source_id"] == SOURCE_ID]
-    if len(matches) > 1:
-        raise ValueError(f"Duplicate {SOURCE_ID} entries in {MANIFEST}")
-    if matches:
-        rows[matches[0]] = record
-    else:
-        rows.append(record)
-    return csv_bytes(rows, fields, newline)
 
 
-def output_files(rows: list[dict[str, str]]) -> dict[Path, bytes]:
-    extract = csv_bytes(rows, EXTRACT_FIELDS)
-    files = {EXTRACT: extract}
-    by_month = {row["month"]: row for row in rows}
-    for year in sorted({month[:4] for month in by_month}):
+def read_year_file(path: Path) -> dict[str, dict[str, str]]:
+    merged: dict[str, dict[str, str]] = {}
+    if path.exists():
+        with path.open(newline="", encoding="utf-8-sig") as stream:
+            for old in csv.DictReader(stream):
+                if old["month"] in merged:
+                    raise ValueError(f"Duplicate existing month {old['month']} in {path}")
+                merged[old["month"]] = old
+    return merged
+
+
+def check_transcribed_cards(batch: dict, rows: list[dict[str, str]]) -> None:
+    with batch["cards"].open(newline="", encoding="utf-8-sig") as stream:
+        transcribed = {row["month"]: row for row in csv.DictReader(stream)}
+    problems = [f"{row['month']} {field}: page {row['cards'][field]} vs transcribed "
+                f"{transcribed[row['month']][field]}"
+                for row in rows for field in CARD_VALUE_FIELDS
+                if abs(float(row["cards"][field]) - float(transcribed[row["month"]][field])) > 0.011]
+    if set(transcribed) != {row["month"] for row in rows} or problems:
+        raise ValueError("Transcribed card/PPI rows disagree with the release pages:\n" + "\n".join(problems))
+
+
+def output_files(batches: list[tuple[dict, list[dict[str, str]]]]) -> dict[Path, bytes]:
+    files: dict[Path, bytes] = {}
+    records: list[dict[str, str]] = []
+    infra_rows: dict[str, dict[str, str]] = {}
+    card_rows: dict[str, dict[str, str]] = {}
+    for batch, rows in batches:
+        last_url = rows[-1]["rbi_release_page_url"]
+        extract = csv_bytes(rows, EXTRACT_FIELDS)
+        files[batch["infra"]] = extract
+        records.append(manifest_record(
+            batch["infra_source_id"], "Payment System Indicators - payment infrastructure", batch,
+            batch["infra"], extract, last_url,
+            f"{len(rows)} own-month Part III observations in lakh; each row records its RBI "
+            "release URL, local HTML file, and SHA-256 of the HTML response. "
+            "Raw HTML is archived under source_archive/rbi/html/."))
+        for row in rows:
+            infra_rows[row["month"]] = {"month": row["month"], **{f: row[f] for f in FIELD_PATTERNS},
+                                        "unit": "lakh", "source_file": batch["infra"].name}
+        if batch["card_source_id"] is None:
+            check_transcribed_cards(batch, rows)
+            continue
+        cards = [{**{k: row[k] for k in ("month", "rbi_release_id", "rbi_release_page_url",
+                                          "official_xlsx_url", "archived_html_file", "source_html_sha256")},
+                  **row["cards"]} for row in rows]
+        content = csv_bytes(cards, CARD_EXTRACT_FIELDS)
+        files[batch["cards"]] = content
+        records.append(manifest_record(
+            batch["card_source_id"], "Payment System Indicators - domestic card and PPI transactions",
+            batch, batch["cards"], content, last_url,
+            f"{len(rows)} own-month Part I card and PPI observations; volume lakh, value ₹ crore, as "
+            "printed in each release page's own-month column (parsed by scripts/import_rbi_psi_pages.py "
+            "from the archived HTML in source_archive/rbi/html/). Direct XLSX URLs are in "
+            f"{batch['links'].name}; the workbooks are not archived."))
+        card_rows.update({row["month"]: row for row in cards})
+    for year in sorted({month[:4] for month in infra_rows}):
         path = YEAR_ROOT / year / "rbi_psi_infrastructure.csv"
-        merged: dict[str, dict[str, str]] = {}
-        if path.exists():
-            with path.open(newline="", encoding="utf-8-sig") as stream:
-                for old in csv.DictReader(stream):
-                    if old["month"] in merged:
-                        raise ValueError(f"Duplicate existing month {old['month']} in {path}")
-                    merged[old["month"]] = old
-        for month, row in by_month.items():
-            if month[:4] == year:
-                merged[month] = {
-                    "month": month, **{field: row[field] for field in FIELD_PATTERNS},
-                    "unit": "lakh", "source_file": EXTRACT.name,
-                }
+        merged = read_year_file(path)
+        merged.update({m: row for m, row in infra_rows.items() if m[:4] == year})
         files[path] = csv_bytes([merged[month] for month in sorted(merged)], YEAR_FIELDS)
-    files[MANIFEST] = manifest_bytes(extract, rows[-1]["rbi_release_page_url"])
+    for year in sorted({month[:4] for month in card_rows}):
+        path = YEAR_ROOT / year / "rbi_psi_card_ppi_own_month.csv"
+        merged = read_year_file(path)
+        for month, row in card_rows.items():
+            if month[:4] != year:
+                continue
+            old = merged.get(month)
+            if old and any(abs(float(old[f]) - float(row[f])) > 0.011 for f in CARD_VALUE_FIELDS):
+                raise ValueError(f"{path}: existing {month} card row differs from its release page")
+            merged[month] = row
+        files[path] = csv_bytes([merged[month] for month in sorted(merged)], CARD_FIELDS)
+    files[MANIFEST] = manifest_bytes(records)
     return files
 
 
@@ -365,11 +464,11 @@ def publish_atomically(files: dict[Path, bytes]) -> None:
 
 
 def main() -> None:
-    index = read_index()
+    indexes = [(batch, read_index(batch)) for batch in BATCHES]
     results: dict[str, dict[str, str]] = {}
     errors: list[str] = []
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
-        futures = {pool.submit(fetch_one, row): row["month"] for row in index}
+        futures = {pool.submit(fetch_one, row): row["month"] for _, index in indexes for row in index}
         for future in as_completed(futures):
             month = futures[future]
             try:
@@ -379,9 +478,12 @@ def main() -> None:
                 errors.append(str(exc))
     if errors:
         raise SystemExit("No files changed; RBI releases failed:\n" + "\n".join(sorted(errors)))
-    rows = [results[row["month"]] for row in index]
-    publish_atomically(output_files(rows))
-    print(f"Imported {len(rows)} official RBI Part III own-month infrastructure rows")
+    batches = [(batch, [results[row["month"]] for row in index]) for batch, index in indexes]
+    publish_atomically(output_files(batches))
+    for batch, rows in batches:
+        cards = "cross-checked" if batch["card_source_id"] is None else "imported"
+        print(f"{batch['start']} to {batch['end']}: {len(rows)} Part III rows imported, "
+              f"Part I card/PPI rows {cards}")
 
 
 if __name__ == "__main__":

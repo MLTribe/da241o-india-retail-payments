@@ -4,7 +4,8 @@ Save the official monthly PSI workbooks here from a browser. RBI's download link
 sit behind bot protection, so scripted downloads receive a challenge page.
 
 Name each file either with its official XLSX basename (as listed in
-`../rbi_psi_release_links_2022-01_2026-03.csv`) or with a leading observation
+`../rbi_psi_release_links_2022-01_2026-03.csv` or
+`../rbi_psi_release_links_2026-04_2026-08.csv`) or with a leading observation
 month, for example `2021-06_PSI.xlsx`. Then run, from the repository root:
 
 ```shell

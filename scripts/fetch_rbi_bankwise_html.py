@@ -2,13 +2,13 @@
 """Archive RBI "Bank-wise ATM/POS/Card Statistics" monthly HTML pages.
 
 Each page is www.rbi.org.in/Scripts/ATMView.aspx?atmid=<n>; ids run roughly one per month but
-not strictly in order (atmid 40 = June 2014, 131 = January 2022, 181 = March 2026), so importers
+not strictly in order (atmid 40 = June 2014, 131 = January 2022, 186 = August 2026), so importers
 read the month from the page heading. Pages are saved
 unchanged as source_archive/rbi/bankwise_html/atmid_<n>.html; existing files are skipped.
 RBI's XLSX links are bot-blocked, but the HTML pages are served to plain clients.
 
 Run from the repository root: python3 scripts/fetch_rbi_bankwise_html.py [FIRST LAST]
-Default ids: 40 to 181. Standard library only; requests are sequential and paced.
+Default ids: 40 to 186. Standard library only; requests are sequential and paced.
 """
 
 from __future__ import annotations
@@ -43,7 +43,7 @@ def fetch(atmid: int) -> str:
 
 
 def main() -> None:
-    first, last = (int(sys.argv[1]), int(sys.argv[2])) if len(sys.argv) == 3 else (40, 181)
+    first, last = (int(sys.argv[1]), int(sys.argv[2])) if len(sys.argv) == 3 else (40, 186)
     ARCHIVE.mkdir(parents=True, exist_ok=True)
     for atmid in range(first, last + 1):
         print(fetch(atmid), flush=True)

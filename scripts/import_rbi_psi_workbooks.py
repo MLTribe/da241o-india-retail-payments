@@ -26,7 +26,8 @@ REPO = Path(__file__).resolve().parents[1]
 YEAR_ROOT = REPO / "by_year"
 RBI_ARCHIVE = REPO / "source_archive" / "rbi"
 WORKBOOKS = RBI_ARCHIVE / "xlsx"
-LINK_INDEX = RBI_ARCHIVE / "rbi_psi_release_links_2022-01_2026-03.csv"
+LINK_INDEXES = [RBI_ARCHIVE / "rbi_psi_release_links_2022-01_2026-03.csv",
+                RBI_ARCHIVE / "rbi_psi_release_links_2026-04_2026-08.csv"]
 CROSSCHECK = RBI_ARCHIVE / "xlsx_crosscheck.csv"
 MANIFEST = REPO / "source_manifest.csv"
 RELEASE_ARCHIVE_URL = "https://www.rbi.org.in/Scripts/PSIUserView.aspx"
@@ -196,10 +197,11 @@ def extract(path: Path, month: str) -> tuple[dict[str, float], list[str]]:
 
 def workbook_months() -> dict[str, tuple[Path, str]]:
     by_name: dict[str, str] = {}
-    if LINK_INDEX.exists():
-        with LINK_INDEX.open(newline="", encoding="utf-8") as stream:
-            for row in csv.DictReader(stream):
-                by_name[row["official_xlsx_url"].rsplit("/", 1)[-1].lower()] = row["month"]
+    for link_index in LINK_INDEXES:
+        if link_index.exists():
+            with link_index.open(newline="", encoding="utf-8") as stream:
+                for row in csv.DictReader(stream):
+                    by_name[row["official_xlsx_url"].rsplit("/", 1)[-1].lower()] = row["month"]
     mapping: dict[str, tuple[Path, str]] = {}
     for path in sorted(WORKBOOKS.glob("*")):
         if path.suffix.lower() not in (".xlsx", ".xls", ".html", ".htm"):

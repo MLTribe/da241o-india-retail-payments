@@ -7,7 +7,7 @@ the JSON it receives, one file per tab and month, under
 source_archive/npci/ecosystem_api/<tab>/<YYYY-MM>.json. Existing files are skipped.
 
 Run from the repository root: python3 scripts/fetch_npci_ecosystem.py [START END [TAB ...]]
-Default window: 2022-01 to 2026-03, default tabs TABS. The P2P/P2M tab
+Default window: 2022-01 to 2026-08, default tabs TABS. The P2P/P2M tab
 (p2p-and-p2m-transactions) is fetched on request; NPCI answers 404 before its first month.
 Needs Google Chrome; no third-party package.
 """
@@ -82,7 +82,7 @@ def fetch(tab: str, month: str) -> str:
 
 
 def main() -> None:
-    start, end = (sys.argv[1], sys.argv[2]) if len(sys.argv) >= 3 else ("2022-01", "2026-03")
+    start, end = (sys.argv[1], sys.argv[2]) if len(sys.argv) >= 3 else ("2022-01", "2026-08")
     tabs = sys.argv[3:] or TABS
     jobs = [(tab, m) for tab in tabs for m in months(start, end)]
     with ThreadPoolExecutor(WORKERS) as pool:
